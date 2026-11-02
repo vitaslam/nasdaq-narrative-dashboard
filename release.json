@@ -1,12 +1,13 @@
 {
   "schema_version": 1,
   "data_revision": 12,
-  "release_revision": 18,
+  "release_revision": 19,
   "active_week": "2026-11-02",
-  "content_updated_at": "2026-11-02T12:22:27.175Z",
-  "built_at": "2026-11-02T12:22:27.374Z",
+  "content_updated_at": "2026-11-02T12:26:25.661Z",
+  "built_at": "2026-11-02T12:26:25.850Z",
   "renderer_release": "2026-11-02-v23-x-masonry-mood-history-qqq",
   "renderer_sha256": "df6a60f6a90ef36b56d15ba7cd53bce17b575a50514004a9b881d7fcc15985c6",
+  "shell_override_sha256": "4cbf9428c8febaa87960fc3fb0ee60154841963213d2f0c9b141014486f8660d",
   "muse_feed_batch": "muse:2026-11-02:22",
   "muse_feed_sha256": "d9f3f96076e7a31f8e69543c9fff8999aea309d007edb7e3a62e0dd7488be157",
   "muse_merge": {
