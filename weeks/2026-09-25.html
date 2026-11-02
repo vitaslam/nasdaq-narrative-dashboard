@@ -621,7 +621,7 @@ document.querySelectorAll('.table-scroll table').forEach(table=>{
   track.addEventListener('scroll',update,{passive:true});new ResizeObserver(update).observe(track);update();
 })();
 
-// The weekly checklist stays fixed. Records run newest-first, without wraparound.
+// The weekly checklist stays fixed. Cards follow its order, then other records.
 (() => {
   const viewport=document.querySelector('.verification-viewport');
   if(!viewport)return;
@@ -655,8 +655,8 @@ document.querySelectorAll('.table-scroll table').forEach(table=>{
   function selectQuestion(button){
     const id=button.dataset.targetRecord;
     let target=cards.find(c=>c.dataset.recordId===id);
-    if(!target){const template=[...document.querySelectorAll('template[data-question-record]')].find(t=>t.dataset.questionRecord===id);if(!template)return;target=template.content.firstElementChild.cloneNode(true);track.append(target);cards=[...track.children].filter(c=>!c.classList.contains('empty-answer'));track.querySelector('.empty-answer')?.remove();
-      cards.sort((a,b)=>(b.dataset.recordDate||'').localeCompare(a.dataset.recordDate||''));
+    if(!target){const template=[...document.querySelectorAll('template[data-question-record]')].find(t=>t.dataset.questionRecord===id);if(!template)return;target=template.content.firstElementChild.cloneNode(true);track.querySelector('.empty-answer')?.remove();cards=[...track.children].filter(c=>!c.classList.contains('empty-answer'));
+      cards.splice(Math.min(questionButtons.indexOf(button),cards.length),0,target);
       while(cards.length>6){const remove=[...cards].reverse().find(c=>c!==target);remove.remove();cards=cards.filter(c=>c!==remove)}
       cards.forEach(c=>track.append(c));resize();
     }
