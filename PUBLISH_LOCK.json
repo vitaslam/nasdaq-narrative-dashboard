@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "holder": null,
-  "token": null,
-  "purpose": null,
-  "acquired_at": null,
-  "expires_at": null
+  "holder": "GPT",
+  "token": "gpt-x-author-card-1793620992724-o60wx2csfkm",
+  "purpose": "Split hot X cards by post author, preserve frequency author grouping",
+  "acquired_at": "2026-11-02T12:03:12.724Z",
+  "expires_at": "2026-11-02T12:48:12.724Z"
 }
