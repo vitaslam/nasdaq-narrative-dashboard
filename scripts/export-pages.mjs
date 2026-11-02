@@ -22,6 +22,10 @@ try {
   archive=await fs.readFile(path.join(root,'approved/renderer.mjs.gz'));
 }
 const rendererHash=createHash('sha256').update(archive).digest('hex');
+// The public time axis is rendered by the approved shell. Keep this small
+// compatibility rule until the next approved renderer bundle includes it.
+const shellOverrideCSS='.week-tab{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:3px;min-width:126px;text-align:left;line-height:1.3}.week-tab-top{display:flex;align-items:center;gap:4px}.week-tab-emoji{font-size:14px;line-height:1}.week-tab-qqq{display:block;padding-left:19px;color:#52688a;font-size:11px;font-weight:600;font-variant-numeric:tabular-nums}.week-tab-qqq small{display:none}';
+const shellOverrideHash=createHash('sha256').update(shellOverrideCSS).digest('hex');
 let previous;try{previous=JSON.parse(await fs.readFile(path.join(root,'release.json'),'utf8'))}catch{}
 let museFeed=null, museHash=null, museStats=null, museBytes=null;
 try {
@@ -43,7 +47,7 @@ try {
     console.warn('::warning::Retaining the previously validated Muse batch '+museFeed.batch_id+'.');
   }catch{}
 }
-const unchanged=previous?.data_revision===data.revision&&previous?.renderer_sha256===rendererHash&&previous?.muse_feed_sha256===museHash;
+const unchanged=previous?.data_revision===data.revision&&previous?.renderer_sha256===rendererHash&&previous?.muse_feed_sha256===museHash&&previous?.shell_override_sha256===shellOverrideHash;
 if(process.argv.includes('--skip-unchanged')&&unchanged){console.log('Export, approved renderer and Muse feed unchanged; no render or deploy needed.');process.exit(0)}
 if(museFeed){
   const merged=mergeMuseFeed(data,museFeed);
@@ -66,6 +70,7 @@ await write('api/export.json',JSON.stringify(data));
 if(museFeed)await write('muse-last-valid.json',museBytes);
 let shell=await (await response('/')).text();
 shell=shell.replace("fetch('/api/index'","fetch('./api/index.json'").replace("els.frame.src='/week/'+date","els.frame.src='./weeks/'+date+'.html'");
+shell=shell.replace('</head>','<style>'+shellOverrideCSS+'</style></head>');
 await write('index.html',shell);await write('.nojekyll','');
 const assets=new Set(['/dashboard-priority.js','/shared-calendar.js','/shared-calendar.css','/dashboard-enhancements.js','/dashboard-enhancements.css']);
 for(const week of index.weeks){
@@ -78,11 +83,11 @@ for(const week of index.weeks){
 for(const asset of assets){const r=await response(asset);let value;if(asset.endsWith('.js')){value=await r.text();if(asset==='/shared-calendar.js')value=value.replace('fetch(`/api/calendar?from=${start}&to=${end}`','fetch(`../api/calendar.json`')}else value=Buffer.from(await r.arrayBuffer());await write(asset.slice(1),value)}
 const builtAt=new Date().toISOString();
 const releaseRevision=Math.max(previous?.release_revision||0,previous?.data_revision||0,data.revision)+1;
-const release={schema_version:1,data_revision:data.revision,release_revision:releaseRevision,active_week:data.active_week,content_updated_at:data.weeks[data.active_week].updated_at,built_at:builtAt,renderer_release:'2026-11-02-v23-x-masonry-mood-history-qqq',renderer_sha256:rendererHash,muse_feed_batch:museFeed?.batch_id||null,muse_feed_sha256:museHash,muse_merge:museStats};
+const release={schema_version:1,data_revision:data.revision,release_revision:releaseRevision,active_week:data.active_week,content_updated_at:data.weeks[data.active_week].updated_at,built_at:builtAt,renderer_release:'2026-11-02-v23-x-masonry-mood-history-qqq',renderer_sha256:rendererHash,shell_override_sha256:shellOverrideHash,muse_feed_batch:museFeed?.batch_id||null,muse_feed_sha256:museHash,muse_merge:museStats};
 await write('release.json',JSON.stringify(release,null,2));
 let log;try{log=await fs.readFile(path.join(root,'PUBLISH_LOG.md'),'utf8')}catch{log='# 发布日志\n\n构建提交记录；具体上线状态以 GitHub Pages 构建结果为准。\n\n| 北京时间 | 来源 | 批次 / revision | 变更摘要 |\n| --- | --- | --- | --- |\n'}
 const stamp=new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Shanghai',dateStyle:'short',timeStyle:'medium'}).format(new Date(builtAt));
-if(previous?.data_revision!==data.revision||previous?.renderer_sha256!==rendererHash)log+=`| ${stamp} | GPT | export r${data.revision} | 主体内容/渲染器更新，发布序号 ${releaseRevision} |\n`;
+if(previous?.data_revision!==data.revision||previous?.renderer_sha256!==rendererHash||previous?.shell_override_sha256!==shellOverrideHash)log+=`| ${stamp} | GPT | export r${data.revision} | 主体内容/渲染器或时间轴样式更新，发布序号 ${releaseRevision} |\n`;
 if(museFeed&&previous?.muse_feed_sha256!==museHash)log+=`| ${stamp} | Muse | ${museFeed.batch_id} | 累计 ${museStats.topics} 话题、${museStats.posts} 帖；剔除 ${museStats.rejected_posts} 条时间冲突帖；行情 ${museStats.bars} 条、波动率 ${museStats.volatility_dates} 日；发布序号 ${releaseRevision} |\n`;
 await write('PUBLISH_LOG.md',log);
 console.log('Rendered '+index.weeks.length+' weeks; GPT revision '+data.revision+', publication '+releaseRevision+', Muse '+(museFeed?.batch_id||'none'));
