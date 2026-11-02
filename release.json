@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
   "data_revision": 12,
-  "release_revision": 16,
+  "release_revision": 17,
   "active_week": "2026-11-02",
-  "content_updated_at": "2026-11-02T11:53:44.115Z",
-  "built_at": "2026-11-02T11:53:44.331Z",
-  "renderer_release": "2026-11-02-v19-full-x-posts-two-rows",
-  "renderer_sha256": "80e7b4f89874354fa7a4a2680f1381e0ab58591c664c3777fc1143e7e6517f9e",
+  "content_updated_at": "2026-11-02T12:07:13.179Z",
+  "built_at": "2026-11-02T12:07:13.464Z",
+  "renderer_release": "2026-11-02-v20-x-post-cards-expand",
+  "renderer_sha256": "85bd6e915d3c0a11c0f9690ccb10f3c3cdf9ea64a204ea2533535739ad88b4be",
   "muse_feed_batch": "muse:2026-11-02:22",
   "muse_feed_sha256": "d9f3f96076e7a31f8e69543c9fff8999aea309d007edb7e3a62e0dd7488be157",
   "muse_merge": {

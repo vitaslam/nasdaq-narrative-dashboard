@@ -76,6 +76,10 @@
 #narrative .x-avatar-fallback{display:grid;place-items:center;width:34px;height:34px;flex:none;border-radius:50%;background:#e8ecf4;color:#526687;font-weight:700}
 #narrative .x-post-link{font-size:12px;color:#5365a0;text-decoration:none;font-weight:600}
 #narrative .x-translation{font-size:14px;line-height:1.75;color:#000;font-weight:400;margin:11px 0;white-space:pre-line}
+#narrative .x-translation.is-collapsed{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:5;line-clamp:5;overflow:hidden}
+#narrative .x-expand-post{appearance:none;background:none;border:0;padding:0;margin:-3px 0 10px;color:#5365a0;font-family:inherit;font-size:12px;font-weight:600;line-height:1.5;cursor:pointer}
+#narrative .x-expand-post:hover{text-decoration:underline}
+#narrative .x-expand-post:focus-visible{outline:2px solid #5365a0;outline-offset:3px}
 #narrative .x-translation-status{display:block;color:#66738a;font-size:12px;line-height:1.5;margin:-4px 0 10px}
 #narrative .x-simple-foot{display:flex;justify-content:space-between;gap:8px;align-items:baseline;flex-wrap:wrap;font-size:11px;color:#5a6780}
 #narrative .x-simple-foot b{font-size:12px;color:#285d51}
