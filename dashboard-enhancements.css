@@ -18,7 +18,24 @@
 .sentiment-anchor{font-size:10px;color:#8794ac;margin:0 0 8px;line-height:1.65}
 .sentiment-reason{font-size:11px;color:#697c95;line-height:1.7;margin:0;overflow-wrap:anywhere}
 .sentiment-conclusion{font-size:10px;color:#7b7196;line-height:1.7;margin-top:7px}.sentiment-conclusion b{color:#68577f}
-.mood-history{cursor:help;border-bottom:1px dotted #c5ccda}
+.sentiment-tile{cursor:pointer}
+.sentiment-tile:focus-visible{outline:2px solid #8a80be;outline-offset:-2px}
+.mood-week-history{position:fixed;z-index:10020;width:min(390px,calc(100vw - 20px));box-sizing:border-box;background:linear-gradient(135deg,#f4f2fd,#fafbfe);color:#000;border:1px solid #dce2f0;border-radius:13px;box-shadow:0 16px 45px #2434522c;padding:19px 20px 15px;max-height:calc(100vh - 20px);overflow:auto}
+.mood-week-history[hidden]{display:none!important}
+.mood-week-heading{display:flex;align-items:baseline;justify-content:space-between;gap:10px;padding-bottom:12px;border-bottom:1px solid #dce2ed}
+.mood-week-heading strong{font-size:16px}.mood-week-heading span{font-size:11px;color:#5d6572}
+.mood-week-history ol{list-style:none;margin:0;padding:0}
+.mood-week-history li{border-bottom:1px solid #dfe5ef}.mood-week-history li:last-child{border-bottom:0}
+.mood-week-history li a{display:block;color:inherit;text-decoration:none;padding:12px 5px;border-radius:7px}
+.mood-week-history li a:hover,.mood-week-history li a:focus-visible{background:#e9eafb;outline:2px solid #a8a0d1;outline-offset:-2px}
+.mood-week-top,.mood-week-close{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+.mood-week-top time{font-size:12px;color:#535b68;font-variant-numeric:tabular-nums}.mood-week-top>span{font-size:11px;color:#676083}
+.mood-week-main{display:flex;align-items:center;gap:11px;margin-top:7px;line-height:1.35}
+.mood-week-main strong{font-size:17px;font-weight:650;color:#000}.mood-week-emoji{font-family:'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif;font-size:27px;line-height:1;flex-shrink:0}
+.mood-week-history li p{font-size:13px;line-height:1.55;color:#000;margin:7px 0 0;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.mood-week-close{margin-top:9px;padding-top:7px;border-top:1px solid #dfe5ef;color:#39465b;font-variant-numeric:tabular-nums}
+.mood-week-close span{font-size:12px}.mood-week-close b{font-size:16px;color:#202d45}
+.mood-week-foot{font-size:11px;line-height:1.55;color:#4d5c70;margin:7px 2px 0;border-top:1px solid #dce2ed;padding-top:9px}
 .verification-layout{display:flex;gap:16px;align-items:stretch;--verification-card-width:300px}
 .verification-layout>.week-pending{flex:0 0 var(--verification-card-width);box-sizing:border-box;padding:20px}
 .verification-carousel{flex:1;min-width:0}
@@ -44,6 +61,27 @@
 /* Reading hierarchy and assessment emphasis, shared by live and approved releases. */
 .x-paging{display:flex;align-items:center;gap:8px;margin-left:auto;white-space:nowrap;color:#647493;font-size:12px}.x-paging button{width:34px;height:34px;border:1px solid #d9e1ec;border-radius:8px;background:#fff;color:#506589;font-size:20px;cursor:pointer}.x-paging button:disabled{opacity:.35;cursor:default}.x-card-grid{display:flex;gap:16px;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain;align-items:flex-start;outline-offset:4px}.x-card-grid::-webkit-scrollbar{display:none}.x-card-grid.has-more{mask-image:linear-gradient(to right,#000 0%,#000 94%,transparent 100%);-webkit-mask-image:linear-gradient(to right,#000 0%,#000 94%,transparent 100%)}.x-card-grid>.x-topic-card{box-sizing:border-box;flex:0 0 calc((100% - 48px)/3.5);scroll-snap-align:start}.x-card-grid.is-short>.x-topic-card{flex-basis:calc((100% - 32px)/3)}
 @media(max-width:800px){#narrative .section-head{flex-wrap:wrap}.x-paging{width:100%;justify-content:flex-end}.x-card-grid>.x-topic-card,.x-card-grid.is-short>.x-topic-card{flex-basis:86%}}
+/* X has two distinct rows: curated heat above, Muse's author stream below. */
+#narrative .x-frequent-section{display:block;margin-top:34px;padding-top:24px;border-top:1px solid #dce3ed}
+#narrative .x-frequent-section .section-head{margin-bottom:15px}
+#narrative .x-frequent-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;align-items:start}
+#narrative .x-simple-card{padding:20px 22px;min-width:0}
+#narrative .x-simple-card h3{font-size:17px;line-height:1.45;margin:0 0 15px;color:#17233a}
+#narrative .x-simple-post{padding:15px 0;border-top:1px solid #e5eaf1}
+#narrative .x-simple-post:first-of-type{border-top:0;padding-top:0}
+#narrative .x-author-card>.x-author-identity{padding-bottom:13px}
+#narrative .x-author-card .x-simple-post:first-of-type{border-top:1px solid #e5eaf1;padding-top:15px}
+#narrative .x-author-lines b{font-size:13px;color:#1d2a40}
+#narrative .x-author-lines time{font-size:11px;color:#65748b}
+#narrative .x-avatar-fallback{display:grid;place-items:center;width:34px;height:34px;flex:none;border-radius:50%;background:#e8ecf4;color:#526687;font-weight:700}
+#narrative .x-post-link{font-size:12px;color:#5365a0;text-decoration:none;font-weight:600}
+#narrative .x-translation{font-size:14px;line-height:1.75;color:#000;font-weight:400;margin:11px 0;white-space:pre-line}
+#narrative .x-translation-status{display:block;color:#66738a;font-size:12px;line-height:1.5;margin:-4px 0 10px}
+#narrative .x-simple-foot{display:flex;justify-content:space-between;gap:8px;align-items:baseline;flex-wrap:wrap;font-size:11px;color:#5a6780}
+#narrative .x-simple-foot b{font-size:12px;color:#285d51}
+#narrative .x-single-heat{font-size:13px;font-weight:700;color:#384f80;white-space:nowrap}
+@media(max-width:900px){#narrative .x-frequent-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){#narrative .x-frequent-grid{grid-template-columns:1fr}}
 .main{color:#000;font-weight:400}
 .main .hero p,.main .strategy-note,.main .x-view,.main .x-post-view,.main .x-impact p,.main blockquote,.main .chain-step p,.main .prior-question,.main .week-pending li p,.main .pending-foot p,.main .calendar-event p,.main .live-event-card p,.main .action-table td,.main .sentiment-reason,.main .review-invalidation{color:#000;font-size:14px;font-weight:400;line-height:1.8}
 .main .chain-step p,.main .x-post-view{font-size:15px;line-height:1.85}
