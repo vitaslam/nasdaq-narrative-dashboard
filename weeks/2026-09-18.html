@@ -555,21 +555,42 @@ document.querySelectorAll('.table-scroll table').forEach(table=>{
 (() => {
   const container = document.getElementById('dimension-details');
   const buttons = [...document.querySelectorAll('[data-dimension]')];
-  let expanded = null;
+  let expanded = null, sliding = null;
   function toggleDimension(id, closeOnly = false) {
     const next = closeOnly || expanded === id ? null : id;
+    const start = container.hidden ? 0 : container.getBoundingClientRect().height;
+    if (sliding) { sliding.cancel(); sliding = null; }
+    container.style.height = '';
+    container.style.overflow = '';
+    container.hidden = false;
     for (const button of buttons) {
       const active = button.dataset.dimension === next;
       button.setAttribute('aria-expanded', String(active));
       button.querySelector('.expand-hint').innerHTML = active
         ? '收起详情 <span aria-hidden="true">⌃</span>'
         : '查看详情 <span aria-hidden="true">⌄</span>';
-      document.getElementById(button.dataset.dimension).hidden = !active;
+      document.getElementById(button.dataset.dimension).hidden = next ? !active : button.dataset.dimension !== expanded;
     }
-    container.hidden = !next;
     document.getElementById('dimension-weight-method').hidden = next === 'event-drivers';
     expanded = next;
     if (next) requestAnimationFrame(() => window.dispatchEvent(new Event('resize')));
+    const end = next ? container.getBoundingClientRect().height : 0;
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches || Math.abs(end-start)<1) {
+      container.hidden = !next;
+      return;
+    }
+    container.style.height = start + 'px';
+    container.style.overflow = 'hidden';
+    sliding = container.animate([{height:start+'px',opacity:next?0.8:1},{height:end+'px',opacity:next?1:0.75}],{duration:270,easing:'cubic-bezier(.2,.75,.25,1)'});
+    const current = sliding;
+    current.onfinish = () => {
+      if (sliding !== current) return;
+      sliding = null;
+      container.style.height = '';
+      container.style.overflow = '';
+      container.hidden = !expanded;
+      if (!expanded) buttons.forEach(button => { document.getElementById(button.dataset.dimension).hidden = true; });
+    };
   }
   for (const button of buttons) button.addEventListener('click', () => toggleDimension(button.dataset.dimension));
   document.querySelectorAll('[data-close-dimension]').forEach(button => {

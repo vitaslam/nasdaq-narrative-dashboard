@@ -188,7 +188,6 @@ html{scroll-padding-top:20px}.main{max-width:1440px;margin:0 auto;padding:24px 2
 .market-overview .risk-label{font-size:10px;color:#64748c;white-space:nowrap}
 .market-overview .risk-main{font-size:29px;line-height:1.4;font-weight:700;color:#000;white-space:nowrap}
 .market-overview .risk-main small{font-size:12px;letter-spacing:0;color:#65748c;font-weight:400;margin-left:4px}
-.market-overview .risk-column:last-child .risk-main small{display:block;margin:8px 0 0;font-size:10px;line-height:1.2}
 .market-overview .risk-secondary{display:flex;align-items:baseline;gap:7px;margin-top:7px;font-size:10px;color:#7b8aa0}
 .market-overview .risk-secondary b{font-size:15px;font-weight:600;color:#516681;font-variant-numeric:tabular-nums}
 .market-overview .risk-secondary b.is-alert,.market-overview .risk-main.is-alert{color:#a63d4f}
@@ -196,6 +195,13 @@ html{scroll-padding-top:20px}.main{max-width:1440px;margin:0 auto;padding:24px 2
 .market-overview .risk-source{display:block;margin-top:auto;padding-top:7px;font-size:9px;line-height:1.5;color:#8796aa;overflow-wrap:anywhere}
 .market-overview .risk-source a{font-size:9px;color:#7b8eaf}
 @media(max-width:800px){.market-overview .risk-columns{gap:10px}.market-overview .risk-main{font-size:24px}.market-overview .risk-main small{font-size:10px;margin-left:2px}.market-overview .risk-label{white-space:normal}}
+.market-overview .risk-column:last-child .risk-main small{display:block;margin:8px 0 0;font-size:10px;line-height:1.2}
+.market-overview [data-metric="vix"] .vix-term-mini{display:flex;align-items:baseline;gap:5px;max-width:66%;margin-top:5px;white-space:nowrap;font-size:9px;line-height:1.5;color:#7c8ca1;font-variant-numeric:tabular-nums}
+.vix-term-mini a{color:inherit;text-decoration:none;border-bottom:1px solid #d9e0ed}
+.vix-term-mini b{color:#526b84;font-weight:600}.vix-term-mini.inverted b:last-child{color:#a65363}
+.vix-term-mini .term-short{display:none}
+@media(max-width:1199px){.market-overview [data-metric="vix"] .vix-term-mini{font-size:8px;gap:3px}.vix-term-mini .term-long{display:none}.vix-term-mini .term-short{display:inline}}
+@media(max-width:800px){.market-overview [data-metric="vix"] .vix-term-mini{max-width:100%;margin-top:2px;gap:3px}.market-overview [data-metric="vix"] .vix-term-mini+.sparkline{margin-top:4px}}
 </style><script src="../dashboard-priority.js"></script><link rel="stylesheet" href="../shared-calendar.css"><link rel="stylesheet" href="../dashboard-enhancements.css"></head><body>
 <main class="main">
 <div class="topbar"><div class="eyebrow">Nasdaq-100 / As-of History / No. 009</div></div>
@@ -218,7 +224,7 @@ html{scroll-padding-top:20px}.main{max-width:1440px;margin:0 auto;padding:24px 2
 
 <section class="section" id="position" hidden="" role="region" aria-labelledby="toggle-position"><div class="dimension-context"><p><b>叙事权重 15% · 分析估计</b><span>资管减多、杠杆回补与近月倒挂并存，风险释放尚未确认。</span></p><button type="button" class="dimension-close" data-close-dimension="position">收起详情 ↑</button></div><div class="section-head"><div><h2><span class="index">05</span>仓位与波动结构</h2><p class="section-sub">资管减多、杠杆回补，近月波动倒挂；风险释放仍未确认。</p></div></div><div class="sentiment-grid"><div class="sentiment"><div class="key">VIX · 标普隐波 <span class="state-badge improve">波动下降</span></div><div class="value">19.42</div><small>较前周 -0.03 · 2026-10-30 收盘</small></div><div class="sentiment"><div class="key">VXN · 纳指隐波 <span class="state-badge worsen">波动上升</span></div><div class="value">28.50</div><small>较前周 +0.20 · 2026-10-30 收盘</small></div><div class="sentiment"><div class="key">BofA Bull &amp; Bear</div><div class="value">7.1</div><small>前期7.2 · 10/30次级转述</small></div><div class="sentiment"><div class="key">CNN Fear &amp; Greed</div><div class="value">26</div><small>前期21 · 10/30同源归档</small></div></div><div class="grid2" style="margin-top:16px"><div class="card"><div class="chart-head"><div><h3>机构期货净仓位 · 连续观察</h3><p>CFTC Nasdaq-100 Consolidated · futures only</p></div></div><div class="chart " id="position-chart"></div><div class="chart-caption">本期观察 2026-10-27 / 发布 2026-10-30。资管与杠杆基金不代表全体股票仓位。</div></div><div class="card"><div class="chart-head"><div><h3>VIX 与 VXN · 风险如何变化</h3><p>VXN更接近纳指；两者量纲相同、标的不同</p></div></div><div class="chart " id="vol-chart"></div><div class="chart-caption">IBKR / Cboe历史日线；只到本期收盘。</div></div></div><div class="scan-position-line"><b>资管净多66,372</b>（−12,395）　·　<b>杠杆基金净空5,619</b>（回补2,069）<span>单位：合约 · 观察10/27，发布10/30 · <a href="https://www.cftc.gov/dea/futures/financial_lf.htm">CFTC ↗</a></span></div><div style="margin-top:16px"><div class="card"><div class="chart-head"><div><h3>VIX 期货：近月重新出现局部倒挂</h3><span class="state-badge worsen small-badge">日度恶化 · 非周度</span><p>10/29 与 10/30 的日度结算快照，并非周度变化</p></div></div><div class="legend"><span><i class="swatch light"></i>10/29</span><span><i class="swatch"></i>10/30</span><span>12 月 / 11 月 = <strong>0.972</strong></span></div><div class="chart" id="curve-chart"></div><div class="chart-caption">10/30：11 月合约 20.3603、12 月 19.7888。<a href="https://www.cboe.com/markets/us/futures/market-statistics/settlement/futures/daily" target="_blank" rel="noopener">Cboe 官方结算</a>。VIX 现货、VXN 与期货期限结构衡量不同风险。</div></div></div><div class="gap"><b>CTA／NAAIM：当期可核验数据缺失。</b> BofA FMS为月度背景：10/13现金比例3.9%，与9月持平。CFTC期货仓位不代表全部股票仓位或CTA。</div><div class="delta">BofA/CNN为原报告已核验的次级档案，置信度低于CFTC原表；详见数据与来源。</div></section>
 
-<p class="weight-method" id="dimension-weight-method">权重口径：按当期财报、政策与价格反应人工归纳近1–2周关注度，五项合计100%；为分析估计，非统计涨跌贡献或仓位比例。</p></div><section class="section" id="verification"><div class="section-head"><div><h2>叙事变化与验证</h2><p class="section-sub">已归档 10/26–10/30 · 已有回答截至 10/30 · 内容已固化</p></div><div class="verification-paging" aria-label="验证记录翻页"><span class="record-count"><b id="verification-page-number">1</b> / 3</span><button type="button" id="verification-prev" aria-label="上一条验证记录">‹</button><button type="button" id="verification-next" aria-label="下一条验证记录">›</button></div></div><div class="verification-layout"><aside class="card week-pending" aria-labelledby="week-pending-title"><div class="pending-card-top"><span class="pin-mark" aria-hidden="true">⌖</span><span>本周重点问题</span></div><h3 id="week-pending-title">本周验证清单</h3><p class="pending-period">10/26–10/30<span>已归档</span></p><ol><li class="answered"><div class="question-row"><span class="question-number">01</span><span class="question-status">部分确认</span></div><h4>下一轮云财报能否让强增长转化为好股价？</h4><p>部分确认</p></li><li class="answered"><div class="question-row"><span class="question-number">02</span><span class="question-status">部分确认</span></div><h4>油价与政策风险能否一起降温？</h4><p>部分确认</p></li><li class="answered"><div class="question-row"><span class="question-number">03</span><span class="question-status">反证（企稳假设）</span></div><h4>等权抗跌能否成为内部企稳信号？</h4><p>反证（企稳假设）</p></li></ol><div class="pending-foot"><b>归档说明</b><p>本周问题与回答已固化，不随新一周更新。</p></div></aside><div class="verification-carousel" role="region" aria-roledescription="轮播" aria-label="叙事验证记录"><div class="verification-viewport" tabindex="0" aria-label="验证记录，可左右滑动或使用方向键"><div class="verification-track"><article class="card chain-card" data-record-id="2026-10-30-review-2" data-record-date="2026-10-30" data-record-index="0" role="group" aria-roledescription="记录" aria-label="第1条，共3条"><div class="record-timestamp"><time datetime="2026-10-30">10/30 · 周收盘</time><span>已回答</span></div><div class="chain-card-heading"><h3>市场参与度</h3><span class="state-badge worsen">企稳假设受挫</span></div><p class="prior-question">上期：等权抗跌能否成为企稳信号？</p><div class="chain-step "><div class="chain-step-heading"><b>本周新证据</b><span class="state-badge worsen">↘ 恶化</span></div><p>NDXE周涨跌由<strong>+0.10%</strong>变为<strong>−0.78%</strong>；NDX仍处<strong>50日线</strong>下。</p></div><div class="chain-step "><div class="chain-step-heading"><b>市场实际反应</b><span class="state-badge worsen">↘ 转弱</span></div><p>等权仍比市值加权抗跌，但方向已从小涨转跌。</p></div><div class="chain-step "><div class="chain-step-heading"><b>对叙事的影响</b><span class="state-badge worsen">↘ 恶化</span></div><p>内部轮动尚未转化为整体企稳，弱势开始扩散；不把相对抗跌当作趋势恢复。</p></div><div class="chain-step chain-next"><div class="chain-step-heading"><b>留给下一期的验证</b><span class="state-badge pending">待验证</span></div><p>NDX和等权能否同时止跌，VXN不再创新高，近月倒挂是否解除。</p></div><div class="delta"><a href="https://indexes.nasdaq.com/Index/History/NDXE" target="_blank" rel="noopener">来源</a></div></article><article class="card chain-card" data-record-id="2026-10-30-review-0" data-record-date="2026-10-29" data-record-index="1" role="group" aria-roledescription="记录" aria-label="第2条，共3条"><div class="record-timestamp"><time datetime="2026-10-29">10/28–29 · 云厂商财报</time><span>已回答</span></div><div class="chain-card-heading"><h3>AI现金回报</h3><span class="state-badge mixed">部分确认</span></div><p class="prior-question">上期：强增长能否带来股价修复？</p><div class="chain-step "><div class="chain-step-heading"><b>本周新证据</b><span class="state-badge improve">↗ 盈利利好</span></div><p>NDX Q3盈利增速估计<strong>45%</strong>升至<strong>49%</strong>；微软云增长强且现金流为正，但其他云厂商业绩与投入表现分化。</p></div><div class="chain-step "><div class="chain-step-heading"><b>市场实际反应</b><span class="state-badge worsen">↘ 价格恶化</span></div><p>NDX <strong>−1.98%</strong>，弱于前周<strong>−0.79%</strong>；财报后的价格表现仍未确认筑底。</p></div><div class="chain-step "><div class="chain-step-heading"><b>对叙事的影响</b><span class="state-badge mixed">↔ 分化</span></div><p>增长支撑继续得到验证；“盈利强就足以修复股价”未获确认，现金转化和预期差更关键。</p></div><div class="chain-step chain-next"><div class="chain-step-heading"><b>留给下一期的验证</b><span class="state-badge pending">待验证</span></div><p>下一轮财报后能否守住反弹、等权回升，并出现更好的收入/资本开支/现金流组合。</p></div><div class="delta"><a href="https://www.nasdaq.com/economic-institute/chartstopper-103026" target="_blank" rel="noopener">来源</a></div></article><article class="card chain-card" data-record-id="2026-10-30-review-1" data-record-date="2026-10-29" data-record-index="2" role="group" aria-roledescription="记录" aria-label="第3条，共3条"><div class="record-timestamp"><time datetime="2026-10-29">10/28–29 · FOMC / 宏观数据</time><span>已回答</span></div><div class="chain-card-heading"><h3>利率与油价</h3><span class="state-badge mixed">部分确认</span></div><p class="prior-question">上期：政策与能源压力能否一起缓和？</p><div class="chain-step "><div class="chain-step-heading"><b>本周新证据</b><span class="state-badge mixed">↔ 分化</span></div><p><strong>10/28</strong>联储维持<strong>3.75%–4.00%</strong>；GDP增长仍强、通胀黏性未消失，能源风险继续存在。</p></div><div class="chain-step "><div class="chain-step-heading"><b>市场实际反应</b><span class="state-badge worsen">↘ 股价走弱</span></div><p>利率部分回落但NDX继续下跌；只看暂停加息不足以升级风险偏好。</p></div><div class="chain-step "><div class="chain-step-heading"><b>对叙事的影响</b><span class="state-badge mixed">↔ 分化</span></div><p>本次暂停已落地，持续宽松尚未确认；未来转向通胀、油价和后续加息路径。</p></div><div class="chain-step chain-next"><div class="chain-step-heading"><b>留给下一期的验证</b><span class="state-badge pending">待验证</span></div><p>油价、实际利率、波动结构是否共同改善；下一次FOMC为<strong>12/8–9</strong>。</p></div><div class="delta"><a href="https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm" target="_blank" rel="noopener">来源</a></div></article></div></div><p class="verification-live sr-only" role="status" aria-live="polite" aria-atomic="true"></p></div></div><p class="chain-intro">日期标注事件或归档时间；既有回答依同期资料重建。未发布结果保留为待验证，周度共振不代表单一事件因果。</p></section><div class="dashboard-chart-heading"><div><div class="eyebrow">POSITION VIEW · 未来1–2周</div><h2>建议轻仓防守｜左侧等止跌，右侧等确认</h2><p class="strategy-note">左侧：进入观察区并止跌后小仓试探；右侧：站稳修复区、广度与波动改善后再分批加仓。</p></div><span class="state-badge worsen">↘ 短线偏弱</span></div><div class="review-market"><div class="review-chart"><div class="card"><div class="chart-head"><div><h3 id="price-title">NDX · 收盘价与均线</h3><p id="price-sub">按本期数据计算均线</p></div><div class="chart-tools"><div class="segments" id="instrument" aria-label="选择观察对象"><button aria-pressed="true" data-symbol="NDX">NDX</button><button aria-pressed="false" data-symbol="QQQ">QQQ</button></div><div class="segments" id="price-range" aria-label="图表时间范围"><button data-range="63" aria-pressed="false">3 个月</button><button data-range="126" aria-pressed="true">6 个月</button><button data-range="251" aria-pressed="false">1 年</button></div></div></div><div class="legend"><span><i class="swatch" style="background:#6079bd"></i>收盘价</span><label class="check-legend"><input id="show50" type="checkbox" checked><i class="swatch teal"></i>SMA 50</label><label class="check-legend"><input id="show200" type="checkbox" checked><i class="swatch amber"></i>SMA 200</label><label class="check-legend"><input id="showzone" type="checkbox" checked><i class="swatch zone"></i>条件观察区</label></div><div class="chart tall" id="price-chart"></div><div class="chart-caption">移动鼠标或触摸查看数据 · IBKR 常规交易时段日线 Last，均线按实际交易日计算。价格图不含分红再投资，不显示预测路径。</div></div></div><div class="review-operation" aria-label="与左侧图表同步的操作区间"><div class="card table-scroll"><table class="action-table scan-action-table"><thead><tr><th>阶段</th><th id="levels-heading">NDX 点位</th><th>触发与验证条件</th><th>操作含义</th></tr></thead><tbody><tr class="active-row"><td class="phase-cell"><span class="step-dot"></span><strong>条件试仓区</strong></td><td class="price-cell"><span class="level" data-level="trial">27,800–28,200</span></td><td class="condition-cell">进入区间后止跌，收盘重回区间上沿；VXN 不再创新高，广度停止恶化。</td><td class="meaning-cell">符合条件后才考虑小仓试探。</td></tr><tr><td class="phase-cell"><span class="step-dot gray"></span><strong>修复确认区</strong></td><td class="price-cell"><span class="level" data-level="repair">28,900–29,200</span></td><td class="condition-cell">连续两日收于上沿以上，回踩守住；50 日线上方个股占比改善，波动率回落。</td><td class="meaning-cell">可考虑分批增加；仍需检查事件风险。</td></tr><tr><td class="phase-cell"><span class="step-dot gray"></span><strong>趋势增强区</strong></td><td class="price-cell"><span class="level" data-level="strong">29,800–30,100</span></td><td class="condition-cell">收复并守住，等权同步转强，近月波动结构改善。</td><td class="meaning-cell">再评估能否从反弹转为趋势持有。</td></tr><tr><td class="phase-cell"><span class="step-dot amber"></span><strong>暂停原计划</strong></td><td class="price-cell"><span class="level" data-level="pause">27,700 / 27,400</span></td><td id="pause-rule" class="condition-cell">连续两日收于 27,700 下方，或周收盘低于 27,400；突发融资与地缘冲击也可提前使计划失效。</td><td class="meaning-cell">暂停加仓，重新测算下方结构。</td></tr></tbody></table></div>
+<p class="weight-method" id="dimension-weight-method">权重口径：按当期财报、政策与价格反应人工归纳近1–2周关注度，五项合计100%；为分析估计，非统计涨跌贡献或仓位比例。</p></div><section class="section" id="verification"><div class="section-head"><div><h2>叙事变化与验证</h2><p class="section-sub">已归档 10/26–10/30 · 已有回答截至 10/30 · 内容已固化</p></div><div class="verification-paging" aria-label="验证记录翻页"><span class="record-count"><b id="verification-page-number">1</b> / 3</span><button type="button" id="verification-prev" aria-label="上一条验证记录">‹</button><button type="button" id="verification-next" aria-label="下一条验证记录">›</button></div></div><div class="verification-layout"><aside class="card week-pending" aria-labelledby="week-pending-title"><div class="pending-card-top"><span class="pin-mark" aria-hidden="true">⌖</span><span>本周重点问题</span></div><h3 id="week-pending-title">本周验证清单</h3><p class="pending-period">10/26–10/30<span>已归档</span></p><ol><li class="answered"><div class="question-row"><span class="question-number">01</span><span class="question-status">部分确认</span></div><h4>下一轮云财报能否让强增长转化为好股价？</h4><p>部分确认</p></li><li class="answered"><div class="question-row"><span class="question-number">02</span><span class="question-status">部分确认</span></div><h4>油价与政策风险能否一起降温？</h4><p>部分确认</p></li><li class="answered"><div class="question-row"><span class="question-number">03</span><span class="question-status">反证（企稳假设）</span></div><h4>等权抗跌能否成为内部企稳信号？</h4><p>反证（企稳假设）</p></li></ol><div class="pending-foot"><b>归档说明</b><p>本周问题与回答已固化，不随新一周更新。</p></div></aside><div class="verification-carousel" role="region" aria-roledescription="轮播" aria-label="叙事验证记录"><div class="verification-viewport" tabindex="0" aria-label="验证记录，可左右滑动或使用方向键"><div class="verification-track"><article class="card chain-card" data-record-id="2026-10-30-review-2" data-record-date="2026-10-30" data-record-index="0" role="group" aria-roledescription="记录" aria-label="第1条，共3条"><div class="record-timestamp"><time datetime="2026-10-30">10/30 · 周收盘</time><span>已回答</span></div><div class="chain-card-heading"><h3>市场参与度</h3><span class="state-badge worsen">企稳假设受挫</span></div><p class="prior-question">上期：等权抗跌能否成为企稳信号？</p><div class="chain-step "><div class="chain-step-heading"><b>本周新证据</b><span class="state-badge worsen">↘ 恶化</span></div><p>NDXE周涨跌由<strong>+0.10%</strong>变为<strong>−0.78%</strong>；NDX仍处<strong>50日线</strong>下。</p></div><div class="chain-step "><div class="chain-step-heading"><b>市场实际反应</b><span class="state-badge worsen">↘ 转弱</span></div><p>等权仍比市值加权抗跌，但方向已从小涨转跌。</p></div><div class="chain-step "><div class="chain-step-heading"><b>对叙事的影响</b><span class="state-badge worsen">↘ 恶化</span></div><p>内部轮动尚未转化为整体企稳，弱势开始扩散；不把相对抗跌当作趋势恢复。</p></div><div class="chain-step chain-next"><div class="chain-step-heading"><b>留给下一期的验证</b><span class="state-badge pending">待验证</span></div><p>NDX和等权能否同时止跌，VXN不再创新高，近月倒挂是否解除。</p></div><div class="delta"><a href="https://indexes.nasdaq.com/Index/History/NDXE" target="_blank" rel="noopener">来源</a></div></article><article class="card chain-card" data-record-id="2026-10-30-review-0" data-record-date="2026-10-29" data-record-index="1" role="group" aria-roledescription="记录" aria-label="第2条，共3条"><div class="record-timestamp"><time datetime="2026-10-29">10/28–29 · 云厂商财报</time><span>已回答</span></div><div class="chain-card-heading"><h3>AI现金回报</h3><span class="state-badge mixed">部分确认</span></div><p class="prior-question">上期：强增长能否带来股价修复？</p><div class="chain-step "><div class="chain-step-heading"><b>本周新证据</b><span class="state-badge improve">↗ 盈利利好</span></div><p>NDX Q3盈利增速估计<strong>45%</strong>升至<strong>49%</strong>；微软云增长强且现金流为正，但其他云厂商业绩与投入表现分化。</p></div><div class="chain-step "><div class="chain-step-heading"><b>市场实际反应</b><span class="state-badge worsen">↘ 价格恶化</span></div><p>NDX <strong>−1.98%</strong>，弱于前周<strong>−0.79%</strong>；财报后的价格表现仍未确认筑底。</p></div><div class="chain-step "><div class="chain-step-heading"><b>对叙事的影响</b><span class="state-badge mixed">↔ 分化</span></div><p>增长支撑继续得到验证；“盈利强就足以修复股价”未获确认，现金转化和预期差更关键。</p></div><div class="chain-step chain-next"><div class="chain-step-heading"><b>留给下一期的验证</b><span class="state-badge pending">待验证</span></div><p>下一轮财报后能否守住反弹、等权回升，并出现更好的收入/资本开支/现金流组合。</p></div><div class="delta"><a href="https://www.nasdaq.com/economic-institute/chartstopper-103026" target="_blank" rel="noopener">来源</a></div></article><article class="card chain-card" data-record-id="2026-10-30-review-1" data-record-date="2026-10-29" data-record-index="2" role="group" aria-roledescription="记录" aria-label="第3条，共3条"><div class="record-timestamp"><time datetime="2026-10-29">10/28–29 · FOMC / 宏观数据</time><span>已回答</span></div><div class="chain-card-heading"><h3>利率与油价</h3><span class="state-badge mixed">部分确认</span></div><p class="prior-question">上期：政策与能源压力能否一起缓和？</p><div class="chain-step "><div class="chain-step-heading"><b>本周新证据</b><span class="state-badge mixed">↔ 分化</span></div><p><strong>10/28</strong>联储维持<strong>3.75%–4.00%</strong>；GDP增长仍强、通胀黏性未消失，能源风险继续存在。</p></div><div class="chain-step "><div class="chain-step-heading"><b>市场实际反应</b><span class="state-badge worsen">↘ 股价走弱</span></div><p>利率部分回落但NDX继续下跌；只看暂停加息不足以升级风险偏好。</p></div><div class="chain-step "><div class="chain-step-heading"><b>对叙事的影响</b><span class="state-badge mixed">↔ 分化</span></div><p>本次暂停已落地，持续宽松尚未确认；未来转向通胀、油价和后续加息路径。</p></div><div class="chain-step chain-next"><div class="chain-step-heading"><b>留给下一期的验证</b><span class="state-badge pending">待验证</span></div><p>油价、实际利率、波动结构是否共同改善；下一次FOMC为<strong>12/8–9</strong>。</p></div><div class="delta"><a href="https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm" target="_blank" rel="noopener">来源</a></div></article></div></div><p class="verification-live sr-only" role="status" aria-live="polite" aria-atomic="true"></p></div></div><p class="chain-intro">日期标注事件或归档时间；既有回答依同期资料重建。未发布结果保留为待验证，周度共振不代表单一事件因果。</p></section><div class="dashboard-chart-heading"><div><div class="eyebrow">POSITION VIEW · 未来1–2周</div><h2>建议轻仓防守｜左侧等止跌，右侧等确认</h2><p class="strategy-note">左侧：进入观察区并止跌后小仓试探；右侧：站稳修复区、广度与波动改善后再分批加仓。</p></div><span class="state-badge worsen">↘ 短线偏弱</span></div><div class="review-market"><div class="review-chart"><div class="card"><div class="chart-head"><div><h3 id="price-title">NDX · 收盘价与均线</h3><p id="price-sub">按本期数据计算均线</p></div><div class="chart-tools"><div class="segments" id="instrument" aria-label="选择观察对象"><button aria-pressed="true" data-symbol="NDX">NDX</button><button aria-pressed="false" data-symbol="QQQ">QQQ</button></div><div class="segments" id="price-range" aria-label="图表时间范围"><button data-range="21" aria-pressed="false">1 个月</button><button data-range="63" aria-pressed="false">3 个月</button><button data-range="126" aria-pressed="true">6 个月</button><button data-range="251" aria-pressed="false">1 年</button></div></div></div><div class="legend"><span><i class="swatch" style="background:linear-gradient(90deg,#c6504f 0 50%,#21856c 50%)"></i>日 K（红涨绿跌）</span><label class="check-legend"><input id="show50" type="checkbox" checked><i class="swatch teal"></i>SMA 50</label><label class="check-legend"><input id="show200" type="checkbox" checked><i class="swatch amber"></i>SMA 200</label><label class="check-legend"><input id="showzone" type="checkbox" checked><i class="swatch zone"></i>条件观察区</label></div><div class="chart tall" id="price-chart"></div><div class="chart-caption">移动鼠标或触摸查看开高低收；IBKR 常规交易时段日线 OHLC，均线按实际交易日计算。价格图不含分红再投资，不显示预测路径。</div></div></div><div class="review-operation" aria-label="与左侧图表同步的操作区间"><div class="card table-scroll"><table class="action-table scan-action-table"><thead><tr><th>阶段</th><th id="levels-heading">NDX 点位</th><th>触发与验证条件</th><th>操作含义</th></tr></thead><tbody><tr class="active-row"><td class="phase-cell"><span class="step-dot"></span><strong>条件试仓区</strong></td><td class="price-cell"><span class="level" data-level="trial">27,800–28,200</span></td><td class="condition-cell">进入区间后止跌，收盘重回区间上沿；VXN 不再创新高，广度停止恶化。</td><td class="meaning-cell">符合条件后才考虑小仓试探。</td></tr><tr><td class="phase-cell"><span class="step-dot gray"></span><strong>修复确认区</strong></td><td class="price-cell"><span class="level" data-level="repair">28,900–29,200</span></td><td class="condition-cell">连续两日收于上沿以上，回踩守住；50 日线上方个股占比改善，波动率回落。</td><td class="meaning-cell">可考虑分批增加；仍需检查事件风险。</td></tr><tr><td class="phase-cell"><span class="step-dot gray"></span><strong>趋势增强区</strong></td><td class="price-cell"><span class="level" data-level="strong">29,800–30,100</span></td><td class="condition-cell">收复并守住，等权同步转强，近月波动结构改善。</td><td class="meaning-cell">再评估能否从反弹转为趋势持有。</td></tr><tr><td class="phase-cell"><span class="step-dot amber"></span><strong>暂停原计划</strong></td><td class="price-cell"><span class="level" data-level="pause">27,700 / 27,400</span></td><td id="pause-rule" class="condition-cell">连续两日收于 27,700 下方，或周收盘低于 27,400；突发融资与地缘冲击也可提前使计划失效。</td><td class="meaning-cell">暂停加仓，重新测算下方结构。</td></tr></tbody></table></div>
 </div><div class="note warn review-invalidation"><b>失效检查：</b>点位为条件规划，非CTA触发线。跳空超过约1 ATR（NDX 522点／QQQ 12.71美元）、指引或融资地缘风险突变时重算。</div>
 </div><section class="section" id="narrative"><div class="section-head"><div><h2><svg class="x-logo" viewbox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.64 7.584H.472l8.6-9.835L0 1.154h7.594l5.243 6.932 6.064-6.933Zm-1.29 19.49h2.039L6.487 3.24H4.3l13.31 17.403Z"></path></svg>X 观点与标的影响</h2><p class="section-sub">具体观点 → 影响谁 → 为什么 → 下一步验证</p></div></div><div class="x-card-grid"><article class="card x-card"><div class="x-card-top"><span class="x-card-number">01</span><a href="https://x.com/claudeai/status/2116220869479428500" target="_blank" rel="noopener">原帖 ↗</a></div><h3>Claude 放宽用量限制</h3><div class="x-author">@claudeai · 10/30 · 13:29 ET</div><p class="x-view">Ultra 已验证账户取消5小时限额，周限额保留。核心问题：更多使用量，能否覆盖更多推理成本？</p><blockquote><span>X 原文节选 · 公开归档转录</span><p>“removing the 5-hour limit for verified Ultra accounts”</p></blockquote><div class="x-impact"><h4>对标的的影响 <small>分析推断</small></h4><div class="impact-item"><b class="impact-tag positive">AMZN · 潜在利好</b><p>使用量若转成增量算力消耗，AWS可能受益。</p></div><div class="impact-item"><b class="impact-tag positive">GOOGL · 潜在利好</b><p>Claude使用Google TPU与云服务，传导取决于实际用量。</p></div></div><div class="x-next"><b>下一步验证</b><p>看付费转化、云消耗和推理毛利；不能由“放宽限额”直接推出利润增加。</p></div><div class="x-card-footer"><a href="https://www.anthropic.com/news/google-broadcom-partnership-compute" target="_blank" rel="noopener">Anthropic · 云与芯片合作 ↗</a><small>640万浏览 · 3.11万赞 · 归档快照</small></div></article><article class="card x-card"><div class="x-card-top"><span class="x-card-number">02</span><a href="https://x.com/unusual_whales/status/2116248483892277526" target="_blank" rel="noopener">原帖 ↗</a></div><h3>稀缺 DRAM 应优先放在哪里</h3><div class="x-author">@unusual_whales · 10/30 · 15:18 ET</div><p class="x-view">该帖转述 Altman 的观点：把有限内存集中到数据中心，提高利用率。它是供给分配观点，尚非新增订单。</p><blockquote><span>X 原文节选 · 公开归档转录</span><p>“better allocated to data centers”</p></blockquote><div class="x-impact"><h4>对标的的影响 <small>分析推断</small></h4><div class="impact-item"><b class="impact-tag positive">MU · 条件利好</b><p>若数据中心内存需求与定价维持强势，存储厂商更直接受益。</p></div><div class="impact-item"><b class="impact-tag negative">AMZN / MSFT · 成本压力</b><p>若内存涨价持续，云基础设施投入承压；收入增长可能抵消。</p></div></div><div class="x-next"><b>下一步验证</b><p>看DRAM合约价、产能与云厂商毛利。半导体内部影响分化，不能外推为全板块利好。</p></div><div class="x-card-footer"><a href="https://investors.micron.com/news/press-release/2026/Micron-Advances-Memory-Innovation-With-the-Worlds-First-Ultra-Dense-Module-for-Next-Generation-Servers/default.aspx" target="_blank" rel="noopener">Micron · 数据中心内存 ↗</a><small>380万浏览 · 1.92万赞 · 归档快照</small></div></article><article class="card x-card"><div class="x-card-top"><span class="x-card-number">03</span><a href="https://x.com/sundarpichai/status/2116214866444943853" target="_blank" rel="noopener">原帖 ↗</a></div><h3>Google TPU 完成在轨推理</h3><div class="x-author">@sundarpichai · 10/30 · 13:05 ET</div><p class="x-view">Suncatcher原型卫星运行TPU并传回模型响应。具体进展是完成一次在轨验证，距规模化商业部署仍有距离。</p><blockquote><span>X 原文节选 · 公开归档转录</span><p>“received our first complete response back on earth”</p></blockquote><div class="x-impact"><h4>对标的的影响 <small>分析推断</small></h4><div class="impact-item"><b class="impact-tag positive">GOOGL · 长期偏利好</b><p>增加自研算力与能源方案的技术可能性，短期收入贡献未明确。</p></div><div class="impact-item"><b class="impact-tag neutral">NVDA / 纳指 · 短线中性</b><p>原型验证不足以确认GPU需求被替代，也不构成大盘盈利上修。</p></div></div><div class="x-next"><b>下一步验证</b><p>看功耗、散热、辐射可靠性及部署成本；未来1–2周更偏情绪催化。</p></div><div class="x-card-footer"><a href="https://blog.google/innovation-and-ai/models-and-research/google-research/project-suncatcher-satellite-response/" target="_blank" rel="noopener">Google · 项目原始说明 ↗</a><small>340万浏览 · 2.53万赞 · 归档快照</small></div></article></div><p class="fineprint">样本与短引文：<a href="https://www.advanceintelligence.ai/2026-10-30/all" target="_blank" rel="noopener">10/30公开归档 ↗</a>。X原帖及实时互动数未独立核验；标的方向是条件性分析，热度不等于交易影响。</p></section>
 
@@ -413,26 +419,96 @@ function lineChart(id, labels, series, options = {}) {
   svg.addEventListener('pointerleave', () => { tip.style.display = 'none'; cross.setAttribute('visibility', 'hidden'); });
 }
 
-function drawPrice() {
-  const bars = barsFor(symbol);
-  const count = Math.min(period, bars.length);
-  const visible = count ? bars.slice(-count) : [];
-  const sma50 = sma(bars, 50);
-  const sma200 = sma(bars, 200);
-  const analytics = D.analytics?.[symbol] || {};
-  const digits = symbol === 'QQQ' ? 2 : 0;
-  const plan = D.plan?.[symbol] || {};
-  const series = [{name:symbol, color:C.ink, width:2.3, values:visible.map(bar => bar.c)}];
-  if (checked('#show50')) series.push({name:'SMA 50', color:C.teal, width:1.7, values:count ? sma50.slice(-count) : []});
-  if (checked('#show200')) series.push({name:'SMA 200', color:C.amber, width:1.7, values:count ? sma200.slice(-count) : []});
-  setText('#price-title', symbol + ' · 收盘价与均线');
-  setText('#price-sub', `200 日线 ${fmt(analytics.sma200 ?? sma200.at(-1), digits)} · 50 日线 ${fmt(analytics.sma50 ?? sma50.at(-1), digits)} · 截至 ${cutoffLabel}`);
-  lineChart('price-chart', visible.map(bar => bar.date), series, {
-    label:symbol + ' 收盘与 50 日和 200 日均线', last:true, endLabels:true, lastName:symbol,
-    zone:checked('#showzone') ? plan.zone : null,
-    zoneLabel:'条件观察区' + (plan.trial ? ' ' + plan.trial : ''),
-    emptyMessage:'本期暂无可核验的 ' + symbol + ' 价格数据'
+// Price chart only: OHLC candles with the existing 50/200-day average lines.
+function candleChart(id, bars, lines, options = {}) {
+  const element = document.getElementById(id);
+  if (!element) return;
+  if (!bars.length || !bars.some(bar => [bar.o, bar.h, bar.l, bar.c].every(finite))) {
+    emptyChart(id, options.emptyMessage);
+    return;
+  }
+  const width = Math.max(element.clientWidth - 20, 270);
+  const height = Math.max(element.clientHeight - 5, 190);
+  const pad = {l:56, r:91, t:25, b:34};
+  const plotWidth = width - pad.l - pad.r;
+  const plotHeight = height - pad.t - pad.b;
+  const zone = Array.isArray(options.zone) && options.zone.length === 2 && options.zone.every(finite)
+    ? options.zone.map(Number).sort((a, b) => a - b) : null;
+  const values = bars.flatMap(bar => [bar.h, bar.l].filter(finite).map(Number));
+  for (const line of lines) values.push(...line.values.filter(finite).map(Number));
+  if (zone) values.push(...zone);
+  let low = Math.min(...values), high = Math.max(...values);
+  const span = high - low || Math.max(Math.abs(low) * .05, 1);
+  low -= span * .11; high += span * .15;
+  const x = index => pad.l + (index + .5) * plotWidth / bars.length;
+  const y = value => pad.t + (high - value) / (high - low) * plotHeight;
+  const pitch = plotWidth / bars.length;
+  const bodyWidth = Math.max(1, Math.min(12, pitch * .62));
+  const up = '#c6504f', down = '#21856c';
+  const labels = bars.map(bar => String(bar.date || ''));
+  const name = escapeHTML(options.label || '日 K 与均线');
+  let html = `<svg viewBox="0 0 ${width} ${height}" role="img" aria-label="${name}"><title>${name}</title>`;
+  if (zone) html += `<rect x="${pad.l}" y="${y(zone[1])}" width="${plotWidth}" height="${Math.max(1, y(zone[0]) - y(zone[1]))}" fill="#dceeed"/><text x="${pad.l+7}" y="${y(zone[1])-6}" fill="#608c90" font-size="9">${escapeHTML(options.zoneLabel || '条件观察区')}</text>`;
+  for (let index = 0; index <= 4; index++) {
+    const value = low + (high - low) * index / 4, posY = y(value);
+    html += `<line x1="${pad.l}" x2="${width-pad.r}" y1="${posY}" y2="${posY}" stroke="${C.grid}"/><text x="${pad.l-9}" y="${posY+3}" text-anchor="end" fill="${C.muted}" font-size="10">${escapeHTML(fmt(value, 0))}</text>`;
+  }
+  const ticks = Math.min(bars.length, width < 430 ? 4 : 6);
+  const tickIndices = [...new Set(Array.from({length:ticks}, (_, i) => Math.round(i * (bars.length-1) / Math.max(1, ticks-1))))];
+  for (const index of tickIndices) html += `<text x="${x(index)}" y="${height-10}" text-anchor="${index===0?'start':index===bars.length-1?'end':'middle'}" fill="${C.muted}" font-size="10">${escapeHTML(labels[index].slice(5).replace('-', '/'))}</text>`;
+  bars.forEach((bar, index) => {
+    if (![bar.o, bar.h, bar.l, bar.c].every(finite)) return;
+    const open=Number(bar.o), close=Number(bar.c), color=close>open?up:close<open?down:'#7b8795';
+    const top=Math.min(y(open), y(close)), bodyHeight=Math.max(1.5, Math.abs(y(open)-y(close)));
+    html += `<g class="price-candle" data-date="${escapeHTML(labels[index])}"><line x1="${x(index)}" x2="${x(index)}" y1="${y(Number(bar.h))}" y2="${y(Number(bar.l))}" stroke="${color}" stroke-width="1"/><rect x="${x(index)-bodyWidth/2}" y="${top}" width="${bodyWidth}" height="${bodyHeight}" fill="${color}"/></g>`;
   });
+  for (const line of lines) {
+    let path='', fresh=true;
+    line.values.forEach((value,index)=>{
+      if (!finite(value)) {fresh=true;return;}
+      path+=(fresh?'M':'L')+x(index).toFixed(2)+','+y(Number(value)).toFixed(2);
+      fresh=false;
+    });
+    html += `<path d="${path}" fill="none" stroke="${escapeHTML(line.color)}" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>`;
+  }
+  const last=bars.at(-1),lastClose=finite(last.c)?Number(last.c):null;
+  const marks=[...(lastClose===null?[]:[{name:'收盘',value:lastClose,color:last.c>=last.o?up:down}]),...lines.filter(line=>finite(line.values.at(-1))).map(line=>({name:line.name.replace('SMA ', '')+'日',value:Number(line.values.at(-1)),color:line.color}))]
+    .map(mark=>({...mark,actual:y(mark.value),labelY:y(mark.value)})).sort((a,b)=>a.actual-b.actual);
+  const separation=33;
+  marks.forEach((mark,index)=>{mark.labelY=Math.max(pad.t+8,mark.actual,index?marks[index-1].labelY+separation:pad.t+8)});
+  for(let index=marks.length-1;index>=0;index--)marks[index].labelY=Math.min(marks[index].labelY,pad.t+plotHeight-7,index<marks.length-1?marks[index+1].labelY-separation:pad.t+plotHeight-7);
+  for(const mark of marks){
+    const labelX=x(bars.length-1)+11,color=escapeHTML(mark.color);
+    html += `<g class="end-label"><circle cx="${x(bars.length-1)}" cy="${mark.actual}" r="3" fill="${color}"/><path d="M${x(bars.length-1)},${mark.actual} L${labelX-5},${mark.labelY} L${labelX-2},${mark.labelY}" stroke="${color}" stroke-width=".9" fill="none" opacity=".6"/><text x="${labelX}" y="${mark.labelY-4}" fill="${color}" font-size="8.5">${mark.name}</text><text x="${labelX}" y="${mark.labelY+9}" fill="${color}" font-size="11" font-weight="650">${escapeHTML(fmt(mark.value, options.digits))}</text></g>`;
+  }
+  html += `<line class="cross" x1="0" x2="0" y1="${pad.t}" y2="${pad.t+plotHeight}" stroke="#9ab0ba" stroke-dasharray="3 3" visibility="hidden"/><rect class="hit" x="${pad.l}" y="${pad.t}" width="${plotWidth}" height="${plotHeight}" fill="transparent"/></svg><div class="tooltip"></div>`;
+  element.innerHTML=html;
+  const svg=element.querySelector('svg'),cross=element.querySelector('.cross'),tip=element.querySelector('.tooltip');
+  const show=event=>{
+    const rect=svg.getBoundingClientRect();if(!rect.width)return;
+    const local=(event.clientX-rect.left)*width/rect.width;
+    const index=Math.max(0,Math.min(bars.length-1,Math.floor((local-pad.l)/plotWidth*bars.length)));
+    cross.setAttribute('x1',x(index));cross.setAttribute('x2',x(index));cross.setAttribute('visibility','visible');
+    const bar=bars[index],color=bar.c>=bar.o?up:down;
+    let content=`<strong>${escapeHTML(labels[index])}</strong><div><span style="color:${color}">●</span> 开 ${fmt(bar.o,options.digits)}　高 ${fmt(bar.h,options.digits)}　低 ${fmt(bar.l,options.digits)}　收 ${fmt(bar.c,options.digits)}</div>`;
+    for(const line of lines)content+=`<div><span style="color:${line.color}">●</span> ${escapeHTML(line.name)} <b style="float:right;margin-left:14px">${fmt(line.values[index],options.digits)}</b></div>`;
+    tip.innerHTML=content;tip.style.display='block';
+    tip.style.left=Math.min(Math.max(10,local/width*element.clientWidth+15),Math.max(10,element.clientWidth-tip.offsetWidth-12))+'px';
+  };
+  svg.addEventListener('pointermove',show);svg.addEventListener('pointerdown',show);
+  svg.addEventListener('pointerleave',()=>{tip.style.display='none';cross.setAttribute('visibility','hidden')});
+}
+
+function drawPrice() {
+  const bars=barsFor(symbol),count=Math.min(period,bars.length),visible=count?bars.slice(-count):[];
+  const sma50=sma(bars,50),sma200=sma(bars,200),analytics=D.analytics?.[symbol]||{};
+  const digits=symbol==='QQQ'?2:0,plan=D.plan?.[symbol]||{};
+  const lines=[];
+  if(checked('#show50'))lines.push({name:'SMA 50',color:C.teal,values:count?sma50.slice(-count):[]});
+  if(checked('#show200'))lines.push({name:'SMA 200',color:C.amber,values:count?sma200.slice(-count):[]});
+  setText('#price-title',symbol+' · 日 K 与均线');
+  setText('#price-sub',`200 日线 ${fmt(analytics.sma200??sma200.at(-1),digits)} · 50 日线 ${fmt(analytics.sma50??sma50.at(-1),digits)} · 截至 ${cutoffLabel}`);
+  candleChart('price-chart',visible,lines,{label:symbol+' 日 K 与 50 日和 200 日均线',digits,zone:checked('#showzone')?plan.zone:null,zoneLabel:'条件观察区'+(plan.trial?' '+plan.trial:''),emptyMessage:'本期暂无可核验的 '+symbol+' OHLC 价格数据'});
 }
 
 function drawMacro() {
@@ -534,7 +610,7 @@ function exportCSV(type) {
       const bars = barsFor(symbol);
       const sma50 = sma(bars, 50);
       const sma200 = sma(bars, 200);
-      rows = [['date','close','sma50','sma200'], ...bars.map((bar, index) => [bar.date, bar.c, sma50[index], sma200[index]])];
+      rows = [['date','open','high','low','close','sma50','sma200'], ...bars.map((bar, index) => [bar.date, bar.o, bar.h, bar.l, bar.c, sma50[index], sma200[index]])];
       name = symbol;
       break;
     }
@@ -693,6 +769,16 @@ document.querySelectorAll('.table-scroll table').forEach(table=>{
  riskTile.classList.add('risk-tile');
  riskTile.innerHTML=`<div class="key">利率与能源风险</div><div class="risk-columns"><div class="risk-column"><span class="risk-label">10Y · 美债收益率</span><div class="value risk-main">${tenValid?num(tenYear.value,2):'—'}<small>%</small></div><div class="risk-secondary"><span>30Y${thirtyAlert?' <i aria-label="超过 5.2% 警戒线" title="超过 5.2% 警戒线">●</i>':''}</span><b class="${thirtyAlert?'is-alert':''}">${thirtyValid?num(thirtyYear.value,2)+'%':'—'}</b></div><small class="risk-source">${tenValid?`${esc(tenYear.asof)} · ${link(tenYear.source_url,'美国财政部')}`:'读数与来源待补'}</small></div><div class="risk-column"><span class="risk-label">Brent · 原油${brentAlert?' <i aria-label="超过 100 美元警戒线" title="超过 100 美元警戒线">●</i>':''}</span><div class="value risk-main ${brentAlert?'is-alert':''}">${brentValid?num(brent.value,2):'—'}<small>美元/桶</small></div><small class="risk-source">${brentValid?`${esc(brent.asof)} · ${link(brent.source_url,'来源')}`:'读数与来源待补'}</small></div></div>`;
  if(sent.VXN)q('[data-metric="vix"] .metric-secondary').innerHTML=`<span>VXN</span><b>${num(sent.VXN.value)}</b><small>${sent.VXN.asof}</small>`;
+ const curve=S.vix_monthly||{},curveDate=Object.keys(curve).filter(d=>/^\d{4}-\d{2}-\d{2}$/.test(d)&&d<=W.price_cutoff&&Array.isArray(curve[d])&&curve[d].length>=2).sort().at(-1);
+ const saved=curveDate?{vx1:Number(curve[curveDate][0]),vx2:Number(curve[curveDate][1]),asof:curveDate,source_url:'https://www.cboe.com/markets/us/futures/market-statistics/settlement/futures/daily'}:null;
+ const incoming=sent.VXFutures,valid=f=>f&&Number.isFinite(f.vx1)&&f.vx1>0&&Number.isFinite(f.vx2)&&f.vx2>0&&f.asof<=W.price_cutoff;
+ const term=valid(incoming)&&(!valid(saved)||incoming.asof>=saved.asof)?incoming:valid(saved)?saved:null;
+ const termLine=document.createElement('div');termLine.className='vix-term-mini';
+ const termLabel=term?`VX1 <b>${num(term.vx1)}</b> · VX2 <b>${num(term.vx2)}</b> · <span class="term-long">Contango</span><span class="term-short">Ctg</span> <b>${sign((term.vx2/term.vx1-1)*100,2)}%</b>`:'VX1 — · VX2 — · Contango —';
+ const termTitle=term?`${term.asof} Cboe 月度 VX 期货结算；Contango = VX2 / VX1 − 1；负值为倒挂`:'月度 VX 期货同日双合约读数待核验';
+ termLine.innerHTML=term&&/^https:\/\//.test(term.source_url||'')?`<a href="${esc(term.source_url)}" target="_blank" rel="noopener" title="${esc(termTitle)}" aria-label="${esc(termTitle)}：VX1 ${num(term.vx1)}，VX2 ${num(term.vx2)}，Contango ${sign((term.vx2/term.vx1-1)*100,2)}%">${termLabel}</a>`:`<span title="${esc(termTitle)}">${termLabel}</span>`;
+ if(term&&term.vx2<term.vx1)termLine.classList.add('inverted');
+ q('[data-metric="vix"] .metric-secondary').insertAdjacentElement('afterend',termLine);
  for(const dim of W.dimensions||[]){const card=q('#toggle-'+dim.id);if(!card)continue;card.querySelector('.weight-reading').innerHTML=`<strong>${dim.weight}%</strong>${arrow(dim.weight,dim.prior_weight,10)}`;card.querySelector('.weight-track span').style.width=dim.weight+'%';if(dim.state)card.querySelector('.pulse-state').textContent=dim.state;if(dim.metric)card.querySelector('.pulse-number').innerHTML=esc(dim.metric.value)+`<span>${esc(dim.metric.unit||'')}</span>`;if(dim.comparison)card.querySelector('.pulse-compare').textContent=dim.comparison;if(dim.as_of)card.querySelector('.pulse-foot').textContent='读数截至 '+dim.as_of;if(dim.tone){const badge=card.querySelector('.state-badge');badge.className='state-badge '+dim.tone;badge.textContent=dim.status||({improve:'↗ 改善',worsen:'↘ 恶化',mixed:'↔ 分化',pending:'待确认'}[dim.tone]);}if(dim.detail_blocks){const section=q('#'+dim.id);section.querySelectorAll('.live-dimension-detail').forEach(n=>n.remove());for(const block of dim.detail_blocks){const n=document.createElement('article');n.className='card live-event-card live-dimension-detail';n.innerHTML=`<h3>${esc(block.title)}</h3><p>${strong(block.text)}</p>${link(block.source_url,'来源')}`;section.append(n)}}}
  const fed=sent.FedHike||(active&&W.start==='2026-11-02'?{value:72.4,meeting:'2026-12-09',asof:'2026-11-02',source_url:'https://polymarket.com/event/fed-decision-in-december-20260729232808632',method:'25bp 与 50bp 以上加息选项之和'}:null);
  const fedCard=q('#toggle-macro'),fedValid=Number.isFinite(fed?.value)&&/^https:\/\//.test(fed.source_url||'');
@@ -786,21 +872,42 @@ document.querySelectorAll('.table-scroll table').forEach(table=>{
 (() => {
   const container = document.getElementById('dimension-details');
   const buttons = [...document.querySelectorAll('[data-dimension]')];
-  let expanded = null;
+  let expanded = null, sliding = null;
   function toggleDimension(id, closeOnly = false) {
     const next = closeOnly || expanded === id ? null : id;
+    const start = container.hidden ? 0 : container.getBoundingClientRect().height;
+    if (sliding) { sliding.cancel(); sliding = null; }
+    container.style.height = '';
+    container.style.overflow = '';
+    container.hidden = false;
     for (const button of buttons) {
       const active = button.dataset.dimension === next;
       button.setAttribute('aria-expanded', String(active));
       button.querySelector('.expand-hint').innerHTML = active
         ? '收起详情 <span aria-hidden="true">⌃</span>'
         : '查看详情 <span aria-hidden="true">⌄</span>';
-      document.getElementById(button.dataset.dimension).hidden = !active;
+      document.getElementById(button.dataset.dimension).hidden = next ? !active : button.dataset.dimension !== expanded;
     }
-    container.hidden = !next;
     document.getElementById('dimension-weight-method').hidden = next === 'event-drivers';
     expanded = next;
     if (next) requestAnimationFrame(() => window.dispatchEvent(new Event('resize')));
+    const end = next ? container.getBoundingClientRect().height : 0;
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches || Math.abs(end-start)<1) {
+      container.hidden = !next;
+      return;
+    }
+    container.style.height = start + 'px';
+    container.style.overflow = 'hidden';
+    sliding = container.animate([{height:start+'px',opacity:next?0.8:1},{height:end+'px',opacity:next?1:0.75}],{duration:270,easing:'cubic-bezier(.2,.75,.25,1)'});
+    const current = sliding;
+    current.onfinish = () => {
+      if (sliding !== current) return;
+      sliding = null;
+      container.style.height = '';
+      container.style.overflow = '';
+      container.hidden = !expanded;
+      if (!expanded) buttons.forEach(button => { document.getElementById(button.dataset.dimension).hidden = true; });
+    };
   }
   for (const button of buttons) button.addEventListener('click', () => toggleDimension(button.dataset.dimension));
   document.querySelectorAll('[data-close-dimension]').forEach(button => {
