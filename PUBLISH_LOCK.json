@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "holder": null,
-  "token": null,
-  "purpose": null,
-  "acquired_at": null,
-  "expires_at": null
+  "holder": "Muse",
+  "token": "claude-batch24-c969198b2939",
+  "purpose": "Batch :24 CTA card copy trim",
+  "acquired_at": "2026-11-02T12:58:06.000Z",
+  "expires_at": "2026-11-02T13:43:06.000Z"
 }
