@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "holder": null,
-  "token": null,
-  "purpose": null,
-  "acquired_at": null,
-  "expires_at": null
+  "holder": "GPT",
+  "token": "GPT-2026-11-02T13:11:12.143Z-4pxfilpuxbb",
+  "purpose": "日历详情、财报高亮、仪表盘读数与交接更新",
+  "acquired_at": "2026-11-02T13:11:12.143Z",
+  "expires_at": "2026-11-02T13:56:12.143Z"
 }
