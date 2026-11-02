@@ -5,7 +5,7 @@
 
 ## 两个站点与一条数据主线
 
-GPT 站点的 `/api/export` 是主体内容主源，提供 `revision`、`active_week`、各周记录与共用日历。Muse 在 `muse-feed.json` 主责 X 的「高频板块」和 NDX/QQQ/SPX、VIX/VXN、CNN、BofA、CTA 最新读数；GPT 主责「高热度话题」的选题、核验与补充。GitHub Actions 先拉 export，再按下述归属合并 feed，用仓库 `approved/renderer.mjs.gz` 中用户确认过的渲染器生成静态页面。仓库根目录生成的 HTML、`weeks/`、`api/`、CSS/JS 是**产物**，不可手改；下次同步会覆盖。`approved/snapshot.json` 只是发布时的备份，日常不作为最新数据源。
+GPT 站点的 `/api/export` 是主体内容主源，提供 `revision`、`active_week`、各周记录与共用日历。Muse 在 `muse-feed.json` 主责 X 的「高频板块」和 NDX/QQQ/SPX、VIX/VXN、CNN、BofA、CTA 最新读数；GPT 主责「高热度话题」的选题、核验与补充。GitHub Actions 先拉 export，再按下述归属合并 feed，用仓库 `approved/renderer-parts.json` 指定、校验后重组的用户确认渲染器生成静态页面。仓库根目录生成的 HTML、`weeks/`、`api/`、CSS/JS 是**产物**，不可手改；下次同步会覆盖。`approved/snapshot.json` 只是发布时的备份，日常不作为最新数据源。
 
 页面改版先在 GPT 站点验证；用户确认后才更换 GitHub 的渲染器。主体内容更新由数据工具写回 GPT 站点，再让 `data-revision.json` 触发 GitHub 同步；Muse 提交 `muse-feed.json` 也直接触发**同一条**构建发布管线。`/api/export` 是只读的主体数据，不包含构建期 Muse 合并结果；正式发布的合并数据可用 GitHub Pages 的 `/api/export.json` 核对。动手前先读根目录 `PUBLISH_LOG.md` 最新记录。
 
@@ -19,8 +19,8 @@ Muse 和 GPT 开始**任何数据写入**（包括 `muse-feed.json`、GPT 站点
 
 | 板块 | 页面规则 | 更新内容与入口 | 核对重点 |
 | --- | --- | --- | --- |
-| 顶部状态与立场 | 当前周时间、行情截止、内容更新时间分开；周内四档操作区间固定 | 周一开周制定 `weekly_plan`；日常只更新 `stance` 的条件状态与新证据 | 价格碰到区间不等于触发；不把期货/盘前价格当常规收盘 |
-| 市场情绪 | 周一以上周五最后实际收盘为基准，结合周末消息；周二至五对照已存周一/周二；周五作结论 | `market_mood.baselines/current/conclusion` | 基准不回写；emoji 与一句归因是分析判断，须有证据与时间 |
+| 顶部状态与立场 | 当前周状态条突出北京时间今天的月日与星期，下一行保留周范围、行情截止与内容更新时间；历史周状态条维持原日期。时间轴每周显示情绪 emoji 与 QQQ 最后收盘读数；周内四档操作区间固定 | 周一开周制定 `weekly_plan`；日常只更新 `stance` 的条件状态与新证据 | 价格碰到区间不等于触发；不把期货/盘前价格当常规收盘 |
+| 市场情绪 | 周一以上周五最后实际收盘为基准，结合周末消息；周二至五对照已存周一/周二；周五作结论。卡片按偏多/观望/偏悲观着色，点击打开历周记录，弹层先装载 8 周、约显示 4 周，滚动到底继续载入；点击一周同步切换顶部导航与整页 | `market_mood.baselines/current/conclusion`；早期没有实时情绪记录的 9 月周按当期归档证据在 `data/mood-retrospective.json` 标明回溯判断 | 基准不回写；emoji 与一句归因是分析判断，须有证据与时间；QQQ 使用该周最后交易日收盘，不把回溯判断伪装成当日保存记录 |
 | Dashboard 市场读数 | 第一行：情绪、NDX/QQQ、NDX 50/200 日均线、SPX；第二行：VIX/VXN、CNN、BofA、标普 CTA 卖出触发 | Muse 在 feed 提供 NDX/QQQ/SPX 常规收盘 OHLC、VIX/VXN，以及 `market_indicators` 的 CNN、BofA、CTA；GPT 不日常更新这七项 | Nasdaq 官方、WSJ 与 CBOE 对照、CBOE 官方 CSV；CNN/BofA 必须保留原报告或明确次级归档及日期；均线与 ATR 从日线重算 |
 | CTA | 只展示机构模型的标普卖出**触发点**，不是仓位敞口或实际卖盘 | Muse 的 `market_indicators.CTA`，合并至 `snapshot.sentiment.CTA` 与历史观测；GPT 不日常维护 | 标明 SPX 现货或 ES 合约、机构、模型、报告日、来源及二手转述；不同合约点位不可混用 |
 | 本周事件驱动 | 最多 4 项，本周权重合计 100%；已落地/未落地各带时间；左侧列表不填高亮底色 | `event_drivers` 同一 ID 更新结果；`event_details` 最多两项 | 百分比是本周叙事关注度估计，并非概率；未发生事件不可提前记结果 |
@@ -28,7 +28,7 @@ Muse 和 GPT 开始**任何数据写入**（包括 `muse-feed.json`、GPT 站点
 | 叙事变化与验证 | 左侧问题清单固定、可点击定位；仅右侧选中卡有外框。右侧最新在左、最多 6 条，末端停住 | `questions_upsert`、`answers_append`、`importance.questions/answers` | 新回答按 `question_id` 关联；旧回答不覆盖，新周继承原 ID/日期，历史归档不改 |
 | 操作区间与主图 | NDX/QQQ 价格、50/200 日均线、ATR 和条件区间分开 | 周一开周才重算 `weekly_plan`；市场 bars 日常追加 | 图表数据截至实际收盘；周内区间固定，突发风险另做失效检查 |
 | X 高热度话题 | 独占上排，**每条帖子一张卡**，话题只作标题，不把不同博主放进同一卡；最新在左，桌面 3 张半，最多 10 张，可横向滑动；单帖达门槛自动从高频移入，不重复显示 | GPT 主责选题与补充；Muse 的帖子达到门槛也由渲染器自动归入此排 | 门槛为单帖 ≥100 万浏览，或 ≥1000 转发/评论；依据已核验快照，不以话题合计冒充单帖热度 |
-| X 高频板块 | 独占下排，无卡片或帖子数量上限；以小写 @账号归组，同一博主的帖子在同一卡片内按新到旧纵向排列 | Muse 主责经 `muse-feed.json` 累计提交；GPT 可以补充不重复的原帖 | 卡面只显示原文中译、真实账号和头像、原帖链接、确有证据的利好标的、一项已记录热度；缺值注明待核验，不推造数字 |
+| X 高频板块 | 独占下排，无卡片或帖子数量上限；以小写 @账号归组，同一博主的帖子在同一卡片内按新到旧纵向排列；卡片按最短列接续形成瀑布流，不按最长卡片撑出空白行 | Muse 主责经 `muse-feed.json` 累计提交；GPT 可以补充不重复的原帖 | 账号头像与名称放卡片顶部，每条帖子各自显示发布时间、原帖链接和原文中译；只列有证据的利好标的，没有就省略整行；热度只展示一项已记录指标，不推造数字；长帖可展开阅读全文 |
 | 共用事件日历 | 切换历史周时跳到该周；两周一页、可前后翻；3 星高饱和底白字 | 唯一 `calendar_upsert`，不按周复制 | 北京时间与美东交易日期分开；实际结果必须有原始结果来源，市场反应明确时段 |
 | 资料来源与历史周 | 归档保留原时间、证据和当期判断 | 发现错漏追加有日期的更正；周六确认最终收盘后冻结并开新周 | 不能把后来才知道的结果倒填成当时预测；不能清空未回答的问题 |
 
@@ -98,4 +98,4 @@ X 卡面正文超过 180 字时默认折叠为前五行，点击“展开全文�
 3. `release.json` 分开记录 `data_revision`（GPT export 原始号）、`release_revision`（合并发布序号）、`muse_feed_batch`、`muse_feed_sha256` 和实际 `built_at`。每次构建提交自动追加 `PUBLISH_LOG.md`；它记录构建提交，是否上线还要看 Pages build 状态。Muse 更新不伪增 GPT 的 `data_revision`。发布日志由管线代写，双方不用再手动重复追加。
 4. 抽查正式页：当前周/历史周切换、截止日期、两个月折线与均线、X 头像、译文与分排、左侧白底黑字、日历北京时间。正式合并数据看 GitHub Pages `/api/export.json`，GPT 站点 `/api/export` 只含主体数据。异常时保留上一版，不发空值或错误页面。
 
-内容日更不要运行 `build_history.py`、手改 `_site/`、重压缩渲染器或重建整个历史。只有页面逻辑经过用户确认才用 Sites 源重新生成 `approved/renderer.mjs.gz` 并发布。仓库维护者不需要用户电脑或浏览器在线。
+内容日更不要运行 `build_history.py`、手改 `_site/`、重压缩渲染器或重建整个历史。只有页面逻辑经过用户确认才用 Sites 源重新生成压缩渲染器，按 `approved/renderer-parts.json` 的清单分片并发布。仓库维护者不需要用户电脑或浏览器在线。
