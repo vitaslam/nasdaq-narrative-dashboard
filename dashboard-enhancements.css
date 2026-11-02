@@ -207,3 +207,10 @@
 #verification .week-pending li.priority-high .importance-rating{color:#7967a0!important}
 #verification .week-pending li.priority-high .question-number{color:#68758b!important}
 #verification .week-pending li.priority-high .question-status{color:#68758b!important}
+.main .verification-track>.chain-card.priority-high{background:#fffaf0!important;border-color:#dec58d!important;color:#172438!important;box-shadow:inset 0 3px #c7a35a!important}
+.main .verification-track>.chain-card.priority-high :is(.record-timestamp,.prior-question,.chain-step-heading b,.delta,.delta a,.importance-rating,h3,p,strong){color:#253347!important}
+.main .verification-track>.chain-card.priority-high .importance-rating{color:#9d772d!important}
+.main .verification-track>.chain-card.priority-high .state-badge{background:#f3ead6!important;color:#8a6b31!important;border:0!important}
+.main .verification-track>.chain-card.priority-high :is(.chain-step,.prior-question){border-color:#e9e1d0!important}
+.main .verification-track>.chain-card.priority-high .chain-next{background:#f5efdf!important}
+.main .verification-track>.chain-card.priority-high.is-selected{box-shadow:inset 0 0 0 2px #7965c6,inset 0 3px #c7a35a!important}

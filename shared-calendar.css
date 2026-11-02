@@ -4,3 +4,51 @@
 .week-live-banner:not(.archive)>div:first-child>span{font-size:12px}
 .calendar-event-top{display:flex;justify-content:space-between;gap:5px;flex-wrap:wrap}.calendar-status{font-size:8px;color:#9a9fb0}.calendar-status.done{background:#e8f3ee;color:#578879;border-radius:3px;padding:1px 4px}.calendar-result,.calendar-reaction{font-size:10px!important;line-height:1.8!important;border-top:1px solid #e3e9ef;margin-top:9px!important;padding-top:8px!important}.calendar-result b,.calendar-reaction b{display:block;font-size:9px;color:#68809e}.calendar-reaction strong{color:#4e627f}
 .calendar-navigation{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.calendar-navigation button{border:1px solid var(--line,#e5e9f1);background:white;border-radius:7px;min-height:34px;padding:5px 12px;color:#455276;cursor:pointer}.calendar-navigation button:hover{background:#eef0fa}.calendar-range{font-size:12px;min-width:166px;text-align:center;color:#68789d}.calendar-day.is-today>header{color:#5969bc}.calendar-day.is-today{box-shadow:inset 0 3px #7c88c9}.calendar-evidence{font-size:10px;margin-top:8px}.calendar-status{white-space:nowrap}.calendar-ongoing .calendar-event{margin:0;background:transparent;border:0}.calendar-ongoing .calendar-status{display:none}@media(max-width:700px){#calendar>.section-head{align-items:flex-start;gap:15px;flex-direction:column}.calendar-navigation{width:100%}.calendar-range{flex:1}}
+.calendar-grid{position:relative}
+.calendar-event[data-calendar-event-id]{cursor:pointer}
+.calendar-event[data-calendar-event-id]:focus-visible{outline:2px solid #5c6bc4;outline-offset:2px}
+.calendar-event.is-selected{box-shadow:inset 0 0 0 2px #7787c4}
+.calendar-detail{grid-column:6/8;grid-row:1;z-index:5;align-self:stretch;min-height:0;box-sizing:border-box;padding:18px 20px;background:#fff;border-left:1px solid #dbe3ef;box-shadow:-12px 0 32px #2e43601c;display:flex;flex-direction:column;overflow-y:auto;overscroll-behavior:contain;color:#172539}
+.calendar-detail-head{display:flex;align-items:center;justify-content:space-between;gap:8px;color:#7a8ba5;font-size:11px}
+.calendar-detail-head button{border:1px solid #e0e5ee;background:#fff;color:#5a6d8d;border-radius:6px;cursor:pointer;font-size:20px;line-height:1;width:28px;height:28px;flex:none}
+.calendar-detail h3{font-size:18px;line-height:1.45;margin:14px 0 5px;overflow-wrap:anywhere}
+.calendar-detail-time{font-size:11px;color:#7d8da2;margin:0 0 15px}
+.calendar-detail-body{display:grid;gap:0}
+.calendar-detail-row{border-top:1px solid #e7ebf2;padding:12px 0}
+.calendar-detail-row b{display:block;color:#586d8b;font-size:11px;margin-bottom:5px}
+.calendar-detail-row p{font-size:13px;line-height:1.65;margin:0;overflow-wrap:anywhere}
+.calendar-detail-row p.is-pending{color:#8998ab}
+.calendar-detail-links{font-size:10px;line-height:1.7;margin-top:auto;padding-top:10px;border-top:1px solid #e7ebf2}
+.calendar-detail-links a{color:#627cb3}
+@media(max-width:900px){.calendar-detail{position:fixed;grid-column:auto;grid-row:auto;inset:12vh 16px auto;max-width:480px;max-height:76vh;margin:auto;border:1px solid #dbe3ef;border-radius:10px;box-shadow:0 12px 40px #26395740}}
+.spx-cta{margin-top:13px;padding-top:10px;border-top:1px solid #e5eaf1;display:grid;grid-template-columns:1fr auto;gap:2px 8px;font-size:11px;color:#667994}
+.spx-cta strong{color:#2b3a50;font-size:15px;font-variant-numeric:tabular-nums}
+.spx-cta small{grid-column:1/-1;color:#8898aa;line-height:1.5}
+.spx-cta a,.risk-reading a,.fed-hike-reading a{color:#5b77ac}
+.market-overview [data-metric="spx"] .spx-cta{max-width:60%;display:flex;align-items:baseline;gap:8px;white-space:nowrap;border-top:0;margin-top:7px;padding-top:0;line-height:1.4}
+.market-overview [data-metric="spx"] .spx-cta strong{font-size:13px}
+.market-overview [data-metric="spx"] .sparkline{right:16px;bottom:23px;width:36%;height:62px}
+.bond-reading .bond-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.bond-reading .bond-pair>div{min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:1px}
+.bond-reading .bond-pair strong{font-size:18px}
+.risk-reading:not(.bond-reading)>div{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:baseline}
+.risk-reading:not(.bond-reading) strong{font-size:17px}
+@media(max-width:800px){.market-overview [data-metric="spx"] .spx-cta{max-width:none}.market-overview [data-metric="spx"] .sparkline{position:relative;inset:auto;width:100%;height:44px;margin-top:8px}}
+.risk-tile{display:flex;flex-direction:column;gap:8px}
+.risk-reading{padding:10px 11px;background:#f5f7fa;border-radius:7px}
+.risk-reading>div{display:flex;align-items:baseline;justify-content:space-between;gap:8px}
+.risk-reading span{font-size:11px;color:#60718a}.risk-reading strong{font-size:19px;color:#263a54;font-variant-numeric:tabular-nums;white-space:nowrap}
+.risk-reading small{display:block;font-size:10px;color:#8b99aa;margin-top:4px}
+.risk-reading.is-alert{background:#f9e8eb}.risk-reading.is-alert span,.risk-reading.is-alert strong,.risk-reading.is-alert small{color:#a63d4f}
+.fed-hike-reading{display:grid;grid-template-columns:1fr auto;gap:3px 8px;align-items:baseline;margin-top:9px;padding-top:10px;border-top:1px solid #e8ecf3;color:#66738b}
+.fed-hike-reading span{font-size:11px}.fed-hike-reading strong{font-size:16px;color:#334b70}.fed-hike-reading small{grid-column:1/-1;font-size:9px;color:#8e9bb0}
+.banner-week-controls{display:flex;justify-content:flex-end;gap:7px;margin-bottom:4px}
+.banner-week-controls button{width:31px;height:30px;border:1px solid #d5e2df;border-radius:7px;background:#fff;color:#527568;font-size:20px;line-height:1;cursor:pointer}
+.banner-week-controls button:hover:not(:disabled){background:#e5f1ec}
+.banner-week-controls button:disabled{opacity:.36;cursor:default}
+.week-live-banner{height:88px;box-sizing:border-box}
+.week-live-banner>div:first-child{min-width:0}
+.week-live-banner .update-policy{min-width:260px;text-align:right}
+.week-live-banner.archive b{display:block;font-size:19px;line-height:1.4;font-weight:650}
+.week-live-banner.archive>div:first-child>span{font-size:12px}
+@media(max-width:800px){.week-live-banner{height:auto;min-height:88px}.week-live-banner .update-policy{min-width:0;text-align:left}.banner-week-controls{justify-content:flex-start}}
