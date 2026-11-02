@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "batch_id": "muse:2026-11-02:25",
+  "batch_id": "muse:2026-11-02:26",
   "week_id": "2026-11-02",
-  "generated_at": "2026-11-02T13:04:00Z",
+  "generated_at": "2026-11-02T15:15:00Z",
   "x_topics_upsert": [
     {
       "id": "advanced-packaging",
@@ -356,6 +356,36 @@
       "unit": "点",
       "digits": 0,
       "label": "标普500 · CTA卖出触发（高盛）"
+    },
+    "UST10Y": {
+      "value": 4.94,
+      "asof": "2026-10-29",
+      "source_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve"
+    },
+    "UST30Y": {
+      "value": 5.31,
+      "asof": "2026-10-29",
+      "source_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve"
+    },
+    "Brent": {
+      "value": 123.1,
+      "asof": "2026-10-27",
+      "source_url": "https://www.eia.gov/dnav/pet/hist/RBRTED.htm"
+    },
+    "FedHike": {
+      "value": 72.05,
+      "meeting": "2026-12-09",
+      "asof": "2026-11-02",
+      "source_url": "https://polymarket.com/event/fed-decision-in-december-20260729232808632",
+      "method": "25bp 与 50bp 以上加息结果概率求和"
+    },
+    "VXFutures": {
+      "vx1": 20.3603,
+      "vx2": 19.7888,
+      "asof": "2026-10-30",
+      "front_expiry": "2026-11-18",
+      "second_expiry": "2026-12-16",
+      "source_url": "https://www.cboe.com/markets/us/futures/market-statistics/settlement/futures/daily"
     }
   }
 }
