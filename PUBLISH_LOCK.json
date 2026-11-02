@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "holder": null,
-  "token": null,
-  "purpose": null,
-  "acquired_at": null,
-  "expires_at": null
+  "holder": "GPT",
+  "token": "gpt-mvz8qv57-l16z0nkalj",
+  "purpose": "顶部时间轴布局、情绪浮层与 QQQ 默认读数",
+  "acquired_at": "2026-11-02T12:34:29.035Z",
+  "expires_at": "2026-11-02T13:19:29.035Z"
 }
