@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "holder": null,
-  "token": null,
-  "purpose": null,
-  "acquired_at": null,
-  "expires_at": null
+  "holder": "Muse",
+  "token": "da7bba66",
+  "purpose": "Muse batch :29 (intraday readings 2026-11-02)",
+  "acquired_at": "2026-11-02T15:54:04Z",
+  "expires_at": "2026-11-02T16:39:04Z"
 }
