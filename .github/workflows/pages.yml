@@ -1,0 +1,32 @@
+name: Sync dashboard data and publish
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'data-revision.json'
+      - 'approved/**'
+      - 'scripts/**'
+      - '.github/workflows/pages.yml'
+  workflow_dispatch:
+  schedule:
+    - cron: '35 2,3,8,9,14,15 * * *'
+permissions:
+  contents: write
+  pages: write
+concurrency:
+  group: dashboard-data-publish
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Render current data with approved layout
+        run: node scripts/export-pages.mjs --skip-unchanged
+      - name: Commit static pages and request Pages build
+        run: node scripts/publish-pages.mjs
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

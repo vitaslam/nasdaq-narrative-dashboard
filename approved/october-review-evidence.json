@@ -1,0 +1,1212 @@
+{
+  "early": {
+    "generated_at": "2026-11-02",
+    "scope": "对10/02、10/09、10/16历史JSON与HTML只读审查；没有修改站点、行情或外部服务。",
+    "basis": "实际事件与行情来自当期官方发布、Nasdaq周复盘及Reuters；headline、情绪、判断和权重为现在依据当期资料重建的分析，不冒充当时已发布的预测。",
+    "weights_note": "每周所列事件相对叙事影响估计合计100%；不是统计涨跌贡献，也不与五维权重合并。",
+    "temporal_audit": {
+      "tested_files": [
+        "data/history/2026-10-02.json",
+        "data/history/2026-10-09.json",
+        "data/history/2026-10-16.json",
+        "content/archives/2026-10-02.html",
+        "content/archives/2026-10-09.html",
+        "content/archives/2026-10-16.html"
+      ],
+      "result": "三个JSON中NDX/QQQ/NDXE日线与VIX/VXN序列均止于本期周五；asof_metrics未发现观察日或可得日晚于截止日。未来事件目前位于upcoming/日历及next_check，不应迁入已发生驱动。未发现11/02或10/30实际读数被直接回填到这三周。",
+      "allowed_later_metadata": "generated_date与reconstruction_date为11/02，属于重建元数据，可保留在来源说明；不能当作历史事件发生日期。",
+      "shared_corrections": [
+        "三页文档title仍带“布局预览”，正式历史页应去掉。",
+        "三页顶部/详情存在通用“让新证据改变计划”“下文回答前期问题”等说明，宜替换为当周事实摘要；历史页的新证据是相对当周，不是当前live周。",
+        "三页CNN/BofA卡仍空，而页尾写“沿用当期次级归档”；这两处应同步：要么补入可核验的当期档，要么保留缺失并修正文案。",
+        "保留缺失项：CTA、前瞻PE和成分股均线上方比例没有同期记录时不造数。",
+        "历史点位目前为规则回算，不能改称当时已发布的实际操作建议。",
+        "X历史热度和原帖计数没有当时存档；继续显示缺失，禁止使用现在计数回填。"
+      ]
+    },
+    "sources": {
+      "ndx1002": {
+        "url": "https://www.nasdaq.com/economic-institute/chartstopper-100226",
+        "ref": "turn26view0",
+        "title": "Nasdaq Chartstopper 2026-10-02",
+        "published_at": "2026-10-02T16:45:00-04:00",
+        "kind": "official_market_review"
+      },
+      "ndx1009": {
+        "url": "https://www.nasdaq.com/economic-institute/chartstopper-100926",
+        "ref": "turn26view1",
+        "title": "Nasdaq Chartstopper 2026-10-09",
+        "published_at": "2026-10-09T16:55:00-04:00",
+        "kind": "official_market_review"
+      },
+      "ndx1016": {
+        "url": "https://www.nasdaq.com/economic-institute/chartstopper-101626",
+        "ref": "turn26view2",
+        "title": "Nasdaq Chartstopper 2026-10-16",
+        "published_at": "2026-10-16T17:30:00-04:00",
+        "kind": "official_market_review"
+      },
+      "pce0930": {
+        "url": "https://www.bea.gov/news/2026/personal-income-and-outlays-August-2026",
+        "ref": "turn31view0",
+        "title": "BEA 8月个人收入与支出当期发布",
+        "published_at": "2026-09-30T08:30:00-04:00",
+        "kind": "official_data_release"
+      },
+      "jobs1002": {
+        "url": "https://www.bls.gov/news.release/archives/empsit_10022026.htm",
+        "ref": "turn36view2",
+        "title": "BLS 9月就业报告当期发布",
+        "published_at": "2026-10-02T08:30:00-04:00",
+        "kind": "official_data_release"
+      },
+      "micron0930": {
+        "url": "https://investors.micron.com/news/press-release/2026/Micron-Technology-Inc--Reports-Record-Fiscal-Fourth-Quarter-and-Full-Year-2026-Results/default.aspx",
+        "ref": "turn31view1",
+        "title": "Micron FY2026 Q4官方业绩",
+        "published_at": "2026-09-30",
+        "kind": "official_company_release",
+        "precision": "date_only; 16:30 EDT是电话会时间，不冒充公告发布时间"
+      },
+      "minutes1007": {
+        "url": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20260916.htm",
+        "ref": "turn29view2",
+        "title": "9月15–16日FOMC会议纪要",
+        "published_at": "2026-10-07T14:00:00-04:00",
+        "release_time_source": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261007a.htm",
+        "release_time_ref": "turn37view2",
+        "kind": "official_policy_release"
+      },
+      "waller1008": {
+        "url": "https://www.federalreserve.gov/newsevents/speech/waller20261008a.htm",
+        "ref": "turn29view3",
+        "title": "Waller 10月8日讲话",
+        "published_at": "2026-10-08",
+        "kind": "official_policy_speech",
+        "precision": "date_only"
+      },
+      "iran1008": {
+        "url": "https://www.reuters.com/world/trump-us-having-productive-talks-with-iran-will-not-attack-before-us-elections-2026-10-08/",
+        "ref": "turn31view5",
+        "title": "Reuters：特朗普称中期选举前不会攻击伊朗",
+        "published_at": "2026-10-08T16:23:00Z",
+        "kind": "authoritative_reporting",
+        "precision": "新闻发布时间；讲话/发帖确切时分未独立确认"
+      },
+      "cpi1014": {
+        "url": "https://www.bls.gov/news.release/archives/cpi_10142026.htm",
+        "ref": "turn36view0",
+        "title": "BLS 9月CPI当期发布",
+        "published_at": "2026-10-14T08:30:00-04:00",
+        "kind": "official_data_release"
+      },
+      "ppi1015": {
+        "url": "https://www.bls.gov/news.release/archives/ppi_10152026.htm",
+        "ref": "turn37view0",
+        "title": "BLS 9月PPI当期发布",
+        "published_at": "2026-10-15T08:30:00-04:00",
+        "kind": "official_data_release"
+      },
+      "asml1014": {
+        "url": "https://www.investor.asml.com/news-releases/news-release-details/asml-reports-eu11.7-billion-total-net-sales-and-eu5.0-billion-net-income-q3-2026",
+        "ref": "turn31view2",
+        "title": "ASML 2026 Q3官方业绩",
+        "published_at": "2026-10-14",
+        "kind": "official_company_release",
+        "precision": "日期已核验，网页07:00未明确时区，不强行转北京时间"
+      },
+      "broadcom1012": {
+        "url": "https://www.streetinsider.com/Reuters/Broadcom%2BCEO%2Bsays%2Bbiggest%2Bhurdle%2Bin%2BAI-fuelled%2Btech%2Bgrowth%2Bis%2Bcapital,%2Bnot%2Bmemory%2Bchips/27173146.html?classic=1",
+        "ref": "turn37view3",
+        "title": "Reuters转载：Broadcom CEO谈AI资本约束",
+        "published_at": "2026-10-12T02:54:00-04:00",
+        "kind": "reuters_syndicated",
+        "precision": "报道发布时间；发言发生在10/12新加坡活动"
+      },
+      "oil1016": {
+        "url": "https://gvwire.com/2026/10/16/oil-prices-gain-more-than-3-heading-for-weekly-gain-with-focus-on-middle-east-supply/",
+        "ref": "turn37view4",
+        "title": "Reuters转载：10/16油价重返100美元",
+        "published_at": "2026-10-16",
+        "observed_price_at": "2026-10-16T16:41:00Z",
+        "kind": "reuters_syndicated",
+        "precision": "16:41 UTC为报道引用的盘中价格时刻，不是收盘价"
+      },
+      "aramco1014": {
+        "url": "https://www.reuters.com/business/energy/yemens-houthis-vow-more-attacks-saudi-airports-oil-facilities-after-aramco-hq-2026-10-14/",
+        "ref": "turn32news8",
+        "title": "Reuters：沙特阿美总部遇袭后胡塞威胁进一步攻击",
+        "published_at": "2026-10-14",
+        "event_date": "2026-10-13",
+        "kind": "authoritative_reporting"
+      },
+      "asml_calendar_july": {
+        "url": "https://www.sec.gov/Archives/edgar/data/937966/000162828026048235/statutoryinterimreport20.htm",
+        "ref": "turn44view0",
+        "title": "ASML 2026半年报预先发布的财务日历",
+        "published_at": "2026-07-15",
+        "kind": "official_company_filing",
+        "evidence": "半年报第25页预先列明2026-10-14公布第三季度业绩；不是用后来结果回填。"
+      }
+    },
+    "weeks": [
+      {
+        "archive_date": "2026-10-02",
+        "week_start": "2026-09-28",
+        "week_end": "2026-10-02",
+        "information_cutoff": "2026-10-02T16:45:00-04:00",
+        "headline": "暂停预期升温，纳指续创新高；长债压力仍在。",
+        "hero_note": "本周 NDX +0.65%、等权 +0.24%；9/30 PCE 与10/02就业为暂停预期提供支持，美光业绩确认存储需求，但长债与隐含波动未同步回落。",
+        "historical_mood": {
+          "label": "谨慎偏多",
+          "emoji": "🙂",
+          "asof": "2026-10-02",
+          "mode": "historical_reconstruction",
+          "reason": "上涨延续与需求证据带来支持，长债偏高、等权涨幅落后及波动略升限制乐观程度。",
+          "monday_anchor_available": false,
+          "display_note": "周五回溯判断；未保存当周实时情绪锚点，不补造周一标签。",
+          "source_ids": [
+            "ndx1002",
+            "pce0930",
+            "jobs1002",
+            "micron0930"
+          ]
+        },
+        "event_drivers": [
+          {
+            "id": "20261002-jobs",
+            "name": "9月就业报告",
+            "weight": 35,
+            "status": "occurred",
+            "occurred_at": "2026-10-02T08:30:00-04:00",
+            "time_label": "10/02 20:30 北京",
+            "evidence": "新增非农2.9万人、失业率4.2%；就业增量低于当期市场预期。",
+            "source_ids": [
+              "jobs1002",
+              "ndx1002"
+            ],
+            "source_urls": [
+              "https://www.bls.gov/news.release/archives/empsit_10022026.htm",
+              "https://www.nasdaq.com/economic-institute/chartstopper-100226"
+            ]
+          },
+          {
+            "id": "20260930-pce",
+            "name": "8月PCE公布",
+            "weight": 35,
+            "status": "occurred",
+            "occurred_at": "2026-09-30T08:30:00-04:00",
+            "time_label": "09/30 20:30 北京",
+            "evidence": "PCE同比3.4%、核心3.0%；需保留当期方法修订背景。",
+            "source_ids": [
+              "pce0930",
+              "ndx1002"
+            ],
+            "source_urls": [
+              "https://www.bea.gov/news/2026/personal-income-and-outlays-August-2026",
+              "https://www.nasdaq.com/economic-institute/chartstopper-100226"
+            ]
+          },
+          {
+            "id": "20260930-micron",
+            "name": "美光财报",
+            "weight": 30,
+            "status": "occurred",
+            "occurred_at": "2026-09-30",
+            "time_label": "09/30 · 官方公告",
+            "date_precision": "day",
+            "evidence": "季度收入542.29亿美元，下季收入指引615±15亿美元。",
+            "source_ids": [
+              "micron0930"
+            ],
+            "source_urls": [
+              "https://investors.micron.com/news/press-release/2026/Micron-Technology-Inc--Reports-Record-Fiscal-Fourth-Quarter-and-Full-Year-2026-Results/default.aspx"
+            ]
+          }
+        ],
+        "validation_records": [
+          {
+            "id": "2026-10-02-review-macro",
+            "title": "暂停预期与长债分化",
+            "occurred_at": "2026-10-02",
+            "time_label": "09/30 PCE · 10/02 就业",
+            "question": "PCE与就业能否缓和加息和长债压力？",
+            "evidence": "核心PCE同比3.0%；非农增加2.9万人。同期周评记录10月加息定价由约70%降至20%。",
+            "reaction": "NDX周涨0.65%；同期报道10年债息仍升至近5.3%。",
+            "verdict": "部分确认",
+            "tone": "mixed",
+            "impact": "近月加息担忧减轻，长端折现压力未解除。",
+            "next_check": "10/07会议纪要与10/14 CPI；长债能否随之回落。",
+            "source_ids": [
+              "pce0930",
+              "jobs1002",
+              "ndx1002"
+            ],
+            "source_urls": [
+              "https://www.bea.gov/news/2026/personal-income-and-outlays-August-2026",
+              "https://www.bls.gov/news.release/archives/empsit_10022026.htm",
+              "https://www.nasdaq.com/economic-institute/chartstopper-100226"
+            ]
+          },
+          {
+            "id": "2026-10-02-review-micron",
+            "title": "存储需求兑现",
+            "occurred_at": "2026-09-30",
+            "time_label": "09/30 · 美光财报",
+            "question": "AI需求能否在美光业绩中兑现？",
+            "evidence": "美光公布季度收入542.29亿美元，下一季收入指引615±15亿美元。",
+            "reaction": "当周NDX上涨0.65%；未单独核验美光公告后收益，不能把整周指数上涨归因于该财报。",
+            "verdict": "需求确认，价格因果未核验",
+            "tone": "improve",
+            "impact": "公司业绩支持存储需求，尚不能外推所有AI投资的现金回报。",
+            "next_check": "后续设备与云厂商是否同时改善收入和自由现金流。",
+            "source_ids": [
+              "micron0930"
+            ],
+            "source_urls": [
+              "https://investors.micron.com/news/press-release/2026/Micron-Technology-Inc--Reports-Record-Fiscal-Fourth-Quarter-and-Full-Year-2026-Results/default.aspx"
+            ]
+          },
+          {
+            "id": "2026-10-02-review-trend",
+            "title": "新高延续，参与度跟进有限",
+            "occurred_at": "2026-10-02",
+            "time_label": "10/02 · 周收盘",
+            "question": "新高突破是否得到更广泛参与？",
+            "evidence": "NDX收于30807.93、周涨0.65%；NDXE周涨0.24%。VIX15.31、VXN21.20，分别较前周上升0.44和0.33。",
+            "reaction": "等权同步上涨但落后市值加权，隐含波动并未继续下降。",
+            "verdict": "部分确认",
+            "tone": "mixed",
+            "impact": "上涨趋势延续，不能升级为全面风险降温。",
+            "next_check": "检查等权能否跟上，并观察波动是否与价格同步改善。",
+            "source_ids": [
+              "ndx1002"
+            ],
+            "market_source": "data/history/2026-10-02.json; 前周data/history/2026-09-25.json",
+            "source_urls": [
+              "https://www.nasdaq.com/economic-institute/chartstopper-100226"
+            ]
+          }
+        ],
+        "corrections": [
+          {
+            "severity": "required",
+            "target": "事件日期",
+            "finding": "现页将就业/PCE并列为10/02。",
+            "change": "PCE独立标09/30 08:30 EDT；非农独立标10/02 08:30 EDT。"
+          },
+          {
+            "severity": "required",
+            "target": "仓位与波动卡",
+            "finding": "状态写“波动降温”，但VIX和VXN均较上周上升。",
+            "change": "改为“低位略升”或“未同步降温”；保留原数值。"
+          },
+          {
+            "severity": "recommended",
+            "target": "事件权重",
+            "finding": "美光55%缺乏当期主叙事支持，官方周评主要讨论政策预期和宏观。",
+            "change": "用就业35/PCE35/美光30，并明确这是本次分析估计。"
+          },
+          {
+            "severity": "required",
+            "target": "趋势验证记录",
+            "finding": "现有文案称缺等权数据，但JSON已有NDXE。",
+            "change": "使用已有等权+0.24%，仅成分股广度比例继续留缺。"
+          }
+        ],
+        "source_ids": [
+          "ndx1002",
+          "pce0930",
+          "jobs1002",
+          "micron0930"
+        ],
+        "source_urls": [
+          "https://www.nasdaq.com/economic-institute/chartstopper-100226",
+          "https://www.bea.gov/news/2026/personal-income-and-outlays-August-2026",
+          "https://www.bls.gov/news.release/archives/empsit_10022026.htm",
+          "https://investors.micron.com/news/press-release/2026/Micron-Technology-Inc--Reports-Record-Fiscal-Fourth-Quarter-and-Full-Year-2026-Results/default.aspx"
+        ]
+      },
+      {
+        "archive_date": "2026-10-09",
+        "week_start": "2026-10-05",
+        "week_end": "2026-10-09",
+        "information_cutoff": "2026-10-09T16:55:00-04:00",
+        "headline": "纳指高位整理，暂停预期未转为宽松。",
+        "hero_note": "本周 NDX +0.24%、等权 +0.48%；会议纪要与Waller保留后续加息倾向，外交表态缓和部分担忧，油价与下一周通胀仍待验证。",
+        "historical_mood": {
+          "label": "高位观望",
+          "emoji": "🤔",
+          "asof": "2026-10-09",
+          "mode": "historical_reconstruction",
+          "reason": "指数接近纪录、波动较前周回落，但缺少推动新一轮上涨的政策或盈利确认。",
+          "monday_anchor_available": false,
+          "display_note": "周五回溯判断；不能倒填10/14通胀或后来财报结果。",
+          "source_ids": [
+            "ndx1009",
+            "minutes1007",
+            "waller1008",
+            "iran1008"
+          ]
+        },
+        "event_drivers": [
+          {
+            "id": "20261007-minutes",
+            "name": "9月FOMC纪要公布",
+            "weight": 35,
+            "status": "occurred",
+            "occurred_at": "2026-10-07T14:00:00-04:00",
+            "time_label": "10/08 02:00 北京",
+            "evidence": "纪要披露9月决策理由及年内继续收紧倾向；不属于10月新政策决定。",
+            "source_ids": [
+              "minutes1007"
+            ],
+            "source_urls": [
+              "https://www.federalreserve.gov/monetarypolicy/fomcminutes20260916.htm"
+            ]
+          },
+          {
+            "id": "20261008-waller",
+            "name": "Waller保留后续加息",
+            "weight": 25,
+            "status": "occurred",
+            "occurred_at": "2026-10-08",
+            "time_label": "10/08 · 官方讲话",
+            "date_precision": "day",
+            "evidence": "预计还需加息，但不必连续会议实施。",
+            "source_ids": [
+              "waller1008"
+            ],
+            "source_urls": [
+              "https://www.federalreserve.gov/newsevents/speech/waller20261008a.htm"
+            ]
+          },
+          {
+            "id": "20261008-iran-statement",
+            "name": "选举前不攻击伊朗的表态",
+            "weight": 40,
+            "status": "occurred",
+            "occurred_at": "2026-10-08",
+            "time_label": "10/08 · Reuters报道",
+            "date_precision": "day",
+            "reported_at": "2026-10-08T16:23:00Z",
+            "evidence": "美国总统公开表态中期选举前不攻击伊朗；这不是停火或供给恢复协议。",
+            "source_ids": [
+              "iran1008",
+              "ndx1009"
+            ],
+            "source_urls": [
+              "https://www.reuters.com/world/trump-us-having-productive-talks-with-iran-will-not-attack-before-us-elections-2026-10-08/",
+              "https://www.nasdaq.com/economic-institute/chartstopper-100926"
+            ]
+          }
+        ],
+        "validation_records": [
+          {
+            "id": "2026-10-09-review-fed",
+            "title": "暂停预期延续，加息倾向仍在",
+            "occurred_at": "2026-10-08",
+            "time_label": "10/07 纪要 · 10/08 讲话",
+            "question": "近月暂停是否意味着政策转向宽松？",
+            "evidence": "纪要保留年内再加息倾向；Waller称还需加息，但未必连续会议。",
+            "reaction": "全周NDX涨0.24%，10年债息按同期报道大致持平。",
+            "verdict": "暂停预期获支持，宽松未确认",
+            "tone": "mixed",
+            "impact": "政策节奏可能放缓，方向并未改为降息。",
+            "next_check": "10/14 CPI能否维持暂停定价，以及后续FOMC声明。",
+            "source_ids": [
+              "minutes1007",
+              "waller1008",
+              "ndx1009"
+            ],
+            "source_urls": [
+              "https://www.federalreserve.gov/monetarypolicy/fomcminutes20260916.htm",
+              "https://www.federalreserve.gov/newsevents/speech/waller20261008a.htm",
+              "https://www.nasdaq.com/economic-institute/chartstopper-100926"
+            ]
+          },
+          {
+            "id": "2026-10-09-review-oil",
+            "title": "外交表态未等于供给风险解除",
+            "occurred_at": "2026-10-08",
+            "time_label": "10/08 · 外交表态",
+            "question": "外交进展能否让原油风险实际降温？",
+            "evidence": "特朗普称选举前不会攻击伊朗；同期周评仍记录美油略高于90美元、国际油近105美元。",
+            "reaction": "美油周度大致持平，国际油上升；没有全面降温。",
+            "verdict": "仅部分缓和",
+            "tone": "mixed",
+            "impact": "风险表态有所缓和，供给和航运仍待实际进展。",
+            "next_check": "观察航运、产量与原油价格，而非只依据口头表态。",
+            "source_ids": [
+              "iran1008",
+              "ndx1009"
+            ],
+            "source_urls": [
+              "https://www.reuters.com/world/trump-us-having-productive-talks-with-iran-will-not-attack-before-us-elections-2026-10-08/",
+              "https://www.nasdaq.com/economic-institute/chartstopper-100926"
+            ]
+          },
+          {
+            "id": "2026-10-09-review-trend",
+            "title": "新高后进入整理",
+            "occurred_at": "2026-10-09",
+            "time_label": "10/09 · 周收盘",
+            "question": "新高之后能否延续上涨并改善参与度？",
+            "evidence": "10/06触及当时纪录；周末NDX30883.15、周涨0.24%，NDXE周涨0.48%。VXN从21.20回落至20.55。",
+            "reaction": "等权略强、波动回落，但指数未延续周初上攻幅度。",
+            "verdict": "趋势保持，动量放缓",
+            "tone": "mixed",
+            "impact": "可描述为高位整理，不应把尚未发布的CPI或ASML结果算作本周证据。",
+            "next_check": "10/14 CPI与ASML业绩后的价格、等权及波动反应。",
+            "source_ids": [
+              "ndx1009",
+              "asml_calendar_july"
+            ],
+            "market_source": "data/history/2026-10-09.json",
+            "source_urls": [
+              "https://www.nasdaq.com/economic-institute/chartstopper-100926",
+              "https://www.sec.gov/Archives/edgar/data/937966/000162828026048235/statutoryinterimreport20.htm"
+            ]
+          }
+        ],
+        "corrections": [
+          {
+            "severity": "required",
+            "target": "第三条验证记录",
+            "finding": "现页以“下周尚未公布CPI”作为已回答证据。",
+            "change": "替换为本周真实价格/等权/波动记录；下周CPI和ASML只留在next_check或日历。"
+          },
+          {
+            "severity": "required",
+            "target": "FOMC纪要时间口径",
+            "finding": "纪要中的AI投资、储备与融资观察来自9月会议。",
+            "change": "同时标10/07公开与9月观察期，不作为10/09实时融资状态。"
+          },
+          {
+            "severity": "required",
+            "target": "外交事件状态",
+            "finding": "“原油/外交进展”仅标10/09周度归档，无法区分发生和汇总日期。",
+            "change": "表态发生日期为10/08；10/09油价只作截至周末反应。"
+          },
+          {
+            "severity": "recommended",
+            "target": "财报日历",
+            "finding": "Nasdaq10/09前瞻把ASML列在周四；7/15已公布的ASML半年报日历明确为10/14。",
+            "change": "保留现存10/14，不照搬该周评的周四安排。"
+          }
+        ],
+        "source_ids": [
+          "ndx1009",
+          "minutes1007",
+          "waller1008",
+          "iran1008",
+          "asml_calendar_july"
+        ],
+        "source_urls": [
+          "https://www.nasdaq.com/economic-institute/chartstopper-100926",
+          "https://www.federalreserve.gov/monetarypolicy/fomcminutes20260916.htm",
+          "https://www.federalreserve.gov/newsevents/speech/waller20261008a.htm",
+          "https://www.reuters.com/world/trump-us-having-productive-talks-with-iran-will-not-attack-before-us-elections-2026-10-08/",
+          "https://www.sec.gov/Archives/edgar/data/937966/000162828026048235/statutoryinterimreport20.htm"
+        ]
+      },
+      {
+        "archive_date": "2026-10-16",
+        "week_start": "2026-10-12",
+        "week_end": "2026-10-16",
+        "information_cutoff": "2026-10-16T17:30:00-04:00",
+        "headline": "油价与通胀升温，AI回报担忧压低风险偏好。",
+        "hero_note": "本周 NDX −5.49%、等权 −3.99%，VXN升至27.13；CPI、PPI和能源冲击叠加AI资本回报担忧。ASML需求强并未阻止整体风险偏好转弱。",
+        "historical_mood": {
+          "label": "观望转悲观",
+          "emoji": "😟",
+          "asof": "2026-10-16",
+          "mode": "historical_reconstruction",
+          "reason": "相较10/09高位整理，指数与等权共同下跌、隐含波动明显升高；油价和AI回报风险同时受到重估。",
+          "monday_anchor_available": false,
+          "display_note": "周末回溯归纳；不是当时保存的日频情绪轨迹，也不直接定性全面恐慌。",
+          "source_ids": [
+            "ndx1016",
+            "cpi1014",
+            "ppi1015",
+            "broadcom1012",
+            "oil1016"
+          ]
+        },
+        "event_drivers": [
+          {
+            "id": "20261016-oil100",
+            "name": "WTI重返100美元",
+            "weight": 35,
+            "status": "occurred",
+            "occurred_at": "2026-10-16",
+            "time_label": "10/16 · 美国盘中",
+            "date_precision": "day",
+            "price_observed_at": "2026-10-16T16:41:00Z",
+            "evidence": "Reuters盘中报道WTI约100.67美元；中东供应与航运风险仍在。该价格并非收盘价。",
+            "source_ids": [
+              "oil1016",
+              "aramco1014"
+            ],
+            "source_urls": [
+              "https://gvwire.com/2026/10/16/oil-prices-gain-more-than-3-heading-for-weekly-gain-with-focus-on-middle-east-supply/",
+              "https://www.reuters.com/business/energy/yemens-houthis-vow-more-attacks-saudi-airports-oil-facilities-after-aramco-hq-2026-10-14/"
+            ]
+          },
+          {
+            "id": "20261014-cpi",
+            "name": "9月CPI偏热",
+            "weight": 25,
+            "status": "occurred",
+            "occurred_at": "2026-10-14T08:30:00-04:00",
+            "time_label": "10/14 20:30 北京",
+            "evidence": "CPI同比3.7%、核心2.6%，较前月上升；能源是重要推力。",
+            "source_ids": [
+              "cpi1014"
+            ],
+            "source_urls": [
+              "https://www.bls.gov/news.release/archives/cpi_10142026.htm"
+            ]
+          },
+          {
+            "id": "20261015-ppi",
+            "name": "9月PPI成本压力",
+            "weight": 10,
+            "status": "occurred",
+            "occurred_at": "2026-10-15T08:30:00-04:00",
+            "time_label": "10/15 20:30 北京",
+            "evidence": "最终需求PPI环比1.3%、同比6.3%，上游成本压力未缓和。",
+            "source_ids": [
+              "ppi1015"
+            ],
+            "source_urls": [
+              "https://www.bls.gov/news.release/archives/ppi_10152026.htm"
+            ]
+          },
+          {
+            "id": "20261012-ai-capital",
+            "name": "AI资本与投资回报担忧",
+            "weight": 30,
+            "status": "occurred",
+            "occurred_at": "2026-10-12",
+            "time_label": "10/12 · Broadcom CEO发言",
+            "date_precision": "day",
+            "evidence": "Broadcom CEO称资本会成为AI扩张的主要约束，并批评部分投资者对回报的极端预期；属于经营者观点，非全行业亏损事实。",
+            "source_ids": [
+              "broadcom1012",
+              "ndx1016"
+            ],
+            "source_urls": [
+              "https://www.streetinsider.com/Reuters/Broadcom%2BCEO%2Bsays%2Bbiggest%2Bhurdle%2Bin%2BAI-fuelled%2Btech%2Bgrowth%2Bis%2Bcapital,%2Bnot%2Bmemory%2Bchips/27173146.html?classic=1",
+              "https://www.nasdaq.com/economic-institute/chartstopper-101626"
+            ]
+          }
+        ],
+        "validation_records": [
+          {
+            "id": "2026-10-16-review-inflation",
+            "title": "通胀缓和假设受挫",
+            "occurred_at": "2026-10-15",
+            "time_label": "10/14 CPI · 10/15 PPI",
+            "question": "CPI和PPI能否延续通胀缓和？",
+            "evidence": "CPI同比3.7%、核心2.6%；PPI环比1.3%、同比6.3%。",
+            "reaction": "NDX周跌5.49%；当周还有油价与AI因素，不能把全部跌幅归因于通胀数据。",
+            "verdict": "反证",
+            "tone": "worsen",
+            "impact": "能源与成本传导重新成为约束，暂停预期也不足以证明风险解除。",
+            "next_check": "油价、后续PCE及政策沟通能否共同缓和。",
+            "source_ids": [
+              "cpi1014",
+              "ppi1015",
+              "ndx1016"
+            ],
+            "source_urls": [
+              "https://www.bls.gov/news.release/archives/cpi_10142026.htm",
+              "https://www.bls.gov/news.release/archives/ppi_10152026.htm",
+              "https://www.nasdaq.com/economic-institute/chartstopper-101626"
+            ]
+          },
+          {
+            "id": "2026-10-16-review-oil",
+            "title": "供给风险重新上升",
+            "occurred_at": "2026-10-16",
+            "time_label": "10/13 阿美遇袭 · 10/16 油价",
+            "question": "上一周外交表态能否转成稳定供给？",
+            "evidence": "10/13阿美总部遇袭，10/14报道后续攻击威胁；10/16盘中WTI再上100美元。",
+            "reaction": "同期NDX与等权下跌，10年债息按周评回落至约5.1%，呈避险特征。",
+            "verdict": "反证",
+            "tone": "worsen",
+            "impact": "口头缓和并未消除能源风险；债息下行不能单独视为利好。",
+            "next_check": "航运和设施运行是否改善、原油能否持续回落。",
+            "source_ids": [
+              "aramco1014",
+              "oil1016",
+              "ndx1016"
+            ],
+            "source_urls": [
+              "https://www.reuters.com/business/energy/yemens-houthis-vow-more-attacks-saudi-airports-oil-facilities-after-aramco-hq-2026-10-14/",
+              "https://gvwire.com/2026/10/16/oil-prices-gain-more-than-3-heading-for-weekly-gain-with-focus-on-middle-east-supply/",
+              "https://www.nasdaq.com/economic-institute/chartstopper-101626"
+            ]
+          },
+          {
+            "id": "2026-10-16-review-ai",
+            "title": "设备需求强，回报忧虑仍压价格",
+            "occurred_at": "2026-10-14",
+            "time_label": "10/12 资本担忧 · 10/14 ASML",
+            "question": "设备需求兑现能否恢复整体AI风险偏好？",
+            "evidence": "ASML收入116.62亿欧元、毛利率57.5%，并称客户需求仍强；同时有AI资本约束与投资回报争论。",
+            "reaction": "NDX周跌5.49%、NDXE跌3.99%；VXN较上周升6.58至27.13。未将指数跌幅作为ASML个股反应。",
+            "verdict": "需求部分确认，风险偏好转弱",
+            "tone": "mixed",
+            "impact": "需求和投资回报需要分开验证，单家公司强业绩不足以抵消整体风险。",
+            "next_check": "10/21大型科技财报的收入、资本开支与现金流，以及发布后的价格反应。",
+            "source_ids": [
+              "asml1014",
+              "broadcom1012",
+              "ndx1016"
+            ],
+            "source_urls": [
+              "https://www.investor.asml.com/news-releases/news-release-details/asml-reports-eu11.7-billion-total-net-sales-and-eu5.0-billion-net-income-q3-2026",
+              "https://www.streetinsider.com/Reuters/Broadcom%2BCEO%2Bsays%2Bbiggest%2Bhurdle%2Bin%2BAI-fuelled%2Btech%2Bgrowth%2Bis%2Bcapital,%2Bnot%2Bmemory%2Bchips/27173146.html?classic=1",
+              "https://www.nasdaq.com/economic-institute/chartstopper-101626"
+            ]
+          }
+        ],
+        "corrections": [
+          {
+            "severity": "recommended",
+            "target": "事件驱动排序",
+            "finding": "原页ASML30%、能源20%，对当期主导风险强调不足。",
+            "change": "改为油价35/CPI25/PPI10/AI资本回报30；ASML仍在盈利证据与验证记录中。"
+          },
+          {
+            "severity": "required",
+            "target": "事件时间",
+            "finding": "CPI/PPI合并并只按周五归档，掩盖实际发布日期。",
+            "change": "拆成10/14与10/15 08:30 EDT，油价盘中观察另列10/16。"
+          },
+          {
+            "severity": "required",
+            "target": "债息解释",
+            "finding": "原文“债券走强主要体现避险”语气强于Nasdaq的likely。",
+            "change": "改为“呈避险特征”或“可能反映避险”，保留分析推断。"
+          },
+          {
+            "severity": "required",
+            "target": "周度收益与个股反应",
+            "finding": "ASML强业绩与指数下跌共存，不能据指数跌幅推导ASML公告后股价。",
+            "change": "分别写公司业绩与指数/等权反应，不制造个股事件收益。"
+          }
+        ],
+        "source_ids": [
+          "ndx1016",
+          "cpi1014",
+          "ppi1015",
+          "asml1014",
+          "broadcom1012",
+          "oil1016",
+          "aramco1014"
+        ],
+        "source_urls": [
+          "https://www.nasdaq.com/economic-institute/chartstopper-101626",
+          "https://www.bls.gov/news.release/archives/cpi_10142026.htm",
+          "https://www.bls.gov/news.release/archives/ppi_10152026.htm",
+          "https://www.investor.asml.com/news-releases/news-release-details/asml-reports-eu11.7-billion-total-net-sales-and-eu5.0-billion-net-income-q3-2026",
+          "https://www.streetinsider.com/Reuters/Broadcom%2BCEO%2Bsays%2Bbiggest%2Bhurdle%2Bin%2BAI-fuelled%2Btech%2Bgrowth%2Bis%2Bcapital,%2Bnot%2Bmemory%2Bchips/27173146.html?classic=1",
+          "https://gvwire.com/2026/10/16/oil-prices-gain-more-than-3-heading-for-weekly-gain-with-focus-on-middle-east-supply/",
+          "https://www.reuters.com/business/energy/yemens-houthis-vow-more-attacks-saudi-airports-oil-facilities-after-aramco-hq-2026-10-14/"
+        ]
+      }
+    ]
+  },
+  "late": {
+    "schema_version": 1,
+    "prepared_date": "2026-11-02",
+    "scope": "Read-only research for 2026-10-19–23 and 2026-10-26–30 archives. No site code or external data was changed.",
+    "rules": [
+      "历史重建，不声称这些问题或情绪标签当时已经发表。",
+      "当周事件权重为叙事归因的分析估计，每周合计100%；不是可识别的收益贡献，也不是统计回归结果。",
+      "来源只给日期的事件保留日期精度；不得补成00:00或用财报电话会时间冒充首次公告时间。",
+      "同周累计或持续事件用发生区间及核验截至时间；待观察项目不得标已落地。",
+      "价格反应为同期结果，不声称单一事件造成全部涨跌。",
+      "历史情绪以日线和同期材料回溯；未保存的周末消息、当时判断、X热度采样时间不补写。"
+    ],
+    "sources": {
+      "nasdaq_1023": {
+        "title": "Nasdaq Chartstopper · October 23, 2026",
+        "url": "https://www.nasdaq.com/economic-institute/chartstopper-102326",
+        "published_at": "2026-10-23T17:30:00-04:00",
+        "web_ref": "turn33view0",
+        "type": "official_weekly_commentary",
+        "facts": "当周大型科技财报整体超预期；NDX Q3盈利同比增速估计45%。AI投入忧虑压过增长利好；美油仍高于100美元，10年期美债收益率周降近10bp至约5.0%。"
+      },
+      "meta_q3": {
+        "title": "Meta Reports Third Quarter 2026 Results",
+        "url": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Third-Quarter-2026-Results/",
+        "published_date": "2026-10-21",
+        "web_ref": "turn27view3",
+        "type": "company_primary",
+        "facts": "经营现金流327.9亿美元；资本开支含融资租赁本金349.1亿美元；自由现金流−21.2亿美元；全年资本开支指引1350–1450亿美元，原1300–1450亿美元。费用含98.9亿美元法律和解支出。"
+      },
+      "saudi_airport_1021": {
+        "title": "One Person Killed and 8 Injured in Airport Attack in Saudi Arabia",
+        "url": "https://www.wsj.com/world/middle-east/one-person-killed-and-8-injured-in-airport-attack-in-saudi-arabia-4c84d5d4",
+        "web_ref": "turn34view1",
+        "type": "reliable_secondary",
+        "facts": "当周周三沙特达曼机场遭袭；报道为Nasdaq当周周评所链接。",
+        "date_precision": "weekday anchored by dated weekly recap; no exact attack clock verified"
+      },
+      "nasdaq_1030": {
+        "title": "Nasdaq Chartstopper · October 30, 2026",
+        "url": "https://www.nasdaq.com/economic-institute/chartstopper-103026",
+        "published_at": "2026-10-30T17:25:00-04:00",
+        "web_ref": "turn33view1",
+        "type": "official_weekly_commentary",
+        "facts": "AI消息先暖后分化；NDX Q3盈利同比增速估计49%。Google与Amazon业绩低于预期；美国原油周涨约1美元且仍高于100美元；债息下降伴随避险需求。"
+      },
+      "msft_q1": {
+        "title": "Microsoft FY27 Q1 earnings release",
+        "url": "https://www.microsoft.com/en-us/investor/earnings/fy-2027-q1/press-release-webcast",
+        "published_date": "2026-10-28",
+        "web_ref": "turn34view2",
+        "type": "company_primary",
+        "facts": "Azure收入同比+48%；Microsoft Cloud收入639亿美元、同比+30%；二者口径不同。财报电话会17:30 EDT，不应把电话会时间冒充公告首次发布时间。"
+      },
+      "amzn_q3": {
+        "title": "Amazon.com Announces Third Quarter Results",
+        "url": "https://ir.aboutamazon.com/news-release/news-release-details/2026/Amazon-com-Announces-Third-Quarter-Results/",
+        "published_date": "2026-10-29",
+        "web_ref": "turn38search0",
+        "type": "company_primary",
+        "facts": "AWS收入同比+39.3%；截至9/30过去12个月自由现金流−424亿美元，主要受AI相关固定资产购买增加影响。该现金流是过去12个月口径，不是单季。"
+      },
+      "goog_q3": {
+        "title": "Alphabet Q3 2026 results · SEC Exhibit 99.1",
+        "url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000080/googexhibit991q32026.htm",
+        "published_date": "2026-10-28",
+        "web_ref": "turn38search5",
+        "type": "company_primary_sec",
+        "facts": "收入1276亿美元，同比+25%；Google Cloud收入307亿美元、同比+103%；EPS2.12美元。绝对增长和相对预期差是不同判断。"
+      },
+      "fomc_1028": {
+        "title": "Federal Reserve issues FOMC statement",
+        "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm",
+        "published_at": "2026-10-28T14:00:00-04:00",
+        "web_ref": "turn27view2",
+        "type": "official_primary",
+        "facts": "维持联邦基金目标区间3.75%–4.00%；投票10比2，两名委员倾向加息25bp。"
+      },
+      "gdp_1029": {
+        "title": "BEA GDP Advance Estimate · Q3 2026",
+        "url": "https://www.bea.gov/news/2026/gdp-advance-estimate-3rd-quarter-2026",
+        "published_at": "2026-10-29T08:30:00-04:00",
+        "web_ref": "turn28search1",
+        "type": "official_primary",
+        "facts": "Q3实际GDP环比折年增长3.4%，Q2为2.2%；私人国内最终销售增长4.9%。"
+      },
+      "pce_1029": {
+        "title": "BEA Personal Income and Outlays · September 2026",
+        "url": "https://www.bea.gov/news/2026/personal-income-and-outlays-september-2026",
+        "published_at": "2026-10-29T08:30:00-04:00",
+        "web_ref": "turn28search2",
+        "type": "official_primary",
+        "facts": "9月PCE价格同比3.6%、环比0.5%；核心同比3.1%、环比0.3%。不要与GDP报告中的季度折年通胀混同。"
+      },
+      "market_1023": {
+        "title": "Existing dated IBKR/Cboe historical snapshot",
+        "path": "/workspace/sites/nasdaq-narrative-tracker/data/history/2026-10-23.json",
+        "type": "existing_verified_site_data",
+        "facts": "NDX −0.79%；NDXE +0.10%；VIX19.45；VXN28.30。日线及均线仅截至10/23。"
+      },
+      "market_1030": {
+        "title": "Existing dated IBKR/Cboe historical snapshot",
+        "path": "/workspace/sites/nasdaq-narrative-tracker/data/history/2026-10-30.json",
+        "type": "existing_verified_site_data",
+        "facts": "NDX −1.98%；NDXE −0.78%；VIX19.42；VXN28.50。日线及均线仅截至10/30。"
+      }
+    },
+    "weeks": {
+      "2026-10-23": {
+        "week_start": "2026-10-19",
+        "week_end": "2026-10-23",
+        "price_cutoff": "2026-10-23",
+        "information_cutoff": "2026-10-23T17:30:00-04:00",
+        "headline": "增长兑现仍未止跌，市场追问AI投入后的现金回报",
+        "hero_note": "NDX全周−0.79%，等权+0.10%。周初修复未能守住；Meta财报把投入与现金流差距带到台前，能源风险仍压制风险偏好。",
+        "hero_source_ids": [
+          "market_1023",
+          "meta_q3",
+          "nasdaq_1023"
+        ],
+        "event_drivers": [
+          {
+            "id": "2026-10-23-earnings",
+            "title": "大型科技财报：增长与AI开支同增",
+            "weight_pct": 75,
+            "status": "landed",
+            "status_label": "已落地",
+            "occurred_date": "2026-10-21",
+            "time_label": "10/21 Meta财报；10/23周评汇总",
+            "summary": "Meta资本开支超过经营现金流；同期科技盈利增长兑现，价格未同步企稳。",
+            "source_ids": [
+              "meta_q3",
+              "nasdaq_1023"
+            ],
+            "occurred_range": [
+              "2026-10-19",
+              "2026-10-23"
+            ],
+            "confirmed_at": "2026-10-23T17:30:00-04:00",
+            "date_precision": "dated-company-release-and-weekly-summary"
+          },
+          {
+            "id": "2026-10-23-energy",
+            "title": "沙特遇袭与能源风险延续",
+            "weight_pct": 25,
+            "status": "landed",
+            "status_label": "已落地",
+            "occurred_date": "2026-10-21",
+            "time_label": "10/21 沙特机场遇袭；截至10/23",
+            "summary": "地缘风险继续扰动能源供应预期，油价仍处高位。",
+            "source_ids": [
+              "saudi_airport_1021",
+              "nasdaq_1023"
+            ],
+            "date_precision": "date-only",
+            "confirmed_at": "2026-10-23T17:30:00-04:00"
+          }
+        ],
+        "verification_records": [
+          {
+            "id": "2026-10-23-earnings-validation",
+            "origin_date": "2026-10-16",
+            "updated_date": "2026-10-23",
+            "title": "财报增长与现金回报",
+            "question": "科技盈利兑现后，股价能否企稳，资本投入能否被现金流覆盖？",
+            "evidence": "Meta本季自由现金流为负，年度资本开支下限上调。",
+            "market_reaction": "NDX本周−0.79%；盈利消息未带来整周转涨。",
+            "verdict": "部分确认",
+            "judgment": "增长已获支持；现金转化及价格企稳仍待验证。不能把含法律和解的费用增速全归因AI。",
+            "next_check": "10/28–29云厂商收入、资本投入、自由现金流，以及财报后的价格表现。",
+            "source_ids": [
+              "meta_q3",
+              "nasdaq_1023",
+              "market_1023"
+            ],
+            "reconstructed_question": true
+          },
+          {
+            "id": "2026-10-23-energy-validation",
+            "origin_date": "2026-10-16",
+            "updated_date": "2026-10-23",
+            "title": "油价与债息",
+            "question": "债息回落是否意味着能源与政策压力一起缓解？",
+            "evidence": "同期周评仍显示油价高位，债息下降带有避险背景。",
+            "market_reaction": "NDX续跌，VXN较上周27.13升至28.30。",
+            "verdict": "未确认",
+            "judgment": "债券走强不足以确认风险偏好恢复。",
+            "next_check": "观察油价、10/28政策决定及10/29通胀数据能否共同降低约束。",
+            "source_ids": [
+              "nasdaq_1023",
+              "market_1023"
+            ],
+            "reconstructed_question": true
+          },
+          {
+            "id": "2026-10-23-breadth-validation",
+            "origin_date": "2026-10-16",
+            "updated_date": "2026-10-23",
+            "title": "等权抗跌",
+            "question": "上周下跌后，市场内部是否开始企稳？",
+            "evidence": "NDXE周涨0.10%，NDX跌0.79%；NDX收盘仍低于50日均线。",
+            "market_reaction": "等权相对抗跌，但周四回撤后周五未见明显修复。",
+            "verdict": "部分确认",
+            "judgment": "存在内部分化，尚不能认定整体趋势恢复。",
+            "next_check": "等权与市值加权能否共同回升，并改善财报后的承接。",
+            "source_ids": [
+              "market_1023"
+            ],
+            "reconstructed_question": true
+          }
+        ],
+        "sentiment": {
+          "mode": "retrospective",
+          "display_note": "历史回溯 · 以周一收盘为锚点；非当时发布的盘前判断",
+          "emoji": "😟",
+          "monday_anchor_date": "2026-10-19",
+          "monday_anchor_label": "悲观转观望（回溯）",
+          "monday_basis": "10/19 NDX较前周五+1.17%，VIX由19.99降至18.44。周末消息未保存，不补写。",
+          "friday_label": "修复失败，悲观延续",
+          "transition": "周一观望 → 周五谨慎偏悲观",
+          "one_line_cause": "财报增长未抵消投入回报疑虑，能源风险继续牵制市场。",
+          "friday_basis": "10/23 NDX较周一收盘−1.94%；VIX19.45，VXN28.30；等权周线仅微涨。",
+          "source_ids": [
+            "market_1023",
+            "meta_q3",
+            "nasdaq_1023"
+          ],
+          "not_supported_labels": [
+            "大面积恐慌",
+            "市场已经筑底"
+          ]
+        },
+        "audit": {
+          "future_outcome_contamination_found": false,
+          "future_calendar_to_preserve_as_prospective": [
+            "2026-10-28 FOMC / GOOG / MSFT",
+            "2026-10-29 GDP / PCE / AMZN",
+            "2026-10-30 ECI"
+          ],
+          "corrections": [
+            "operating_window 10/26–11/06是前瞻观察窗口，归档周应标10/19–23。",
+            "各维度重复主标题和泛化验证语句应换成当周事实。",
+            "META费用包含98.9亿美元法律和解；自由现金流负值为单季口径。",
+            "周四利率快照应显示10/22观察日期，不能标为10/23收盘。"
+          ],
+          "x_policy": "没有当时可复核的X热度记录，不应复制11月卡片或生成计数。"
+        }
+      },
+      "2026-10-30": {
+        "week_start": "2026-10-26",
+        "week_end": "2026-10-30",
+        "price_cutoff": "2026-10-30",
+        "information_cutoff": "2026-10-30T17:25:00-04:00",
+        "headline": "云增长未挡住财报分化，周初修复转为周末卖压",
+        "hero_note": "NDX全周−1.98%，等权−0.78%。强增长伴随投入压力；联储按兵不动，GDP与PCE显示增长韧性和通胀黏性并存。",
+        "hero_source_ids": [
+          "market_1030",
+          "msft_q1",
+          "amzn_q3",
+          "fomc_1028",
+          "gdp_1029",
+          "pce_1029"
+        ],
+        "event_drivers": [
+          {
+            "id": "2026-10-30-cloud-earnings",
+            "title": "云厂商财报与投入回报分化",
+            "weight_pct": 50,
+            "status": "landed",
+            "status_label": "已落地",
+            "occurred_date": "2026-10-28",
+            "time_label": "10/28 Microsoft / Alphabet；10/29 Amazon",
+            "summary": "Azure和AWS收入增长强，但Amazon过去12个月自由现金流为负；市场继续检验预期差。",
+            "source_ids": [
+              "msft_q1",
+              "amzn_q3",
+              "goog_q3",
+              "nasdaq_1030"
+            ],
+            "occurred_range": [
+              "2026-10-28",
+              "2026-10-29"
+            ],
+            "date_precision": "date-range"
+          },
+          {
+            "id": "2026-10-30-fomc",
+            "title": "FOMC维持利率",
+            "weight_pct": 20,
+            "status": "landed",
+            "status_label": "已落地",
+            "occurred_date": "2026-10-28",
+            "time_label": "10/29 02:00 北京 · 10/28 14:00 EDT",
+            "summary": "目标区间维持3.75%–4.00%；两名委员倾向加息。",
+            "source_ids": [
+              "fomc_1028"
+            ],
+            "occurred_at": "2026-10-28T14:00:00-04:00",
+            "date_precision": "minute"
+          },
+          {
+            "id": "2026-10-30-gdp-pce",
+            "title": "GDP与PCE同日公布",
+            "weight_pct": 20,
+            "status": "landed",
+            "status_label": "已落地",
+            "occurred_date": "2026-10-29",
+            "time_label": "10/29 20:30 北京 · 10/29 08:30 EDT",
+            "summary": "Q3实际GDP折年增长3.4%；9月PCE同比3.6%、核心3.1%。",
+            "source_ids": [
+              "gdp_1029",
+              "pce_1029"
+            ],
+            "occurred_at": "2026-10-29T08:30:00-04:00",
+            "date_precision": "minute"
+          },
+          {
+            "id": "2026-10-30-energy",
+            "title": "能源与地缘风险延续",
+            "weight_pct": 10,
+            "status": "landed",
+            "status_label": "已落地",
+            "occurred_date": null,
+            "time_label": "10/26–30 持续；10/30周评确认",
+            "summary": "外交尝试未消除供应担忧，原油全周仍处高位。",
+            "source_ids": [
+              "nasdaq_1030"
+            ],
+            "occurred_range": [
+              "2026-10-26",
+              "2026-10-30"
+            ],
+            "confirmed_at": "2026-10-30T17:25:00-04:00",
+            "date_precision": "ongoing-weekly"
+          }
+        ],
+        "verification_records": [
+          {
+            "id": "2026-10-30-earnings-validation",
+            "origin_date": "2026-10-23",
+            "updated_date": "2026-10-30",
+            "title": "云增长与现金转化",
+            "question": "10/23的问题：下一轮云财报能否让增长转成好股价？",
+            "evidence": "Azure同比+48%，AWS+39.3%；Amazon过去12个月自由现金流−424亿美元。",
+            "market_reaction": "NDX周跌1.98%，较前周跌0.79%扩大。",
+            "verdict": "部分确认",
+            "judgment": "增长得到支持，但投入回报与预期差仍影响价格接受度。",
+            "next_check": "后续财报能否改善现金转化，并守住财报后的反弹。",
+            "source_ids": [
+              "msft_q1",
+              "amzn_q3",
+              "market_1030"
+            ],
+            "reconstructed_question": true
+          },
+          {
+            "id": "2026-10-30-macro-validation",
+            "origin_date": "2026-10-23",
+            "updated_date": "2026-10-30",
+            "title": "政策暂停与通胀",
+            "question": "10/23的问题：政策与能源压力能否同时降温？",
+            "evidence": "联储暂停；GDP增长3.4%，PCE同比3.6%，能源风险仍在。",
+            "market_reaction": "NDX续跌，VXN由28.30升至28.50。",
+            "verdict": "部分确认",
+            "judgment": "暂停已落地，尚不足以确认宽松周期或风险偏好恢复。",
+            "next_check": "截至当周仍需观察后续就业、通胀和油价；不提前写入11月结果。",
+            "source_ids": [
+              "fomc_1028",
+              "gdp_1029",
+              "pce_1029",
+              "nasdaq_1030",
+              "market_1030"
+            ],
+            "reconstructed_question": true
+          },
+          {
+            "id": "2026-10-30-breadth-validation",
+            "origin_date": "2026-10-23",
+            "updated_date": "2026-10-30",
+            "title": "等权由抗跌转下跌",
+            "question": "10/23的问题：等权抗跌能否演变为整体企稳？",
+            "evidence": "NDXE周涨跌从+0.10%转为−0.78%；NDX仍低于50日均线。",
+            "market_reaction": "周五NDX较周一收盘−3.04%，等权较周一−1.53%。",
+            "verdict": "反证（企稳假设）",
+            "judgment": "相对抗跌仍在，但绝对方向转弱；整体企稳未获验证。",
+            "next_check": "NDX与等权能否共同止跌，并与波动回落配合。",
+            "source_ids": [
+              "market_1023",
+              "market_1030"
+            ],
+            "reconstructed_question": true
+          }
+        ],
+        "sentiment": {
+          "mode": "retrospective",
+          "display_note": "历史回溯 · 以周一收盘为锚点；非当时发布的盘前判断",
+          "emoji": "😰",
+          "monday_anchor_date": "2026-10-26",
+          "monday_anchor_label": "悲观转观望（回溯）",
+          "monday_basis": "10/26 NDX较前周五+1.09%，VIX由19.45降至18.39。同期周评支持周初情绪曾有改善。",
+          "friday_label": "观望转悲观，卖压扩大",
+          "transition": "周一观望 → 周五悲观",
+          "one_line_cause": "云财报预期差和投入压力打断修复，增长与通胀数据未消除政策约束。",
+          "friday_basis": "NDX较周一−3.04%，NDXE周线转跌；VIX19.42，与前周接近，不能仅据指数跌幅定性为全面恐慌。",
+          "source_ids": [
+            "market_1030",
+            "nasdaq_1030",
+            "amzn_q3",
+            "pce_1029"
+          ],
+          "not_supported_labels": [
+            "大面积恐慌",
+            "政策已经转向宽松"
+          ]
+        },
+        "audit": {
+          "future_outcome_contamination_found": false,
+          "future_calendar_to_preserve_as_prospective": [
+            "2026-11-02制造业PMI/AAPL",
+            "2026-11-03 JOLTS/AMD",
+            "2026-11-04服务业PMI",
+            "2026-11-06非农"
+          ],
+          "corrections": [
+            "operating_window 11/02–11/13是前瞻观察窗口，归档周应标10/26–30。",
+            "Azure+48%不能写成Microsoft Cloud+48%；后者官方+30%。",
+            "Amazon−424亿美元自由现金流是过去12个月，不是第三季度单季。",
+            "PCE3.6%是9月同比；不可与GDP季度折年价格指标混同。",
+            "周四利率4.98%/实际利率2.63%观察日为10/29，勿与Nasdaq周五债息约4.95%混用。",
+            "英雄区应写本周已发生结论，把未来两周观察单独保留。"
+          ]
+        }
+      }
+    },
+    "x_archive_audit": {
+      "week": "2026-10-30",
+      "archive_url": "https://www.advanceintelligence.ai/2026-10-30/all",
+      "archive_web_ref": "turn39view0",
+      "verification": "三条原帖URL、作者、发布时间和主题可在公开归档追溯；X直链均403，未独立核验X本体。",
+      "metrics": "原页面浏览/点赞数字与归档一致，但未取得完整热度采样日期。归档仅显示Scanned 12:30 AM ET；不可据此伪造10/30收盘时点。",
+      "recommended_label": "历史公开归档 · 热度采样时点未核验",
+      "recommended_behavior": "保留原帖链接与内容，热度可隐藏或仅保留为原归档数值；不回填未知记录时间。",
+      "posts": [
+        {
+          "handle": "claudeai",
+          "post_url": "https://x.com/claudeai/status/2116220869479428500",
+          "post_at": "2026-10-30T13:29:00-04:00",
+          "content_status": "公开归档可追溯",
+          "original_recorded_metrics": {
+            "views": "640万",
+            "likes": "3.11万"
+          },
+          "heat_recorded_at": null,
+          "avatar_url": "https://pbs.twimg.com/profile_images/1950950107937185792/QOfEjFoJ_400x400.jpg",
+          "avatar_source": "https://www.sotwe.com/claudeai",
+          "avatar_web_ref": "turn40view0",
+          "avatar_cdn_ref": "turn41view0",
+          "note": "Sotwe当前同帖计数与Advance归档差异大，不用其新计数覆盖历史值。"
+        },
+        {
+          "handle": "unusual_whales",
+          "post_url": "https://x.com/unusual_whales/status/2116248483892277526",
+          "post_at": "2026-10-30T15:18:00-04:00",
+          "content_status": "公开归档可追溯；是转述Altman观点，不是订单公告",
+          "original_recorded_metrics": {
+            "views": "380万",
+            "likes": "1.92万"
+          },
+          "heat_recorded_at": null,
+          "avatar_url": "https://pbs.twimg.com/profile_images/1714107328134516736/dLZGJPm7_400x400.png",
+          "avatar_source": "https://www.sotwe.com/unusual_whales",
+          "avatar_web_ref": "turn40view1",
+          "avatar_cdn_ref": "turn41view1"
+        },
+        {
+          "handle": "sundarpichai",
+          "post_url": "https://x.com/sundarpichai/status/2116214866444943853",
+          "post_at": "2026-10-30T13:05:00-04:00",
+          "content_status": "公开归档可追溯",
+          "original_recorded_metrics": {
+            "views": "340万",
+            "likes": "2.53万"
+          },
+          "heat_recorded_at": null,
+          "avatar_url": null,
+          "avatar_missing_reason": "尚未取得可核验作者绑定的头像URL；不使用通用肖像替代。"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,104 @@
+/* Readout refinements: real dated sparklines, Monday sentiment anchor and author identity. */
+.main>.topbar,.main>header#overview{display:none}
+.market-overview .metric{position:relative;min-height:168px;padding-bottom:21px}
+.metric.has-spark .sub,.metric.has-spark .metric-secondary{max-width:64%;line-height:1.7}
+.metric.has-spark .metric-secondary .metric-change{flex-direction:row;align-items:baseline}
+.metric.has-spark .metric-secondary .metric-change strong{font-size:11px}
+.sparkline{position:absolute;right:15px;bottom:20px;width:33%;height:63px;border:0;outline:0;color:#8595ba;touch-action:pan-y}
+.sparkline svg{display:block;width:100%;height:100%;overflow:visible}
+.sparkline:focus-visible{outline:2px solid #9ba7c5;outline-offset:4px;border-radius:5px}
+.sparkline-empty{display:flex;align-items:center;justify-content:center;font-size:9px;color:#9aa6b7;line-height:1.6;text-align:center}
+.sparkline-tooltip{position:fixed;z-index:10000;pointer-events:none;background:#111;color:white;border:1px solid #ffffff33;box-shadow:0 5px 16px #182c4922;padding:9px 12px;border-radius:7px;font-size:12px;line-height:1.7;font-variant-numeric:tabular-nums;white-space:nowrap}
+.sparkline-tooltip b{font-size:14px;color:#fff}.sparkline-tooltip small{display:block;color:#ccd6e4;font-size:9px;max-width:240px;white-space:normal}
+.sparkline-note{font-size:8px;fill:#9daabd}
+.market-overview .sentiment-tile{background:linear-gradient(135deg,#f4f2fd,#fafbfe)}
+.sentiment-title{display:flex;align-items:center;gap:10px;margin:12px 0 8px;line-height:1.2;color:#43516e}
+.sentiment-title strong{font-size:23px;font-weight:650;letter-spacing:-.5px;line-height:1.35}
+.sentiment-emoji{font-family:'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif;font-size:29px;line-height:1;flex-shrink:0}
+.sentiment-anchor{font-size:10px;color:#8794ac;margin:0 0 8px;line-height:1.65}
+.sentiment-reason{font-size:11px;color:#697c95;line-height:1.7;margin:0;overflow-wrap:anywhere}
+.sentiment-conclusion{font-size:10px;color:#7b7196;line-height:1.7;margin-top:7px}.sentiment-conclusion b{color:#68577f}
+.mood-history{cursor:help;border-bottom:1px dotted #c5ccda}
+.verification-layout{display:flex;gap:16px;align-items:stretch;--verification-card-width:300px}
+.verification-layout>.week-pending{flex:0 0 var(--verification-card-width);box-sizing:border-box;padding:20px}
+.verification-carousel{flex:1;min-width:0}
+.verification-viewport{mask-image:none;-webkit-mask-image:none}
+.verification-viewport.has-more{mask-image:linear-gradient(to right,#000 0,#000 90%,transparent 100%);-webkit-mask-image:linear-gradient(to right,#000 0,#000 90%,transparent 100%)}
+.verification-track{gap:16px}
+.verification-track>.chain-card{flex:0 0 var(--verification-card-width);opacity:1;padding:20px;box-shadow:none}
+.verification-track>.chain-card.is-current{box-shadow:none}
+.verification-paging button:disabled{opacity:.32;cursor:default;background:#f9fafc}
+.record-inherited{background:#edf0f7;color:#8694ab;font-size:8px;padding:2px 5px;border-radius:4px;white-space:nowrap}
+.event-card-label{display:none!important}
+.event-driver-card .event-weight-list{margin-top:12px}
+.event-weight-row{margin-bottom:11px;gap:3px 7px}
+.event-weight-row>.event-row-meta{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:5px;font-weight:400;font-size:9px;line-height:1.6;color:#9598ad}
+.event-row-meta time{font-size:9px}.event-status{font-size:8px;padding:1px 5px;background:#e8e7f4;color:#8c83a8;border-radius:4px;white-space:nowrap}
+.event-status.occurred{background:#e6f2ec;color:#618a78}
+.event-weight-note{font-size:8px}.event-weight-row>i{height:2px}
+.x-post-meta{align-items:center}.x-author-identity{display:flex;align-items:center;gap:9px;min-width:0;color:#6f839f;text-decoration:none!important}
+.x-avatar{display:block;width:34px;height:34px;border-radius:50%;object-fit:cover;background:#edf0f5;flex-shrink:0;border:1px solid #e6ebf3}
+.x-author-lines{min-width:0}.x-author-lines b{display:block;font-size:11px;font-weight:600;overflow-wrap:anywhere;color:#526785}.x-author-lines time{display:block;font-size:9px;color:#96a3b6}
+@media(max-width:1199px){.market-overview .metric{min-height:180px}.sentiment-title{gap:7px}.sentiment-title strong{font-size:20px}.sparkline{right:12px;width:31%;height:54px}.metric.has-spark .sub,.metric.has-spark .metric-secondary{max-width:66%}.verification-track>.chain-card,.verification-layout>.week-pending{padding:16px}.verification-track .chain-card-heading h3{font-size:15px}}
+@media(max-width:800px){.market-overview .metric{min-height:188px}.market-overview .sentiment-tile{padding:15px 11px}.sentiment-title{gap:6px;align-items:flex-start}.sentiment-title strong{font-size:19px}.sentiment-emoji{font-size:25px}.sentiment-reason{font-size:10px}.sentiment-anchor{font-size:9px}.sparkline{position:relative;inset:auto;margin-top:9px;width:100%;height:39px}.metric.has-spark .sub,.metric.has-spark .metric-secondary{max-width:none}.metric.has-spark .metric-primary-row{gap:3px}.verification-layout{display:flex;flex-direction:column;gap:14px}.verification-layout>.week-pending{flex:auto;width:100%;padding:19px}.verification-track{gap:12px}.verification-track>.chain-card{padding:19px}.verification-viewport.has-more{mask-image:linear-gradient(to right,#000 0,#000 94%,transparent 100%);-webkit-mask-image:linear-gradient(to right,#000 0,#000 94%,transparent 100%)}.event-driver-card .event-weight-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 16px}.event-row-meta{flex-wrap:wrap}.event-weight-row{margin-bottom:6px}.event-weight-note{font-size:9px}.x-avatar{width:36px;height:36px}}
+/* Reading hierarchy and assessment emphasis, shared by live and approved releases. */
+.main{color:#000;font-weight:400}
+.main .hero p,.main .strategy-note,.main .x-view,.main .x-post-view,.main .x-impact p,.main blockquote,.main .chain-step p,.main .prior-question,.main .week-pending li p,.main .pending-foot p,.main .calendar-event p,.main .live-event-card p,.main .action-table td,.main .sentiment-reason,.main .review-invalidation{color:#000;font-size:14px;font-weight:400;line-height:1.8}
+.main .chain-step p,.main .x-post-view{font-size:15px;line-height:1.85}
+.main :is(p,td,blockquote) :is(b,strong){color:inherit;font-weight:700}
+.main :is(.record-timestamp,.question-row,.calendar-event-top,.calendar-time,.x-record-time,.x-author-lines time,.pending-period,.metric .sub,.metric .key,.metric-note,.metric-secondary small,.event-row-meta,.event-row-meta time,.pulse-foot,.pulse-compare,.weight-label,.section-sub,.chain-intro,.fineprint,.pending-foot>b){color:#5d6572;font-weight:400}
+.main :is(.record-timestamp,.calendar-event-top,.calendar-time,.x-record-time,.x-author-lines time,.event-row-meta,.event-row-meta time,.pulse-foot,.pulse-compare,.weight-label,.fineprint){font-size:11px}
+.main .chain-step-heading b{font-size:12px;font-weight:600;color:#505864}
+.main .market-overview .metric{min-height:218px;padding:21px 22px 25px}
+.main .metric .sub{font-size:12px}.main .metric .key{font-size:12px;display:flex;align-items:center;justify-content:space-between;gap:7px}
+.main .sentiment-anchor{font-size:12px;color:#535b68}.main .sentiment-reason{font-size:13px;line-height:1.75}
+.main .sentiment-title strong{font-size:23px;color:#000}.main .sentiment-conclusion{color:#000;font-size:12px}
+.main .pulse-state{color:#000}.main .week-pending h4{color:#000;font-size:15px;font-weight:600}
+.main .chain-card h3,.main .x-topic-card h3{color:#000}.main .chain-card .chain-next{background:#f1f3f8}
+.score-display{flex:1;min-width:90px;max-width:68%;padding:5px 0 8px}
+.score-readout{display:flex;gap:5px;align-items:baseline;color:#000}.score-readout strong{font-size:29px;font-weight:650;line-height:1.4}.score-readout>span{font-size:12px;color:#596273}
+.score-meter{height:7px;border-radius:20px;background:#e0e4ed;overflow:hidden;margin-top:5px;max-width:180px}
+.score-meter>span{display:block;height:100%;background:#7d88a8;border-radius:inherit}
+.sparkline{bottom:24px;color:#596b84}.sparkline-note{font-size:9px;fill:#616d7e}
+.sparkline-mini-legend{position:absolute;bottom:-1px;left:0;right:0;display:flex;justify-content:space-between;font-size:9px;gap:4px;color:#3a8978}
+.sparkline-mini-legend span::before{content:'';width:8px;height:2px;display:inline-block;background:currentColor;vertical-align:middle;margin-right:3px}
+.sparkline-mini-legend .ma50{color:#7184bc}.sparkline-mini-legend .ma200{color:#ac822a}
+.sparkline-tooltip-row{display:flex;gap:15px;justify-content:space-between;align-items:baseline}.sparkline-tooltip-row>span{font-size:11px;color:#e5e7ed}.sparkline-tooltip time{font-size:11px;color:#e5e7ed}.sparkline-tooltip b{font-size:14px;font-weight:700}
+.importance-rating{display:inline-flex;align-items:center;gap:2px;color:#7967a0;vertical-align:middle;flex-shrink:0;line-height:1;cursor:help}
+.importance-star{position:relative;display:inline-block;width:13px;height:13px}.importance-star svg{position:absolute;inset:0;width:100%;height:100%}
+.metric .importance-star,.pulse-head .importance-star{width:11px;height:11px}
+.pulse-head{flex-wrap:wrap;gap:7px}.pulse-head .importance-rating{margin-left:auto}
+.importance-legend{font-size:11px;color:#606877;text-align:right;margin-top:7px}
+.event-row-rating{grid-column:1/-1;display:flex;margin:2px 0}.event-row-title{line-height:1.5;font-size:12px}
+.event-weight-row.priority-high{padding:9px 10px;border-radius:7px;margin-left:-5px;margin-right:-5px}
+.question-row .importance-rating{margin-left:auto;margin-right:8px}.week-pending li.priority-high{border-radius:8px;padding:14px 13px;margin:7px -6px}
+.chain-card>.importance-rating{margin:10px 0 0}.calendar-event>.importance-rating{margin-top:9px}.calendar-event h3{font-size:14px}
+@media(max-width:1199px){.main .market-overview .metric{padding:18px 16px;min-height:225px}.main .sentiment-title strong{font-size:21px}.main .chain-step p{font-size:14px}}
+@media(max-width:800px){.main .market-overview .metric{padding:16px 12px;min-height:225px}.main .metric .key{font-size:11px;flex-wrap:wrap;gap:5px}.main .sentiment-reason{font-size:12px}.main .sentiment-title strong{font-size:20px}.main .metric .sub{font-size:11px}.sparkline{bottom:auto;height:50px}.main .chain-step p,.main .x-post-view{font-size:14px}.main .event-weight-row.priority-high{margin:0;padding:9px}.importance-legend{text-align:left}}
+
+/* Secondary numbers and accessible selection states. */
+.pulse-card>.importance-rating{display:flex;margin:9px 0 2px}
+.pulse-card>.importance-rating .importance-star{width:12px;height:12px}
+.main .metric .value,.main .score-readout strong{font-weight:700}
+.main .week-pending h4,.main .pulse-state,.main .chain-card h3{font-weight:700}
+
+.week-pending li[role=button]{cursor:pointer;transition:box-shadow .15s;background-clip:padding-box;border-radius:8px}
+.week-pending li[role=button]:hover{box-shadow:inset 0 0 0 1px #9e94c9}
+.week-pending li[role=button]:focus-visible{outline:2px solid #7965ce;outline-offset:3px}
+.main .week-pending li.is-selected,.main .chain-card.is-selected{box-shadow:inset 0 0 0 3px #7965ce!important}
+.chain-card:focus{outline:none}.verification-layout{scroll-margin-top:18px}.waiting-question .chain-next{margin-top:auto}
+
+/* Three-star emphasis stays in the page's light reading palette. */
+.main .priority-high{background:#fffaf0!important;border-color:#dec58d!important;color:#000!important}
+.main .priority-high:is(.metric,.pulse-card,.chain-card,.calendar-event){box-shadow:inset 0 3px 0 #c7a35a}
+.main .priority-high :is(p,.chain-step p,.event-row-title,h3,h4){color:#000!important;font-weight:400}
+.main .priority-high :is(h3,h4,b,strong){font-weight:700}
+.main .priority-high .importance-rating{color:#966b25}
+.main .priority-high .score-meter{background:#e9e1d0}.main .priority-high .score-meter>span{background:#ae8a45}
+.main .priority-high .chain-next{background:#f5efdf}
+.main .priority-high.event-weight-row{border-left:3px solid #c7a35a;padding-left:10px}
+.main .week-pending li.priority-high{border-left:3px solid #c7a35a}
+.main .week-pending li.is-selected,.main .chain-card.is-selected{border-color:#7d69c4!important;box-shadow:inset 0 0 0 2px #7d69c4!important}
+.main .priority-high .weight-track,.main .priority-high.event-weight-row>i{background:#e9e1d0}
+.main .priority-high .weight-track span,.main .priority-high.event-weight-row>i>em{background:#ae8a45}
+.cta-model-note{display:block;line-height:1.6;font-size:11px;color:#535b68}

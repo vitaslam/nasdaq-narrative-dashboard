@@ -1,0 +1,288 @@
+{
+  "schema_version": 1,
+  "research_cutoff": "2026-11-02",
+  "intended_market_asof": "2026-10-30 US close",
+  "scope": [
+    "Goldman Sachs",
+    "Bank of America",
+    "Deutsche Bank",
+    "UBS"
+  ],
+  "conclusion": {
+    "current_original_institution_report_verified": false,
+    "verified_current_ndx_numeric_trigger": null,
+    "verified_current_ndx_short_medium_long_triggers": {
+      "short": null,
+      "medium": null,
+      "long": null
+    },
+    "high_confidence_primary_values_safe_to_write": [],
+    "strongest_public_evidence": "2026-11-01 TheStreet Pro 的具名机构模型转述，可作为明确标注二手来源的候选；本轮未取到可核验的当期原机构 PDF 或图表。",
+    "dashboard_recommendation": "若要求高置信度原始读数，NDX 触发点位继续留缺；如允许机构模型的公开转述，可展示 BofA NDX 11/12 模型已止损退出，并标注机构、时间范围、二手来源和模型估计，不能写成已实现资金流。",
+    "proposed_card_if_secondary_allowed": {
+      "title": "CTA · 纳指模型状态",
+      "value": "11 / 12",
+      "unit": "BofA 模型变体已止损退出",
+      "secondary": "DB NDX 仓位历史分位 55",
+      "asof_label": "10/30 当周 · 11/01 公开转述",
+      "badge": "机构模型估计",
+      "confidence": "medium_secondary_only",
+      "trigger_value": null
+    }
+  },
+  "current_candidates": [
+    {
+      "id": "bofa_ndx_model_stopouts",
+      "institution": "Bank of America",
+      "model": "Systematic Flows Monitor · CTA equity models",
+      "market": "Nasdaq-100",
+      "instrument_contract": "Public text says Nasdaq-100; exact futures contract not independently confirmed",
+      "current_value": 11,
+      "denominator": 12,
+      "unit": "number of model variants stopped out",
+      "new_sell_trigger": null,
+      "horizons": {
+        "short": null,
+        "medium": null,
+        "long": null
+      },
+      "report_date_claimed_by_secondary_catalog": "2026-10-30",
+      "report_date_independently_verified": false,
+      "source_publication": "2026-11-01",
+      "scope_warning": "模型变体退出不等于全市场 CTA 已清仓，也不表示剩余卖盘为零。不能从 11/12 推算真实仓位或资金金额。",
+      "confidence": "medium_secondary_only",
+      "primary_artifact_verified": false,
+      "source_ids": [
+        "thestreet_20261101",
+        "report_metadata_podcast"
+      ]
+    },
+    {
+      "id": "bofa_spx_futures_trigger",
+      "institution": "Bank of America",
+      "model": "Systematic Flows Monitor · CTA sell trigger",
+      "market": "S&P 500 futures",
+      "instrument_contract": "December 2026 S&P 500 futures",
+      "trigger": 7606,
+      "reference_price": 7617,
+      "approximate_distance_percent": -0.1,
+      "horizon": "Unspecified next sell threshold, not a full short/medium/long matrix",
+      "report_date_claimed_by_secondary_catalog": "2026-10-30",
+      "report_date_independently_verified": false,
+      "source_publication": "2026-11-01",
+      "confidence": "medium_secondary_only",
+      "primary_artifact_verified": false,
+      "scope_warning": "期货触发价必须与相同期货合约对比；不能直接对比 SPX 现金 7,580.07 或移植为 NDX 点位。",
+      "source_ids": [
+        "thestreet_20261101",
+        "report_metadata_podcast"
+      ]
+    },
+    {
+      "id": "bofa_global_flows_forecast",
+      "institution": "Bank of America",
+      "model": "Systematic Flows Monitor",
+      "market": "Global equity markets",
+      "horizon": "Next five trading days / upcoming week after 2026-10-30",
+      "unit": "USD billions",
+      "actual_or_estimated": "conditional forecast, not observed realized flows",
+      "scenarios": {
+        "flat": {
+          "cta": -8,
+          "all_systematic": -15
+        },
+        "up": {
+          "cta": 34,
+          "all_systematic": 37,
+          "sp500_futures_path_approx_percent": 2.6
+        },
+        "down": {
+          "cta": -30,
+          "all_systematic": -63,
+          "sp500_futures_path_approx_percent": -3.8
+        }
+      },
+      "report_date_claimed_by_secondary_catalog": "2026-10-30",
+      "report_date_independently_verified": false,
+      "source_publication": "2026-11-01",
+      "confidence": "medium_secondary_only_approximate",
+      "primary_artifact_verified": false,
+      "scope_warning": "all_systematic 同时包括 CTA、波动率控制与风险平价；不能把总额归给 CTA，也不能把全球金额归给 NDX 或美国。上/下行情景的精确分位定义未在原机构材料核验。",
+      "source_ids": [
+        "thestreet_20261101",
+        "report_metadata_podcast"
+      ]
+    },
+    {
+      "id": "db_cta_positioning",
+      "institution": "Deutsche Bank",
+      "model": "CTA equity positioning / Investor Positioning and Flows",
+      "unit": "historical percentile rank",
+      "values": {
+        "global": {
+          "current": 58,
+          "previous": 62
+        },
+        "sp500": {
+          "current": 82,
+          "previous": 87
+        },
+        "nasdaq100": {
+          "current": 55,
+          "previous": 66
+        }
+      },
+      "report_date_claimed_by_secondary_catalog": "2026-10-30",
+      "report_date_independently_verified": false,
+      "observation_date_exact": null,
+      "source_publication": "2026-11-01",
+      "confidence": "medium_secondary_only",
+      "primary_artifact_verified": false,
+      "scope_warning": "55th percentile 不是 55% 仓位、不是净多资金占比；模型和分位历史窗未经原报告核验。与 BofA 的 11/12 并非同一指标，不能强行平均。",
+      "source_ids": [
+        "thestreet_20261101",
+        "report_metadata_podcast"
+      ]
+    },
+    {
+      "id": "goldman_spx_medium_trigger",
+      "institution": "Goldman Sachs",
+      "model": "CTA medium-term threshold cited in derivatives/desk discussion",
+      "market": "S&P 500 cash index",
+      "horizon": "medium-term",
+      "trigger_range": [
+        7544,
+        7554
+      ],
+      "separately_corroborated_number": 7554,
+      "short_term_trigger": null,
+      "long_term_trigger": null,
+      "report_date_claimed_by_secondary": "2026-10-30",
+      "report_date_independently_verified": false,
+      "source_publication": "2026-11-01",
+      "confidence": "medium_secondary_only_range",
+      "primary_artifact_verified": false,
+      "scope_warning": "公开转述存在 7,544–7,554 区间；不能择一写成原报告精确值，不可混为 NDX、期货或三期限统一触发价。",
+      "source_ids": [
+        "thestreet_20261101",
+        "joemccann_goldman_1030"
+      ]
+    }
+  ],
+  "ubs": {
+    "current_primary_report_verified": false,
+    "current_ndx_spx_triggers": null,
+    "strongest_identified_recent_report_date": "2026-10-22",
+    "report_family": "Market Internal Insight",
+    "public_metadata_topics": [
+      "Residual CTA/risk-control selling",
+      "Bond buying pressure"
+    ],
+    "status": "too_old_and_insufficient_market_specificity",
+    "warning": "找到的 52bn 总买盘表述是广义 excess buy flow，不能当成 CTA 股指净买入；没有可核验的 10/30 NDX/SPX 三期限点位。",
+    "source_ids": [
+      "finvaulta_quant"
+    ]
+  },
+  "exclusions": [
+    {
+      "candidate": "Goldman 7,704 / 7,493 / 7,012 matrix",
+      "reason": "公开页面把 10/13 模型矩阵与 10/23 现金收盘混列；不满足 10/30 当期要求。",
+      "source_ids": [
+        "rankalpha_stale",
+        "tickmill_20261013"
+      ]
+    },
+    {
+      "candidate": "65bn US CTA selling headline",
+      "reason": "旧转述且时间跨度容易与下一周混淆；不作为当期一周实际流出。",
+      "source_ids": [
+        "rankalpha_stale"
+      ]
+    },
+    {
+      "candidate": "CFTC leveraged funds net Nasdaq futures",
+      "reason": "交易者分类不等同于 CTA，无法代替机构 CTA 模型。"
+    },
+    {
+      "candidate": "CTA ETF quote, SG CTA Index performance, broad hedge-fund net leverage",
+      "reason": "与股指 CTA 触发点和估计股指仓位不是同一测量对象。"
+    },
+    {
+      "candidate": "Public X image results",
+      "reason": "搜到的原机构图主要为 2025 或 2026 年 2–4 月；不能因结果抓取日期为最新就当成当前图表。"
+    }
+  ],
+  "source_audit": [
+    {
+      "id": "thestreet_20261101",
+      "url": "https://pro.thestreet.com/market-commentary/the-week-ahead-apple-midterms-and-jobs-test-a-market-on-edge",
+      "title": "The Week Ahead – Apple, Midterms and Jobs Test a Market on Edge",
+      "author": "Neil Sethi",
+      "publication": "2026-11-01 16:23 EST",
+      "type": "named-institution secondary reporting",
+      "accessed_with": "web search/open",
+      "relevant_web_ref": "turn90view0",
+      "relevant_lines": "504–517",
+      "limitation": "网页文字可读取；机构原图在解析结果中只显示 Image，未核验原报告页眉、日期与图表坐标。"
+    },
+    {
+      "id": "joemccann_goldman_1030",
+      "url": "https://teapawt.net/joemccann",
+      "type": "public social-post mirror",
+      "relevant_web_ref": "turn90view1",
+      "relevant_lines": "130–132",
+      "limitation": "具名引用 Goldman 10/30 rundown；不是原始机构发布，且未给模型全表。"
+    },
+    {
+      "id": "report_metadata_podcast",
+      "url": "https://wav.pub/e/WPTK_DYLFRLcsNv51bwIQ",
+      "type": "secondary podcast creator notes / report metadata",
+      "relevant_web_ref": "turn88search0",
+      "referenced_report_titles": [
+        "Deutsche Bank Investor Positioning and Flows | The Spring Is Coiled Again: Upgrading Tech Back To Overweight (2026-10-30)",
+        "BofA Systematic Flows Monitor | Tech selloff drives CTA de-risking, with further equity selling still possible (2026-10-30)"
+      ],
+      "limitation": "搜索可见报告名称和日期，直开页面失败；仅用于追溯线索，不能当作机构原稿或独立数据确认。"
+    },
+    {
+      "id": "finvaulta_quant",
+      "url": "https://finvaulta.com/research/topic/quant-systematic-edge",
+      "type": "report catalog and preview",
+      "relevant_web_ref": "turn64view0",
+      "limitation": "全文有账户门槛；没有登录、绕过或获取受限内容。"
+    },
+    {
+      "id": "rankalpha_stale",
+      "url": "https://market.rankalpha.io/",
+      "type": "third-party dashboard",
+      "relevant_web_ref": "turn85search0",
+      "limitation": "CTA matrix explicitly dated 10/13; price cutoff 10/23; current-looking page date does not refresh model data."
+    },
+    {
+      "id": "tickmill_20261013",
+      "url": "https://www.tickmill.com/blog/institutional-insights-goldman-sachs-sp500-flows-positioning-update-131026",
+      "type": "secondary institutional briefing",
+      "relevant_web_ref": "turn85search6",
+      "limitation": "10/13 data is historical, not accepted as current."
+    }
+  ],
+  "method_and_limits": {
+    "searches": [
+      "GS/DB/UBS/BofA official domains and recent report titles",
+      "current precise trigger numbers and reported dates",
+      "public institutional chart reposts and images",
+      "named report catalogs, analyst secondary reporting, public original post mirrors"
+    ],
+    "original_pdfs_or_screenshots_verified": [],
+    "blocked_paths": [
+      "Batreports returned 401 Unauthorized",
+      "Finvaulta complete reports require account",
+      "Wav page open disabled"
+    ],
+    "no_access_controls_bypassed": true,
+    "repo_modified": false,
+    "source_priority": "原机构报告或带日期原图 > 可追溯具名转述 > 社交摘录/聚合",
+    "next_evidence_needed": "10/30 BofA Systematic Flows Monitor 原图（含 NQ/ES 合约、12 模型状态和情景矩阵）；同日 DB CTA 分位图及历史窗；Goldman CTA Corner/desk 全触发表；UBS 当期模型。"
+  }
+}

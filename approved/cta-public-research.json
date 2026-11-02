@@ -1,0 +1,216 @@
+{
+  "schema_version": 1,
+  "research_asof": "2026-11-02",
+  "requested_market_close": "2026-10-30",
+  "status": "qualified_model_exposure_found; no verified current SPX/NDX CTA sell-trigger",
+  "conclusion": "Nomura官方公开PDF可支持10/29单一跨资产动量模型的S&P 500期货敞口+28.42%。应明确命名为模型参考；截至本次检索，未核得10/30的SG/BNP/Nomura股指卖出触发价。",
+  "recommended_dashboard_observation": {
+    "institution": "Nomura International plc",
+    "model": "Nomura Cross Asset Momentum Daily Index",
+    "model_ticker": "NMXCMODU",
+    "asof": "2026-10-29",
+    "value": 28.42,
+    "unit": "percent_exposure_as_reported",
+    "display_value": "+28.42%",
+    "display_title": "CTA 模型参考 · Nomura 动量敞口",
+    "display_subtitle": "S&P 500 E-mini 2026年12月期货",
+    "display_note": "10/29 · 单一机构模型 · 原报告 Exposure (%)",
+    "source_url": "https://www.nomuranow.com/portal/site/nnextranet/resources/assets/files/structured/constituents/Nomura-Cross-Asset-Momentum-Daily-Index-Positions.pdf",
+    "source_title": "Nomura Cross Asset Momentum Daily Index Positions",
+    "source_ref": "turn84view0",
+    "source_page": 1,
+    "source_origin_portal": "https://www.nomuranow.com/portal/site/nnextranet/en/global-markets/structured-derivatives/quant-investment-strategies.shtml",
+    "source_origin_link_id": 183,
+    "data_type": "official_published_index_model_exposure",
+    "is_actual_industry_position": false,
+    "is_actual_fund_holding": false,
+    "is_return": false,
+    "is_trigger_price": false,
+    "is_forward_flow_estimate": false,
+    "ndx_observation": null,
+    "scope": "仅NMXCMODU指数中该合约的最终敞口；不能外推CTA行业、全体野村客户或真实基金持仓。",
+    "direction": "正向（多头）模型敞口",
+    "direction_basis": "官方Final Position对应Exposure为正；此处是方向解释，不是行业净多头份额。",
+    "confidence": {
+      "reported_value_and_date": "high",
+      "model_identity": "high",
+      "positive_direction": "high",
+      "economic_denominator": "not_fully_disclosed_in_public_report",
+      "latest_global_available_claim": "not_established"
+    },
+    "freshness": "本次从官网当前链接重复读取均为10/29；未找到可确认的10/30版。应展示真实日期，不将其补成10/30。",
+    "observed_available_on": "2026-11-02",
+    "historical_first_publication_at": null,
+    "historical_availability_note": "PDF未标首次公布钟点；不能声称该文件在10/30收盘前已经公开。",
+    "tooltip": "野村专有动量指数对S&P 500期货的Exposure。报告含杠杆策略，不代表28.42%的CTA基金看多，也不代表触发点位。分母的完整定义未在公开持仓页解释，保留原披露单位。",
+    "chart": {
+      "history_available": false,
+      "points": [
+        {
+          "date": "2026-10-29",
+          "value": 28.42
+        }
+      ],
+      "display": "单点读数，暂不画历史折线",
+      "reason": "未找到近两个月同一NMXCMODU模型、同一Exposure口径的可追溯日期序列。不能混入Mini模型、SG指数收益或自身回测。"
+    }
+  },
+  "nomura_definition_audit": {
+    "methodology_url": "https://www.nomuranow.com/portal/site/nnextranet/resources/assets/files/structured/methodologies/Nomura-Cross-Asset-Momentum-Daily-Index.pdf",
+    "methodology_ref": "turn80view0",
+    "methodology_date": "2020-07-02",
+    "methodology_version_hint": "Sanitised v1.5",
+    "index_live_date": "2020-05-29",
+    "currency": "USD",
+    "components": [
+      "利率互换动量",
+      "商品趋势",
+      "新兴市场外汇动量",
+      "G3股指趋势"
+    ],
+    "leverage_confirmed": true,
+    "leverage_evidence": "公开计算式含各子指数Weight与Leverage，乘以子指数收益并按重设基准指数水平累加；公开表未给具体参数值。",
+    "portfolio_weight_interpretation": "不能把Exposure当作未经杠杆调整的资本配置权重，也不能把各资产Exposure简单相加要求等于100%。",
+    "net_long_interpretation": "可以描述该SP500合约的模型敞口为正或多头；不要描述为CTA行业净多头占比。",
+    "notional_denominator": null,
+    "notional_denominator_status": "公开持仓PDF仅给Exposure (%)；所读公开sanitised方法未直接定义该持仓表百分比的分母。不得补写“占基金NAV”“占行业AUM”或美元名义金额。",
+    "specific_lookback_windows": null,
+    "specific_volatility_target": null,
+    "spx_cash_sell_trigger": null,
+    "ndx_cash_sell_trigger": null,
+    "trigger_status": "官方该PDF未发布价格阈值；报告合约是期货，不能把期货水平直接当SPX现货点位。",
+    "latest_verified_report_date": "2026-10-29",
+    "latest_report_test": "官网QIS页面直链与同一PDF#page=1再读取两次，日期和值一致。",
+    "historical_series_test": "检索缓存存在同URL的3/19旧版本，但没有稳定日期归档接口或近两个月完整同口径序列；未采纳缓存作折线。",
+    "excluded_other_model": {
+      "name": "Nomura Cross Asset Momentum Daily Mini Index",
+      "ticker": "NMXCMDMU",
+      "direct_pdf_date": "2026-09-23",
+      "sp500_exposure_pct": 24.89,
+      "reason": "不是同一个指数，不能用来补NMXCMODU历史。",
+      "url": "https://www.nomuranow.com/portal/site/nnextranet/resources/assets/files/structured/constituents/Nomura-Cross-Asset-Momentum-Daily-Mini-Index-Positions.pdf",
+      "source_ref": "turn73view1"
+    }
+  },
+  "nomura_evidence": {
+    "short_verbatim_excerpt": "Index Date 29/10/2026; Instrument Exposure (%); Final Position_S&P 500 E-MINI FUTURE Dec 2026 28.42",
+    "text_verified_refs": [
+      "turn73view0",
+      "turn84view0"
+    ],
+    "requested_screenshot_ref": "turn76view0",
+    "screenshot_tool_status": "Web screenshot returned a rendered-image reference only; no image bytes/local PNG were exposed to this agent. The date/value were independently checked in the PDF text extraction.",
+    "screenshot_local_path": null,
+    "primary_urls": [
+      "https://www.nomuranow.com/portal/site/nnextranet/en/global-markets/structured-derivatives/quant-investment-strategies.shtml",
+      "https://www.nomuranow.com/portal/site/nnextranet/resources/assets/files/structured/constituents/Nomura-Cross-Asset-Momentum-Daily-Index-Positions.pdf",
+      "https://www.nomuranow.com/portal/site/nnextranet/resources/assets/files/structured/methodologies/Nomura-Cross-Asset-Momentum-Daily-Index.pdf"
+    ]
+  },
+  "societe_generale": {
+    "preferred_future_candidate": "SG Trend Indicator Daily Report",
+    "report_url": "https://wholesale.banking.societegenerale.com/fileadmin/indices_feeds/ti_screen/index.html",
+    "report_ref": "turn52view1",
+    "model": "SG Trend Indicator; a hypothetical market-based model, not an aggregate of disclosed CTA positions",
+    "methodology_url": "https://wholesale.banking.societegenerale.com/fileadmin/indices_feeds/SG_Trend_Indicator_Methodology_Summary.pdf",
+    "methodology_ref": "turn50view2",
+    "verified_method": {
+      "signal": "20/120日均线交叉",
+      "universe": "55个流动性期货，四类资产",
+      "direction": "始终多或空",
+      "target_annual_volatility_pct": 15,
+      "model_constant_portfolio_usd": 2000000000,
+      "execution": "信号后的下一交易日结算价",
+      "sector_risk_weights_pct": [
+        25,
+        25,
+        25,
+        25
+      ]
+    },
+    "available_report_fields": [
+      "模型方向",
+      "20日均线",
+      "120日均线",
+      "下一交易日反转价",
+      "反转价相对变动",
+      "最近模型交易"
+    ],
+    "current_verified_asof": null,
+    "sp500_direction": null,
+    "nasdaq100_direction": null,
+    "sp500_reversal_price": null,
+    "nasdaq100_reversal_price": null,
+    "blocker": "当前直读报告只返回空表；日期参数10/30页面不可读。检索出的带数据页面URL参数为2000/2001但内容混入2026年10月交易，日期无法确认，拒绝使用。",
+    "rejected_cached_report_urls": [
+      "https://wholesale.banking.societegenerale.com/fileadmin/indices_feeds/ti_screen/index.html?tradedate=2000-08-30",
+      "https://wholesale.banking.societegenerale.com/fileadmin/indices_feeds/ti_screen/index.html?tradedate=2001-12-17"
+    ],
+    "why_promising": "若后续取得明确Trade Date且匹配的官方行，可使用SG单模型反转价；必须注明期货合约、模型与信号执行时点。",
+    "sg_cta_index": {
+      "definition": "大型CTA管理人净收益的等权业绩指数；不含可直接推导的SPX/NDX触发线。",
+      "url": "https://wholesale.banking.societegenerale.com/en/prime-services-indices/",
+      "official_methodology_url": "https://wholesale.banking.societegenerale.com/fileadmin/indices_feeds/SG_CTA_Index_Methodology.pdf",
+      "official_methodology_ref": "turn59search7",
+      "publication_policy": "T+1计算，美东14:00前公布；初值为估计，可修订。",
+      "publication_policy_ref": "turn50view0",
+      "candidate_snapshot": {
+        "date": "2026-10-26",
+        "mtd_pct": -1.37,
+        "ytd_pct": 14.08,
+        "source_ref": "turn59search0",
+        "usable_as_current_trigger": false
+      },
+      "retrieval_warning": "官方网页检索缓存为10/26，打开正文却出现2015模板；不能把缓存值当作10/30最新数据。",
+      "secondary_1030_trend_index_ytd_pct": 14.92,
+      "secondary_value_policy": "未在同日官方原文复核，且是收益率，不用于CTA触发线。"
+    }
+  },
+  "bnp_paribas": {
+    "current_position_or_trigger_verified": false,
+    "spx_value": null,
+    "ndx_value": null,
+    "primary_methodology_summary_url": "https://globalmarkets.cib.bnpparibas/demystifying-algorithmic-trend-following/",
+    "primary_methodology_summary_ref": "turn62view0",
+    "public_info": "公开QIS文章解释信号、风险缩放和多窗口组合；完整研究通过Brio向机构客户提供。本次未取得10/30仓位或触发点位。",
+    "primary_2026_survey_url": "https://globalmarkets.cib.bnpparibas/2026-hedge-fund-allocation-survey/",
+    "primary_2026_survey_ref": "turn62view1",
+    "survey_date": "2026-09-10",
+    "survey_limit": "八月调查的过往12个月CTA alpha不是当前股票仓位，不填dashboard触发线。"
+  },
+  "secondary_leads_not_accepted": [
+    {
+      "institution": "Nomura",
+      "url": "https://newsletter.crossvolresearch.com/p/stock-market-week-in-review-october-19-23-2026",
+      "ref": "turn56search0",
+      "reason": "二手转述债券/STIR回补和情景流量，缺当期Nomura原始报告；标的也不是SPX/NDX。"
+    },
+    {
+      "institution": "Goldman Sachs",
+      "url": "https://market.rankalpha.io/",
+      "ref": "turn48search0",
+      "reported_spx_levels": [
+        7704,
+        7493,
+        7012
+      ],
+      "report_date_claim": "2026-10-13",
+      "reason": "二手网页引用旧日期矩阵，未找到原始机构表，不能当10/30已核验触发线。"
+    },
+    {
+      "institution": "Nomura",
+      "url": "https://thedarksideoftheboom.substack.com/p/wall-streets-great-positioning-cleanout",
+      "ref": "turn56search2",
+      "date": "2026-10-29",
+      "reason": "当期跨资产评论转述，未提供可追溯的股票CTA触发价原表。"
+    }
+  ],
+  "implementation_guardrails": [
+    "只用recommended_dashboard_observation作为明确命名的模型参考；原触发线字段继续留空。",
+    "10/29模型读数不得贴10/30日期。",
+    "保留原始Exposure单位；分母未核全，不换算行业美元仓位或基金资本权重。",
+    "近两个月无同口径序列则显示缺少历史数据，不补零、不平移单点、不插值。",
+    "SG CTA/Trend业绩指数、TTU Barometer、CFTC杠杆基金净仓位都不能冒充CTA股票卖出线。",
+    "未来若要维护每日观测，应按官方报告日期累积快照；本次未创建定时任务。"
+  ]
+}
