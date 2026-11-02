@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "holder": null,
-  "token": null,
-  "purpose": null,
-  "acquired_at": null,
-  "expires_at": null
+  "holder": "GPT",
+  "token": "gpt-nav-two-line-1793622309982-yncurfahwhk",
+  "purpose": "Fix two-line week tabs and remove redundant QQQ date",
+  "acquired_at": "2026-11-02T12:25:09.982Z",
+  "expires_at": "2026-11-02T13:10:09.982Z"
 }
