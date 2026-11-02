@@ -10,23 +10,24 @@ const keys = (value, allowed, label) => {
   if (!value || typeof value !== 'object' || Array.isArray(value)) fail(`${label} must be an object`);
   for (const key of Object.keys(value)) if (!allowed.includes(key)) fail(`${label}.${key} is not an allowed field`);
 };
-keys(feed, ['schema_version','batch_id','week_id','generated_at','x_topics_upsert','market_bars','volatility_readings'], 'root');
+keys(feed, ['schema_version','batch_id','week_id','generated_at','x_topics_upsert','market_bars','volatility_readings','market_indicators'], 'root');
 if (feed.schema_version !== 1 || !date(feed.week_id)) fail('invalid schema version or week_id');
 if (typeof feed.batch_id !== 'string' || !/^[a-zA-Z0-9:._-]{1,80}$/.test(feed.batch_id)) fail('invalid batch_id');
 if (feed.batch_id !== 'template' && !timestamp(feed.generated_at)) fail('generated_at must be a timestamp');
-if (!Array.isArray(feed.x_topics_upsert) || feed.x_topics_upsert.length > 10) fail('at most 10 X topics');
+if (!Array.isArray(feed.x_topics_upsert)) fail('X topics must be an array');
 const topicIds = new Set(), postIds = new Set();
 for (const topic of feed.x_topics_upsert) {
   keys(topic, ['id','title','summary','posts'], 'topic');
   if (!/^[a-z0-9][a-z0-9-]{1,79}$/.test(topic.id || '') || topicIds.has(topic.id)) fail('invalid or duplicate topic id');
   topicIds.add(topic.id);
-  if (!topic.title?.trim() || !topic.summary?.trim() || !Array.isArray(topic.posts) || !topic.posts.length || topic.posts.length > 15) fail('topic needs a title, summary, and 1–15 posts');
+  if (!topic.title?.trim() || !topic.summary?.trim() || !Array.isArray(topic.posts) || !topic.posts.length) fail('topic needs a title, summary, and posts');
   for (const post of topic.posts) {
-    keys(post, ['id','author','published_at','quote','viewpoint','views','reposts','replies','observed_at','source_url','metrics_source','verification','avatar_url','avatar_source','impact','context'], 'post');
+    keys(post, ['id','author','published_at','quote','viewpoint','translation_zh','views','reposts','replies','observed_at','source_url','metrics_source','verification','avatar_url','avatar_source','impact','context'], 'post');
     if (!/^[a-z0-9][a-z0-9-]{1,99}$/.test(post.id || '') || postIds.has(post.id)) fail('invalid or duplicate post id');
     postIds.add(post.id);
     if (!/^@[A-Za-z0-9_]{1,15}$/.test(post.author || '') || !timestamp(post.published_at) || !timestamp(post.observed_at)) fail('invalid X author or timestamp');
     if (!url(post.source_url) || !url(post.metrics_source) || !post.viewpoint?.trim() || !post.verification?.trim()) fail('post needs original, metrics source, viewpoint, verification');
+    if (post.translation_zh != null && (typeof post.translation_zh !== 'string' || !post.translation_zh.trim())) fail('translation_zh must be nonempty Chinese text');
     if (post.quote != null && (typeof post.quote !== 'string' || post.quote.length > 220 || post.quote.trim().split(/\s+/).length > 25)) fail('quote must be short (up to 25 words)');
     for (const key of ['views','reposts','replies']) if (post[key] !== null && post[key] !== undefined && (!Number.isInteger(post[key]) || post[key] < 0)) fail(`${key} must be nonnegative integer or null`);
     if (post.avatar_url != null && !url(post.avatar_url) && !/^\/assets\/avatars\/[a-z0-9_-]+\.jpg$/.test(post.avatar_url)) fail('avatar URL invalid');
@@ -61,6 +62,22 @@ for (const row of feed.volatility_readings) {
   for (const key of ['vix','vxn']) {
     keys(row[key], ['value','source_url'], key);
     if (!number(row[key].value) || !url(row[key].source_url)) fail(`${key} needs a value and source`);
+  }
+}
+if (feed.market_indicators != null) {
+  keys(feed.market_indicators, ['CNN','BofA','CTA'], 'market_indicators');
+  for (const key of ['CNN','BofA']) {
+    const row = feed.market_indicators[key];
+    if (row == null) continue;
+    keys(row, ['value','asof','prior','prior_asof','source_url','source_label'], key);
+    if (!Number.isFinite(row.value) || row.value < 0 || row.value > (key === 'CNN' ? 100 : 10) || !date(row.asof) || !url(row.source_url)) fail(`${key} needs a dated sourced value`);
+    if (row.prior != null && (!Number.isFinite(row.prior) || row.prior < 0 || row.prior > (key === 'CNN' ? 100 : 10) || !date(row.prior_asof) || row.prior_asof >= row.asof)) fail(`${key} prior reading invalid`);
+  }
+  const cta = feed.market_indicators.CTA;
+  if (cta != null) {
+    keys(cta, ['value','asof','data_kind','scope','institution','model','source_url','source_label','report_date','summary','confidence_note','unit','digits','label'], 'CTA');
+    if (!number(cta.value) || !date(cta.asof) || cta.data_kind !== 'sell_trigger' || !/\b(SPX|ES)\b/.test(cta.scope || '') || !cta.institution?.trim() || !cta.model?.trim() || !url(cta.source_url)) fail('CTA needs a sourced SPX or ES sell trigger, institution, model and date');
+    if (cta.report_date != null && !date(cta.report_date)) fail('CTA report date invalid');
   }
 }
 console.log(`Valid Muse handoff: ${feed.batch_id}; ${feed.x_topics_upsert.length} topics, ${barDates.NDX.length} market sessions, ${volDates.size} volatility sessions. Evidence still requires human/agent verification.`);
