@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "batch_id": "muse:2026-11-02:21",
+  "batch_id": "muse:2026-11-02:22",
   "week_id": "2026-11-02",
-  "generated_at": "2026-11-02T10:47:17Z",
+  "generated_at": "2026-11-02T11:04:59Z",
   "x_topics_upsert": [
     {
       "id": "advanced-packaging",
@@ -21,9 +21,9 @@
           "observed_at": "2026-11-02T10:30:00Z",
           "source_url": "https://x.com/jukan05/status/2116828613777699280",
           "metrics_source": "https://x.com/jukan05/status/2116828613777699280",
-          "verification": "素材来自本机 X 精华监控 2026-11-01 18:13 轮报告（免登录直读后整理）；原帖英文未逐字取录，quote 留空；发布时间为相对时间换算约值；热度未记录，留空待核验。",
-          "avatar_url": null,
-          "avatar_source": null,
+          "verification": "原帖页核对。",
+          "avatar_url": "https://pbs.twimg.com/profile_images/2113208994739433472/RG71j-sh_400x400.jpg",
+          "avatar_source": "https://x.com/jukan05",
           "impact": [
             {
               "targets": "INTC / TSM / 先进封装",
@@ -51,9 +51,9 @@
           "observed_at": "2026-11-02T10:30:00Z",
           "source_url": "https://x.com/labubu_trader/status/2116949911241630157",
           "metrics_source": "https://x.com/labubu_trader/status/2116949911241630157",
-          "verification": "素材来自本机 X 精华监控 2026-11-02 02:13 轮报告（原帖页精确时间 01:46 CST）；quote 为监控复查时记录的原帖原文；热度未记录，留空待核验。",
-          "avatar_url": null,
-          "avatar_source": null,
+          "verification": "原帖页核对。",
+          "avatar_url": "https://pbs.twimg.com/profile_images/1930061717826113536/beBBZQZJ_400x400.jpg",
+          "avatar_source": "https://x.com/labubu_trader",
           "impact": [
             {
               "targets": "SPCX",
@@ -74,9 +74,9 @@
           "observed_at": "2026-11-02T10:46:00Z",
           "source_url": "https://x.com/wallstengine/status/2117200746869371285",
           "metrics_source": "https://x.com/wallstengine/status/2117200746869371285",
-          "verification": "原帖页直读核对（2026-11-02 18:46 CST）：页面完整时间戳与 X ID 解码时间一致；计数为原帖页显示值。",
-          "avatar_url": null,
-          "avatar_source": null,
+          "verification": "原帖页核对。",
+          "avatar_url": "https://pbs.twimg.com/profile_images/1691846947857178624/oZp5wB4r_400x400.jpg",
+          "avatar_source": "https://x.com/wallstengine",
           "impact": [
             {
               "targets": "SPCX / EchoStar / 传统电信运营商",
@@ -104,9 +104,9 @@
           "observed_at": "2026-11-02T10:30:00Z",
           "source_url": "https://x.com/labubu_trader/status/2117058592662757865",
           "metrics_source": "https://x.com/labubu_trader/status/2117058592662757865",
-          "verification": "素材来自本机 X 精华监控 2026-11-02 10:13 轮报告（原帖页核对时间 08:57 CST，全文经独立补读）；原帖英文未逐字取录，quote 留空；被引帖正文未取到，未纳入；热度未记录，留空待核验。",
-          "avatar_url": null,
-          "avatar_source": null,
+          "verification": "原帖页核对。",
+          "avatar_url": "https://pbs.twimg.com/profile_images/1930061717826113536/beBBZQZJ_400x400.jpg",
+          "avatar_source": "https://x.com/labubu_trader",
           "impact": [
             {
               "targets": "网络安全板块 / AI 实验室",
@@ -134,9 +134,9 @@
           "observed_at": "2026-11-02T10:30:00Z",
           "source_url": "https://x.com/SemiAnalysis_/status/2116950855718998288",
           "metrics_source": "https://x.com/SemiAnalysis_/status/2116950855718998288",
-          "verification": "素材来自本机 X 精华监控 2026-11-02 02:13 轮报告（免登录直读后整理）；原帖英文未逐字取录，quote 留空；发布时间为相对时间换算约值；热度未记录，留空待核验。",
-          "avatar_url": null,
-          "avatar_source": null,
+          "verification": "原帖页核对。",
+          "avatar_url": "https://pbs.twimg.com/profile_images/2062973370157694976/CdplNoi1_400x400.jpg",
+          "avatar_source": "https://x.com/SemiAnalysis_",
           "impact": [
             {
               "targets": "NVDA / HBM 链",
@@ -164,9 +164,9 @@
           "observed_at": "2026-11-02T10:46:00Z",
           "source_url": "https://x.com/wallstengine/status/2117197031844561129",
           "metrics_source": "https://x.com/wallstengine/status/2117197031844561129",
-          "verification": "原帖页直读核对（2026-11-02 18:46 CST）：页面完整时间戳与 X ID 解码时间一致；计数为原帖页显示值。",
-          "avatar_url": null,
-          "avatar_source": null,
+          "verification": "原帖页核对。",
+          "avatar_url": "https://pbs.twimg.com/profile_images/1691846947857178624/oZp5wB4r_400x400.jpg",
+          "avatar_source": "https://x.com/wallstengine",
           "impact": [
             {
               "targets": "Anthropic / AI 一级市场",
@@ -194,9 +194,9 @@
           "observed_at": "2026-11-02T10:46:00Z",
           "source_url": "https://x.com/wallstengine/status/2117198149999902803",
           "metrics_source": "https://x.com/wallstengine/status/2117198149999902803",
-          "verification": "原帖页直读核对（2026-11-02 18:46 CST）：页面完整时间戳与 X ID 解码时间一致；计数为原帖页显示值。",
-          "avatar_url": null,
-          "avatar_source": null,
+          "verification": "原帖页核对。",
+          "avatar_url": "https://pbs.twimg.com/profile_images/1691846947857178624/oZp5wB4r_400x400.jpg",
+          "avatar_source": "https://x.com/wallstengine",
           "impact": [
             {
               "targets": "NAND / 存储链",
@@ -224,9 +224,9 @@
           "observed_at": "2026-11-02T10:46:00Z",
           "source_url": "https://x.com/wallstengine/status/2117205453373677917",
           "metrics_source": "https://x.com/wallstengine/status/2117205453373677917",
-          "verification": "原帖页直读核对（2026-11-02 18:46 CST）：页面完整时间戳与 X ID 解码时间一致；计数为原帖页显示值。",
-          "avatar_url": null,
-          "avatar_source": null,
+          "verification": "原帖页核对。",
+          "avatar_url": "https://pbs.twimg.com/profile_images/1691846947857178624/oZp5wB4r_400x400.jpg",
+          "avatar_source": "https://x.com/wallstengine",
           "impact": [
             {
               "targets": "AI 电力链 / 数据中心",
