@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
-  "data_revision": 7,
+  "data_revision": 10,
   "active_week": "2026-11-02",
-  "content_updated_at": "2026-11-02T08:31:31.567Z",
-  "built_at": "2026-11-02T08:38:25.024Z",
-  "renderer_release": "2026-11-02-readability-importance-ma-scores",
-  "renderer_sha256": "2a6c8d8d8c238e266f6c47cd49468472082c9bedd36db229c007f6108dc1d771"
+  "content_updated_at": "2026-11-02T09:43:34.048Z",
+  "built_at": "2026-11-02T10:01:18.938Z",
+  "renderer_release": "2026-11-02-v14-calendar-x-carousel-readability",
+  "renderer_sha256": "a59aa09a8a49c8db5075e3ef84503fcf69524c4e947db54ebd502098ff542ddd"
 }

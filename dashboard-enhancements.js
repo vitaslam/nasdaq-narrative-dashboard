@@ -27,7 +27,7 @@
   for(const [group,selector,attribute]of [['metrics','[data-metric]','metric'],['dimensions','[data-dimension]','dimension']]){
     document.querySelectorAll(selector).forEach(el=>{const id=el.dataset[attribute],r=P.lookup(W,group,id);if(!r)return;el.classList.toggle('priority-high',r.score===3);el.dataset.importance=r.score;const target=el.querySelector(group==='metrics'?'.key':'.pulse-top');if(target&&group!=='metrics')target.insertAdjacentHTML('afterend',P.stars(r));});
   }
-  const legend=document.createElement('p');legend.className='importance-legend';legend.textContent='重要性（分析估计）：最高 3 星 · 支持半星 · 3 星浅金强调 · 悬停星级查看判断依据';q('.pulse-grid')?.after(legend);
+  const legend=document.createElement('p');legend.className='importance-legend';legend.textContent='重要性（分析估计）：最高 3 星 · 支持半星 · 3 星彩色反相强调 · 悬停星级查看判断依据';q('.pulse-grid')?.after(legend);
   const tooltip=document.createElement('div');tooltip.className='sparkline-tooltip';tooltip.hidden=true;tooltip.setAttribute('role','tooltip');tooltip.id='sparkline-tooltip';document.body.append(tooltip);
   let activeHide=()=>{};
   window.addEventListener('scroll',()=>activeHide(),{passive:true,capture:true});window.addEventListener('resize',()=>activeHide());
