@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "holder": null,
-  "token": null,
-  "purpose": null,
-  "acquired_at": null,
-  "expires_at": null
+  "holder": "Muse",
+  "token": "claude-20261102T110503Z-bebca283",
+  "purpose": "muse feed batch muse:2026-11-02:22 \u2014 trim verification text, add author avatars",
+  "acquired_at": "2026-11-02T11:05:03Z",
+  "expires_at": "2026-11-02T11:50:03Z"
 }
