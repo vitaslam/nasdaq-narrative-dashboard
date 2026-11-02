@@ -76,7 +76,7 @@ if (feed.market_indicators != null) {
   const cta = feed.market_indicators.CTA;
   if (cta != null) {
     keys(cta, ['value','asof','data_kind','scope','institution','model','source_url','source_label','report_date','summary','confidence_note','unit','digits','label'], 'CTA');
-    if (!number(cta.value) || !date(cta.asof) || cta.data_kind !== 'sell_trigger' || !/\b(SPX|ES)\b/.test(cta.scope || '') || !cta.institution?.trim() || !cta.model?.trim() || !url(cta.source_url)) fail('CTA needs a sourced SPX or ES sell trigger, institution, model and date');
+    if (!number(cta.value) || !date(cta.asof) || cta.data_kind !== 'sell_trigger' || !/\bSPX\b|\bES(?:[A-Z]\d{1,2})?\b/i.test(cta.scope || '') || !cta.institution?.trim() || !cta.model?.trim() || !url(cta.source_url)) fail('CTA needs a sourced SPX or ES sell trigger, institution, model and date');
     if (cta.report_date != null && !date(cta.report_date)) fail('CTA report date invalid');
   }
 }
