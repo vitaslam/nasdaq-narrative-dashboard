@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "holder": "Muse",
-  "token": "Claude-2026-11-02T151725Z-26bc54ce",
-  "purpose": "muse-feed batch muse:2026-11-02:27 — add verified X posts (DeItaone Goldman oil forecast, zerohedge Iran talks) + refresh UST to 2026-10-30",
-  "acquired_at": "2026-11-02T15:17:25.000Z",
-  "expires_at": "2026-11-02T16:02:25.000Z"
+  "holder": null,
+  "token": null,
+  "purpose": null,
+  "acquired_at": null,
+  "expires_at": null
 }
