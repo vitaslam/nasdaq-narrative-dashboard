@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "batch_id": "muse:2026-11-03:00",
+  "batch_id": "muse:2026-11-03:02",
   "week_id": "2026-11-02",
-  "generated_at": "2026-11-02T16:29:01Z",
+  "generated_at": "2026-11-02T18:35:12Z",
   "x_topics_upsert": [
     {
       "id": "advanced-packaging",
@@ -192,6 +192,32 @@
           "translation_zh": "Anthropic 计划在即将到来的美国 IPO 中，向日本🇯🇵投资者出售至多 35 亿美元的股份。日本发售是更广泛的国际股票发售的一部分，Anthropic 还计划在澳大利亚、加拿大、欧洲部分地区和英国发售股份。【引用 @IPONewsroom_：Anthropic 计划在纳斯达克 IPO 前向日本出售至多 35 亿美元股份；这是该交易多项海外公开发售之一，还包括澳大利亚、加拿大、英国和瑞士（Anthropic 不计划在瑞士上市），据路透社及其 S-1 文件。】",
           "translation_scope": "full",
           "translation_source_url": "https://x.com/wallstengine/status/2117197031844561129"
+        },
+        {
+          "id": "2117318065780301883",
+          "author": "@wallstengine",
+          "published_at": "2026-11-02T18:08:59Z",
+          "quote": "ANTHROPIC IS PLANNING A UK RETAIL SHARE OFFERING ALONGSIDE ITS U.S. IPO: BBG",
+          "viewpoint": "据彭博：Anthropic 计划在美国 IPO 之外，同步向英国散户发售新股，国际发售范围再扩大。",
+          "translation_zh": "Anthropic 计划在美国 IPO 之外，同步向英国🇬🇧散户发售新股：据彭博。",
+          "translation_scope": "full",
+          "translation_source_url": "https://x.com/wallstengine/status/2117318065780301883",
+          "views": 9372,
+          "reposts": 4,
+          "replies": 6,
+          "observed_at": "2026-11-02T18:35:12Z",
+          "source_url": "https://x.com/wallstengine/status/2117318065780301883",
+          "metrics_source": "https://x.com/wallstengine/status/2117318065780301883",
+          "verification": "X 精华监控 02:13 轮报告，原帖页核对。",
+          "avatar_url": "https://pbs.twimg.com/profile_images/1691846947857178624/oZp5wB4r_400x400.jpg",
+          "avatar_source": "https://x.com/wallstengine",
+          "impact": [
+            {
+              "targets": "Anthropic / AI 一级市场",
+              "direction": "利好",
+              "reason": "英国散户发售安排浮现，IPO 国际配售范围再扩大；最终估值与挂牌时间待招股文件确认。"
+            }
+          ]
         }
       ]
     },
@@ -491,6 +517,230 @@
           ]
         }
       ]
+    },
+    {
+      "id": "marvell-selloff",
+      "title": "Marvell 三日暴跌与 Lumentum 交易",
+      "summary": "Marvell 三日跌幅创 25 年最差，同期 1150 亿美元全股票收购 Lumentum 交易公布，市场以抛售回应。",
+      "posts": [
+        {
+          "id": "2117315046892318944",
+          "author": "@StockSavvyShay",
+          "published_at": "2026-11-02T17:56:59Z",
+          "quote": "$MRVL hasn't seen a three-day selloff this bad in 25 years",
+          "viewpoint": "Marvell 三日跌幅创 25 年最差，自 10 月 29 日以来跌约 29.9% 至 176.52 美元；同期其 1150 亿美元全股票收购 Lumentum 的交易公布。",
+          "translation_zh": "Marvell 三日跌幅之惨，25 年来未见。😳【引用 @VestExchange：Marvell 今日盘中跌超 7%，与此同时其以 1150 亿美元全股票交易收购 Lumentum。Lumentum 股东每股可获 4.5 股 Marvell 股票，约占合并后公司的 33%，预计 2028 年上半年完成交易……（引用帖页面显示截断，未完整取到）】",
+          "translation_scope": "excerpt",
+          "translation_source_url": "https://x.com/StockSavvyShay/status/2117315046892318944",
+          "views": 21911,
+          "reposts": 9,
+          "replies": 25,
+          "observed_at": "2026-11-02T18:35:12Z",
+          "source_url": "https://x.com/StockSavvyShay/status/2117315046892318944",
+          "metrics_source": "https://x.com/StockSavvyShay/status/2117315046892318944",
+          "verification": "X 精华监控 02:13 轮报告，原帖页核对。",
+          "avatar_url": "https://pbs.twimg.com/profile_images/1878129937737187328/DnEflT4L_400x400.jpg",
+          "avatar_source": "https://x.com/StockSavvyShay",
+          "impact": [
+            {
+              "targets": "MRVL / Lumentum",
+              "direction": "利空",
+              "reason": "三日暴跌创 25 年最差，收购交易公布后市场以抛售回应；交易对价与协同仍待官方细节与监管验证。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "crusoe-switchgear",
+      "title": "Crusoe 自建中压开关设备",
+      "summary": "Crusoe 垂直整合中压开关设备制造，称交期缩短 40%，新云厂商抢电力关键路径。",
+      "posts": [
+        {
+          "id": "2117316103546294587",
+          "author": "@SemiAnalysis_",
+          "published_at": "2026-11-02T18:01:11Z",
+          "quote": "CRUSOE IS NOW BUILDING ITS OWN MEDIUM VOLTAGE SWITCHGEAR",
+          "viewpoint": "Crusoe 开始自建中压开关设备，称交期缩短 40%；该设备是 AI 基建关键路径上的长交期环节，新云厂商以此抢电力交付速度。",
+          "translation_zh": "🚨🚨Crusoe 现在开始自建中压开关设备🚨🚨 Crusoe 表示，自建中压（MV）开关设备可将交期缩短 40%。我们认为，在关键路径上拥有设备正成为新云厂商更快获得电力的方式之一。（1/7）🧵【引用 @Electron_Cowboy：直击关键路径——中压开关设备是 AI 基建供应链中交期最长的环节之一，因此 @CrusoeAI 已通过 Crusoe Industries 垂直整合了自主制造该设备的能力。这使我们的交期缩短了……（引用帖页面显示截断，未完整取到）】",
+          "translation_scope": "post_only",
+          "translation_source_url": "https://x.com/SemiAnalysis_/status/2117316103546294587",
+          "views": 7207,
+          "reposts": 4,
+          "replies": 7,
+          "observed_at": "2026-11-02T18:35:12Z",
+          "source_url": "https://x.com/SemiAnalysis_/status/2117316103546294587",
+          "metrics_source": "https://x.com/SemiAnalysis_/status/2117316103546294587",
+          "verification": "X 精华监控 02:13 轮报告，原帖页核对。",
+          "avatar_url": "https://pbs.twimg.com/profile_images/2062973370157694976/CdplNoi1_400x400.jpg",
+          "avatar_source": "https://x.com/SemiAnalysis_",
+          "impact": [
+            {
+              "targets": "Crusoe / AI 基建电力链",
+              "direction": "利好",
+              "reason": "自建关键电力设备缩短交期，利好新云厂商电力交付与 AI 园区上电节奏；量产与成本待后续验证。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "asts-att-handoff",
+      "title": "ASTS 与 AT&T 完成天地切换",
+      "summary": "ASTS 与 AT&T 完成地面蜂窝网络与卫星网络间现网连接首次成功切换，真实环境 Beta 测试为下一步。",
+      "posts": [
+        {
+          "id": "2117314357302616372",
+          "author": "@wallstengine",
+          "published_at": "2026-11-02T17:54:15Z",
+          "quote": "first successful handoff of an active connection between a ground-based cellular network and a satellite network using an unmodified smartphone",
+          "viewpoint": "ASTS 与 AT&T 完成地面蜂窝网络与卫星网络间现网连接的首次成功切换，使用未经改装的智能手机，连接 AT&T 地面网络与 AST 的 BlueBird 卫星，采用爱立信与诺基亚技术；真实环境 Beta 测试为商用前下一步。",
+          "translation_zh": "ASTS 与 AT&T 表示，双方已完成地面蜂窝网络与卫星网络之间现网连接的首次成功切换，使用的是未经改装的智能手机。该测试连接了 AT&T 的地面网络与 AST 的 BlueBird 卫星，采用了爱立信与诺基亚的技术。AT&T 表示，真实环境 Beta 测试是商用前的下一步。",
+          "translation_scope": "full",
+          "translation_source_url": "https://x.com/wallstengine/status/2117314357302616372",
+          "views": 15039,
+          "reposts": 21,
+          "replies": 16,
+          "observed_at": "2026-11-02T18:35:12Z",
+          "source_url": "https://x.com/wallstengine/status/2117314357302616372",
+          "metrics_source": "https://x.com/wallstengine/status/2117314357302616372",
+          "verification": "X 精华监控 02:13 轮报告，原帖页核对。",
+          "avatar_url": "https://pbs.twimg.com/profile_images/1691846947857178624/oZp5wB4r_400x400.jpg",
+          "avatar_source": "https://x.com/wallstengine",
+          "impact": [
+            {
+              "targets": "ASTS / AT&T",
+              "direction": "利好",
+              "reason": "天地直连现网切换首次成功，卫星直连手机商用路径再进一步；Beta 测试与商用时间表为下一验证点。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "treasury-yield-low",
+      "title": "美债收益率跌至 9 月以来最低",
+      "summary": "10 年期美债收益率跌至 4.871%，创 9 月 10 日以来最低，单日下行 5.76 个基点。",
+      "posts": [
+        {
+          "id": "2117318414213829096",
+          "author": "@DeItaone",
+          "published_at": "2026-11-02T18:10:22Z",
+          "quote": "U.S. TREASURY YIELDS FALL TO LOWEST LEVELS SINCE SEPT 10; YIELD ON 10-YEAR TREASURY NOTE LAST DOWN 5.76 BASIS POINTS AT 4.871%",
+          "viewpoint": "美国国债收益率跌至 9 月 10 日以来最低，10 年期收益率单日下行 5.76 个基点至 4.871%。",
+          "translation_zh": "美国国债收益率跌至 9 月 10 日以来最低；10 年期国债收益率最新下跌 5.76 个基点，报 4.871%。",
+          "translation_scope": "full",
+          "translation_source_url": "https://x.com/DeItaone/status/2117318414213829096",
+          "views": 58048,
+          "reposts": 25,
+          "replies": 19,
+          "observed_at": "2026-11-02T18:35:12Z",
+          "source_url": "https://x.com/DeItaone/status/2117318414213829096",
+          "metrics_source": "https://x.com/DeItaone/status/2117318414213829096",
+          "verification": "X 精华监控 02:13 轮报告，原帖页核对。",
+          "avatar_url": "https://pbs.twimg.com/profile_images/2088360110095478784/El9anzXH_400x400.jpg",
+          "avatar_source": "https://x.com/DeItaone",
+          "impact": [
+            {
+              "targets": "10Y 美债 / 利率敏感资产",
+              "direction": "分化",
+              "reason": "长端收益率回落缓和利率压力，但属盘中报价、非财政部收盘曲线；持续性看后续就业与拍卖验证。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dem-sweep-trades",
+      "title": "民主党横扫题材交易",
+      "summary": "民主党横扫情形下的交易讨论：长端实际收益率下行、12 月债务上限博弈与政府停摆风险，逢低买入医保股与黄金看涨期权。",
+      "posts": [
+        {
+          "id": "2117312384629084603",
+          "author": "@labubu_trader",
+          "published_at": "2026-11-02T17:46:24Z",
+          "quote": "I think Dem sweep will bring down the real yield on the long end.",
+          "viewpoint": "认为民主党横扫会压低长端实际收益率，在此情形下共和党会在 12 月把提高债务上限作为最后一舞尝试，政府停摆也有可能并拖累 GDP，逻辑上看多黄金。",
+          "translation_zh": "我认为民主党横扫会压低长端实际收益率。在这种情况下，共和党会在 12 月把提高债务上限作为最后一舞来尝试。政府停摆也有可能，并会拖累 GDP。听起来像是看多黄金的逻辑？请 @Corsica267 确认。【引用 @Glassesman88：你觉得这两者是什么关系？我买只是因为它交易价格走低、且价格在上涨，哈哈】",
+          "translation_scope": "full",
+          "translation_source_url": "https://x.com/labubu_trader/status/2117312384629084603",
+          "views": 9155,
+          "reposts": 2,
+          "replies": 7,
+          "observed_at": "2026-11-02T18:35:12Z",
+          "source_url": "https://x.com/labubu_trader/status/2117312384629084603",
+          "metrics_source": "https://x.com/labubu_trader/status/2117312384629084603",
+          "verification": "X 精华监控 02:13 轮报告，原帖页核对。",
+          "avatar_url": "https://pbs.twimg.com/profile_images/1930061717826113536/beBBZQZJ_400x400.jpg",
+          "avatar_source": "https://x.com/labubu_trader",
+          "impact": [
+            {
+              "targets": "黄金 / 长端美债",
+              "direction": "利好",
+              "reason": "横扫情形下长端实际收益率下行、停摆风险并存，构成看多黄金的逻辑链；属交易者推演，待选举结果验证。"
+            }
+          ]
+        },
+        {
+          "id": "2117314937320296774",
+          "author": "@labubu_trader",
+          "published_at": "2026-11-02T17:56:33Z",
+          "quote": "BTD of $OSCR $UNH $THC $CNC $NEE and Gld calls today to play Dem sweep.",
+          "viewpoint": "今日逢低买入 OSCR、UNH、THC、CNC、NEE 以及黄金看涨期权，押注民主党横扫；仓位不大，属赌博性质，不构成投资建议。",
+          "translation_zh": "今日逢低买入 $OSCR、$UNH、$THC、$CNC、$NEE 以及黄金看涨期权，押注民主党横扫。仓位不大，属赌博性质。不构成投资建议。",
+          "translation_scope": "full",
+          "translation_source_url": "https://x.com/labubu_trader/status/2117314937320296774",
+          "views": 5883,
+          "reposts": 0,
+          "replies": 3,
+          "observed_at": "2026-11-02T18:35:12Z",
+          "source_url": "https://x.com/labubu_trader/status/2117314937320296774",
+          "metrics_source": "https://x.com/labubu_trader/status/2117314937320296774",
+          "verification": "X 精华监控 02:13 轮报告，原帖页核对。",
+          "avatar_url": "https://pbs.twimg.com/profile_images/1930061717826113536/beBBZQZJ_400x400.jpg",
+          "avatar_source": "https://x.com/labubu_trader",
+          "impact": [
+            {
+              "targets": "OSCR / UNH / THC / CNC / NEE / 黄金",
+              "direction": "利好",
+              "reason": "逢低买入医保股与黄金看涨期权押注民主党横扫；作者自言仓位不大、属赌博性质，信号强度有限。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nq-top-call",
+      "title": "纳指期货顶部与做空位",
+      "summary": "NQ 当日顶部 28890，若无法收复 29000–29220 区域则为重新做空的价位，否则止损翻多。",
+      "posts": [
+        {
+          "id": "2117310037106528276",
+          "author": "@labubu_trader",
+          "published_at": "2026-11-02T17:37:05Z",
+          "quote": "My bad, the top was 28890 today.",
+          "viewpoint": "NQ 当日顶部为 28890；若无法收复 29000–29220 区域、本周又被该区域压回，将是重新做空的好价位，否则止损翻多。",
+          "translation_zh": "我的错，今天的顶部是 28890。😭【引用 @labubu_trader：NQ 目前正如预期反弹。在我看来，如果它无法收复 29000–29220 区域、本周又被该区域压回，将是重新做空的好价位。否则，止损并翻多。】",
+          "translation_scope": "full",
+          "translation_source_url": "https://x.com/labubu_trader/status/2117310037106528276",
+          "views": 7847,
+          "reposts": 0,
+          "replies": 2,
+          "observed_at": "2026-11-02T18:35:12Z",
+          "source_url": "https://x.com/labubu_trader/status/2117310037106528276",
+          "metrics_source": "https://x.com/labubu_trader/status/2117310037106528276",
+          "verification": "X 精华监控 02:13 轮报告，原帖页核对。",
+          "avatar_url": "https://pbs.twimg.com/profile_images/1930061717826113536/beBBZQZJ_400x400.jpg",
+          "avatar_source": "https://x.com/labubu_trader",
+          "impact": [
+            {
+              "targets": "NQ / 纳指期货",
+              "direction": "分化",
+              "reason": "给出明确的做空重入位与翻多条件，属短线交易判断；价位有效性看本周能否收复 29000–29220 区域。"
+            }
+          ]
+        }
+      ]
     }
   ],
   "market_bars": {
@@ -498,9 +748,9 @@
       {
         "date": "2026-11-02",
         "o": 28576.54,
-        "h": 28753.39,
-        "l": 28492.02,
-        "c": 28533.02,
+        "h": 28748.98,
+        "l": 28349.82,
+        "c": 28413.08,
         "source_url": "https://api.nasdaq.com/api/quote/NDX/chart?assetclass=index"
       }
     ],
@@ -509,9 +759,9 @@
         "date": "2026-11-02",
         "o": 695.32,
         "h": 699.32,
-        "l": 693.82,
-        "c": 694.1,
-        "source_url": "https://api.nasdaq.com/api/quote/QQQ/info?assetclass=etf"
+        "l": 689.75,
+        "c": 691.0,
+        "source_url": "https://api.nasdaq.com/api/quote/QQQ/chart?assetclass=etf"
       }
     ],
     "SPX": [
@@ -519,8 +769,8 @@
         "date": "2026-11-02",
         "o": 7610.83,
         "h": 7662.23,
-        "l": 7610.09,
-        "c": 7628.77,
+        "l": 7592.64,
+        "c": 7614.78,
         "source_url": "https://cdn.cboe.com/api/global/delayed_quotes/quotes/_SPX.json"
       }
     ]
@@ -529,11 +779,11 @@
     {
       "date": "2026-11-02",
       "vix": {
-        "value": 18.77,
+        "value": 19.48,
         "source_url": "https://cdn.cboe.com/api/global/delayed_quotes/quotes/_VIX.json"
       },
       "vxn": {
-        "value": 27.95,
+        "value": 28.57,
         "source_url": "https://cdn.cboe.com/api/global/delayed_quotes/quotes/_VXN.json"
       }
     }
@@ -571,7 +821,7 @@
       "source_url": "https://www.eia.gov/dnav/pet/hist/RBRTED.htm"
     },
     "FedHike": {
-      "value": 73.95,
+      "value": 73.35,
       "meeting": "2026-12-09",
       "asof": "2026-11-02",
       "source_url": "https://polymarket.com/event/fed-decision-in-december-20260729232808632",
