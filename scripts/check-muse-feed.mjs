@@ -67,13 +67,25 @@ for (const row of feed.volatility_readings) {
   }
 }
 if (feed.market_indicators != null) {
-  keys(feed.market_indicators, ['CNN','BofA','CTA'], 'market_indicators');
+  keys(feed.market_indicators, ['CNN','BofA','CTA','UST10Y','UST30Y','Brent','FedHike'], 'market_indicators');
   for (const key of ['CNN','BofA']) {
     const row = feed.market_indicators[key];
     if (row == null) continue;
     keys(row, ['value','asof','prior','prior_asof','source_url','source_label'], key);
     if (!Number.isFinite(row.value) || row.value < 0 || row.value > (key === 'CNN' ? 100 : 10) || !date(row.asof) || !url(row.source_url)) fail(`${key} needs a dated sourced value`);
     if (row.prior != null && (!Number.isFinite(row.prior) || row.prior < 0 || row.prior > (key === 'CNN' ? 100 : 10) || !date(row.prior_asof) || row.prior_asof >= row.asof)) fail(`${key} prior reading invalid`);
+  }
+  for (const key of ['UST10Y','UST30Y','Brent']) {
+    const row = feed.market_indicators[key];
+    if (row == null) continue;
+    keys(row, ['value','asof','source_url'], key);
+    const official = key === 'Brent' ? /^https:\/\/(?:www\.)?eia\.gov\// : /^https:\/\/home\.treasury\.gov\//;
+    if (!Number.isFinite(row.value) || row.value <= 0 || row.value > (key === 'Brent' ? 500 : 15) || !date(row.asof) || !official.test(row.source_url || '')) fail(`${key} needs an official dated sourced reading`);
+  }
+  const fed = feed.market_indicators.FedHike;
+  if (fed != null) {
+    keys(fed, ['value','meeting','asof','source_url','method'], 'FedHike');
+    if (!Number.isFinite(fed.value) || fed.value < 0 || fed.value > 100 || !date(fed.meeting) || !date(fed.asof) || !/^https:\/\/(?:www\.)?polymarket\.com\/event\//.test(fed.source_url || '') || !fed.method?.trim()) fail('FedHike needs a meeting date, percentage, Polymarket market and aggregation method');
   }
   const cta = feed.market_indicators.CTA;
   if (cta != null) {

@@ -100,11 +100,11 @@ export function mergeMuseFeed(exportData, feed, {now = new Date().toISOString()}
   // These are report-date observations, not daily bars. Older cumulative feed
   // snapshots cannot roll the dashboard back to an earlier report.
   snap.indicator_history ??= {};
-  for (const key of ['CNN', 'BofA', 'CTA']) {
+  for (const key of ['CNN', 'BofA', 'CTA', 'UST10Y', 'UST30Y', 'Brent', 'FedHike']) {
     const incoming = feed.market_indicators?.[key];
     if (!incoming || incoming.asof < (snap.sentiment[key]?.asof || '')) continue;
     snap.sentiment[key] = {...snap.sentiment[key], ...clone(incoming)};
-    const field = {CNN: 'cnnFearGreed', BofA: 'bofaBullBear', CTA: 'cta'}[key];
+    const field = {CNN: 'cnnFearGreed', BofA: 'bofaBullBear', CTA: 'cta', UST10Y: 'ust10y', UST30Y: 'ust30y', Brent: 'brent', FedHike: 'fedHike'}[key];
     snap.asof_metrics[field] = {...snap.asof_metrics[field], value: incoming.value, observation_date: incoming.asof, available_date: incoming.asof, source_url: incoming.source_url};
     const history = snap.indicator_history[key] ??= [];
     const byReportDate = new Map(history.map(row => [row.date, row]));
