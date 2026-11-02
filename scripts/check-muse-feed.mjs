@@ -27,7 +27,7 @@ for (const topic of feed.x_topics_upsert) {
     postIds.add(post.id);
     if (!/^@[A-Za-z0-9_]{1,15}$/.test(post.author || '') || !timestamp(post.published_at) || !timestamp(post.observed_at)) fail('invalid X author or timestamp');
     if (!url(post.source_url) || !url(post.metrics_source) || !post.viewpoint?.trim() || !post.verification?.trim()) fail('post needs original, metrics source, viewpoint, verification');
-    if (post.translation_zh != null && (typeof post.translation_zh !== 'string' || !post.translation_zh.trim())) fail('translation_zh must be nonempty Chinese text');
+    if (typeof post.translation_zh !== 'string' || !post.translation_zh.trim()) fail(`${topic.id}/${post.id} needs a faithful Chinese translation_zh`);
     if (post.quote != null && (typeof post.quote !== 'string' || post.quote.length > 220 || post.quote.trim().split(/\s+/).length > 25)) fail('quote must be short (up to 25 words)');
     for (const key of ['views','reposts','replies']) if (post[key] !== null && post[key] !== undefined && (!Number.isInteger(post[key]) || post[key] < 0)) fail(`${key} must be nonnegative integer or null`);
     if (post.avatar_url != null && !url(post.avatar_url) && !/^\/assets\/avatars\/[a-z0-9_-]+\.jpg$/.test(post.avatar_url)) fail('avatar URL invalid');
