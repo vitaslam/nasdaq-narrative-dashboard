@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "batch_id": "muse:2026-11-02:23",
+  "batch_id": "muse:2026-11-02:24",
   "week_id": "2026-11-02",
-  "generated_at": "2026-11-02T12:52:00Z",
+  "generated_at": "2026-11-02T12:58:00Z",
   "x_topics_upsert": [
     {
       "id": "advanced-packaging",
@@ -347,15 +347,15 @@
       "data_kind": "sell_trigger",
       "scope": "SPX 现货",
       "institution": "Goldman Sachs（高盛）",
-      "model": "US Equities Weekly Rundown CTA 阈值（中期）",
+      "model": "US Equities Weekly Rundown（中期阈值）",
       "source_url": "https://wx.zsxq.com/group/51115542524144",
-      "source_label": "知识星球「社会观察从业者」2026-11-01 帖转述高盛周报，PDF 原件已核对",
+      "source_label": "高盛周报（PDF 已核对）",
       "report_date": "2026-10-30",
-      "summary": "高盛 CTA 中期卖出阈值 SPX 7,554；短期阈值 7,544.2；SPX 100 日线 7,614（参考）。按用户定版，CTA 只认高盛源。",
-      "confidence_note": "二手转述自高盛《US Equities Weekly Rundown》（2026-10-30），经知识星球帖转述，PDF 原件已核对全文；SPX 现货口径，不同于 BofA 的 ES 期货口径。",
+      "summary": "短期阈值 7,544.2 · 100 日线 7,614",
+      "confidence_note": "SPX 现货口径；星球转述，PDF 已核对。",
       "unit": "点",
       "digits": 0,
-      "label": "标普500 · CTA卖出触发参考（高盛）"
+      "label": "标普500 · CTA卖出触发（高盛）"
     }
   }
 }
