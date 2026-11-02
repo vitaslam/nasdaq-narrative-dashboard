@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "holder": "GPT",
-  "token": "gpt-x-translation-1793619857728-p24t8jrjmo",
-  "purpose": "Restore exact X post set and faithful translation in GPT preview",
-  "acquired_at": "2026-11-02T11:44:17.728Z",
-  "expires_at": "2026-11-02T12:29:17.728Z"
+  "holder": null,
+  "token": null,
+  "purpose": null,
+  "acquired_at": null,
+  "expires_at": null
 }
