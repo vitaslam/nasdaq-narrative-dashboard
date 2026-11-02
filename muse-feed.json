@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "batch_id": "muse:2026-11-03:02",
+  "batch_id": "muse:2026-11-03:04",
   "week_id": "2026-11-02",
-  "generated_at": "2026-11-02T18:35:12Z",
+  "generated_at": "2026-11-02T20:31:58Z",
   "x_topics_upsert": [
     {
       "id": "advanced-packaging",
@@ -749,8 +749,8 @@
         "date": "2026-11-02",
         "o": 28576.54,
         "h": 28748.98,
-        "l": 28349.82,
-        "c": 28413.08,
+        "l": 28066.05,
+        "c": 28118.14,
         "source_url": "https://api.nasdaq.com/api/quote/NDX/chart?assetclass=index"
       }
     ],
@@ -759,8 +759,8 @@
         "date": "2026-11-02",
         "o": 695.32,
         "h": 699.32,
-        "l": 689.75,
-        "c": 691.0,
+        "l": 682.94,
+        "c": 684.22,
         "source_url": "https://api.nasdaq.com/api/quote/QQQ/chart?assetclass=etf"
       }
     ],
@@ -769,8 +769,8 @@
         "date": "2026-11-02",
         "o": 7610.83,
         "h": 7662.23,
-        "l": 7592.64,
-        "c": 7614.78,
+        "l": 7554.78,
+        "c": 7570.55,
         "source_url": "https://cdn.cboe.com/api/global/delayed_quotes/quotes/_SPX.json"
       }
     ]
@@ -779,11 +779,11 @@
     {
       "date": "2026-11-02",
       "vix": {
-        "value": 19.48,
+        "value": 21.06,
         "source_url": "https://cdn.cboe.com/api/global/delayed_quotes/quotes/_VIX.json"
       },
       "vxn": {
-        "value": 28.57,
+        "value": 30.21,
         "source_url": "https://cdn.cboe.com/api/global/delayed_quotes/quotes/_VXN.json"
       }
     }
@@ -821,7 +821,7 @@
       "source_url": "https://www.eia.gov/dnav/pet/hist/RBRTED.htm"
     },
     "FedHike": {
-      "value": 73.35,
+      "value": 75.7,
       "meeting": "2026-12-09",
       "asof": "2026-11-02",
       "source_url": "https://polymarket.com/event/fed-decision-in-december-20260729232808632",
