@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "holder": null,
-  "token": null,
-  "purpose": null,
-  "acquired_at": null,
-  "expires_at": null
+  "holder": "GPT",
+  "token": "GPT-2026-11-02T13:53:46.036Z-zchssb50gul",
+  "purpose": "利率能源卡片左右分栏与读数字号",
+  "acquired_at": "2026-11-02T13:53:46.036Z",
+  "expires_at": "2026-11-02T14:38:46.036Z"
 }
