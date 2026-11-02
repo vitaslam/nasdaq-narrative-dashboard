@@ -111,6 +111,14 @@ export function mergeMuseFeed(exportData, feed, {now = new Date().toISOString()}
     byReportDate.set(incoming.asof, {...byReportDate.get(incoming.asof), date: incoming.asof, ...clone(incoming)});
     snap.indicator_history[key] = [...byReportDate.values()].sort((a, b) => a.date.localeCompare(b.date));
   }
+  const futures = feed.market_indicators?.VXFutures;
+  if (futures && futures.asof >= (snap.sentiment.VXFutures?.asof || '')) {
+    snap.sentiment.VXFutures = clone(futures);
+    const history = snap.indicator_history.VXFutures ??= [];
+    const byDate = new Map(history.map(row => [row.date, row]));
+    byDate.set(futures.asof, {date: futures.asof, ...clone(futures)});
+    snap.indicator_history.VXFutures = [...byDate.values()].sort((a, b) => a.date.localeCompare(b.date));
+  }
   stats.changed = !same(JSON.parse(before), week);
   if (stats.changed) week.updated_at = now;
   return {data, warnings, stats};

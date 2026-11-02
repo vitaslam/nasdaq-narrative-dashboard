@@ -67,7 +67,16 @@ for (const row of feed.volatility_readings) {
   }
 }
 if (feed.market_indicators != null) {
-  keys(feed.market_indicators, ['CNN','BofA','CTA','UST10Y','UST30Y','Brent','FedHike'], 'market_indicators');
+  keys(feed.market_indicators, ['CNN','BofA','CTA','UST10Y','UST30Y','Brent','FedHike','VXFutures'], 'market_indicators');
+  const futures = feed.market_indicators.VXFutures;
+  if (futures != null) {
+    keys(futures, ['vx1','vx2','asof','front_expiry','second_expiry','source_url'], 'VXFutures');
+    if (!number(futures.vx1) || !number(futures.vx2) || !date(futures.asof) ||
+        !date(futures.front_expiry) || !date(futures.second_expiry) ||
+        futures.front_expiry <= futures.asof || futures.second_expiry <= futures.front_expiry ||
+        !/^https:\/\/(?:www\.)?cboe\.com\//.test(futures.source_url || ''))
+      fail('VXFutures needs same-day first/second monthly VX settlements, expiries and Cboe source');
+  }
   for (const key of ['CNN','BofA']) {
     const row = feed.market_indicators[key];
     if (row == null) continue;

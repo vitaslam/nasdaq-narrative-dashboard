@@ -19,14 +19,14 @@ Muse 和 GPT 开始**任何数据写入**（包括 `muse-feed.json`、GPT 站点
 
 | 板块 | 页面规则 | 更新内容与入口 | 核对重点 |
 | --- | --- | --- | --- |
-| 顶部状态与立场 | 顶部时间轴的周卡 hover 显示该周情绪、依据和 QQQ 周收盘浮卡；仪表盘情绪格点击才展开历周列表，浮层只完整显示 4 张卡片，滚动继续加载后续记录。当前周状态条突出北京时间今天的月日与星期，下一行保留周范围、行情截止与内容更新时间；历史周状态条维持原日期。时间轴的第一行显示情绪 emoji 与周日期，第二行仅显示 QQQ 最后收盘读数（不重复小日期）；未选周卡白底淡边，左右箭头每次移动时间轴可视宽度的 50%，周卡点击才切换内容。仅在选中卡中心进入可视区域两侧各 30% 时自动平移，其他点选保留时间轴位置；状态条右侧的左右按钮切换整周页面。时间轴当前可见周在后台预取页面；切周保留旧内容至新周就绪，再用约 130ms 的轻淡入完成替换，失败则回退直接加载；并按原阅读板块恢复新周标题在屏幕上的位置（例如在 X 区切周仍对齐 X 标题）；各周状态条等高且右侧按钮位置一致；周内四档操作区间固定 | 周一开周制定 `weekly_plan`；日常只更新 `stance` 的条件状态与新证据 | 价格碰到区间不等于触发；不把期货/盘前价格当常规收盘 |
+| 顶部状态与立场 | 顶部时间轴的周卡 hover 显示该周情绪、依据和 QQQ 周收盘浮卡；仪表盘情绪格点击才展开历周列表，浮层只完整显示 4 张卡片，滚动继续加载后续记录。当前周状态条突出北京时间今天的月日与星期，下一行保留周范围、行情截止与内容更新时间；历史周状态条维持原日期。时间轴的第一行显示情绪 emoji 与周日期，第二行仅显示 QQQ 最后收盘读数（不重复小日期）；未选周卡白底淡边，左右箭头每次移动时间轴可视宽度的 50%，周卡点击才切换内容。仅在选中卡中心进入可视区域两侧各 30% 时自动平移，其他点选保留时间轴位置；状态条右侧的左右按钮切换整周页面。时间轴当前可见周在后台预取页面；切周保留旧内容至新周就绪，再用约 190ms 的双页面淡入淡出完成替换；可匹配卡片按身份和新旧坐标短距离滑动，无对应卡片淡出或淡入；失败则回退直接加载；并按原阅读板块的标题在屏幕上的精确 Y 坐标对齐新周同名标题（例如在 X 区切周仍对齐 X 标题）；各周状态条等高且右侧按钮位置一致；周内四档操作区间固定 | 周一开周制定 `weekly_plan`；日常只更新 `stance` 的条件状态与新证据 | 价格碰到区间不等于触发；不把期货/盘前价格当常规收盘 |
 | 市场情绪 | 周一以上周五最后实际收盘为基准，结合周末消息；周二至五对照已存周一/周二；周五作结论。卡片按偏多/观望/偏悲观着色，悬停或点击打开不改页面高度的历周浮层，弹层先装载 8 周、约显示 4 周，滚动到底继续载入；点击一周同步切换顶部导航与整页 | `market_mood.baselines/current/conclusion`；早期没有实时情绪记录的 9 月周按当期归档证据在 `data/mood-retrospective.json` 标明回溯判断 | 基准不回写；emoji 与一句归因是分析判断，须有证据与时间；QQQ 使用该周最后交易日收盘，不把回溯判断伪装成当日保存记录 |
-| Dashboard 市场读数 | 第一行：情绪、NDX/QQQ、NDX 50/200 日均线、SPX 与 CTA 合并且 CTA 只占一行、走势在右侧；第二行：VIX/VXN、CNN、BofA、10Y/30Y 美债与布伦特原油。最后一张卡左栏为 10Y 主读数与 30Y 小读数，右栏为 Brent 主读数，美元/桶在数字下方 | Muse 在 feed 提供 NDX/QQQ/SPX 常规收盘 OHLC、VIX/VXN，以及 `market_indicators` 的 CNN、BofA、CTA、UST10Y、UST30Y、Brent、FedHike；GPT 不日常更新这些读数 | Nasdaq 官方、WSJ 与 CBOE 对照、CBOE 官方 CSV；CNN/BofA 必须保留原报告或明确次级归档及日期；均线与 ATR 从日线重算。卡片内的小走势图不显示“周频归档／周频报告”标签，利率能源卡不显示 CTA 缺样本提示；保持原卡片尺寸，仅 30Y >5.2% 或 Brent >$100 的数值标红 |
+| Dashboard 市场读数 | 第一行：情绪、NDX/QQQ、NDX 50/200 日均线、SPX 与 CTA 合并且 CTA 只占一行、走势在右侧；第二行：VIX/VXN、CNN、BofA、10Y/30Y 美债与布伦特原油。VIX 卡在 VXN 下加一行 VX1、VX2、Contango，不改卡片尺寸；最后一张卡左栏为 10Y 主读数与 30Y 小读数，右栏为 Brent 主读数，美元/桶在数字下方 | Muse 在 feed 提供 NDX/QQQ/SPX 常规收盘 OHLC、VIX/VXN，以及 `market_indicators` 的 CNN、BofA、CTA、UST10Y、UST30Y、Brent、FedHike、VXFutures；GPT 不日常更新这些读数 | Nasdaq 官方、WSJ 与 CBOE 对照、CBOE 官方 CSV；VX1/VX2 取同一天的前两个月度 VX 期货结算（排除周度合约），Contango = (VX2 / VX1 − 1) × 100%，负值为倒挂，页面标明观察日。CNN/BofA 必须保留原报告或明确次级归档及日期；均线与 ATR 从日线重算。卡片内的小走势图不显示“周频归档／周频报告”标签，利率能源卡不显示 CTA 缺样本提示；保持原卡片尺寸，仅 30Y >5.2% 或 Brent >$100 的数值标红 |
 | CTA | 只展示机构模型的标普卖出**触发点**，不是仓位敞口或实际卖盘 | Muse 的 `market_indicators.CTA`，合并至 `snapshot.sentiment.CTA` 与历史观测；GPT 不日常维护 | 标明 SPX 现货或 ES 合约、机构、模型、报告日、来源及二手转述；不同合约点位不可混用 |
 | 本周事件驱动 | 最多 4 项，本周权重合计 100%；已落地/未落地各带时间；左侧列表不填高亮底色 | `event_drivers` 同一 ID 更新结果；`event_details` 最多两项 | 百分比是本周叙事关注度估计，并非概率；未发生事件不可提前记结果 |
 | 五维状态 | 盈利、宏观、趋势、估值、仓位权重独立合计 100%；3 星重点卡彩色底白字 | `dimensions` 五项及 `importance.dimensions` | 与上周固定权重比较；变化方向、证据和来源分开；星级与百分比独立 |
 | 叙事变化与验证 | 左侧问题清单固定、可点击定位；仅右侧选中卡有外框。右侧最新在左、最多 6 条，末端停住 | `questions_upsert`、`answers_append`、`importance.questions/answers` | 新回答按 `question_id` 关联；旧回答不覆盖，新周继承原 ID/日期，历史归档不改 |
-| 操作区间与主图 | NDX/QQQ 价格、50/200 日均线、ATR 和条件区间分开 | 周一开周才重算 `weekly_plan`；市场 bars 日常追加 | 图表数据截至实际收盘；周内区间固定，突发风险另做失效检查 |
+| 操作区间与主图 | NDX/QQQ 价格可选 1、3、6、12 个月，日 K 用红涨绿跌显示 OHLC，50/200 日均线继续用折线叠加；ATR 和条件区间分开 | 周一开周才重算 `weekly_plan`；市场 bars 日常追加 | 图表数据截至实际收盘；周内区间固定，突发风险另做失效检查 |
 | X 高热度话题 | 独占上排，**每条帖子一张卡**，话题只作标题，不把不同博主放进同一卡；最新在左，桌面 3 张半，最多 10 张，可横向滑动；单帖达门槛自动从高频移入，不重复显示 | GPT 主责选题与补充；Muse 的帖子达到门槛也由渲染器自动归入此排 | 门槛为单帖 ≥100 万浏览，或 ≥1000 转发/评论；依据已核验快照，不以话题合计冒充单帖热度 |
 | X 高频板块 | 独占下排，无卡片或帖子数量上限；以小写 @账号归组，同一博主的帖子在同一卡片内按新到旧纵向排列；卡片按最短列接续形成瀑布流，不按最长卡片撑出空白行 | Muse 主责经 `muse-feed.json` 累计提交；GPT 可以补充不重复的原帖 | 账号头像与名称放卡片顶部，每条帖子各自显示发布时间、原帖链接和原文中译；只列有证据的利好标的，没有就省略整行；热度只展示一项已记录指标，不推造数字；长帖可展开阅读全文 |
 | 共用事件日历 | 切换历史周时跳到该周；两周一页、可前后翻；3 星及市值超过 5000 亿美元的公司财报高饱和底白字；点击事件后在同周周六、周日两格上方覆盖详情卡，不点仍显示日期；按预期、实际、当日市场反应、叙事影响逐项展示，缺证据标待核验 | 唯一 `calendar_upsert`，不按周复制；财报市值名单随新公司过线核对 | 北京时间与美东交易日期分开；实际结果必须有原始结果来源，市场反应明确时段 |
@@ -71,11 +71,13 @@ Muse 和 GPT 开始**任何数据写入**（包括 `muse-feed.json`、GPT 站点
   }],
   "market_bars": {"NDX": [], "QQQ": [], "SPX": []},
   "volatility_readings": [],
-  "market_indicators": {"CNN": {"value": 26, "asof": "2026-10-30", "source_url": "https://..."}, "BofA": {"value": 7.1, "asof": "2026-10-30", "source_url": "https://..."}, "CTA": {"value": 7606, "asof": "2026-10-30", "data_kind": "sell_trigger", "scope": "ESZ6 futures", "institution": "BofA", "model": "机构模型名称", "source_url": "https://..."}, "UST10Y": {"value": 4.94, "asof": "2026-10-30", "source_url": "https://home.treasury.gov/..."}, "UST30Y": {"value": 5.31, "asof": "2026-10-30", "source_url": "https://home.treasury.gov/..."}, "Brent": {"value": 115.28, "asof": "2026-10-29", "source_url": "https://www.eia.gov/..."}, "FedHike": {"value": 72.4, "meeting": "2026-12-09", "asof": "2026-11-02", "source_url": "https://polymarket.com/event/...", "method": "25bp 与 50bp 以上加息结果概率求和"}}
+  "market_indicators": {"CNN": {"value": 26, "asof": "2026-10-30", "source_url": "https://..."}, "BofA": {"value": 7.1, "asof": "2026-10-30", "source_url": "https://..."}, "CTA": {"value": 7606, "asof": "2026-10-30", "data_kind": "sell_trigger", "scope": "ESZ6 futures", "institution": "BofA", "model": "机构模型名称", "source_url": "https://..."}, "UST10Y": {"value": 4.94, "asof": "2026-10-30", "source_url": "https://home.treasury.gov/..."}, "UST30Y": {"value": 5.31, "asof": "2026-10-30", "source_url": "https://home.treasury.gov/..."}, "Brent": {"value": 115.28, "asof": "2026-10-29", "source_url": "https://www.eia.gov/..."}, "FedHike": {"value": 72.4, "meeting": "2026-12-09", "asof": "2026-11-02", "source_url": "https://polymarket.com/event/...", "method": "25bp 与 50bp 以上加息结果概率求和"}, "VXFutures": {"vx1": 20.3603, "vx2": 19.7888, "asof": "2026-10-30", "front_expiry": "2026-11-18", "second_expiry": "2026-12-16", "source_url": "https://www.cboe.com/markets/us/futures/market-statistics/settlement/futures/daily"}}
 }
 ```
 
 `market_indicators` 可省略未取得新报告的键，不能用旧日报告假装今日读数。CNN 为 0–100、BofA 为 0–10，均需 `value`、报告/观察日 `asof`、`source_url`，可带 `prior/prior_asof`、`source_label`。CTA 只接受标普 500 的机构模型**卖出触发点**：`value`、`asof`、`data_kind:"sell_trigger"`、`scope`（明确 SPX 现货或 ES 合约及月份）、`institution`、`model`、`source_url` 必填；可附 `report_date`、`summary`、`confidence_note`、`unit`、`digits`。只有仓位预估而没有卖出点位时不提交 CTA；机构原报告和二手转述须在内部证据中分清。feed 合并到 `snapshot.sentiment`、`snapshot.asof_metrics` 和对应 `indicator_history`；旧日期不覆盖新日期。Muse 同时维护这三项及价格/波动读数；GPT 的 10/16/22 轮次不抓取也不写入 CNN、BofA、CTA，只在发现口径错误时协同更正。
+
+`market_indicators.VXFutures` 用 Cboe 同一交易日的前两个月度 VX 期货结算，写 `vx1/vx2/asof/front_expiry/second_expiry/source_url`；不拿每周到期合约冒充 VX1。只在双合约都核验后提交，页面按 `(vx2 / vx1 - 1) × 100%` 计算并显示观察日（鼠标悬停或键盘聚焦可查看），负值意味着近月倒挂。旧日期不得覆盖新读数；GPT 已保存的 `snapshot.vix_monthly` 可供初始展示，Muse 新结算优先。期货结算与 VIX 现货不混写。
 
 宏观与金融五维卡新增 Polymarket 会议加息概率。Muse 维护 `market_indicators.FedHike`：`meeting` 为实际会议日期，`value` 为该会议所有加息结果概率之和（25bp、50bp 以上等），`asof` 为读取日期，`source_url` 指向具体 Polymarket 事件，`method` 写明求和口径。当前关注 2026 年 12 月，随后随市场关注焦点更换 `meeting`，不得把单个 25bp 选项冒充全部加息概率。预测市场读数会变，必须显示读取日期，不作为联储官方预测。Muse 也接管 `UST10Y`、`UST30Y`、`Brent`，三项均需 `value/asof/source_url`；美债来自美国财政部每日收益率曲线，布伦特现货来自 EIA，不能以盘中期货混写。初次页面临时核验读数分别为 10/30 的 4.94%/5.31%、10/29 的 $115.28，Muse 新读数按日期覆盖。超过阈值只提示风险，不自动更改周度计划。\n\n`market_bars` 的每条格式为 `{date:"YYYY-MM-DD",c:收盘,o:开盘,h:最高,l:最低,source_url:"https://..."}`，三种标的必须是**同一交易日期的完整常规时段收盘**，否则不提交新日。`volatility_readings` 的格式为 `{date:"YYYY-MM-DD",vix:{value,source_url},vxn:{value,source_url}}`，读取 Cboe 对应日期官方收盘；不根据图形估值。均线偏离由渲染代码从连续交易日收盘计算，不写在交接文件中。单独缺失的 VIX/VXN 留待下次，不能用旧日读数冒充今日。若源有修订，写一条带日期的更正说明，不静默改历史。
 
@@ -87,6 +89,8 @@ Muse 的流程：约每两小时监控 X → 同一博主可有多个话题/帖�
 
 **晋级/回流**：任何高频帖的已核验单帖 views ≥1,000,000，或 reposts/replies ≥1,000，发布时自动进入高热度排，原高频作者卡不再显示该帖；同一作者的其他未达标帖仍在高频排。达到门槛后的帖子即使以后热度源暂时缺失，必须保留已核验峰值或原始快照，不能因缺值回流。GPT 定期复核晋级话题，独立寻找其他有原帖、真实热度与译文的高热话题，经 GPT 站点的 `x_topics_upsert` 加入；不同帖子用不同 ID，同 ID 内容 Muse feed 仍优先。热度是传播量，不等于标的利好已获证实。
 
+五维状态卡的详情在卡片下方按高度滑开和收回；切换详情时连续改变高度，尊重系统减少动态效果设置。
+
 X 卡面正文超过 180 字时默认折叠为前五行，点击“展开全文”才显示全部内容；“收起”可还原。折叠只改变呈现，不截断或改写数据。上排一帖一张卡；下排才按博主合并，不因同一话题把不同作者合到一张卡。
 
 每次提交自动触发 Pages 构建。构建先由 `check-muse-feed.mjs` 做结构校验，再在 `scripts/export-pages.mjs` 按周与 ID 合并，重算 NDX/QQQ 的 SMA20/50/100/200 和 Wilder ATR14；VIX/VXN 合并进日期平行数组与最新读数。错误帖子逐条告警且不阻断其他合法帖子；整份文件不合法时用上一批合法文件兜底。文件不能把 X 推断自动提升成主体立场或政策结论。Muse 对直接发布的 X 与读数负核验责任；尤其检查 ID 编码日期与 `published_at` 的年份是否一致。
@@ -96,6 +100,6 @@ X 卡面正文超过 180 字时默认折叠为前五行，点击“展开全文�
 1. GPT 的北京时间 10:00、16:00、22:00 任务调用 `dashboard_update_context`，更新主体内容；不再读取或人工吸收 Muse feed。任务前可看 `PUBLISH_LOG.md` 最新一行避免重复。详见 [DAILY_UPDATE.md](DAILY_UPDATE.md)。
 2. GPT 内容 revision 增加才更新 `data-revision.json`；Muse feed 变更由 `pages.yml` 的 push paths 直接触发。双方共用 `scripts/export-pages.mjs` 拉取 export、合并 Muse feed、渲染、提交静态产物、请求 Pages build。无变化时比较 export revision、渲染器与 feed 内容 SHA-256 并跳过。
 3. `release.json` 分开记录 `data_revision`（GPT export 原始号）、`release_revision`（合并发布序号）、`muse_feed_batch`、`muse_feed_sha256` 和实际 `built_at`。每次构建提交自动追加 `PUBLISH_LOG.md`；它记录构建提交，是否上线还要看 Pages build 状态。Muse 更新不伪增 GPT 的 `data_revision`。发布日志由管线代写，双方不用再手动重复追加。
-4. 抽查正式页：当前周/历史周切换、截止日期、两个月折线与均线、X 头像、译文与分排、左侧白底黑字、日历北京时间。正式合并数据看 GitHub Pages `/api/export.json`，GPT 站点 `/api/export` 只含主体数据。异常时保留上一版，不发空值或错误页面。
+4. 抽查正式页：当前周/历史周切换、截止日期、一月日 K 与 50/200 日均线、X 头像、译文与分排、左侧白底黑字、日历北京时间。正式合并数据看 GitHub Pages `/api/export.json`，GPT 站点 `/api/export` 只含主体数据。异常时保留上一版，不发空值或错误页面。
 
 内容日更不要运行 `build_history.py`、手改 `_site/`、重压缩渲染器或重建整个历史。只有页面逻辑经过用户确认才用 Sites 源重新生成压缩渲染器，按 `approved/renderer-parts.json` 的清单分片并发布。仓库维护者不需要用户电脑或浏览器在线。
