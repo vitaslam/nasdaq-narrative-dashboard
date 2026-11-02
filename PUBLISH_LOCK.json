@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "holder": null,
-  "token": null,
-  "purpose": null,
-  "acquired_at": null,
-  "expires_at": null
+  "holder": "GPT",
+  "token": "gpt-x-layout-1793618677805-0cj052xv1hca",
+  "purpose": "X 双板块版式、译文与维护手册",
+  "acquired_at": "2026-11-02T11:24:37.805Z",
+  "expires_at": "2026-11-02T12:09:37.805Z"
 }
