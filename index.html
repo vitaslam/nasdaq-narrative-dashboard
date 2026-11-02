@@ -26,12 +26,86 @@ body{grid-template-columns:minmax(0,1fr)}.history-header,.history-wrap,.history-
  .history-bottom{display:block;margin-top:7px}.history-meta{display:none}.history-summary{font-size:12px;line-height:1.6;-webkit-line-clamp:2}.change-label{font-size:10px;padding:3px 6px}
  .history-panel,.history-frame{min-width:0;width:100%}.history-frame{-webkit-overflow-scrolling:touch}.history-toast{bottom:max(16px,env(safe-area-inset-bottom))}
 }
+
+/* Two-line market timeline: date/mood above, QQQ close below. */
+.week-tab{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:3px;min-width:126px;text-align:left;line-height:1.3}
+.week-tab-top{display:flex;align-items:center;gap:4px}
+.week-tab-emoji{font-size:14px;line-height:1}
+.week-tab-qqq{display:block;padding-left:19px;color:#52688a;font-size:11px;font-weight:600;font-variant-numeric:tabular-nums}
 </style>
 <style id="review-shell-css">
     .history-wrap{max-width:1440px;padding:13px 28px 10px}.history-top{gap:24px;align-items:center}.history-title{flex-shrink:0;gap:8px}.history-title h1{font-size:17px;white-space:nowrap}.review-brand-mark{color:#6d69bd;font-size:26px}.preview-pill{color:#7d769d;background:#f1eff8;border-radius:5px;padding:3px 6px;font-size:9px;white-space:nowrap}.history-controls{margin:0;min-width:0;flex:1;gap:8px}.month-filter button{padding:5px 8px}.week-tab{font-size:10px;padding:6px 8px}.week-tabs{padding-bottom:2px}.compare-original{font-size:10px;color:#8590a3;text-decoration:none;white-space:nowrap}.history-bottom{margin-top:8px;padding-left:0}.history-summary{font-size:10px}.history-meta{font-size:9px}
     @media(max-width:1100px){.history-top{flex-wrap:wrap;gap:9px 16px}.history-controls{order:3;flex-basis:100%}.compare-original{margin-left:auto}.history-title h1{font-size:16px}}
     @media(max-width:800px){.history-wrap{padding:8px 14px}.history-controls{display:flex;margin:0}.history-top{align-items:center}.history-title h1{display:block}.history-bottom{display:none}.preview-pill{font-size:9px}.week-tab{min-height:34px}.history-title{gap:7px}.review-brand-mark{font-size:22px}.compare-original{font-size:10px}}
-    </style><style>.history-wrap{max-width:1440px}.week-tab.is-active-week{border-color:#b7cfc8}.schedule-info{font-size:10px;color:#8b98aa;margin:4px 0 0}.week-tab.is-archived{background:#fafbfd}</style><style>.week-tab{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:3px;min-width:126px;text-align:left;line-height:1.3}.week-tab-top{display:flex;align-items:center;gap:4px}.week-tab-emoji{font-size:14px;line-height:1}.week-tab-qqq{display:block;padding-left:19px;color:#52688a;font-size:11px;font-weight:600;font-variant-numeric:tabular-nums}.week-tab-qqq small{display:none}</style></head>
+    </style><style id="timeline-navigation-css">/* Give the weekly timeline its own row so the title and filters never crowd a week card. */
+.history-wrap{max-width:1500px;padding:12px 28px 10px}
+.history-top{display:grid;grid-template-columns:max-content minmax(0,1fr);align-items:center;column-gap:20px;row-gap:9px}
+.history-title{grid-column:1;grid-row:1}
+.history-controls{display:contents}
+.month-filter{grid-column:2;grid-row:1;justify-self:start}
+.week-control{grid-column:1/-1;grid-row:2;width:100%;min-width:0;gap:9px}
+.week-arrow{width:34px;height:49px;font-size:18px}
+.week-tabs{gap:7px;padding:2px 1px 7px}
+.week-tab{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:4px;min-width:145px;min-height:49px;padding:7px 11px;text-align:left;line-height:1.25;border:0;background:#f4f6fa}
+.week-tab:hover{border:0;background:#edf1f8}
+.week-tab[aria-selected=true]{border:0;background:#e9eef9;box-shadow:none}
+.week-tab.is-archived{border:0;background:#f4f6fa}
+.week-tab.is-archived:hover{background:#edf1f8}
+.week-tab.is-archived[aria-selected=true]{background:#e9eef9;box-shadow:none}
+.week-tab-top{display:flex;align-items:center;gap:5px;font-size:12px}
+.week-tab-emoji{font-size:15px;line-height:1}
+.week-tab-qqq{display:block;padding-left:20px;color:#52688a;font-size:11px;font-weight:600;font-variant-numeric:tabular-nums}
+.week-tab-qqq small{display:none}
+.history-bottom{margin-top:4px}
+.compare-original{grid-column:2;grid-row:1;justify-self:end}
+@media(max-width:800px){
+ .history-wrap{padding:9px 14px 8px}
+ .history-top{grid-template-columns:minmax(0,1fr) auto;column-gap:8px;row-gap:7px}
+ .history-title h1{font-size:15px}
+ .month-filter{display:none}
+ .mobile-month{display:block;grid-column:2;grid-row:1;width:75px;min-height:38px;justify-self:end}
+ .week-control{gap:5px}
+ .week-arrow{width:32px;height:46px;min-height:46px}
+ .week-tab{min-width:132px;min-height:46px;padding:6px 9px}
+ .week-tab-top{font-size:11px}
+ .week-tabs{padding-bottom:5px}
+ .compare-original{display:none}
+}
+</style><style>.schedule-info{font-size:10px;color:#8b98aa;margin:4px 0 0}</style><style>/* Give the weekly timeline its own row so the title and filters never crowd a week card. */
+.history-wrap{max-width:1500px;padding:12px 28px 10px}
+.history-top{display:grid;grid-template-columns:max-content minmax(0,1fr);align-items:center;column-gap:20px;row-gap:9px}
+.history-title{grid-column:1;grid-row:1}
+.history-controls{display:contents}
+.month-filter{grid-column:2;grid-row:1;justify-self:start}
+.week-control{grid-column:1/-1;grid-row:2;width:100%;min-width:0;gap:9px}
+.week-arrow{width:34px;height:49px;font-size:18px}
+.week-tabs{gap:7px;padding:2px 1px 7px}
+.week-tab{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:4px;min-width:145px;min-height:49px;padding:7px 11px;text-align:left;line-height:1.25;border:0;background:#f4f6fa}
+.week-tab:hover{border:0;background:#edf1f8}
+.week-tab[aria-selected=true]{border:0;background:#e9eef9;box-shadow:none}
+.week-tab.is-archived{border:0;background:#f4f6fa}
+.week-tab.is-archived:hover{background:#edf1f8}
+.week-tab.is-archived[aria-selected=true]{background:#e9eef9;box-shadow:none}
+.week-tab-top{display:flex;align-items:center;gap:5px;font-size:12px}
+.week-tab-emoji{font-size:15px;line-height:1}
+.week-tab-qqq{display:block;padding-left:20px;color:#52688a;font-size:11px;font-weight:600;font-variant-numeric:tabular-nums}
+.week-tab-qqq small{display:none}
+.history-bottom{margin-top:4px}
+.compare-original{grid-column:2;grid-row:1;justify-self:end}
+@media(max-width:800px){
+ .history-wrap{padding:9px 14px 8px}
+ .history-top{grid-template-columns:minmax(0,1fr) auto;column-gap:8px;row-gap:7px}
+ .history-title h1{font-size:15px}
+ .month-filter{display:none}
+ .mobile-month{display:block;grid-column:2;grid-row:1;width:75px;min-height:38px;justify-self:end}
+ .week-control{gap:5px}
+ .week-arrow{width:32px;height:46px;min-height:46px}
+ .week-tab{min-width:132px;min-height:46px;padding:6px 9px}
+ .week-tab-top{font-size:11px}
+ .week-tabs{padding-bottom:5px}
+ .compare-original{display:none}
+}
+</style></head>
 <body>
 <header class="history-header">
  <div class="history-wrap">
@@ -45,7 +119,7 @@ body{grid-template-columns:minmax(0,1fr)}.history-header,.history-wrap,.history-
   <div class="history-bottom"><div class="history-change"><span class="change-label">本周变化</span><div class="history-summary" id="week-summary" aria-live="polite"></div></div><div class="history-meta" id="week-meta"></div></div>
  </div>
 </header>
-<main class="history-panel" role="tabpanel" id="weekly-panel" aria-label="选定周的完整 Dashboard"><div class="history-status" id="loading-status" role="status">正在加载所选周…</div><iframe class="history-frame" id="history-frame" title="所选周的完整 Dashboard" sandbox="allow-scripts allow-same-origin allow-downloads allow-modals"></iframe></main>
+<main class="history-panel" role="tabpanel" id="weekly-panel" aria-label="选定周的完整 Dashboard"><div class="history-status" id="loading-status" role="status">正在加载所选周…</div><iframe class="history-frame" id="history-frame" title="所选周的完整 Dashboard" sandbox="allow-scripts allow-same-origin allow-downloads allow-modals allow-popups allow-popups-to-escape-sandbox allow-popups allow-popups-to-escape-sandbox"></iframe></main>
 <div class="history-toast" id="history-toast" role="status" hidden></div>
 <script>'use strict';
 const els={tabs:document.getElementById('week-tabs'),frame:document.getElementById('history-frame'),panel:document.getElementById('weekly-panel'),summary:document.getElementById('week-summary'),meta:document.getElementById('week-meta'),prev:document.getElementById('previous-week'),next:document.getElementById('next-week'),loading:document.getElementById('loading-status')};
@@ -53,7 +127,7 @@ let pages=[],selectedDate='',month='all',currentIndex=null;
 function visiblePages(){return pages.filter(p=>month==='all'||p.date.slice(5,7)===month)}
 function chosenHash(){const m=location.hash.match(/^#(?:week=)?(\d{4}-\d{2}-\d{2})$/);return m&&pages.some(p=>p.date===m[1])?m[1]:null}
 function selectWeek(date,push=true){const p=pages.find(x=>x.date===date);if(!p)return;selectedDate=date;if(push)history.replaceState({},'','#week='+date);document.title='美股叙事跟踪 · '+p.label;els.loading.hidden=false;els.frame.src='./weeks/'+date+'.html';els.frame.title=p.label+' · '+(p.status==='archived'?'已归档':'进行中');els.summary.textContent=p.summary||'';els.meta.textContent=(p.status==='archived'?'已归档 · 内容固化':'进行中 · 北京时间10:00 / 16:00 / 22:00更新')+' · 行情截至 '+p.price_cutoff;renderTabs()}
-function renderTabs(){const shown=visiblePages();els.tabs.replaceChildren();for(const p of shown){const b=document.createElement('button');b.type='button';b.className='week-tab '+(p.status==='archived'?'is-archived':'is-active-week');b.setAttribute('role','tab');b.setAttribute('aria-selected',String(p.date===selectedDate));b.innerHTML='<span class="week-tab-top"><span class="week-tab-emoji" aria-label="'+(p.mood_label||'情绪未记录')+'">'+(p.mood_emoji||'📝')+'</span>'+p.label+(p.status==='active'?' · 进行中':'')+'</span><span class="week-tab-qqq">QQQ '+(Number.isFinite(p.qqq_close)?Number(p.qqq_close).toFixed(2):'—')+' <small>'+(p.qqq_close_date?p.qqq_close_date.slice(5).replace('-','/'):'')+'</small></span>';b.addEventListener('click',()=>selectWeek(p.date));els.tabs.append(b);if(p.date===selectedDate)b.scrollIntoView({block:'nearest',inline:'nearest'})}const i=shown.findIndex(p=>p.date===selectedDate);els.prev.disabled=i<=0;els.next.disabled=i<0||i>=shown.length-1}
+function renderTabs(){const shown=visiblePages();els.tabs.replaceChildren();for(const p of shown){const b=document.createElement('button');b.type='button';b.className='week-tab '+(p.status==='archived'?'is-archived':'is-active-week');b.setAttribute('role','tab');b.setAttribute('aria-selected',String(p.date===selectedDate));b.innerHTML='<span class="week-tab-top"><span class="week-tab-emoji" aria-label="'+(p.mood_label||'情绪未记录')+'">'+(p.mood_emoji||'📝')+'</span>'+p.label+(p.status==='active'?' · 进行中':'')+'</span><span class="week-tab-qqq">QQQ '+(Number.isFinite(p.qqq_close)?Number(p.qqq_close).toFixed(2):'—')+'</span>';b.addEventListener('click',()=>selectWeek(p.date));els.tabs.append(b);if(p.date===selectedDate)b.scrollIntoView({block:'nearest',inline:'nearest'})}const i=shown.findIndex(p=>p.date===selectedDate);els.prev.disabled=i<=0;els.next.disabled=i<0||i>=shown.length-1}
 function filter(value){month=value;document.querySelectorAll('[data-month]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.month===month)));document.getElementById('mobile-month').value=month;const shown=visiblePages();if(!shown.some(p=>p.date===selectedDate)&&shown.length)selectWeek(shown.at(-1).date);else renderTabs()}
 function adjacent(d){const shown=visiblePages(),i=shown.findIndex(p=>p.date===selectedDate);if(shown[i+d])selectWeek(shown[i+d].date)}
 async function start(){try{const r=await fetch('./api/index.json',{cache:'no-store'});if(!r.ok)throw Error('数据暂不可用');currentIndex=await r.json();pages=currentIndex.weeks;const months=[...new Set(pages.map(p=>p.date.slice(5,7)))];const holder=document.querySelector('.month-filter'),select=document.getElementById('mobile-month');holder.replaceChildren();select.replaceChildren();for(const [key,name] of [['all','全部'],...months.map(m=>[m,Number(m)+'月'])]){const b=document.createElement('button');b.type='button';b.dataset.month=key;b.setAttribute('aria-pressed',String(key==='all'));b.textContent=name;b.addEventListener('click',()=>filter(key));holder.append(b);const o=document.createElement('option');o.value=key;o.textContent=name;select.append(o)}select.addEventListener('change',e=>filter(e.target.value));selectWeek(chosenHash()||currentIndex.active_week,false)}catch(e){els.loading.textContent='暂时无法读取本周数据，请稍后刷新。'}}

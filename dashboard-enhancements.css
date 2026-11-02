@@ -24,13 +24,13 @@
 .mood-week-history[hidden]{display:none!important}
 .mood-week-heading{display:flex;align-items:baseline;justify-content:space-between;gap:10px;padding-bottom:12px;border-bottom:1px solid #dce2ed}
 .mood-week-heading strong{font-size:16px}.mood-week-heading span{font-size:11px;color:#5d6572}
-.mood-week-history ol{list-style:none;margin:0;padding:0;max-height:min(560px,calc(100vh - 160px));overflow-y:auto;overscroll-behavior:contain;scrollbar-color:#b9c4dc transparent;scrollbar-width:thin}
+.mood-week-history ol{list-style:none;margin:0;padding:0;max-height:min(890px,calc(100vh - 150px));overflow-y:auto;overscroll-behavior:contain;scrollbar-color:#b9c4dc transparent;scrollbar-width:thin}
 .mood-tone-positive{--mood-surface:#eaf6f0;--mood-border:#8ec7ad;--mood-accent:#246b50}
 .mood-tone-neutral{--mood-surface:#f1f0fb;--mood-border:#b6b3dc;--mood-accent:#514d8e}
 .mood-tone-negative{--mood-surface:#f9ecef;--mood-border:#d7a1ac;--mood-accent:#8a4056}
 .market-overview .sentiment-tile[class*="mood-tone-"]{background:var(--mood-surface);box-shadow:inset 0 3px var(--mood-border)}
 .market-overview .sentiment-tile .sentiment-title strong{color:var(--mood-accent)}
-.mood-week-history li{border:1px solid var(--mood-border);border-radius:9px;background:var(--mood-surface);margin:8px 3px;overflow:hidden}
+.mood-week-history li{border:0;border-radius:9px;background:var(--mood-surface);margin:8px 3px;overflow:hidden}
 .mood-week-history li a{display:block;color:inherit;text-decoration:none;padding:12px;border-radius:7px}
 .mood-week-history li a:hover,.mood-week-history li a:focus-visible{outline:2px solid var(--mood-accent);outline-offset:-2px}
 .mood-week-top,.mood-week-close{display:flex;align-items:baseline;justify-content:space-between;gap:10px}

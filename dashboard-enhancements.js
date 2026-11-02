@@ -85,10 +85,10 @@
     const width=180,height=62,pad=5,plotBottom=label==='日频'&&!overlays.length?57:45;
     const times=data.map(p=>Date.parse(p.date+'T12:00:00Z')),first=Date.parse(lower+'T12:00:00Z'),last=Date.parse(cutoff+'T12:00:00Z');
     const color=data.at(-1).value>data[0].value?'#b35365':data.at(-1).value<data[0].value?'#3a8978':'#7588ae';
-    const series=[{key:'value',name:overlays.length?'NDX':'读数',color},...overlays];
+    const series=[{key:'value',name:overlays.length?'QQQ':'读数',color},...overlays];
     const vals=data.flatMap(p=>series.map(s=>p[s.key]).filter(Number.isFinite)),lo=Math.min(...vals),hi=Math.max(...vals),span=hi-lo||Math.max(1,Math.abs(lo)*.02);
     const x=i=>pad+(times[i]-first)/(last-first||1)*(width-2*pad),y=value=>plotBottom-(value-lo+(hi===lo?span/2:0))/span*(plotBottom-pad);
-    chart.innerHTML=`<svg viewBox="0 0 ${width} ${height}" preserveAspectRatio="none" aria-hidden="true">${series.map(s=>`<polyline data-series="${s.key}" points="${data.map((p,i)=>Number.isFinite(p[s.key])?x(i).toFixed(2)+','+y(p[s.key]).toFixed(2):'').filter(Boolean).join(' ')}" fill="none" stroke="${s.color}" stroke-width="${s.key==='value'?2.3:1.6}" vector-effect="non-scaling-stroke" stroke-linejoin="round" stroke-linecap="round"/>`).join('')}<line class="spark-reference" y1="3" y2="${plotBottom+3}" stroke="currentColor" stroke-width="1" stroke-dasharray="3 3" vector-effect="non-scaling-stroke" visibility="hidden"/>${series.map(s=>`<circle class="spark-hover-point" data-series="${s.key}" r="3.3" fill="${s.color}" stroke="white" stroke-width="1.4" visibility="hidden"/>`).join('')}${label!=='日频'&&!overlays.length?`<text x="${width-4}" y="61" text-anchor="end" class="sparkline-note">${escape(label)}</text>`:''}</svg>${overlays.length?'<div class="sparkline-mini-legend"><span class="close">NDX</span><span class="ma50">50日</span><span class="ma200">200日</span></div>':''}`;
+    chart.innerHTML=`<svg viewBox="0 0 ${width} ${height}" preserveAspectRatio="none" aria-hidden="true">${series.map(s=>`<polyline data-series="${s.key}" points="${data.map((p,i)=>Number.isFinite(p[s.key])?x(i).toFixed(2)+','+y(p[s.key]).toFixed(2):'').filter(Boolean).join(' ')}" fill="none" stroke="${s.color}" stroke-width="${s.key==='value'?2.3:1.6}" vector-effect="non-scaling-stroke" stroke-linejoin="round" stroke-linecap="round"/>`).join('')}<line class="spark-reference" y1="3" y2="${plotBottom+3}" stroke="currentColor" stroke-width="1" stroke-dasharray="3 3" vector-effect="non-scaling-stroke" visibility="hidden"/>${series.map(s=>`<circle class="spark-hover-point" data-series="${s.key}" r="3.3" fill="${s.color}" stroke="white" stroke-width="1.4" visibility="hidden"/>`).join('')}${label!=='日频'&&!overlays.length?`<text x="${width-4}" y="61" text-anchor="end" class="sparkline-note">${escape(label)}</text>`:''}</svg>${overlays.length?'<div class="sparkline-mini-legend"><span class="close">QQQ</span><span class="ma50">50日</span><span class="ma200">200日</span></div>':''}`;
     let active=data.length-1;
     function show(i){activeHide();activeHide=hide;active=i;const p=data[i],reference=chart.querySelector('.spark-reference');reference.setAttribute('x1',x(i));reference.setAttribute('x2',x(i));reference.setAttribute('visibility','visible');
       chart.querySelectorAll('.spark-hover-point').forEach(dot=>{const v=p[dot.dataset.series];if(Number.isFinite(v)){dot.setAttribute('cx',x(i));dot.setAttribute('cy',y(v));dot.setAttribute('visibility','visible')}});
@@ -106,7 +106,7 @@
   }
   const bars=(key)=>(S.bars?.[key]||E.bars?.[key]||[]).filter(x=>x.date<=cutoff);
   for(const [id,key]of [['ndx','QQQ'],['spx','SPX']])draw(id,bars(key).map(p=>({date:p.date,value:p.c})));
-  const prices=bars('NDX');let sum50=0,sum200=0;
+  const prices=bars('QQQ');let sum50=0,sum200=0;
   const averages=prices.map((p,i)=>{sum50+=p.c;sum200+=p.c;if(i>=50)sum50-=prices[i-50].c;if(i>=200)sum200-=prices[i-200].c;return {date:p.date,value:p.c,ma50:i>=49?sum50/50:null,ma200:i>=199?sum200/200:null}});
   draw('ndx-ma',averages,2,'','日频',[{key:'ma50',name:'50 日均线',color:'#8598cb'},{key:'ma200',name:'200 日均线',color:'#c79e46'}]);
   const volatility=S.volatility||{},vix=(volatility.dates||[]).map((date,i)=>({date,value:volatility.vix[i]}));
