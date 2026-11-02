@@ -46,7 +46,7 @@ if(museFeed){
 const approved=gunzipSync(archive).toString('utf8');
 const {default:worker}=await import('data:text/javascript;base64,'+Buffer.from(approved).toString('base64'));
 const state={...data,completed_runs:[]};
-const env={BUCKET:{get:async key=>key==='dashboard/state.json'?{json:async()=>state,etag:'public-'+data.revision}:null}};
+const env={STATIC_BUILD:true,BUCKET:{get:async key=>key==='dashboard/state.json'?{json:async()=>state,etag:'public-'+data.revision}:null}};
 const response=async url=>{const r=await worker.fetch(new Request('https://approved.local'+url),env);if(!r.ok)throw Error('Approved renderer failed '+url+' '+r.status);return r};
 const out=path.join(root,'_site');await fs.rm(out,{recursive:true,force:true});await fs.mkdir(out,{recursive:true});
 const write=async(name,value)=>{const target=path.join(out,name);await fs.mkdir(path.dirname(target),{recursive:true});await fs.writeFile(target,value)};
@@ -69,7 +69,7 @@ for(const week of index.weeks){
 for(const asset of assets){const r=await response(asset);let value;if(asset.endsWith('.js')){value=await r.text();if(asset==='/shared-calendar.js')value=value.replace('fetch(`/api/calendar?from=${start}&to=${end}`','fetch(`../api/calendar.json`')}else value=Buffer.from(await r.arrayBuffer());await write(asset.slice(1),value)}
 const builtAt=new Date().toISOString();
 const releaseRevision=Math.max(previous?.release_revision||0,previous?.data_revision||0,data.revision)+1;
-const release={schema_version:1,data_revision:data.revision,release_revision:releaseRevision,active_week:data.active_week,content_updated_at:data.weeks[data.active_week].updated_at,built_at:builtAt,renderer_release:'2026-11-02-v14-calendar-x-carousel-readability',renderer_sha256:rendererHash,muse_feed_batch:museFeed?.batch_id||null,muse_feed_sha256:museHash,muse_merge:museStats};
+const release={schema_version:1,data_revision:data.revision,release_revision:releaseRevision,active_week:data.active_week,content_updated_at:data.weeks[data.active_week].updated_at,built_at:builtAt,renderer_release:'2026-11-02-v19-full-x-posts-two-rows',renderer_sha256:rendererHash,muse_feed_batch:museFeed?.batch_id||null,muse_feed_sha256:museHash,muse_merge:museStats};
 await write('release.json',JSON.stringify(release,null,2));
 let log;try{log=await fs.readFile(path.join(root,'PUBLISH_LOG.md'),'utf8')}catch{log='# 发布日志\n\n构建提交记录；具体上线状态以 GitHub Pages 构建结果为准。\n\n| 北京时间 | 来源 | 批次 / revision | 变更摘要 |\n| --- | --- | --- | --- |\n'}
 const stamp=new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Shanghai',dateStyle:'short',timeStyle:'medium'}).format(new Date(builtAt));

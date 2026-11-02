@@ -54,7 +54,9 @@ Muse 和 GPT 开始**任何数据写入**（包括 `muse-feed.json`、GPT 站点
       "published_at": "2026-11-02T07:30:00Z",
       "quote": "short original excerpt",
       "viewpoint": "旧字段兼容；内部记录，不在卡面显示。",
-      "translation_zh": "忠实翻译原帖内容；短摘录应注明是节选，不加入自己的解读。",
+      "translation_zh": "能核到完整原帖时逐句译出全部正文；不得把短引译文充当全文。",
+      "translation_scope": "full",
+      "translation_source_url": "https://x.com/account/status/123",
       "views": null,
       "reposts": null,
       "replies": null,
@@ -77,7 +79,9 @@ Muse 和 GPT 开始**任何数据写入**（包括 `muse-feed.json`、GPT 站点
 
 `market_bars` 的每条格式为 `{date:"YYYY-MM-DD",c:收盘,o:开盘,h:最高,l:最低,source_url:"https://..."}`，三种标的必须是**同一交易日期的完整常规时段收盘**，否则不提交新日。`volatility_readings` 的格式为 `{date:"YYYY-MM-DD",vix:{value,source_url},vxn:{value,source_url}}`，读取 Cboe 对应日期官方收盘；不根据图形估值。均线偏离由渲染代码从连续交易日收盘计算，不写在交接文件中。单独缺失的 VIX/VXN 留待下次，不能用旧日读数冒充今日。若源有修订，写一条带日期的更正说明，不静默改历史。
 
-Muse 的流程：约每两小时监控 X → 同一博主可有多个话题/帖子，沿用稳定账号和 post ID → 只保留可溯源的新帖或热度变化 → 连同本周累计版提交 `muse-feed.json`；完整美股收盘后补三指数与 VIX/VXN；CNN、BofA 和 CTA 有新报告或可核验触发线时再更新。新帖请填 `translation_zh`，忠实翻译原帖而非写观点或补充因果；所有 feed 帖子都必须提供 `translation_zh`；缺译文的条目校验失败，不用 `viewpoint` 冒充原文翻译。2026-11-02 的 :22 累计批次已补齐 8 条中译，Muse 后续批次须保留或改进这些译文。GPT 侧旧帖缺译文时暂不在 X 卡面显示，待核验补齐。卡面不显示 quote、核验文字、热度来源或影响原因，这些仍必须留在数据中供审核。头像必须是该账号的真实头像；无法核实时用无肖像的字母占位，不冒充真人。`impact` 只有明确的利好方向才进入“利好标的”，其他方向在卡面写“暂无明确标的”。一个帖只展示一种热度：优先 views，缺失则 reposts，再缺则 replies，三者都缺则“热度待核验”。
+Muse 的流程：约每两小时监控 X → 同一博主可有多个话题/帖子，沿用稳定账号和 post ID → 只保留可溯源的新帖或热度变化 → 连同本周累计版提交 `muse-feed.json`；完整美股收盘后补三指数与 VIX/VXN；CNN、BofA 和 CTA 有新报告或可核验触发线时再更新。**绝不因缺译文过滤原帖。** X 的帖子集合以发布的 `api/export.json` 中 `week.x_topics` 为准；2026-11-02 的基线为 10 话题、13 帖（GPT 5、Muse :22 累计 8），高热度排最多 10 张话题卡，高频排不限帖。保持稳定 topic/post ID、作者、链接和原先记录，不因版式拆分重新选帖或改写原有观点。
+
+翻译先取得并逐句核对**完整原帖正文**，再写 `translation_zh`、`translation_scope:"full"` 和 `translation_source_url`；完整译文要保留数字、条件、限定语、列表、引用上下文和原帖中的链接，不加入二次解读。若原帖指向长文，仅译帖文时标 `translation_scope:"post_only"`；只有 ≤25 词短引时标 `"excerpt"`，不得把节选说成全文。旧 :22 批次的 8 条 `translation_zh` 是短引或概括，**不是完整原帖译文**；Muse 下批应按原帖逐条补核，仍保留所有旧帖。对于尚未核到全文的旧帖，卡片明确标“原帖全文未核实”，显示已有 `viewpoint` 原样记录作为过渡，不声称它是逐字译文；缺译文不会导致帖子消失。新帖若无法取得原文，可留在待核记录，不用概括句冒充 `full`。卡面不显示 quote、核验文字、热度来源或影响原因，这些仍必须留在数据中供审核。头像必须是该账号的真实头像；无法核实时用无肖像的字母占位，不冒充真人。`impact` 只有明确的利好方向才进入“利好标的”，其他方向在卡面写“暂无明确标的”。一个帖只展示一种热度：优先 views，缺失则 reposts，再缺则 replies，三者都缺则“热度待核验”。
 
 **晋级/回流**：任何高频帖的已核验单帖 views ≥1,000,000，或 reposts/replies ≥1,000，发布时自动进入高热度排，原高频作者卡不再显示该帖；同一作者的其他未达标帖仍在高频排。达到门槛后的帖子即使以后热度源暂时缺失，必须保留已核验峰值或原始快照，不能因缺值回流。GPT 定期复核晋级话题，独立寻找其他有原帖、真实热度与译文的高热话题，经 GPT 站点的 `x_topics_upsert` 加入；不同帖子用不同 ID，同 ID 内容 Muse feed 仍优先。热度是传播量，不等于标的利好已获证实。
 
