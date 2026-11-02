@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "batch_id": "muse:2026-11-02:26",
+  "batch_id": "muse:2026-11-02:27",
   "week_id": "2026-11-02",
-  "generated_at": "2026-11-02T15:15:00Z",
+  "generated_at": "2026-11-02T15:17:39Z",
   "x_topics_upsert": [
     {
       "id": "advanced-packaging",
@@ -293,6 +293,72 @@
           ]
         }
       ]
+    },
+    {
+      "id": "oil-price-forecast",
+      "title": "油价预测上调",
+      "summary": "高盛上调 2026 年四季度与 2027 年油价预测、同时下调 2028 年预测：近端偏紧、远端转松。",
+      "posts": [
+        {
+          "id": "2117252648441127194",
+          "author": "@DeItaone",
+          "published_at": "2026-11-02T13:49:02Z",
+          "quote": "GOLDMAN SACHS SHARPLY RAISES OIL PRICE FORECASTS THROUGH 2027",
+          "viewpoint": "高盛将 2026Q4 布伦特预测由 95 上调至 108 美元、WTI 由 85 上调至 96 美元；2027 年布伦特由 80 上调至 88 美元、WTI 由 73 上调至 78 美元，2027Q1 布伦特 98、WTI 87；2028 年预测则下调至布伦特 73、WTI 66 美元。",
+          "translation_zh": "高盛大幅上调 2027 年之前的油价预测。高盛将 2026 年第四季度布伦特原油预测上调至每桶 108 美元，原为 95 美元，同时将 WTI 预测上调至 96 美元，原为 85 美元。该行还将 2027 年布伦特预测上调至 88 美元，原为 80 美元，WTI 上调至 78 美元，原为 73 美元。对 2027 年第一季度，高盛现预计布伦特为 98 美元、WTI 为 87 美元。不过，其 2028 年预测被下调，布伦特为 73 美元、WTI 为 66 美元。",
+          "translation_scope": "full",
+          "translation_source_url": "https://x.com/DeItaone/status/2117252648441127194",
+          "views": 97034,
+          "reposts": 32,
+          "replies": 27,
+          "observed_at": "2026-11-02T15:17:39Z",
+          "source_url": "https://x.com/DeItaone/status/2117252648441127194",
+          "metrics_source": "https://x.com/DeItaone/status/2117252648441127194",
+          "verification": "经 FxTwitter 接口核对原帖全文。",
+          "avatar_url": "https://pbs.twimg.com/profile_images/2088360110095478784/El9anzXH_400x400.jpg",
+          "avatar_source": "https://x.com/DeItaone",
+          "impact": [
+            {
+              "targets": "Brent / WTI 原油",
+              "direction": "偏多（近端）",
+              "reason": "高盛上调 2026Q4 与 2027 年油价预测，指向近端供需偏紧；2028 年预测下调，远端转松。下一验证点为现货价格与远期曲线是否跟随。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "iran-us-talks",
+      "title": "美伊谈判与油价回落",
+      "summary": "伊朗最高领袖释出与美谈判姿态，油价当日大跌，地缘溢价回落取决于谈判与霍尔木兹通航进展。",
+      "posts": [
+        {
+          "id": "2117254535907254719",
+          "author": "@zerohedge",
+          "published_at": "2026-11-02T13:56:32Z",
+          "quote": "Iran's Supreme Leader Floats More US Talks In Rare Overture; Oil Prices Tumble",
+          "viewpoint": "伊朗最高领袖提出与美国进行更多谈判的罕见姿态，原帖链接报道指布伦特与 WTI 期货下跌、特朗普或给外交更多时间、伊朗提出霍尔木兹海峡两日重开方案。",
+          "translation_zh": "伊朗最高领袖释出罕见姿态，提出与美国举行更多谈判；油价大跌。https://www.zerohedge.com/energy/brent-wti-futs-tumble-trump-may-give-diplomacy-chance-iran-floats-two-day-hormuz-reopening",
+          "translation_scope": "full",
+          "translation_source_url": "https://x.com/zerohedge/status/2117254535907254719",
+          "views": 50891,
+          "reposts": 33,
+          "replies": 23,
+          "observed_at": "2026-11-02T15:17:39Z",
+          "source_url": "https://x.com/zerohedge/status/2117254535907254719",
+          "metrics_source": "https://x.com/zerohedge/status/2117254535907254719",
+          "verification": "经 FxTwitter 接口核对原帖全文。",
+          "avatar_url": "https://pbs.twimg.com/profile_images/72647502/tyler_400x400.jpg",
+          "avatar_source": "https://x.com/zerohedge",
+          "impact": [
+            {
+              "targets": "WTI / Brent 原油",
+              "direction": "利空",
+              "reason": "谈判姿态缓和地缘溢价，油价当日大幅回落；下一验证点为多哈谈判进展与霍尔木兹通航安排能否落地。"
+            }
+          ]
+        }
+      ]
     }
   ],
   "market_bars": {
@@ -359,13 +425,13 @@
     },
     "UST10Y": {
       "value": 4.94,
-      "asof": "2026-10-29",
-      "source_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve"
+      "asof": "2026-10-30",
+      "source_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value_month=202611"
     },
     "UST30Y": {
-      "value": 5.31,
-      "asof": "2026-10-29",
-      "source_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve"
+      "value": 5.32,
+      "asof": "2026-10-30",
+      "source_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value_month=202611"
     },
     "Brent": {
       "value": 123.1,
