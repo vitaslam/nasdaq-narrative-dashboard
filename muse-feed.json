@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "batch_id": "muse:2026-11-02:24",
+  "batch_id": "muse:2026-11-02:25",
   "week_id": "2026-11-02",
-  "generated_at": "2026-11-02T12:58:00Z",
+  "generated_at": "2026-11-02T13:04:00Z",
   "x_topics_upsert": [
     {
       "id": "advanced-packaging",
@@ -349,10 +349,10 @@
       "institution": "Goldman Sachs（高盛）",
       "model": "US Equities Weekly Rundown（中期阈值）",
       "source_url": "https://wx.zsxq.com/group/51115542524144",
-      "source_label": "高盛周报（PDF 已核对）",
+      "source_label": "高盛发布：2026-10-30",
       "report_date": "2026-10-30",
-      "summary": "短期阈值 7,544.2 · 100 日线 7,614",
-      "confidence_note": "SPX 现货口径；星球转述，PDF 已核对。",
+      "summary": "",
+      "confidence_note": "",
       "unit": "点",
       "digits": 0,
       "label": "标普500 · CTA卖出触发（高盛）"
