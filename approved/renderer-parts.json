@@ -1,13 +1,13 @@
 {
   "version": 1,
   "parts": [
-    "renderer-v31.part-01.gz",
-    "renderer-v31.part-02.gz",
-    "renderer-v31.part-03.gz",
-    "renderer-v31.part-04.gz",
-    "renderer-v31.part-05.gz",
-    "renderer-v31.part-06.gz",
-    "renderer-v31.part-07.gz"
+    "renderer-v32.part-01.gz",
+    "renderer-v32.part-02.gz",
+    "renderer-v32.part-03.gz",
+    "renderer-v32.part-04.gz",
+    "renderer-v32.part-05.gz",
+    "renderer-v32.part-06.gz",
+    "renderer-v32.part-07.gz"
   ],
-  "sha256": "846109c591011bd764f7b8b6b99df7c3b2885ba4eab057da8da69676edcd61b1"
+  "sha256": "83b4f4a3501475969b2271575fff830ece69bd7d8d63b3cb62b57d73df083de6"
 }
