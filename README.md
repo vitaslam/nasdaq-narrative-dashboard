@@ -6,9 +6,9 @@
 
 ## 发布约定
 
-布局和功能先在 GPT 站点讨论、预览，用户确认后才替换本仓库的已确认渲染器。当前版包含清晰正文、重点卡分类色、半星重要性、周一对照上周五情绪、50/200日均线、图下悬浮读数、比例评分条、十月事件日历和可横向滑动的 X 观点卡片。
+布局和功能先在 GPT 站点讨论、预览，用户确认后才替换本仓库的已确认渲染器。当前版包含清晰正文、重点卡分类色、半星重要性、周一对照上周五情绪、50/200日均线、图下悬浮读数、比例评分条、十月事件日历和分两排的 X 高热度话题与 Muse 高频博主卡片。
 
-每日北京时间 10:00、16:00、22:00 的任务更新 GPT 主体内容，通过小型 `data-revision.json` 触发发布。Muse AI 主责 X 观点与 NDX/QQQ/SPX、VIX/VXN 读数，提交[本周累计版 muse-feed.json](muse-feed.json)后直接触发**同一条** GitHub Actions 管线。构建先拉 `/api/export`，再按 ID/日期合并 Muse 数据，用 `approved/renderer.mjs.gz` 渲染。GPT 任务不再逐条人工搬运 Muse feed。双方写入前按[仓库写入锁](PUBLISH_LOCK.json)的协议串行操作。各板块职责、核验与冲突规则见[维护手册](MAINTENANCE.md)，每日主体更新见[增量规范](DAILY_UPDATE.md)，双方构建提交见[发布日志](PUBLISH_LOG.md)。10:35、16:35、22:35 及后一小时补偿同步；电脑或浏览器无需在线。
+每日北京时间 10:00、16:00、22:00 的任务更新 GPT 主体内容，通过小型 `data-revision.json` 触发发布。Muse AI 主责 X 高频板块与 NDX/QQQ/SPX、VIX/VXN、CNN、BofA、CTA 读数；GPT 主责高热度话题，提交[本周累计版 muse-feed.json](muse-feed.json)后直接触发**同一条** GitHub Actions 管线。构建先拉 `/api/export`，再按 ID/日期合并 Muse 数据，用 `approved/renderer.mjs.gz` 渲染。GPT 任务不再逐条人工搬运 Muse feed。双方写入前按[仓库写入锁](PUBLISH_LOCK.json)的协议串行操作。各板块职责、核验与冲突规则见[维护手册](MAINTENANCE.md)，每日主体更新见[增量规范](DAILY_UPDATE.md)，双方构建提交见[发布日志](PUBLISH_LOG.md)。10:35、16:35、22:35 及后一小时补偿同步；电脑或浏览器无需在线。
 
 ## 构建
 
@@ -25,3 +25,5 @@ node scripts/export-pages.mjs
 星级为分析估计，满分3星，支持半星；五维与验证重点采用分类色，左侧事件占比和问题清单保持白底可读。它与事件或五维百分比独立。CNN、BofA 等按实际记录频率绘图，缺失数据留空。历史内容和周计划保持原记录口径。
 
 Pages 保留现有 main 分支根目录发布模式。云端脚本提交静态页面后，通过官方 Pages builds API 请求构建；不需要修改浏览器设置或保存个人访问令牌。export revision、渲染器哈希及 Muse feed 内容哈希均未变化时跳过重建和发布。`release.json` 分别记录主体 `data_revision`、合并 `release_revision`、`muse_feed_batch` 和实际构建时间；正式页的 `/api/export.json` 是合并后的公开数据。
+
+CNN、BofA 和标普 CTA 卖出触发点的日常采集与更新由 Muse 经 `market_indicators` 提交；GPT 不再独立更新。缺报告保留旧日期或待核验，不能补造。字段与冲突规则见 `MAINTENANCE.md`。
