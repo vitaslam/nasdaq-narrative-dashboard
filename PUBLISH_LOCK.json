@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "holder": "Muse",
-  "token": "Claude-2026-11-02T183413Z-7a2a1f16",
-  "purpose": "muse:2026-11-03:02 X \u9ad8\u9891\u5e16\u4e0e\u76d8\u4e2d\u8bfb\u6570",
-  "acquired_at": "2026-11-02T18:34:13Z",
-  "expires_at": "2026-11-02T19:19:13Z"
+  "holder": null,
+  "token": null,
+  "purpose": null,
+  "acquired_at": null,
+  "expires_at": null
 }
