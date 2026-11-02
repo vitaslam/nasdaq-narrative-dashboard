@@ -9,13 +9,13 @@
 
 ## 最短可靠路径
 
-1. 调用 `dashboard_update_context` 一次，默认返回增量摘要、revision、当前周和两周日历；不要读取整站、历年归档、HTML、所有价格历史或聊天历史。只有遇到新字段、周六归档/开周、修正疑点才读 `/updater-instructions` 完整规范或 `dashboard_read_week`。
-2. 核对最近已完整收盘交易日、市场休市及上次更新时间。批量查询 IBKR / 官方来源，行情只取缺少的交易日；均线和图表由代码计算。CNN、BofA、CTA 按真实发布频率，仅新报告时追加，缺值保留原日期或为空。休市仍检查重大新消息、X 和已到期日历，不重复拉历史行情。
-3. 读取 GitHub 仓库 `muse-feed.json` 当前批次，校验 `week_id`、批次 ID、X 原帖/热度链接与完整交易日行情；这是候选交接而非自动发布源。围绕未回答问题、今日到期日历和自上次更新以来的新消息查询。优先公司 IR、交易所、BLS/ISM/BEA/Fed/Cboe；可靠新闻交叉核验。只打开与变化相关的来源，首次确认后复用已存出处。X 同话题追加，仅记录新增/实质变化和有时间戳的热度，访问失败如实标明；不为填满页面造观点，不重抓全部旧帖。Muse 与现有数据冲突时保留已核验主源，并说明差异；完整规则见 `MAINTENANCE.md`。
-4. 一次 `dashboard_apply_daily_update`，稳定 `run_id=daily:北京时间日期:计划时段（10/16/22）`、刚读到的 `expected_revision`。仅将 Muse 候选中已核验且新的 X 帖、NDX/QQQ/SPX 同日完整收盘和 VIX/VXN 同日读数映射至相应字段；其余内容按原流程更新。只发变化字段；OHLC/指标按日期追加、记录按稳定 id 去重。不改周内固定点位或归档，不复制共享日历。无实质变化则不写、不发布；保留上次内容更新时间，简报可说明已检查。
+1. 写入前先按 `MAINTENANCE.md` 的双代理协议抢 `PUBLISH_LOCK.json` 锁并查看 `PUBLISH_LOG.md` 最新记录；没抢到就等待，不碰站点数据或 `data-revision.json`。然后调用 `dashboard_update_context` 一次，默认返回增量摘要、revision、当前周和两周日历；不要读取整站、历年归档、HTML、所有价格历史或聊天历史。只有遇到新字段、周六归档/开周、修正疑点才读 `/updater-instructions` 完整规范或 `dashboard_read_week`。
+2. 可扫一眼仓库 `PUBLISH_LOG.md` 最新记录，避免和 Muse 的 X/市场读数重复劳动。Muse 主责 X 话题及 NDX/QQQ/SPX、VIX/VXN，`muse-feed.json` 变更由同一 GitHub 构建直接合并并发布；本任务不再读取并人工吸收该文件。主体更新仍核对最新完整交易日、市场休市及上次更新时间。CNN、BofA、CTA 按真实发布频率，仅新报告时追加，缺值保留原日期或为空。
+3. 围绕未回答问题、今日到期日历和自上次更新以来的新消息查询。优先公司 IR、交易所、BLS/ISM/BEA/Fed/Cboe；可靠新闻交叉核验。只打开与变化相关的来源，首次确认后复用已存出处。可补充 Muse 未覆盖的 X 原帖，使用不同的 post ID（同话题可沿用 topic ID），不重复抓取全量旧帖；不为填满页面造观点。Muse 提交规范与构建合并规则见 `MAINTENANCE.md`。
+4. 一次 `dashboard_apply_daily_update`，稳定 `run_id=daily:北京时间日期:计划时段（10/16/22）`、刚读到的 `expected_revision`。仅写本任务负责的新证据和主体判断；不要把 Muse 文件复制回 GPT 站点。只发变化字段，记录按稳定 ID 去重。不改周内固定点位或归档，不复制共享日历。无实质变化则不写、不发布；保留上次内容更新时间，简报可说明已检查。
 5. 写后一次 `dashboard_update_context` 核对新 revision、行情日期、改动摘要和 counts。冲突才重新读后合并，保留 run_id；同一失败路径最多一次有依据重试，不反复盲试。禁止因节省 token 跳过数据核验。
-6. 用 GitHub 插件读取 `vitaslam/nasdaq-narrative-dashboard` 的 `data-revision.json`，仅当 revision 增加，用 `update_file` 带当前 content_sha 写入 `{revision, active_week, content_updated_at}`。这是小文件提交，触发 GitHub Actions；无需 GPT 生成 HTML、复制图片、计算均线或接管浏览器。GitHub 工作流只获取公开 `/api/export` 数据，用仓库里已确认的渲染器发布。10:35 / 16:35 / 22:35（各有一小时后补偿） 的 Actions 定时任务作补偿同步，不调用 GPT。GitHub 插件临时不可用则保留数据更新，说明等待云端补偿；不降低核验标准。
-7. 简短报告实际新增、行情日期和正式链接。若只触发了发布而未确认完成，说“数据已保存，GitHub 正在同步”，不能声称已上线。无需输出研究过程或全文日报；发布失败只报告具体阻塞，不重复长篇重跑。
+6. 用 GitHub 插件读取 `vitaslam/nasdaq-narrative-dashboard` 的 `data-revision.json`，仅当 GPT export revision 增加，用 `update_file` 带当前 content_sha 写入 `{revision, active_week, content_updated_at}`。这是小文件提交，触发 GitHub Actions；无需 GPT 生成 HTML、复制图片、计算均线或接管浏览器。工作流获取公开 `/api/export`，再合并当周 Muse 累计文件，用已确认渲染器发布。Muse 文件更新也直接触发构建；10:35 / 16:35 / 22:35（各有一小时后补偿）的 Actions 定时任务作补偿同步。GitHub 插件临时不可用则保留主体更新，说明等待云端补偿；不降低核验标准。
+7. 写入或失败后及时释放自己持有的锁；简短报告实际新增、行情日期和正式链接。若只触发了发布而未确认完成，说“数据已保存，GitHub 正在同步”，不能声称已上线。无需输出研究过程或全文日报；发布失败只报告具体阻塞，不重复长篇重跑。
 
 ## 必须保留的内容规则
 

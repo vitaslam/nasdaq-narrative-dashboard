@@ -11,7 +11,14 @@ git('add','--',...paths);
 if(!git('diff','--cached','--name-only')){console.log('Rendered files unchanged.');process.exit(0)}
 git('config','user.name','github-actions[bot]');git('config','user.email','41898282+github-actions[bot]@users.noreply.github.com');
 const release=JSON.parse(await fs.readFile(path.join(root,'release.json'),'utf8'));
-git('commit','-m','Update dashboard data revision '+release.data_revision);git('push','origin','HEAD:main');
+git('commit','-m','Publish dashboard release '+release.release_revision+' (export '+release.data_revision+', Muse '+(release.muse_feed_batch||'none')+')');
+// Muse/GPT may update their shared lock between checkout and the generated commit.
+// Rebase the generated files over that atomic lock commit before publishing.
+git('pull','--rebase','origin','main');
+try{git('push','origin','HEAD:main')}catch{
+  git('pull','--rebase','origin','main');
+  git('push','origin','HEAD:main');
+}
 // GITHUB_TOKEN commits do not trigger the branch Pages build automatically.
 // Request the documented Pages build explicitly, without a browser or a stored PAT.
 const repo=process.env.GITHUB_REPOSITORY;if(repo!=='vitaslam/nasdaq-narrative-dashboard')throw Error('Unexpected release destination');

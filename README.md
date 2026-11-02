@@ -8,7 +8,7 @@
 
 布局和功能先在 GPT 站点讨论、预览，用户确认后才替换本仓库的已确认渲染器。当前版包含清晰正文、重点卡分类色、半星重要性、周一对照上周五情绪、50/200日均线、图下悬浮读数、比例评分条、十月事件日历和可横向滑动的 X 观点卡片。
 
-每日北京时间 10:00、16:00、22:00 的原有任务继续更新数据，并通过 GitHub 插件提交小型 data-revision.json 触发发布。[每日增量维护规范](DAILY_UPDATE.md)规定只读新数据、只写变化字段，无需电脑或浏览器在线。Muse AI 的 X 观点与市场读数先交接到 [muse-feed.json](muse-feed.json)，经下一次更新任务核验后写入 GPT 站点，避免仓库旧文件覆盖线上事实。各板块逻辑、字段、职责和发布检查见 [维护手册](MAINTENANCE.md)。GitHub Actions 另于北京时间 10:35、16:35、22:35（各有一小时后补偿）同步公开数据，在 GitHub 内用本仓库 `approved/renderer.mjs.gz` 渲染并发布。不会下载或执行 GPT 站点的新代码。Actions 定时执行可能延迟；数据获取失败会保留上次部署。
+每日北京时间 10:00、16:00、22:00 的任务更新 GPT 主体内容，通过小型 `data-revision.json` 触发发布。Muse AI 主责 X 观点与 NDX/QQQ/SPX、VIX/VXN 读数，提交[本周累计版 muse-feed.json](muse-feed.json)后直接触发**同一条** GitHub Actions 管线。构建先拉 `/api/export`，再按 ID/日期合并 Muse 数据，用 `approved/renderer.mjs.gz` 渲染。GPT 任务不再逐条人工搬运 Muse feed。双方写入前按[仓库写入锁](PUBLISH_LOCK.json)的协议串行操作。各板块职责、核验与冲突规则见[维护手册](MAINTENANCE.md)，每日主体更新见[增量规范](DAILY_UPDATE.md)，双方构建提交见[发布日志](PUBLISH_LOG.md)。10:35、16:35、22:35 及后一小时补偿同步；电脑或浏览器无需在线。
 
 ## 构建
 
@@ -24,4 +24,4 @@ node scripts/export-pages.mjs
 
 星级为分析估计，满分3星，支持半星；五维与验证重点采用分类色，左侧事件占比和问题清单保持白底可读。它与事件或五维百分比独立。CNN、BofA 等按实际记录频率绘图，缺失数据留空。历史内容和周计划保持原记录口径。
 
-Pages 保留现有 main 分支根目录发布模式。云端脚本提交静态页面后，通过官方 Pages builds API 请求构建；不需要修改浏览器设置或保存个人访问令牌。数据版本及渲染器哈希均未变化时跳过重建和发布。
+Pages 保留现有 main 分支根目录发布模式。云端脚本提交静态页面后，通过官方 Pages builds API 请求构建；不需要修改浏览器设置或保存个人访问令牌。export revision、渲染器哈希及 Muse feed 内容哈希均未变化时跳过重建和发布。`release.json` 分别记录主体 `data_revision`、合并 `release_revision`、`muse_feed_batch` 和实际构建时间；正式页的 `/api/export.json` 是合并后的公开数据。

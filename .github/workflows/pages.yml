@@ -4,6 +4,7 @@ on:
     branches: [main]
     paths:
       - 'data-revision.json'
+      - 'muse-feed.json'
       - 'approved/**'
       - 'scripts/**'
       - '.github/workflows/pages.yml'
