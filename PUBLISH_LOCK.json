@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "holder": "Muse",
-  "token": "claude-20261102T104717Z-493eb28c",
-  "purpose": "muse feed batch muse:2026-11-02:21 \u2014 remove 3 stale topics, publish 4 verified X posts",
-  "acquired_at": "2026-11-02T10:47:17Z",
-  "expires_at": "2026-11-02T11:32:17Z"
+  "holder": null,
+  "token": null,
+  "purpose": null,
+  "acquired_at": null,
+  "expires_at": null
 }
