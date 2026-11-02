@@ -1,14 +1,14 @@
 {
   "schema_version": 1,
   "data_revision": 11,
-  "release_revision": 14,
+  "release_revision": 15,
   "active_week": "2026-11-02",
-  "content_updated_at": "2026-11-02T11:31:33.984Z",
-  "built_at": "2026-11-02T11:31:34.271Z",
+  "content_updated_at": "2026-11-02T11:32:20.491Z",
+  "built_at": "2026-11-02T11:32:20.723Z",
   "renderer_release": "2026-11-02-v14-calendar-x-carousel-readability",
   "renderer_sha256": "a59aa09a8a49c8db5075e3ef84503fcf69524c4e947db54ebd502098ff542ddd",
   "muse_feed_batch": "muse:2026-11-02:22",
-  "muse_feed_sha256": "303c748783880eebeb2f16417b4bf027bd8181a237c875b865cca96a5463cc46",
+  "muse_feed_sha256": "d9f3f96076e7a31f8e69543c9fff8999aea309d007edb7e3a62e0dd7488be157",
   "muse_merge": {
     "topics": 7,
     "posts": 8,
