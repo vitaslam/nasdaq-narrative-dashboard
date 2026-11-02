@@ -34,6 +34,7 @@
     const list=panel.querySelector('ol');let loaded=0;
     const loadMore=()=>{const next=entries.slice(loaded,loaded+8);list.insertAdjacentHTML('beforeend',next.join(''));loaded+=next.length};
     loadMore();list.addEventListener('scroll',()=>{if(list.scrollTop+list.clientHeight>=list.scrollHeight-100&&loaded<entries.length)loadMore()},{passive:true});
+    function fitFour(){const fifth=list.children[4];if(!fifth)return;const cutoff=fifth.offsetTop-list.offsetTop-8;list.style.maxHeight=`min(${Math.max(0,Math.round(cutoff))}px, calc(100vh - 150px))`}
     document.body.append(panel);
     tile.tabIndex=0;tile.setAttribute('aria-haspopup','true');tile.setAttribute('aria-controls',panel.id);tile.setAttribute('aria-expanded','false');
     tile.setAttribute('aria-label','市场情绪；点击查看历周情绪与 QQQ 收盘');
@@ -52,14 +53,14 @@
       panel.style.left=Math.round(left)+'px';
       panel.style.top=Math.round(Math.max(margin,Math.min(innerHeight-panel.offsetHeight-margin,cursor.y-90)))+'px';
     }
-    function show(){panel.hidden=false;tile.setAttribute('aria-expanded','true');place()}
+    function show(){panel.hidden=false;list.scrollTop=0;tile.setAttribute('aria-expanded','true');fitFour();place()}
     function hide(){panel.hidden=true;tile.setAttribute('aria-expanded','false')}
     tile.addEventListener('click',e=>{lastPointer=Number.isFinite(e.clientX)&&e.clientX?{x:e.clientX,y:e.clientY}:null;panel.hidden?show():hide()});
     tile.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();lastPointer=null;panel.hidden?show():hide()}});
     panel.addEventListener('click',e=>{const link=e.target.closest('a[data-week-start]');if(!link||parent===window)return;e.preventDefault();parent.postMessage({type:'nasdaq:select-week',date:link.dataset.weekStart},location.origin);hide()});
     document.addEventListener('keydown',e=>{if(e.key==='Escape')hide()});
     document.addEventListener('pointerdown',e=>{if(!tile.contains(e.target)&&!panel.contains(e.target))hide()});
-    window.addEventListener('scroll',()=>{if(!panel.hidden)place()},{passive:true});window.addEventListener('resize',()=>{if(!panel.hidden)place()});
+    window.addEventListener('scroll',()=>{if(!panel.hidden)place()},{passive:true});window.addEventListener('resize',()=>{if(!panel.hidden){fitFour();place()}});
   }
   tile.querySelector('.sentiment-emoji').style.fontSize=getComputedStyle(q('h1')).fontSize;
   for(const [id,key,max] of [['fear-greed','CNN',100],['bofa','BofA',10]]){

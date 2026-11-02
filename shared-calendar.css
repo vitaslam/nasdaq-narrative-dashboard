@@ -8,7 +8,7 @@
 .calendar-event[data-calendar-event-id]{cursor:pointer}
 .calendar-event[data-calendar-event-id]:focus-visible{outline:2px solid #5c6bc4;outline-offset:2px}
 .calendar-event.is-selected{box-shadow:inset 0 0 0 2px #7787c4}
-.calendar-detail{grid-column:6/8;grid-row:1;z-index:5;align-self:stretch;min-height:0;box-sizing:border-box;padding:18px 20px;background:#fff;border-left:1px solid #dbe3ef;box-shadow:-12px 0 32px #2e43601c;display:flex;flex-direction:column;overflow-y:auto;overscroll-behavior:contain;color:#172539}
+.calendar-detail{position:absolute;inset:0 0 0 auto;width:calc(100% * 2 / 7);z-index:5;min-height:0;box-sizing:border-box;padding:18px 20px;background:#fff;border-left:1px solid #dbe3ef;box-shadow:-12px 0 32px #2e43601c;display:flex;flex-direction:column;overflow-y:auto;overscroll-behavior:contain;color:#172539}
 .calendar-detail-head{display:flex;align-items:center;justify-content:space-between;gap:8px;color:#7a8ba5;font-size:11px}
 .calendar-detail-head button{border:1px solid #e0e5ee;background:#fff;color:#5a6d8d;border-radius:6px;cursor:pointer;font-size:20px;line-height:1;width:28px;height:28px;flex:none}
 .calendar-detail h3{font-size:18px;line-height:1.45;margin:14px 0 5px;overflow-wrap:anywhere}
@@ -20,7 +20,7 @@
 .calendar-detail-row p.is-pending{color:#8998ab}
 .calendar-detail-links{font-size:10px;line-height:1.7;margin-top:auto;padding-top:10px;border-top:1px solid #e7ebf2}
 .calendar-detail-links a{color:#627cb3}
-@media(max-width:900px){.calendar-detail{position:fixed;grid-column:auto;grid-row:auto;inset:12vh 16px auto;max-width:480px;max-height:76vh;margin:auto;border:1px solid #dbe3ef;border-radius:10px;box-shadow:0 12px 40px #26395740}}
+@media(max-width:900px){.calendar-detail{position:fixed;inset:12vh 16px auto;width:min(480px,calc(100vw - 32px));max-height:76vh;margin:auto;border:1px solid #dbe3ef;border-radius:10px;box-shadow:0 12px 40px #26395740}}
 .spx-cta{margin-top:13px;padding-top:10px;border-top:1px solid #e5eaf1;display:grid;grid-template-columns:1fr auto;gap:2px 8px;font-size:11px;color:#667994}
 .spx-cta strong{color:#2b3a50;font-size:15px;font-variant-numeric:tabular-nums}
 .spx-cta small{grid-column:1/-1;color:#8898aa;line-height:1.5}
@@ -52,3 +52,16 @@
 .week-live-banner.archive b{display:block;font-size:19px;line-height:1.4;font-weight:650}
 .week-live-banner.archive>div:first-child>span{font-size:12px}
 @media(max-width:800px){.week-live-banner{height:auto;min-height:88px}.week-live-banner .update-policy{min-width:0;text-align:left}.banner-week-controls{justify-content:flex-start}}
+.market-overview .risk-tile{gap:0}
+.market-overview .risk-reading{background:none;border-radius:0;border-bottom:1px solid #e8ecf2;padding:6px 0 7px}
+.market-overview .risk-reading:last-child{border-bottom:0}
+.market-overview .risk-reading.is-alert{background:none}
+.market-overview .risk-reading span{color:#65748d;font-size:10px}
+.market-overview .risk-reading strong{color:#2b3a50;font-size:16px;line-height:1.25}
+.market-overview .risk-reading small{margin-top:2px;font-size:9px;color:#8b99aa;white-space:nowrap}
+.market-overview .risk-reading.is-alert .bond-pair>div:last-child strong,.market-overview .risk-reading.is-alert:not(.bond-reading) strong{color:#a63d4f}
+.market-overview .risk-reading i{font-size:7px;font-style:normal;color:#bd4e5c;vertical-align:2px}
+.market-overview .bond-reading .bond-pair{gap:10px}
+.market-overview .bond-reading .bond-pair>div{gap:0}
+.market-overview .risk-reading:not(.bond-reading)>div{gap:8px}
+@media(max-width:560px){.market-overview .risk-reading strong{font-size:14px}.market-overview .risk-reading small{white-space:normal}}
