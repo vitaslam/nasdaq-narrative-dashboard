@@ -34,5 +34,5 @@ for(const week of index.weeks){
  await write('weeks/'+week.date+'.html',html);
 }
 for(const asset of assets){const r=await response(asset);let value;if(asset.endsWith('.js')){value=await r.text();if(asset==='/shared-calendar.js')value=value.replace('fetch(`/api/calendar?from=${start}&to=${end}`','fetch(`../api/calendar.json`')}else value=Buffer.from(await r.arrayBuffer());await write(asset.slice(1),value)}
-await write('release.json',JSON.stringify({schema_version:1,data_revision:data.revision,active_week:data.active_week,content_updated_at:data.weeks[data.active_week].updated_at,built_at:new Date().toISOString(),renderer_release:'2026-11-02-readability-importance-ma-scores',renderer_sha256:rendererHash},null,2));
+await write('release.json',JSON.stringify({schema_version:1,data_revision:data.revision,active_week:data.active_week,content_updated_at:data.weeks[data.active_week].updated_at,built_at:new Date().toISOString(),renderer_release:'2026-11-02-v14-calendar-x-carousel-readability',renderer_sha256:rendererHash},null,2));
 console.log('Rendered '+index.weeks.length+' weeks using approved code; public data revision '+data.revision);
