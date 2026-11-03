@@ -1,8 +1,8 @@
 {
  "schema_version": 1,
- "batch_id": "muse:2026-11-03:06",
+ "batch_id": "muse:2026-11-03:08",
  "week_id": "2026-11-02",
- "generated_at": "2026-11-02T22:46:24Z",
+ "generated_at": "2026-11-03T00:52:03Z",
  "x_topics_upsert": [
   {
    "id": "advanced-packaging",
@@ -741,6 +741,237 @@
      ]
     }
    ]
+  },
+  {
+   "id": "apple-q4-earnings",
+   "title": "苹果第四财季财报",
+   "summary": "苹果第四财季财报：EPS、营收与 iPhone 超预期，大中华区与可穿戴不及预期。",
+   "posts": [
+    {
+     "id": "2117369039290843311",
+     "author": "@DeItaone",
+     "published_at": "2026-11-02T21:31:32Z",
+     "quote": null,
+     "viewpoint": "苹果第四财季：EPS 2.10 美元超预期 2.00 美元，营收 1144.8 亿美元超预期 1134.7 亿美元，iPhone 营收 575.8 亿美元超预期；但大中华区 175.4 亿美元与可穿戴、家居及配件 83.0 亿美元均不及预期。原文未提盘后股价表现。",
+     "views": 179700,
+     "reposts": 74,
+     "replies": 59,
+     "observed_at": "2026-11-03T00:52:03Z",
+     "source_url": "https://x.com/DeItaone/status/2117369039290843311",
+     "metrics_source": "https://x.com/DeItaone/status/2117369039290843311",
+     "verification": "X 精华监控 06 轮报告，原帖页确时 08:48。",
+     "avatar_url": "https://pbs.twimg.com/profile_images/2088360110095478784/El9anzXH_400x400.jpg",
+     "avatar_source": "https://x.com/DeItaone",
+     "impact": [
+      {
+       "targets": "AAPL",
+       "direction": "分化",
+       "reason": "EPS、营收与 iPhone 超预期，但大中华区与可穿戴不及预期，财报喜忧参半。"
+      }
+     ],
+     "translation_zh": "苹果第四财季每股收益 2.10 美元，预期 2.00 美元。第四财季营收 1144.8 亿美元，预期 1134.7 亿美元。第四财季可穿戴设备、家居与配件营收 83.0 亿美元，预期 90 亿美元。第四财季 iPhone 营收 575.8 亿美元，预期 564.9 亿美元。第四财季大中华区营收 175.4 亿美元，预期 187.5 亿美元。第四财季总运营费用 191.9 亿美元，预期 191.9 亿美元。第四财季服务营收 315.7 亿美元，预期 315.8 亿美元。",
+     "translation_scope": "full",
+     "translation_source_url": "https://x.com/DeItaone/status/2117369039290843311"
+    }
+   ]
+  },
+  {
+   "id": "palantir-q3-earnings",
+   "title": "Palantir 第三季度财报",
+   "summary": "Palantir 第三季度财报：EPS 与营收双超预期。",
+   "posts": [
+    {
+     "id": "2117363451458965966",
+     "author": "@unusual_whales",
+     "published_at": "2026-11-02T21:09:20Z",
+     "quote": null,
+     "viewpoint": "Palantir 第三季度财报：EPS 0.44 美元超预期 0.41 美元，营收 23.1 亿美元超预期 21.8 亿美元。",
+     "views": 76900,
+     "reposts": 33,
+     "replies": 24,
+     "observed_at": "2026-11-03T00:52:03Z",
+     "source_url": "https://x.com/unusual_whales/status/2117363451458965966",
+     "metrics_source": "https://x.com/unusual_whales/status/2117363451458965966",
+     "verification": "X 精华监控 06 轮报告，原帖页确时 08:48。",
+     "avatar_url": "https://pbs.twimg.com/profile_images/1714107328134516736/dLZGJPm7_400x400.png",
+     "avatar_source": "https://x.com/unusual_whales",
+     "impact": [
+      {
+       "targets": "PLTR",
+       "direction": "利好",
+       "reason": "EPS 与营收双超预期。"
+      }
+     ],
+     "translation_zh": "Palantir（PLTR）财报：每股收益 0.44 美元，预期 0.41 美元；营收 23.1 亿美元，预期 21.8 亿美元。",
+     "translation_scope": "full",
+     "translation_source_url": "https://x.com/unusual_whales/status/2117363451458965966"
+    }
+   ]
+  },
+  {
+   "id": "palantir-nemotron-ai",
+   "title": "Palantir 微调小模型击败前沿大模型",
+   "summary": "Palantir 在 Q3 业务更新中称，微调的英伟达 4B 模型 Nemotron 3 Nano 在企业基准上击败 GPT-6 Astra 与 Claude Sonnet 5.5，且成本更低。",
+   "posts": [
+    {
+     "id": "2117375567272214768",
+     "author": "@wallstengine",
+     "published_at": "2026-11-02T21:57:28Z",
+     "quote": null,
+     "viewpoint": "Palantir 在 Q3 业务更新中称，微调的英伟达 Nemotron 3 Nano（仅 40 亿参数）在推理、编码与智能体工作流等企业基准上得分高于 OpenAI 的 GPT-6 Astra 与 Anthropic 的 Claude Sonnet 5.5，且运营成本显著更低；Palantir 称这说明小而专的 AI 系统能以远低于大通用模型的成本交付更优业务结果。",
+     "views": 50000,
+     "reposts": 77,
+     "replies": 33,
+     "observed_at": "2026-11-03T00:52:03Z",
+     "source_url": "https://x.com/wallstengine/status/2117375567272214768",
+     "metrics_source": "https://x.com/wallstengine/status/2117375567272214768",
+     "verification": "X 精华监控 06 轮报告，原帖页确时 08:48。",
+     "avatar_url": "https://pbs.twimg.com/profile_images/1691846947857178624/oZp5wB4r_400x400.jpg",
+     "avatar_source": "https://x.com/wallstengine",
+     "impact": [
+      {
+       "targets": "PLTR / NVDA / 低成本 AI 部署",
+       "direction": "利好",
+       "reason": "小参数微调模型在企业基准上击败前沿大模型，利好 Palantir 与低成本 AI 落地叙事。"
+      }
+     ],
+     "translation_zh": "Palantir 展示经微调的英伟达 40 亿参数 AI 模型击败 GPT-6 Astra 与 Claude Sonnet 5.5，成本仅为其一小部分。在 Q3 业务更新中，Palantir 透露，经微调的英伟达 Nemotron 3 Nano 模型仅有 40 亿参数，却在广泛的企业基准上胜过规模大得多的前沿模型。该模型在推理、编码与智能体工作流上的得分高于 OpenAI 的 GPT-6 Astra 与 Anthropic 的 Claude Sonnet 5.5，同时运营成本显著低于这两家前沿对手。Palantir 表示，这一突破展示了更小、更专用的 AI 系统如何以远低于庞大通用模型的成本交付更优的业务结果。",
+     "translation_scope": "full",
+     "translation_source_url": "https://x.com/wallstengine/status/2117375567272214768"
+    }
+   ]
+  },
+  {
+   "id": "intel-selloff",
+   "title": "英特尔三日暴跌",
+   "summary": "英特尔日内再跌近 10%，三个交易日累计跌 37%，峰值以来市值蒸发约 4500 亿美元。",
+   "posts": [
+    {
+     "id": "2117360347753652434",
+     "author": "@KobeissiLetter",
+     "published_at": "2026-11-02T20:57:00Z",
+     "quote": null,
+     "viewpoint": "英特尔日内跌幅扩大至近 10%，过去三个交易日累计下跌 37%，自峰值以来已蒸发 4500 亿美元市值。页面下方另附一张早期帖子卡片（内容截断，未采用）。",
+     "views": 240600,
+     "reposts": 295,
+     "replies": 119,
+     "observed_at": "2026-11-03T00:52:03Z",
+     "source_url": "https://x.com/KobeissiLetter/status/2117360347753652434",
+     "metrics_source": "https://x.com/KobeissiLetter/status/2117360347753652434",
+     "verification": "X 精华监控 06 轮报告，原帖页确时 08:48。",
+     "avatar_url": "https://pbs.twimg.com/profile_images/1975243710846640128/fwYCe67Y_400x400.jpg",
+     "avatar_source": "https://x.com/KobeissiLetter",
+     "impact": [
+      {
+       "targets": "INTC / 半导体",
+       "direction": "利空",
+       "reason": "三日暴跌与市值大幅蒸发，延续 AI 硬件供给与竞争担忧。"
+      }
+     ],
+     "translation_zh": "突发：英特尔（INTC）日内跌幅扩大至近 10%，过去三个交易日累计下跌 37%。该股自峰值以来已蒸发 4500 亿美元市值。",
+     "translation_scope": "full",
+     "translation_source_url": "https://x.com/KobeissiLetter/status/2117360347753652434"
+    }
+   ]
+  },
+  {
+   "id": "alphabet-bond-sale",
+   "title": "Alphabet 60 亿欧元发债",
+   "summary": "Alphabet 定价 60 亿欧元七档债券，期限 2028–2045 年，票息最高 5.25%。",
+   "posts": [
+    {
+     "id": "2117377482978701761",
+     "author": "@wallstengine",
+     "published_at": "2026-11-02T22:05:05Z",
+     "quote": null,
+     "viewpoint": "Alphabet 定价一笔 60 亿欧元的七档欧元债券，期限从 2028 年到 2045 年，票息最高 5.25%。",
+     "views": 21400,
+     "reposts": 8,
+     "replies": 7,
+     "observed_at": "2026-11-03T00:52:03Z",
+     "source_url": "https://x.com/wallstengine/status/2117377482978701761",
+     "metrics_source": "https://x.com/wallstengine/status/2117377482978701761",
+     "verification": "X 精华监控 06 轮报告，原帖页确时 08:48。",
+     "avatar_url": "https://pbs.twimg.com/profile_images/1691846947857178624/oZp5wB4r_400x400.jpg",
+     "avatar_source": "https://x.com/wallstengine",
+     "impact": [
+      {
+       "targets": "GOOGL",
+       "direction": "中性",
+       "reason": "大额长端发债补充资金，最高票息 5.25% 反映长端融资成本。"
+      }
+     ],
+     "translation_zh": "Alphabet（GOOGL）定价一笔 60 亿欧元的七档欧元债券，期限从 2028 年到 2045 年，票息最高 5.25%。",
+     "translation_scope": "full",
+     "translation_source_url": "https://x.com/wallstengine/status/2117377482978701761"
+    }
+   ]
+  },
+  {
+   "id": "bloom-crc-power",
+   "title": "Bloom 与加州资源 1GW 燃料电池项目",
+   "summary": "Bloom Energy 与 California Resources 签署非约束性备忘录，拟在加州开发 1GW 以上燃料电池发电项目并配套碳捕集。",
+   "posts": [
+    {
+     "id": "2117373417594994876",
+     "author": "@wallstengine",
+     "published_at": "2026-11-02T21:48:56Z",
+     "quote": null,
+     "viewpoint": "Bloom Energy 与 California Resources 签署非约束性备忘录，开发配套碳捕集与封存的固体氧化物燃料电池项目：Bloom 提供燃料电池技术，California Resources 提供碳管理与地下专业能力；项目可为加州的数据中心、工业设施与电网级运营供电，可使用 California Resources 供应的天然气发电、产出低碳电力，California Resources 称项目每年可供捕集封存的 CO2 最高达 300 万吨。",
+     "views": 21500,
+     "reposts": 25,
+     "replies": 6,
+     "observed_at": "2026-11-03T00:52:03Z",
+     "source_url": "https://x.com/wallstengine/status/2117373417594994876",
+     "metrics_source": "https://x.com/wallstengine/status/2117373417594994876",
+     "verification": "X 精华监控 06 轮报告，原帖页确时 08:48。",
+     "avatar_url": "https://pbs.twimg.com/profile_images/1691846947857178624/oZp5wB4r_400x400.jpg",
+     "avatar_source": "https://x.com/wallstengine",
+     "impact": [
+      {
+       "targets": "BE / CRC / AI 电力供应",
+       "direction": "利好",
+       "reason": "1GW 以上燃料电池发电加碳捕集项目意向落地，利好 AI 电力供应链。"
+      }
+     ],
+     "translation_zh": "Bloom Energy（BE）与 California Resources 签署协议，探索在加州开发 1GW 以上的发电能力。两家公司签署了一份非约束性备忘录，开发配套碳捕集与封存的固体氧化物燃料电池项目。Bloom 将提供燃料电池技术，California Resources（CRC）将带来碳管理与地下专业能力。该交易可为加州各地的数据中心、工业设施与电网级运营供电。这些项目可使用 California Resources 供应的天然气，预计产出低碳电力。CRC 表示，这些项目每年可供捕集与封存的二氧化碳最高达 300 万吨。",
+     "translation_scope": "full",
+     "translation_source_url": "https://x.com/wallstengine/status/2117373417594994876"
+    }
+   ]
+  },
+  {
+   "id": "trump-oil-iran-comments",
+   "title": "特朗普谈油价与伊朗和解",
+   "summary": "特朗普称油价大跌因市场认为不会与伊朗开战，伊朗想要达成和解、可能实现。",
+   "posts": [
+    {
+     "id": "2117358718044057797",
+     "author": "@KobeissiLetter",
+     "published_at": "2026-11-02T20:50:31Z",
+     "quote": null,
+     "viewpoint": "特朗普称油价“像石头一样下跌”，因为“人们认为不会与伊朗开战”；并称“伊朗想要达成和解，这可能实现”。帖子附特朗普原帖截图，称油价下跌近 10 美元/桶、创纪录，伊朗希望尽快达成和解。",
+     "views": 1000000,
+     "reposts": 540,
+     "replies": 121,
+     "observed_at": "2026-11-03T00:52:03Z",
+     "source_url": "https://x.com/KobeissiLetter/status/2117358718044057797",
+     "metrics_source": "https://x.com/KobeissiLetter/status/2117358718044057797",
+     "verification": "X 精华监控 06 轮报告，原帖页确时 08:48。",
+     "avatar_url": "https://pbs.twimg.com/profile_images/1975243710846640128/fwYCe67Y_400x400.jpg",
+     "avatar_source": "https://x.com/KobeissiLetter",
+     "impact": [
+      {
+       "targets": "原油 / WTI·Brent",
+       "direction": "利空",
+       "reason": "美伊不开战预期压低油价，与周一油价大跌方向一致。"
+      }
+     ],
+     "translation_zh": "突发：特朗普总统表示，油价“像石头一样下跌”，因为“人们认为不会与伊朗开战”。特朗普说：“伊朗想要达成和解，这可能实现。”",
+     "translation_scope": "full",
+     "translation_source_url": "https://x.com/KobeissiLetter/status/2117358718044057797"
+    }
+   ]
   }
  ],
  "market_bars": {
@@ -821,7 +1052,7 @@
    "source_url": "https://www.eia.gov/dnav/pet/hist/RBRTED.htm"
   },
   "FedHike": {
-   "value": 74.45,
+   "value": 74.4,
    "meeting": "2026-12-09",
    "asof": "2026-11-02",
    "source_url": "https://polymarket.com/event/fed-decision-in-december-20260729232808632",
