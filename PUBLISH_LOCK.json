@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "holder": "Muse",
-  "token": "Muse-trend-cleanup-1793683052419-36a0208eb3",
-  "purpose": "trend-marker-cleanup-1103: remove GPT trend:* markers, trends Muse-only per user directive 2026-11-03",
-  "acquired_at": "2026-11-03T05:17:32.419Z",
-  "expires_at": "2026-11-03T06:02:32.419Z"
+  "holder": null,
+  "token": null,
+  "purpose": null,
+  "acquired_at": null,
+  "expires_at": null
 }
