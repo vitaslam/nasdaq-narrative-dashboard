@@ -1,0 +1,1170 @@
+diff --git a/runtime.js b/runtime.js
+--- a/runtime.js
++++ b/runtime.js
+@@ -26,9 +26,23 @@
+  only(ratings,['metrics','dimensions','events','questions','answers']);w.importance??={};
+  for(const [group,items]of Object.entries(ratings)){only(items,Object.keys(items));ok(Object.keys(items).length<=60,'Too many importance ratings');w.importance[group]??={};for(const [id,r]of Object.entries(items)){importanceRating(r);w.importance[group][id]=clone(r)}}
+ }
++function validateMoodAttribution(a,day){
++ only(a,['kind','driver','source_urls','known_by','event_at','session']);
++ ok(['event','quant'].includes(a.kind)&&typeof a.driver==='string'&&a.driver.trim()&&a.driver.length<=70,'Name one documented catalyst or a quantitative driver');
++ ok(Array.isArray(a.source_urls)&&a.source_urls.length>0&&a.source_urls.length<=3&&a.source_urls.every(url),'Daily attribution needs a retrievable source');
++ if(a.kind!=='event')return;
++ ok(iso(day)&&iso(a.known_by)&&a.known_by<=day,'Catalyst must have been public by the session close');
++ if(a.session)ok(['premarket','regular','after_close','known_by_close'].includes(a.session)&&(a.session!=='after_close'||a.known_by<day),'After-close news can explain only a later session');
++ if(a.event_at){
++  ok(/(?:Z|[+-]\d{2}:\d{2})$/.test(a.event_at)&&Number.isFinite(Date.parse(a.event_at))&&Date.parse(a.event_at)<=Date.now(),'Catalyst timestamp needs a past timezone-aware instant');
++  const instant=new Date(a.event_at),etDay=new Intl.DateTimeFormat('en-CA',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).format(instant);
++  const hour=Number(new Intl.DateTimeFormat('en-GB',{timeZone:'America/New_York',hour:'2-digit',hourCycle:'h23'}).format(instant));
++  ok(etDay<=a.known_by&&(etDay<day||hour<16),'Do not attribute a regular close to later news');
++ }
++}
+ function mergeMood(w,m){
+  only(m,['anchor','baselines','current','conclusion']);
+- const valid=x=>{only(x,['date','asof','label','emoji','reason','source_urls','baseline_date','emphasis']);ok(typeof x.label==='string'&&x.label.length<=60&&typeof x.reason==='string'&&x.reason.length<=280,'Keep mood state and attribution concise');ok(typeof x.emoji==='string'&&x.emoji.length<=32,'Mood needs an emoji');ok(Array.isArray(x.source_urls)&&x.source_urls.length>0&&x.source_urls.every(url),'Mood attribution needs evidence');if(x.date)ok(iso(x.date)&&x.date<=observationToday(),'Mood date cannot be in the future');if(x.emphasis)ok(Array.isArray(x.emphasis)&&x.emphasis.every(t=>typeof t==='string'&&t.length<=180),'Invalid mood emphasis');};
++ const valid=x=>{only(x,['date','asof','label','emoji','reason','source_urls','baseline_date','emphasis','attribution']);if(x.attribution)validateMoodAttribution(x.attribution,x.date);ok(typeof x.label==='string'&&x.label.length<=60&&typeof x.reason==='string'&&x.reason.length<=280,'Keep mood state and attribution concise');ok(typeof x.emoji==='string'&&x.emoji.length<=32,'Mood needs an emoji');ok(Array.isArray(x.source_urls)&&x.source_urls.length>0&&x.source_urls.every(url),'Mood attribution needs evidence');if(x.date)ok(iso(x.date)&&x.date<=observationToday(),'Mood date cannot be in the future');if(x.emphasis)ok(Array.isArray(x.emphasis)&&x.emphasis.every(t=>typeof t==='string'&&t.length<=180),'Invalid mood emphasis');};
+  w.market_mood??={history:[]};w.market_mood.history??=[];
+  // Retain the original observation for audit; comparisons use explicit dated baselines.
+  if(m.anchor){valid(m.anchor);ok(m.anchor.date===w.start,'Mood anchor must be Monday of this week');ok(!w.market_mood.anchor||JSON.stringify(m.anchor)===JSON.stringify(w.market_mood.anchor),'Monday mood anchor is immutable');w.market_mood.anchor=clone(m.anchor)}
+@@ -40,28 +54,84 @@
+ async function save(env,state,etag){ok(env.BUCKET,'Persistent storage unavailable');const conditions=etag?{etagMatches:etag}:new Headers({'If-None-Match':'*'});const result=await env.BUCKET.put(KEY,JSON.stringify(state),{onlyIf:conditions,httpMetadata:{contentType:'application/json'}});ok(result,'Revision conflict: reread context and retry');return result}
+ function owner(req,env){const who=req.headers.get('oai-authenticated-user-email')?.trim().toLowerCase();ok(env.SITE_OWNER_EMAIL&&who===env.SITE_OWNER_EMAIL.trim().toLowerCase(),'Owner authorization required')}
+ function weekIndex(state){return [...ASSETS.legacy.map(x=>{const mood=ASSETS.moodArchive[x.date];return {...x,summary:ASSETS.historical[x.date]?.summary||x.summary,status:'archived',price_cutoff:x.date,mood_emoji:mood?.emoji||null,mood_label:mood?.label||null,mood_reason:mood?.reason||null,qqq_close:mood?.qqq_close??null,qqq_close_date:mood?.close_date||null}}),...Object.values(state.weeks).map(w=>{const close=(w.snapshot?.bars?.QQQ||[]).filter(b=>b.date<=w.price_cutoff).at(-1),mood=w.market_mood?.conclusion||w.market_mood?.current;return {date:w.id,label:w.start.slice(5).replace('-','/')+'–'+w.end.slice(5).replace('-','/'),status:w.status,summary:w.summary,price_cutoff:w.price_cutoff,mood_emoji:mood?.emoji||null,mood_label:mood?.label||null,mood_reason:mood?.reason||null,qqq_close:close?.c??null,qqq_close_date:close?.date||null}})].sort((a,b)=>a.date.localeCompare(b.date))}
++function quantitativeMood(bars,index,snapshot){
++ const bar=bars[index],prior=bars[index-1],range=bar.h-bar.l;
++ const history='https://api.nasdaq.com/api/quote/QQQ/historical?assetclass=etf&fromdate='+bars[Math.max(0,index-20)].date+'&todate='+bar.date+'&limit=25';
++ const give=(driver,reason,sources=[history])=>({reason,attribution:{kind:'quant',driver,source_urls:sources}});
++ const move=n=>(n>=0?'上涨':'下跌')+Math.abs(n).toFixed(2)+'%';
++ const previous20=bars.slice(Math.max(0,index-20),index);
++ if(previous20.length===20&&bar.v>0&&range>0&&previous20.every(b=>b.v>0)){
++  const ratio=bar.v/(previous20.reduce((n,b)=>n+b.v,0)/20);
++  const position=100*(bar.c-bar.l)/range;
++  if(ratio>=1.5&&(position<=25||position>=75)){
++   const low=position<=25;
++   return give(low?'放量收近低点':'放量收近高点','QQQ 成交量为前20个交易日均量的 '+ratio.toFixed(2)+' 倍，收盘位于日内区间'+(low?'底部':'顶部')+' '+Math.round(low?position:100-position)+'%。'+(low?'收盘前买盘未能收复跌幅。':'买盘把价格维持在全天高位。'));
++  }
++ }
++ if(prior){
++  const indexChange=key=>{
++   const points=snapshot?.bars?.[key]||[],now=points.find(b=>b.date===bar.date),last=points.find(b=>b.date===prior.date);
++   return now?.c>0&&last?.c>0?100*(now.c/last.c-1):null;
++  };
++  const cap=indexChange('NDX'),equal=indexChange('NDXE');
++  if(cap!==null&&equal!==null&&Math.abs(cap-equal)>=.4){
++   return give(cap>equal?'权重股相对走强':'权重股相对承压','纳指100'+move(cap)+'，等权纳指100'+move(equal)+'。市值加权指数'+(cap>equal?'跑赢':'落后')+Math.abs(cap-equal).toFixed(2)+' 个百分点，说明大市值成分相对'+(cap>equal?'撑住':'拖累')+'指数。',['https://indexes.nasdaq.com/Index/History/NDX','https://indexes.nasdaq.com/Index/History/NDXE']);
++  }
++ }
++ if(prior?.c>0&&bar.o>0){
++  const gap=100*(bar.o/prior.c-1),intraday=100*(bar.c/bar.o-1);
++  const opposing=gap*intraday<0,overnight=Math.abs(gap)>=Math.abs(intraday);
++  const title=opposing?(overnight?'隔夜缺口主导':'盘中反转主导'):(overnight?'隔夜定价主导':'盘中交易主导');
++  const opening=Math.abs(gap)<.005?'平开':(gap>0?'高开':'低开')+Math.abs(gap).toFixed(2)+'%';
++  const driver=opposing?(overnight?'盘中反向交易只收回了部分缺口。':'盘中的反向波动超过了开盘缺口，改变了收盘方向。'):(overnight?'大部分价格变化发生在开盘前。':'主要价格变化发生在常规交易时段。');
++  return give(title,'QQQ 较前收'+opening+'，从开盘到收盘'+move(intraday)+'。'+driver);
++ }
++ if(prior?.c>0){
++  const sample=bars.slice(Math.max(0,index-20),index);
++  const average=sample.reduce((sum,b)=>sum+b.c,0)/sample.length;
++  const spread=100*(bar.c/average-1);
++  if(sample.length>1)return give('收盘相对近期均价','QQQ 收盘比此前 '+sample.length+' 个交易日的均价'+(spread>=0?'高':'低')+Math.abs(spread).toFixed(2)+'%。'+(spread>=0?(bar.c<prior.c?'当天回调尚未抹去前期升幅。':'上涨延续了此前的强势。'):(bar.c>prior.c?'当天的反弹只收复部分前期跌幅。':'回落延续了此前的弱势。')));
++ }
++ if(range>0)return give('收盘在日内区间的位置','QQQ 收盘位于当日高低区间从低到高的 '+Math.round(100*(bar.c-bar.l)/range)+'% 处，显示收盘时买卖力量在全天中的位置。');
++ return give('对照样本不足','仅有收盘价，没有足够的开盘价或前期样本判断哪一段交易主导走势。');
++}
+ function recentMoodDays(w,state){
+- const end=w.status==='active'&&today()<w.end?today():w.end,review=ASSETS.moodDailyReview||{};
+- const previousMonday=add(w.start,-7);
+- const bars=new Map((w.snapshot?.bars?.QQQ||[]).filter(b=>b.date<=end).map(b=>[b.date,b]));
++ const active=w.status==='active',end=active&&today()<w.end?today():w.end,start=active?add(w.start,-7):w.start;
++ const review=ASSETS.moodDailyReview||{};
++ const bars=new Map((w.snapshot?.bars?.QQQ||[]).filter(b=>b.date<=end&&b.c>0).map(b=>[b.date,b]));
+  for(const [date,row] of Object.entries(review)){
+   if(date>end||!Number.isFinite(row.qqq_close))continue;
+   const existing=bars.get(date);
+-  // A sourced daily settlement takes precedence over a last intraday chart tick.
+-  if(!existing||(row.close_source&&/\/chart(?:\?|$)/.test(existing.source_url||'')))bars.set(date,{date,c:row.qqq_close,source_url:row.close_source});
++  if(!existing||(row.close_source&&/\/chart(?:\?|$)/.test(existing.source_url||'')))bars.set(date,{...existing,date,c:row.qqq_close,source_url:row.close_source});
+  }
+  const ordered=[...bars.values()].sort((a,b)=>a.date.localeCompare(b.date));
+- return ordered.filter(bar=>bar.date>=previousMonday).reverse().map(bar=>{
+-  const date=bar.date,prior=ordered.findLast(b=>b.date<date),pct=prior?100*(bar.c/prior.c-1):null;
+-  const saved=Object.values(state.weeks||{}).flatMap(week=>week.market_mood?.history||[]).filter(m=>m.date===date).at(-1);
+-  const m=saved||review[date];
+-  return {date,week_start:add(date,-((new Date(date+'T12:00:00Z').getUTCDay()+6)%7)),qqq_close:bar.c,pct,label:m?.label||(pct==null?'待核验':pct<=-1?'偏悲观':pct>=1?'偏乐观':'观望'),emoji:m?.emoji||(pct==null?'📝':pct<=-1?'😟':pct>=1?'🙂':'🤔'),reason:m?.reason||(pct==null?'暂无可核验的单日判断。':`QQQ 当日收盘${pct>=0?'+':''}${pct.toFixed(2)}%；仅据价格回溯，不代表当时已保存的情绪观察。`),kind:saved?'recorded':'retrospective'};
+- });
++ const savedByDate=new Map(Object.values(state.weeks||{}).flatMap(week=>week.market_mood?.history||[]).map(m=>[m.date,m]));
++ const weekIds=new Map(ASSETS.legacy.map(item=>[add(item.date,-4),item.date]));
++ for(const week of Object.values(state.weeks||{}))weekIds.set(week.start,week.id);
++ const vol=w.snapshot?.volatility||{},vix=new Map((vol.dates||[]).map((date,i)=>[date,vol.vix?.[i]]));
++ const days=[];
++ for(let i=0;i<ordered.length;i++){
++  const bar=ordered[i],date=bar.date;if(date<start)continue;
++  const prior=ordered[i-1],pct=prior?100*(bar.c/prior.c-1):null;
++  const saved=savedByDate.get(date),archive=review[date],m=saved||archive;
++  const cause=saved?.attribution?saved:archive?.attribution?archive:quantitativeMood(ordered,i,w.snapshot);
++  const monday=add(date,-((new Date(date+'T12:00:00Z').getUTCDay()+6)%7));
++  days.push({date,week_start:monday,week_id:weekIds.get(monday)||monday,qqq_close:bar.c,pct,vix_close:archive?.vix_close??vix.get(date)??null,label:m?.label||(pct==null?'待核验':pct<=-1?'偏悲观':pct>=1?'偏乐观':'观望'),emoji:m?.emoji||(pct==null?'📝':pct<=-1?'😟':pct>=1?'🙂':'🤔'),reason:cause.reason,attribution:cause.attribution,kind:saved?'recorded':'retrospective'});
++ }
++ return days.reverse();
++}
++function archivedMoodPanel(html,id,state,storedWeek){
++ const report=html.match(/<script id="report-data" type="application\/json">([\s\S]*?)<\/script>/);
++ if(!report&&!storedWeek)return html;
++ const summary=ASSETS.moodArchive[id];
++ const week=storedWeek||{id,start:add(id,-4),end:id,status:'archived',snapshot:JSON.parse(report[1]),market_mood:{current:summary&&{date:id,label:summary.label,emoji:summary.emoji,reason:summary.reason}}};
++ const context={id:week.id,start:week.start,end:week.end,status:'archived',historical_review:true,market_mood:week.market_mood,recent_moods:recentMoodDays(week,state)};
++ return html.replace(/<script[^>]*src="[^"]*dashboard-enhancements\.js"[^>]*>/,match=>'<script id="mood-week-context" type="application/json">'+jsjson(context)+'</script>'+match);
+ }
+ function renderWeek(w,state){const recent_moods=recentMoodDays(w,state);w=displayWeek(w);const markers={...state.change_markers,...(w._publishedMuseMarkers?{Muse:w._publishedMuseMarkers}:{})};const live={...w,recent_moods,change_markers:markers,author_profiles:ASSETS.display.avatars,snapshot:undefined,calendar:undefined,schedule_enabled:state.schedule.enabled,schedule_times:state.schedule.times||[state.schedule.time||'10:00']};const snap={...w.snapshot,plan:w.weekly_plan.levels};return ASSETS.template.replace('__LIVE_WEEK_JSON__',jsjson(live)).replace(/(<script id="report-data" type="application\/json">)[\s\S]*?(<\/script>)/,(_,a,b)=>a+jsjson(snap)+b)}
+ async function withPublishedX(w,env){
+- if(env?.STATIC_BUILD||w.id!==ASSETS.publishedX.week_id||w.status!=='active')return w;
+- let published=ASSETS.publishedX;
++ if(env?.STATIC_BUILD||w.status!=='active')return w;
++ let published=ASSETS.publishedX.week_id===w.id?ASSETS.publishedX:{week_id:w.id,x_topics:[]};
+  try{
+   const response=await fetch('https://vitaslam.github.io/nasdaq-narrative-dashboard/api/export.json',{signal:AbortSignal.timeout(2000)});
+   if(response.ok){const data=await response.json(),week=data.weeks?.[w.id];if(Array.isArray(week?.x_topics))published={week_id:w.id,x_topics:week.x_topics,x_trends:week.x_trends,muse_markers:data.change_markers?.Muse}}
+@@ -104,7 +174,7 @@
+  const keys=[];if(p.calendar_upsert)keys.push(...p.calendar_upsert.map(e=>'calendar:'+e.id));if(p.market_mood)keys.push('mood');if(p.dimensions)keys.push(...p.dimensions.map(d=>'dimension:'+d.id));if(p.questions_upsert)keys.push(...p.questions_upsert.map(q=>'question:'+q.id));if(p.answers_append)keys.push(...p.answers_append.map(a=>'answer:'+a.id));if(p.event_drivers)keys.push('events');if(p.event_details)keys.push('events');if(p.x_topics_upsert)keys.push(...p.x_topics_upsert.flatMap(t=>(t.posts||[]).map(post=>'x:'+post.id)));if(p.x_trends_upsert)keys.push(...p.x_trends_upsert.map(t=>'trend:'+t.id));if(p.stance)keys.push('strategy');if(p.market?.bars)keys.push(...Object.keys(p.market.bars).map(s=>'metric:'+s));if(p.market?.sentiment)keys.push(...Object.keys(p.market.sentiment).map(s=>'metric:'+s));
+  if(p.presentation_updates!==undefined){
+   const targets=p.presentation_updates;
+-  ok(Array.isArray(targets)&&targets.length<=32&&targets.every(id=>typeof id==='string'&&(id==='mood'||/^(?:calendar|trend):[a-z0-9][a-z0-9-]{1,99}$/.test(id))), 'Use a mood, calendar or trend key for interface change markers');
++  ok(Array.isArray(targets)&&targets.length<=32&&targets.every(id=>typeof id==='string'&&(id==='mood'||/^x-author:@[a-z0-9_]{1,15}$/.test(id)||/^(?:calendar|trend):[a-z0-9][a-z0-9-]{1,99}$/.test(id))), 'Use a mood, calendar, trend or X author key for interface change markers');
+   keys.push(...targets);
+  }
+  state.change_markers??={};state.change_markers.GPT={revision:state.revision+1,at:w.updated_at,keys:[...new Set(keys)]};
+@@ -159,5 +229,5 @@
+  const {state}=await read(env);if(p==='/api/index')return json({active_week:state.active_week,revision:state.revision,schedule:state.schedule,weeks:weekIndex(state)});
+  if(p==='/api/calendar'){const from=u.searchParams.get('from')||state.active_week,to=u.searchParams.get('to')||add(from,13);if(!iso(from)||!iso(to))return json({error:'Invalid date'},400);return json({revision:state.revision,from,to,change_markers:state.change_markers||{},events:state.calendar.filter(e=>e.iso_date>=from&&e.iso_date<=to),ongoing:state.calendar.filter(e=>e.ongoing||e.week===0)})}
+  if(p==='/api/export'){const weeks=Object.fromEntries(Object.entries(state.weeks).map(([id,w])=>{const publicWeek=clone(displayWeek(w));delete publicWeek.update_log;return [id,publicWeek]}));return json({schema_version:1,revision:state.revision,active_week:state.active_week,change_markers:state.change_markers||{},schedule:{enabled:state.schedule.enabled,time:state.schedule.time,times:state.schedule.times,timezone:state.schedule.timezone},weeks,calendar:state.calendar})}
+- const match=p.match(/^\/week\/(\d{4}-\d{2}-\d{2})$/)||p.match(/^\/weeks\/(\d{4}-\d{2}-\d{2})\.html$/);if(match){const id=match[1];if(ASSETS.historical[id])return new Response(renderWeek(ASSETS.historical[id],state),{headers});if(ASSETS.archives[id])return new Response(ASSETS.archives[id],{headers});const w=state.weeks[id];if(!w)return new Response('Week not found',{status:404});if(w.status==='archived'){const frozen=await env.BUCKET?.get('archives/'+id+'.html');if(frozen)return new Response(frozen.body,{headers})}return new Response(renderWeek(await withPublishedX(w,env),state),{headers})}
++ const match=p.match(/^\/week\/(\d{4}-\d{2}-\d{2})$/)||p.match(/^\/weeks\/(\d{4}-\d{2}-\d{2})\.html$/);if(match){const id=match[1];if(ASSETS.historical[id])return new Response(renderWeek(ASSETS.historical[id],state),{headers});if(ASSETS.archives[id])return new Response(archivedMoodPanel(ASSETS.archives[id],id,state),{headers});const w=state.weeks[id];if(!w)return new Response('Week not found',{status:404});if(w.status==='archived'){const frozen=await env.BUCKET?.get('archives/'+id+'.html');if(frozen)return new Response(archivedMoodPanel(await new Response(frozen.body).text(),id,state,w),{headers})}return new Response(renderWeek(await withPublishedX(w,env),state),{headers})}
+  return new Response('Not found',{status:404});}catch(e){return json({error:'Dashboard temporarily unavailable'},503)}}};
+diff --git a/live-week.js b/live-week.js
+--- a/live-week.js
++++ b/live-week.js
+@@ -98,10 +98,11 @@
+  // A qualifying post moves from the Muse-led author stream into the curated heat lane.
+  const heat=n=>n>=10000?(n/10000).toFixed(n%10000?1:0)+'万':num(n,0);
+  const hot=p=>p.views>=1000000||p.reposts>=1000||p.replies>=1000;
+- const author=p=>{
++ const author=(p,pinned=false)=>{
+    const profile=(W.author_profiles||[]).find(a=>a.author.toLowerCase()===String(p.author).toLowerCase());
+    const avatar=p.avatar_url||profile?.asset_url,valid=/^https:\/\//.test(avatar||'')||/^(?:\/|\.\.\/)assets\/avatars\/[a-z0-9_-]+\.jpg$/.test(avatar||'');
+-   return `<a class="x-author-identity" href="${esc(p.source_url)}" target="_blank" rel="noopener" aria-label="打开 ${esc(p.author)} 的 X 原帖">${valid?`<img class="x-avatar" src="${esc(avatar)}" alt="${esc(p.author)} 的头像" width="34" height="34" loading="lazy" referrerpolicy="no-referrer">`:`<span class="x-avatar-fallback" aria-hidden="true">${esc(String(p.author||'@').slice(1,2).toUpperCase())}</span>`}<span class="x-author-lines"><b>${esc(p.author)}</b></span></a>`;
++   const href=p.source_url||'https://x.com/'+encodeURIComponent(p.author.replace(/^@/,''));
++   return `<a class="x-author-identity" href="${esc(href)}" target="_blank" rel="noopener" aria-label="打开 ${esc(p.author)} 的 X ${p.source_url?'原帖':'主页'}">${valid?`<img class="x-avatar" src="${esc(avatar)}" alt="${esc(p.author)} 的头像" width="34" height="34" loading="lazy" referrerpolicy="no-referrer">`:`<span class="x-avatar-fallback" aria-hidden="true">${esc(String(p.author||'@').slice(1,2).toUpperCase())}</span>`}<span class="x-author-lines"><b>${esc(p.author)}</b></span>${pinned?'<span class="x-author-pin">置顶</span>':''}</a>`;
+  };
+  const latest=p=>Date.parse(p.published_at)||0;
+  const topics=[...(W.x_topics||[])];
+@@ -110,7 +111,22 @@
+  const body=p=>{const complete=p.translation_scope==='full'&&p.translation_zh?.trim(),postOnly=p.translation_scope==='post_only'&&p.translation_zh?.trim(),copy=complete||postOnly?p.translation_zh:p.viewpoint||p.translation_zh||'原帖文字待核对',long=copy.length>180,targets=positive(p);const status=complete?'':`<small class="x-translation-status">${postOnly?'仅原帖正文已逐句译出；所引长帖未收录':'原帖全文未核实 · 保留既有记录'}</small>`;return `<time class="x-post-time" datetime="${esc(p.published_at||'')}">${bj(p.published_at)} 北京</time><p class="x-translation${long?' is-collapsed':''}">${esc(copy)}</p>${long?'<button class="x-expand-post" type="button" aria-expanded="false">展开全文</button>':''}${status}<div class="x-simple-foot">${targets?`<span>利好标的：<b>${esc(targets)}</b></span>`:''}<span class="x-single-heat">${heatLabel(p)}</span></div>`};
+  const hotPosts=topics.flatMap(t=>(t.posts||[]).filter(hot).map(p=>({...p,topic_title:t.title}))).sort((a,b)=>latest(b)-latest(a));
+  const frequentPosts=topics.flatMap(t=>(t.posts||[]).filter(p=>!hot(p)).map(p=>({...p,topic_title:t.title}))).sort((a,b)=>latest(b)-latest(a));
+- const byAuthor=new Map();for(const p of frequentPosts){const key=String(p.author||'').toLowerCase();if(!byAuthor.has(key))byAuthor.set(key,[]);byAuthor.get(key).push(p)}
++ const pinnedAuthor='@labubu_trader';
++ // Map insertion order is the input to every masonry layout, including resizes.
++ const byAuthor=new Map([[pinnedAuthor,[]]]);
++ for(const post of frequentPosts){
++  const key=String(post.author||'').trim().toLowerCase().replace(/^@?([a-z0-9_]{1,15})$/,'@$1');
++  if(!byAuthor.has(key))byAuthor.set(key,[]);
++  byAuthor.get(key).push(post);
++ }
++ if(!active&&!byAuthor.get(pinnedAuthor).length)byAuthor.delete(pinnedAuthor);
++ const frequentAuthorCards=Array.from(byAuthor,([handle,posts])=>{
++  const pinned=handle===pinnedAuthor;
++  const identity=pinned?{...posts[0],author:pinnedAuthor}:posts[0];
++  const header=author(identity,pinned);
++  const items=posts.map(p=>`<section class="x-simple-post" data-post-id="${esc(p.id)}"><a class="x-post-link" href="${esc(p.source_url)}" target="_blank" rel="noopener">${esc(p.topic_title)} ↗</a>${body(p)}</section>`).join('');
++  return `<article class="card x-author-card x-simple-card" data-author="${esc(handle)}"${pinned?` data-pinned="true" aria-label="${esc(handle)}，置顶作者"`:''}>${header}${items||'<p class="x-pinned-empty">本周暂无高频帖。</p>'}</article>`;
++ }).join('');
+  q('#narrative .section-head h2').textContent='𝕏 高热度话题';
+  q('#narrative .section-sub').textContent='单帖达到热度门槛后归入此处 · 最新在左';
+  q('#narrative .x-card-grid').innerHTML=hotPosts.map(p=>`<article class="card x-topic-card x-simple-card" data-post-id="${esc(p.id)}"><h3>${esc(p.topic_title)}</h3><section class="x-simple-post">${author(p)}${body(p)}</section></article>`).join('')||'<article class="card live-empty">本周暂无达到高热门槛的帖子。</article>';
+@@ -132,7 +148,7 @@
+   return `<article class="card x-trend-card" data-trend-id="${esc(t.id)}"><div class="x-trend-top"><span>本周趋势 · ${t.status==='final'?'已固化':'追踪中'}</span><time datetime="${esc(t.asof||'')}">${bj(t.asof)} 北京</time></div><h3><button type="button" class="x-trend-select" aria-pressed="false" aria-controls="x-frequent-posts x-hot-posts">${esc(t.title)}</button></h3><p>${esc(t.summary)}</p><div class="x-trend-evidence">依据：${sources}</div>${t.caveat?`<small class="x-trend-caveat">${esc(t.caveat)}</small>`:''}<div class="x-trend-tags">${tags}</div></article>`;
+  }).filter(Boolean).join('');
+  hotStream.id='x-hot-posts';
+- frequent.innerHTML=`<div class="section-head"><div><h2 id="x-frequent-title">𝕏 高频板块</h2><p class="section-sub">Muse 持续更新 · 同一博主的帖子纵向合并</p></div></div>${trendCards?`<div class="x-trend-heading"><b>趋势捕捉</b><span>点击趋势，高亮相关帖</span></div><div class="x-trend-grid">${trendCards}</div><div class="x-trend-selection" hidden><span aria-live="polite"></span><button type="button" data-jump-to-related>定位首帖 ↓</button></div>`:''}<div class="x-frequent-grid" id="x-frequent-posts">${[...byAuthor.values()].map(posts=>`<article class="card x-author-card x-simple-card">${author(posts[0])}${posts.map(p=>`<section class="x-simple-post" data-post-id="${esc(p.id)}"><a class="x-post-link" href="${esc(p.source_url)}" target="_blank" rel="noopener">${esc(p.topic_title)} ↗</a>${body(p)}</section>`).join('')}</article>`).join('')||'<article class="card live-empty">本周暂无高频帖子。</article>'}</div>`;
++ frequent.innerHTML=`<div class="section-head"><div><h2 id="x-frequent-title">𝕏 高频板块</h2><p class="section-sub">Muse 持续更新 · 同一博主的帖子纵向合并</p></div></div>${trendCards?`<div class="x-trend-heading"><b>趋势捕捉</b><span>点击趋势，高亮相关帖</span><nav class="x-trend-pages" aria-label="趋势翻页" hidden><span aria-live="polite"></span><button type="button" data-trend-prev aria-label="上一页趋势">‹</button><button type="button" data-trend-next aria-label="下一页趋势">›</button></nav></div><div class="x-trend-grid">${trendCards}</div><div class="x-trend-selection" hidden><span aria-live="polite"></span><button type="button" data-jump-to-related>定位首帖 ↓</button></div>`:''}<div class="x-frequent-grid" id="x-frequent-posts">${frequentAuthorCards||'<article class="card live-empty">本周暂无高频帖子。</article>'}</div>`;
+  q('#narrative').append(frequent);
+  if(trendCards){
+   const trendNodes=[...frequent.querySelectorAll('[data-trend-id]')];
+@@ -156,6 +172,22 @@
+    selection.hidden=!id;
+    selection.querySelector('span').textContent=id?`已高亮 ${matched} 条相关帖${above?`，其中 ${above} 条在上方高热度区`:''}`:'';
+   }
++  const grid=frequent.querySelector('.x-trend-grid'),nav=frequent.querySelector('.x-trend-pages');
++  const previous=nav.querySelector('[data-trend-prev]'),next=nav.querySelector('[data-trend-next]');
++  const capacity=4;
++  let page=0;
++  function showTrendPage(requested){
++   page=Math.max(0,Math.min(requested,Math.ceil(trendNodes.length/capacity)-1));
++   const first=page*capacity,end=Math.min(first+capacity,trendNodes.length);
++   trendNodes.forEach((node,i)=>{node.hidden=i<first||i>=end});
++   if(selectedTrend&&trendNodes.find(node=>node.dataset.trendId===selectedTrend)?.hidden)selectTrend(null);
++   nav.hidden=trendNodes.length<=capacity;
++   nav.querySelector('span').textContent=(first+1)+(end>first+1?'–'+end:'')+' / '+trendNodes.length;
++   previous.disabled=page===0;next.disabled=end===trendNodes.length;
++  }
++  previous.addEventListener('click',()=>showTrendPage(page-1));
++  next.addEventListener('click',()=>showTrendPage(page+1));
++  showTrendPage(0);
+   frequent.addEventListener('click',ev=>{
+    if(ev.target.closest('a'))return;
+    if(ev.target.closest('[data-jump-to-related]')){
+diff --git a/mood-daily-review.json b/mood-daily-review.json
+--- a/mood-daily-review.json
++++ b/mood-daily-review.json
+@@ -1,141 +1,707 @@
+ {
++  "2026-08-31": {
++    "reason": "纳指100涨0.08%，等权版本却跌0.28%。大市值成分贡献了更多涨幅，QQQ才勉强收红。",
++    "qqq_close": 716.76,
++    "attribution": {
++      "kind": "quant",
++      "driver": "权重股托住指数",
++      "source_urls": [
++        "https://indexes.nasdaq.com/Index/History/NDXE",
++        "https://www.nasdaq.com/articles/stock-market-news-sep-1-2026"
++      ]
++    },
++    "vix_close": 14.92,
++    "label": "分化观望",
++    "emoji": "🤔"
++  },
++  "2026-09-01": {
++    "reason": "美伊交火加重供应担忧，WTI期货涨5.2%至90.22美元。QQQ低开1.31%，从开盘到收盘几乎没变，主要跌幅在隔夜形成。",
++    "qqq_close": 707.64,
++    "attribution": {
++      "kind": "event",
++      "driver": "美伊交火推高油价",
++      "source_urls": [
++        "https://www.nasdaq.com/articles/stock-market-news-sep-2-2026"
++      ],
++      "known_by": "2026-09-01"
++    },
++    "vix_close": 16.34,
++    "label": "避险升温",
++    "emoji": "😟"
++  },
++  "2026-09-02": {
++    "reason": "小盘股ETF（IWM）涨1.18%，QQQ只涨0.23%，成交量约为此前20日均量的七成。这次回补对大型科技股的提振有限。",
++    "qqq_close": 709.24,
++    "attribution": {
++      "kind": "quant",
++      "driver": "反弹集中在小盘",
++      "source_urls": [
++        "https://api.nasdaq.com/api/quote/IWM/historical?assetclass=etf&fromdate=2026-09-02&todate=2026-09-02&limit=1",
++        "https://www.nasdaq.com/articles/stock-market-news-sep-3-2026"
++      ]
++    },
++    "vix_close": 15.2,
++    "label": "温和修复",
++    "emoji": "🙂"
++  },
++  "2026-09-03": {
++    "reason": "沃勒表示，若通胀没有明显意外，他倾向9月维持利率。债息回落缓解成长股估值压力，QQQ从开盘到收盘又涨近1%。",
++    "qqq_close": 717.67,
++    "attribution": {
++      "kind": "event",
++      "driver": "联储理事释放暂停信号",
++      "source_urls": [
++        "https://www.nasdaq.com/articles/stock-market-news-sep-4-2026"
++      ],
++      "known_by": "2026-09-03"
++    },
++    "vix_close": 14.32,
++    "label": "加息担忧缓和",
++    "emoji": "🙂"
++  },
++  "2026-09-04": {
++    "reason": "盘前公布的8月非农新增16.2万人，抬高加息预期。等权纳指100收跌，但半导体ETF涨3.52%，托住QQQ收红。",
++    "qqq_close": 718.96,
++    "attribution": {
++      "kind": "event",
++      "driver": "非农就业超预期",
++      "source_urls": [
++        "https://api.nasdaq.com/api/quote/SOXX/historical?assetclass=etf&fromdate=2026-09-04&todate=2026-09-04&limit=1",
++        "https://www.nasdaq.com/articles/stock-market-news-sep-8-2026"
++      ],
++      "known_by": "2026-09-04"
++    },
++    "vix_close": 14.53,
++    "label": "强就业后分化",
++    "emoji": "🤔"
++  },
++  "2026-09-08": {
++    "reason": "美伊紧张推高供应风险，布伦特期货收99.37美元。等权纳指100跌0.80%，半导体ETF逆涨1.64%，抵消了QQQ的大部分跌幅。",
++    "qqq_close": 718.36,
++    "attribution": {
++      "kind": "event",
++      "driver": "油价逼近百美元",
++      "source_urls": [
++        "https://api.nasdaq.com/api/quote/SOXX/historical?assetclass=etf&fromdate=2026-09-08&todate=2026-09-08&limit=1",
++        "https://www.nasdaq.com/articles/stock-market-news-sep-9-2026"
++      ],
++      "known_by": "2026-09-08"
++    },
++    "vix_close": 15.72,
++    "label": "谨慎观望",
++    "emoji": "🤔"
++  },
++  "2026-09-09": {
++    "reason": "霍尔木兹海峡附近冲突升级，布伦特期货升破100美元，收101.21。能源通胀担忧压低科技估值，QQQ低开后未能补回缺口。",
++    "qqq_close": 716.31,
++    "attribution": {
++      "kind": "event",
++      "driver": "布伦特升破100美元",
++      "source_urls": [
++        "https://www.nasdaq.com/articles/stock-market-news-sep-10-2026"
++      ],
++      "known_by": "2026-09-09"
++    },
++    "vix_close": 16.46,
++    "label": "油价压制",
++    "emoji": "😟"
++  },
++  "2026-09-10": {
++    "reason": "布伦特期货单日涨6.34%至107.63美元，市场加大对联储收紧的押注。半导体ETF跌2.74%，科技股承压。",
++    "qqq_close": 708.69,
++    "attribution": {
++      "kind": "event",
++      "driver": "原油继续急涨",
++      "source_urls": [
++        "https://api.nasdaq.com/api/quote/SOXX/historical?assetclass=etf&fromdate=2026-09-10&todate=2026-09-10&limit=1",
++        "https://www.nasdaq.com/articles/stock-market-news-sep-11-2026"
++      ],
++      "known_by": "2026-09-10"
++    },
++    "vix_close": 17.84,
++    "label": "卖压扩大",
++    "emoji": "😟"
++  },
++  "2026-09-11": {
++    "reason": "布伦特期货跌2.8%至104.61美元，缓解能源成本和通胀担忧。半导体ETF反弹1.86%，QQQ的涨幅主要在开盘时形成。",
++    "qqq_close": 714.88,
++    "attribution": {
++      "kind": "event",
++      "driver": "油价从高位回落",
++      "source_urls": [
++        "https://api.nasdaq.com/api/quote/SOXX/historical?assetclass=etf&fromdate=2026-09-11&todate=2026-09-11&limit=1",
++        "https://www.nasdaq.com/articles/stock-market-news-sep-14-2026"
++      ],
++      "known_by": "2026-09-11"
++    },
++    "vix_close": 15.84,
++    "label": "风险修复",
++    "emoji": "🙂"
++  },
++  "2026-09-14": {
++    "reason": "几家前沿模型公司的负责人警告AI发展过快的风险，引发对投资进度的担忧。半导体ETF跌5.63%，拖累QQQ。",
++    "qqq_close": 709.18,
++    "attribution": {
++      "kind": "event",
++      "driver": "AI安全警告冲击硬件股",
++      "source_urls": [
++        "https://api.nasdaq.com/api/quote/SOXX/historical?assetclass=etf&fromdate=2026-09-14&todate=2026-09-14&limit=1",
++        "https://www.nasdaq.com/articles/stock-market-news-sep-15-2026"
++      ],
++      "known_by": "2026-09-14"
++    },
++    "vix_close": 17.1,
++    "label": "硬件股承压",
++    "emoji": "😟"
++  },
++  "2026-09-15": {
++    "reason": "延布港据报暂停原油装船，布伦特期货涨至108.75美元。联储决议前的能源通胀风险升温，QQQ的跌幅主要出现在盘中。",
++    "qqq_close": 704.54,
++    "attribution": {
++      "kind": "event",
++      "driver": "沙特港口暂停装船",
++      "source_urls": [
++        "https://www.nasdaq.com/articles/stock-market-news-sep-16-2026"
++      ],
++      "known_by": "2026-09-15"
++    },
++    "vix_close": 17.2,
++    "label": "观望偏空",
++    "emoji": "😟"
++  },
++  "2026-09-16": {
++    "reason": "联储加息25个基点，记者会保留进一步紧缩的可能。QQQ从开盘到收盘回落0.46%，几乎抹去高开涨幅。",
++    "qqq_close": 704.72,
++    "attribution": {
++      "kind": "event",
++      "driver": "FOMC加息25个基点",
++      "source_urls": [
++        "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm",
++        "https://www.nasdaq.com/articles/stock-market-news-sep-17-2026"
++      ],
++      "known_by": "2026-09-16"
++    },
++    "vix_close": 17.71,
++    "label": "加息后分化",
++    "emoji": "🤔"
++  },
++  "2026-09-17": {
++    "reason": "加息次日，美国国债收益率回落，成长股的折现压力缓解。QQQ高开1.60%，半导体ETF收涨3.39%，修复主要出现在隔夜。",
++    "qqq_close": 716.92,
++    "attribution": {
++      "kind": "event",
++      "driver": "加息后美债收益率回落",
++      "source_urls": [
++        "https://api.nasdaq.com/api/quote/SOXX/historical?assetclass=etf&fromdate=2026-09-17&todate=2026-09-17&limit=1",
++        "https://www.nasdaq.com/articles/stock-market-news-sep-18-2026"
++      ],
++      "known_by": "2026-09-17"
++    },
++    "vix_close": 15.44,
++    "label": "科技反弹",
++    "emoji": "🙂"
++  },
++  "2026-09-18": {
++    "reason": "半导体ETF涨2.69%，小盘股ETF跌0.47%。QQQ成交量约为此前20日均量的1.22倍，指数上涨主要由科技板块支撑。",
++    "qqq_close": 721.45,
++    "attribution": {
++      "kind": "quant",
++      "driver": "芯片支撑到期日行情",
++      "source_urls": [
++        "https://api.nasdaq.com/api/quote/SOXX/historical?assetclass=etf&fromdate=2026-09-18&todate=2026-09-18&limit=1",
++        "https://www.nasdaq.com/articles/stock-market-news-sep-21-2026"
++      ]
++    },
++    "vix_close": 14.81,
++    "label": "芯片独强",
++    "emoji": "🤔"
++  },
++  "2026-09-21": {
++    "reason": "10年期美债收益率回到5%以下，降低长期科技盈利的折现压力。半导体ETF涨4.93%，等权纳指100也涨2.44%。",
++    "qqq_close": 741.47,
++    "attribution": {
++      "kind": "event",
++      "driver": "10年期美债跌回5%下方",
++      "source_urls": [
++        "https://api.nasdaq.com/api/quote/SOXX/historical?assetclass=etf&fromdate=2026-09-21&todate=2026-09-21&limit=1",
++        "https://www.nasdaq.com/articles/stock-market-news-sep-22-2026"
++      ],
++      "known_by": "2026-09-21"
++    },
++    "vix_close": 14.87,
++    "label": "风险偏好回升",
++    "emoji": "🙂"
++  },
++  "2026-09-22": {
++    "reason": "市场收到伊朗愿重开霍尔木兹海峡的报道，布伦特期货收至99.25美元。通胀担忧缓和，芯片继续领涨，半导体ETF涨2.40%。",
++    "qqq_close": 747.46,
++    "attribution": {
++      "kind": "event",
++      "driver": "海峡重开预期缓解油价",
++      "source_urls": [
++        "https://api.nasdaq.com/api/quote/SOXX/historical?assetclass=etf&fromdate=2026-09-22&todate=2026-09-22&limit=1",
++        "https://www.nasdaq.com/articles/stock-market-news-sep-23-2026"
++      ],
++      "known_by": "2026-09-22"
++    },
++    "vix_close": 14.21,
++    "label": "芯片领涨",
++    "emoji": "🙂"
++  },
++  "2026-09-23": {
++    "reason": "伊朗总统在联合国表态不会屈服于压力，原油与美债收益率回升。QQQ开盘接近持平，随后下跌0.77%，压力主要在盘中形成。",
++    "qqq_close": 741.21,
++    "attribution": {
++      "kind": "event",
++      "driver": "伊朗表态推高油债",
++      "source_urls": [
++        "https://www.nasdaq.com/articles/stock-market-news-sep-24-2026"
++      ],
++      "known_by": "2026-09-23"
++    },
++    "vix_close": 15.18,
++    "label": "谨慎转弱",
++    "emoji": "😟"
++  },
++  "2026-09-24": {
++    "reason": "据报美伊谈判代表在纽约商讨分阶段结束冲突，股票从低点反弹。QQQ低开0.80%，盘中回升0.79%，收盘接近持平。",
++    "qqq_close": 741.1,
++    "attribution": {
++      "kind": "event",
++      "driver": "美伊接触消息促盘中回补",
++      "source_urls": [
++        "https://www.nasdaq.com/articles/stock-market-news-sep-25-2026"
++      ],
++      "known_by": "2026-09-24"
++    },
++    "vix_close": 15.67,
++    "label": "低开修复",
++    "emoji": "🤔"
++  },
++  "2026-09-25": {
++    "reason": "美伊在联合国会面后，市场对海峡重开更乐观，WTI期货跌2.3%至92.41美元。能源通胀压力缓解，芯片随大盘上行。",
++    "qqq_close": 744.5,
++    "attribution": {
++      "kind": "event",
++      "driver": "美伊接触压低油价",
++      "source_urls": [
++        "https://www.nasdaq.com/articles/stock-market-news-sep-28-2026"
++      ],
++      "known_by": "2026-09-25"
++    },
++    "vix_close": 14.87,
++    "label": "偏多",
++    "emoji": "🙂"
++  },
++  "2026-09-28": {
++    "reason": "美国据报拒绝伊朗的和平方案，能源供应风险延续并推高债息。QQQ低开约0.54%，盘中再跌约0.53%，卖压贯穿全日。",
++    "qqq_close": 736.53,
++    "attribution": {
++      "kind": "event",
++      "driver": "中东和平方案受阻",
++      "source_urls": [
++        "https://www.nasdaq.com/articles/stock-market-news-sep-29-2026"
++      ],
++      "known_by": "2026-09-28"
++    },
++    "vix_close": 16.07,
++    "label": "避险升温",
++    "emoji": "😟"
++  },
++  "2026-09-29": {
++    "reason": "QQQ高开0.49%，但盘中从开盘回落0.30%，成交量约为此前20日均量的75%。小幅收涨主要来自隔夜买盘。",
++    "qqq_close": 737.93,
++    "attribution": {
++      "kind": "quant",
++      "driver": "隔夜买盘抵过盘中回吐",
++      "source_urls": [
++        "https://api.nasdaq.com/api/quote/QQQ/historical?assetclass=etf&fromdate=2026-09-29&todate=2026-09-29&limit=1",
++        "https://www.nasdaq.com/articles/stock-market-news-sep-30-2026"
++      ]
++    },
++    "vix_close": 16.04,
++    "label": "缩量观望",
++    "emoji": "🤔"
++  },
++  "2026-09-30": {
++    "reason": "盘前公布的8月核心PCE环比涨0.2%，低于市场预期的0.3%。加息担忧缓和，QQQ高开0.31%，即使盘中略有回吐仍收红。",
++    "qqq_close": 739.77,
++    "attribution": {
++      "kind": "event",
++      "driver": "核心PCE低于预期",
++      "source_urls": [
++        "https://www.bea.gov/news/2026/personal-income-and-outlays-August-2026",
++        "https://www.nasdaq.com/articles/stock-market-news-oct-1-2026"
++      ],
++      "known_by": "2026-09-30"
++    },
++    "vix_close": 16.34,
++    "label": "通胀缓和",
++    "emoji": "🙂"
++  },
+   "2026-10-01": {
+     "label": "谨慎偏多",
+     "emoji": "🙂",
+-    "reason": "QQQ收742.03、涨0.31%，VIX 16.39；风险偏好温和改善。",
+-    "qqq_close": 742.03
++    "reason": "10年期美债收益率盘中一度触及5.34%，随后回落，缓解科技股估值压力。半导体ETF涨1.35%，带动QQQ小幅收红。",
++    "qqq_close": 742.03,
++    "attribution": {
++      "kind": "event",
++      "driver": "长债收益率盘中回落",
++      "source_urls": [
++        "https://api.nasdaq.com/api/quote/SOXX/historical?assetclass=etf&fromdate=2026-10-01&todate=2026-10-01&limit=1",
++        "https://www.nasdaq.com/articles/stock-market-news-oct-2-2026"
++      ],
++      "known_by": "2026-10-01"
++    },
++    "vix_close": 16.39
+   },
+   "2026-10-02": {
+     "label": "偏多延续",
+     "emoji": "🙂",
+-    "reason": "QQQ涨1.02%至749.58，VIX降至15.31；科技股收盘走强。",
+-    "qqq_close": 749.58
++    "reason": "盘前公布的9月非农仅增2.9万人，削弱近期再加息的预期。QQQ高开1.25%，即使盘中略有回吐，仍收涨逾1%。",
++    "qqq_close": 749.58,
++    "attribution": {
++      "kind": "event",
++      "driver": "9月非农大幅放缓",
++      "source_urls": [
++        "https://www.bls.gov/news.release/archives/empsit_10022026.htm",
++        "https://www.nasdaq.com/articles/stock-market-news-oct-5-2026"
++      ],
++      "known_by": "2026-10-02"
++    },
++    "vix_close": 15.31
+   },
+   "2026-10-05": {
+     "label": "偏多",
+     "emoji": "🙂",
+-    "reason": "QQQ涨0.88%至756.20，VIX为15.52；上涨延续但波动未同步下降。",
+-    "qqq_close": 756.2
++    "reason": "英伟达涨约2.1%、微软涨约1.5%，而半导体ETF只涨0.10%。QQQ接近平开后走高，指数更多受到少数大型科技股支撑。",
++    "qqq_close": 756.2,
++    "attribution": {
++      "kind": "quant",
++      "driver": "大型科技股领涨",
++      "source_urls": [
++        "https://api.nasdaq.com/api/quote/SOXX/historical?assetclass=etf&fromdate=2026-10-05&todate=2026-10-05&limit=1",
++        "https://www.nasdaq.com/articles/stock-market-news-oct-6-2026"
++      ]
++    },
++    "vix_close": 15.52
+   },
+   "2026-10-06": {
+     "label": "偏多延续",
+     "emoji": "🙂",
+-    "reason": "QQQ涨0.46%至759.66，VIX回落至15.01；短线风险偏好较强。",
+-    "qqq_close": 759.66
++    "reason": "QQQ高开0.57%，盘中从开盘价回落0.11%。半导体ETF几乎持平，小盘股ETF跌0.72%，收盘新高主要靠隔夜重定价。",
++    "qqq_close": 759.66,
++    "attribution": {
++      "kind": "quant",
++      "driver": "涨幅来自隔夜缺口",
++      "source_urls": [
++        "https://api.nasdaq.com/api/quote/IWM/historical?assetclass=etf&fromdate=2026-10-06&todate=2026-10-06&limit=1",
++        "https://www.nasdaq.com/articles/stock-market-news-oct-7-2026"
++      ]
++    },
++    "vix_close": 15.01
+   },
+   "2026-10-07": {
+     "label": "高位观望",
+     "emoji": "🤔",
+-    "reason": "QQQ微跌0.25%，VIX微升至15.08；高位上涨动能放缓。",
+-    "qqq_close": 757.73
++    "reason": "9月FOMC纪要显示，委员仍考虑年内再加息，具体时点有分歧。等权纳指100跌0.94%，大幅弱于市值加权指数，利率压力更广。",
++    "qqq_close": 757.73,
++    "attribution": {
++      "kind": "event",
++      "driver": "联储纪要保留再加息可能",
++      "source_urls": [
++        "https://www.federalreserve.gov/monetarypolicy/fomcminutes20260916.htm",
++        "https://www.nasdaq.com/articles/stock-market-news-oct-8-2026"
++      ],
++      "known_by": "2026-10-07"
++    },
++    "vix_close": 15.08
+   },
+   "2026-10-08": {
+     "label": "转向谨慎",
+     "emoji": "🤔",
+-    "reason": "QQQ跌1.34%至747.58，VIX升至15.41；高位回撤加深。",
+-    "qqq_close": 747.58
++    "reason": "媒体称OpenAI年化收入低于此前释放的信号，算力订单能否转成收入再受质疑。半导体ETF跌3.35%，跌幅明显超过QQQ。",
++    "qqq_close": 747.58,
++    "attribution": {
++      "kind": "event",
++      "driver": "OpenAI收入报道冲击芯片",
++      "source_urls": [
++        "https://api.nasdaq.com/api/quote/SOXX/historical?assetclass=etf&fromdate=2026-10-08&todate=2026-10-08&limit=1",
++        "https://www.nasdaq.com/articles/stock-market-news-oct-9-2026"
++      ],
++      "known_by": "2026-10-08"
++    },
++    "vix_close": 15.41
+   },
+   "2026-10-09": {
+     "label": "反弹观望",
+     "emoji": "🤔",
+-    "reason": "QQQ反弹0.49%，VIX降至14.84；尚需下周持续性验证。",
+-    "qqq_close": 751.27
++    "reason": "特朗普表示中期选举前不会攻击伊朗，市场调低短期冲突风险。QQQ高开0.66%，但半导体ETF仍收跌，反弹更多来自风险溢价回落。",
++    "qqq_close": 751.27,
++    "attribution": {
++      "kind": "event",
++      "driver": "美伊短期升级风险缓和",
++      "source_urls": [
++        "https://api.nasdaq.com/api/quote/SOXX/historical?assetclass=etf&fromdate=2026-10-09&todate=2026-10-09&limit=1",
++        "https://www.nasdaq.com/articles/stock-market-news-oct-12-2026"
++      ],
++      "known_by": "2026-10-09"
++    },
++    "vix_close": 14.84
+   },
+   "2026-10-12": {
+     "label": "谨慎",
+     "emoji": "🤔",
+-    "reason": "QQQ跌0.70%至746.04，VIX升至15.21；上周反弹未延续。",
+-    "qqq_close": 746.04
++    "reason": "沙特机场遇袭加重原油供应担忧，油价每桶上涨近2美元。能源股获支撑，利率敏感的AI硬件承压，半导体ETF跌2.60%。",
++    "qqq_close": 746.04,
++    "attribution": {
++      "kind": "event",
++      "driver": "沙特机场遭袭",
++      "source_urls": [
++        "https://api.nasdaq.com/api/quote/SOXX/historical?assetclass=etf&fromdate=2026-10-12&todate=2026-10-12&limit=1",
++        "https://www.nasdaq.com/articles/stock-market-news-oct-13-2026"
++      ],
++      "known_by": "2026-10-12"
++    },
++    "vix_close": 15.21
+   },
+   "2026-10-13": {
+     "label": "谨慎延续",
+     "emoji": "🤔",
+-    "reason": "QQQ再跌0.33%，VIX升至15.27；通胀数据前风险偏好收敛。",
+-    "qqq_close": 743.57
++    "reason": "银行财报反应分化、次日CPI待公布。QQQ低开0.87%，盘中反弹0.55%仍未补完缺口，收跌主要由隔夜缺口解释。",
++    "qqq_close": 743.57,
++    "attribution": {
++      "kind": "quant",
++      "driver": "低开后的回补不足",
++      "source_urls": [
++        "https://api.nasdaq.com/api/quote/QQQ/historical?assetclass=etf&fromdate=2026-10-13&todate=2026-10-13&limit=1",
++        "https://www.nasdaq.com/articles/stock-market-news-oct-14-2026"
++      ]
++    },
++    "vix_close": 15.27
+   },
+   "2026-10-14": {
+     "label": "转向悲观",
+     "emoji": "😟",
+-    "reason": "QQQ跌1.97%至728.95，VIX升至16.87；CPI公布后科技估值承压。",
+-    "qqq_close": 728.95
++    "reason": "美东08:30公布的9月CPI环比涨0.6%，重新抬高加息预期。半导体ETF跌4.50%，高估值硬件放大了QQQ跌幅。",
++    "qqq_close": 728.95,
++    "attribution": {
++      "kind": "event",
++      "driver": "CPI高于预期",
++      "source_urls": [
++        "https://www.bls.gov/news.release/archives/cpi_10142026.htm",
++        "https://www.nasdaq.com/articles/stock-market-news-oct-15-2026"
++      ],
++      "known_by": "2026-10-14"
++    },
++    "vix_close": 16.87
+   },
+   "2026-10-15": {
+     "label": "悲观中观望",
+     "emoji": "😟",
+-    "reason": "QQQ微跌0.13%，VIX回落至16.46；跌后尚无持续修复信号。",
+-    "qqq_close": 728
++    "reason": "盘前公布的9月PPI环比涨1.3%，科技股先承受通胀压力。QQQ低开1.43%，盘中从开盘回升1.32%，因此全天只小跌。",
++    "qqq_close": 728,
++    "attribution": {
++      "kind": "event",
++      "driver": "PPI升温后低开回补",
++      "source_urls": [
++        "https://www.bls.gov/news.release/archives/ppi_10152026.htm",
++        "https://www.nasdaq.com/articles/stock-market-news-oct-16-2026"
++      ],
++      "known_by": "2026-10-15"
++    },
++    "vix_close": 16.46
+   },
+   "2026-10-16": {
+     "label": "悲观加深",
+     "emoji": "😰",
+-    "reason": "QQQ跌2.50%至709.80，VIX升至19.99；风险偏好明显恶化。",
+-    "qqq_close": 709.8
++    "reason": "中东供应不确定性推高原油，美东12:41 WTI期货报100.67美元。通胀和融资成本担忧压制AI硬件，半导体ETF跌4.14%。",
++    "qqq_close": 709.8,
++    "attribution": {
++      "kind": "event",
++      "driver": "WTI盘中重上100美元",
++      "source_urls": [
++        "https://gvwire.com/2026/10/16/oil-prices-gain-more-than-3-heading-for-weekly-gain-with-focus-on-middle-east-supply/",
++        "https://www.nasdaq.com/articles/stock-market-news-oct-19-2026"
++      ],
++      "known_by": "2026-10-16"
++    },
++    "vix_close": 19.99
+   },
+   "2026-10-19": {
+     "label": "跌后试探修复",
+     "emoji": "🤔",
+-    "reason": "QQQ反弹1.21%，VIX回落至18.44；尚待更多交易日确认。",
+-    "qqq_close": 718.36
++    "reason": "摩根士丹利将亚马逊列为首选后，AMZN涨4.98%，带动大型成长股回补。纳指100涨1.17%，强于等权版本的0.59%。",
++    "qqq_close": 718.36,
++    "attribution": {
++      "kind": "event",
++      "driver": "亚马逊获列券商首选",
++      "source_urls": [
++        "https://www.reuters.com/business/wall-st-futures-climb-ai-stocks-rebound-oil-yields-fall-2026-10-19/",
++        "https://www.nasdaq.com/articles/stock-market-news-oct-20-2026"
++      ],
++      "known_by": "2026-10-19"
++    },
++    "vix_close": 18.44
+   },
+   "2026-10-20": {
+     "label": "观望",
+     "emoji": "🤔",
+-    "reason": "QQQ小跌约0.10%，VIX回落；高位尚未出现明确方向。",
+-    "qqq_close": 717.63
++    "reason": "等权纳指100涨0.66%，市值加权版本却跌0.13%，小盘股ETF涨1.66%。上涨扩散到较小公司，权重股偏弱使QQQ微跌。",
++    "qqq_close": 717.63,
++    "attribution": {
++      "kind": "quant",
++      "driver": "资金轮向等权与小盘",
++      "source_urls": [
++        "https://api.nasdaq.com/api/quote/IWM/historical?assetclass=etf&fromdate=2026-10-20&todate=2026-10-20&limit=1",
++        "https://www.nasdaq.com/articles/stock-market-news-oct-21-2026"
++      ]
++    },
++    "vix_close": 17.31
+   },
+   "2026-10-21": {
+     "label": "谨慎偏多",
+     "emoji": "🙂",
+-    "reason": "QQQ上涨约1.05%、VIX降至16.68；科技反弹仍待财报确认。",
+-    "qqq_close": 725.2
++    "reason": "超微电脑把季度营收预期从145亿–155亿提高至185亿–195亿美元。SMCI涨9.55%，AI服务器需求的改善也带动芯片股。",
++    "qqq_close": 725.2,
++    "attribution": {
++      "kind": "event",
++      "driver": "超微电脑上调服务器收入预期",
++      "source_urls": [
++        "https://api.nasdaq.com/api/quote/SMCI/historical?assetclass=stocks&fromdate=2026-10-21&todate=2026-10-21&limit=1",
++        "https://www.nasdaq.com/articles/stock-market-news-oct-22-2026"
++      ],
++      "known_by": "2026-10-21"
++    },
++    "vix_close": 16.68
+   },
+   "2026-10-22": {
+     "label": "转向悲观",
+     "emoji": "😟",
+-    "reason": "QQQ下跌约2.86%、VIX升至19.03；财报消息未稳住科技股。",
+-    "qqq_close": 704.47
++    "reason": "Meta前一晚披露季度自由现金流转负，并把全年资本开支下限从1,300亿提至1,350亿美元。META跌近7%，市场下调对AI投入回报的预期。",
++    "qqq_close": 704.47,
++    "attribution": {
++      "kind": "event",
++      "driver": "Meta资本开支压过盈利增长",
++      "source_urls": [
++        "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Third-Quarter-2026-Results/",
++        "https://www.nasdaq.com/articles/stock-market-news-oct-23-2026"
++      ],
++      "known_by": "2026-10-22"
++    },
++    "vix_close": 19.03
+   },
+   "2026-10-23": {
+     "label": "悲观中观望",
+     "emoji": "😟",
+-    "reason": "QQQ基本持平，VIX升至19.45；跌后修复尚无价格确认。",
+-    "qqq_close": 704.4
++    "reason": "市场担忧美以可能再度攻击伊朗，布伦特期货收116.72美元。油价压制风险偏好，半导体ETF反弹0.53%则让QQQ接近平收。",
++    "qqq_close": 704.4,
++    "attribution": {
++      "kind": "event",
++      "driver": "布伦特升至每桶116美元上方",
++      "source_urls": [
++        "https://api.nasdaq.com/api/quote/SOXX/historical?assetclass=etf&fromdate=2026-10-23&todate=2026-10-23&limit=1",
++        "https://www.nasdaq.com/articles/stock-market-news-oct-26-2026"
++      ],
++      "known_by": "2026-10-23"
++    },
++    "vix_close": 19.45
+   },
+   "2026-10-26": {
+     "label": "试探修复",
+     "emoji": "🤔",
+-    "reason": "QQQ反弹约1.11%、VIX回落；反弹需看后续财报及广度。",
+-    "qqq_close": 712.2
++    "reason": "Anthropic披露上市文件，给市场提供了AI收入增长的新参照。半导体ETF涨2.85%，资金回补算力链，带动QQQ反弹。",
++    "qqq_close": 712.2,
++    "attribution": {
++      "kind": "event",
++      "driver": "Anthropic上市文件带动算力股",
++      "source_urls": [
++        "https://api.nasdaq.com/api/quote/SOXX/historical?assetclass=etf&fromdate=2026-10-26&todate=2026-10-26&limit=1",
++        "https://www.nasdaq.com/articles/stock-market-news-oct-27-2026"
++      ],
++      "known_by": "2026-10-26"
++    },
++    "vix_close": 18.39
+   },
+   "2026-10-27": {
+     "label": "谨慎修复",
+     "emoji": "🙂",
+-    "reason": "QQQ上涨约1.27%、VIX降至17.52；风险偏好暂时改善。",
+-    "qqq_close": 721.25
++    "reason": "美国9月核心资本品订单环比增2.2%，显示企业设备投资仍强。半导体ETF涨3.91%，高于QQQ的1.27%，芯片放大了反弹。",
++    "qqq_close": 721.25,
++    "attribution": {
++      "kind": "event",
++      "driver": "核心资本品订单走强",
++      "source_urls": [
++        "https://api.nasdaq.com/api/quote/SOXX/historical?assetclass=etf&fromdate=2026-10-27&todate=2026-10-27&limit=1",
++        "https://www.nasdaq.com/articles/stock-market-news-oct-28-2026"
++      ],
++      "known_by": "2026-10-27"
++    },
++    "vix_close": 17.52
+   },
+   "2026-10-28": {
+     "label": "修复待确认",
+     "emoji": "🤔",
+-    "reason": "QQQ上涨约0.60%、VIX降至16.91；联储暂停后仍待盈利兑现。",
+-    "qqq_close": 725.61
++    "reason": "美东14:00，联储将利率维持在3.75%–4.00%，两名委员主张加息。QQQ决议前已高开0.40%，全天收涨0.60%，暂停加息让早盘涨幅得以保留。",
++    "qqq_close": 725.61,
++    "attribution": {
++      "kind": "event",
++      "driver": "FOMC暂停加息",
++      "source_urls": [
++        "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm",
++        "https://www.nasdaq.com/articles/stock-market-news-oct-29-2026"
++      ],
++      "known_by": "2026-10-28"
++    },
++    "vix_close": 16.91
+   },
+   "2026-10-29": {
+     "label": "再度转弱",
+     "emoji": "😟",
+-    "reason": "QQQ下跌约1.42%；财报与投入回报疑虑重新压制科技股。",
+-    "qqq_close": 715.34
++    "reason": "Alphabet前一晚披露季度自由现金流为负91亿美元。云收入增长未能打消AI资本开支疑虑，GOOG跌12.29%，直接拖累纳指。",
++    "qqq_close": 715.34,
++    "attribution": {
++      "kind": "event",
++      "driver": "Alphabet自由现金流转负",
++      "source_urls": [
++        "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000080/googexhibit991q32026.htm",
++        "https://www.nasdaq.com/articles/stock-market-news-oct-30-2026"
++      ],
++      "known_by": "2026-10-29"
++    },
++    "vix_close": 17.2
+   },
+   "2026-10-30": {
+     "label": "悲观、卖压扩大",
+     "emoji": "😰",
+-    "reason": "QQQ下跌约3.47%至690.49，VIX升至19.42；科技股卖压扩大。",
+-    "qqq_close": 690.49
++    "reason": "英特尔前一晚给出的季度展望反映PC需求放缓，INTC跌28.58%，半导体ETF跌8.24%。芯片抛售传到QQQ，成交量约为前20日均量的2.2倍。",
++    "qqq_close": 690.49,
++    "attribution": {
++      "kind": "event",
++      "driver": "英特尔指引引发芯片抛售",
++      "source_urls": [
++        "https://www.intc.com/news-events/press-releases/detail/1786/intel-reports-third-quarter-2026-financial-results",
++        "https://www.nasdaq.com/articles/stock-market-news-nov-2-2026"
++      ],
++      "known_by": "2026-10-30"
++    },
++    "vix_close": 19.42
+   },
+   "2026-11-02": {
+     "label": "悲观延续",
+     "emoji": "😟",
+-    "reason": "常规时段QQQ收681.09，较10/30跌1.36%；Apple财报后的盘后跌幅另计。",
++    "reason": "Marvell宣布以约1,150亿美元全股票收购Lumentum，稀释和整合风险受到关注。MRVL跌近13%，半导体ETF跌3.79%，拖累QQQ由涨转跌。",
+     "qqq_close": 681.09,
+-    "close_source": "https://api.nasdaq.com/api/quote/QQQ/historical?assetclass=etf&fromdate=2026-11-02&todate=2026-11-02&limit=1"
++    "close_source": "https://api.nasdaq.com/api/quote/QQQ/historical?assetclass=etf&fromdate=2026-11-02&todate=2026-11-02&limit=1",
++    "attribution": {
++      "kind": "event",
++      "driver": "Marvell换股收购引发回报疑虑",
++      "source_urls": [
++        "https://investor.marvell.com/sec-filings/all-sec-filings/content/0001193125-26-442728/d352474d425.htm",
++        "https://finance.yahoo.com/markets/stocks/articles/us-stock-market-fails-recover-225617461.html"
++      ],
++      "known_by": "2026-11-02"
++    },
++    "vix_close": 21.15
+   }
+ }
+diff --git a/dashboard-enhancements.js b/dashboard-enhancements.js
+--- a/dashboard-enhancements.js
++++ b/dashboard-enhancements.js
+@@ -7,38 +7,47 @@
+   const lower=from.toISOString().slice(0,10),num=(v,d=2)=>Number(v).toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d});
+   const metrics=q('.market-overview');if(!metrics)return;
+   q('[data-metric="spx-ma"]')?.remove();
+-  const P=window.DashboardUI,mood=W.market_mood,current=mood?.current||mood?.anchor;
++  const M=document.getElementById('mood-week-context')?read('mood-week-context'):W;
++  const currentWeek=M.status==='active';
++  const P=window.DashboardUI,mood=M.market_mood,current=mood?.current||mood?.anchor;
+   const moodTone=label=>/悲观|卖压|转弱|恐慌/.test(label||'')?'negative':/修复|偏多|乐观/.test(label||'')?'positive':'neutral';
+-  const currentDay=current?.date||current?.asof?.slice(0,10)||W.start;
+-  const baseline=(current?.baseline_date&&Object.values(mood?.baselines||{}).find(b=>b.date===current.baseline_date))||mood?.baselines?.[currentDay===W.start?'previous_close':'week_open']||mood?.baselines?.previous_close;
++  const currentDay=current?.date||current?.asof?.slice(0,10)||M.start;
++  const baseline=(current?.baseline_date&&Object.values(mood?.baselines||{}).find(b=>b.date===current.baseline_date))||mood?.baselines?.[currentDay===M.start?'previous_close':'week_open']||mood?.baselines?.previous_close;
+   const baselineDate=baseline?.date,baselineLabel=baseline?.label;
+   const tile=document.createElement('div');tile.className='metric sentiment-tile mood-tone-'+moodTone(current?.label);tile.dataset.metric='market-mood';
+   const sourceDate=baselineDate?baselineDate.slice(5).replace('-','/'):'';
+   const baselineDay=baselineDate?['周日','周一','周二','周三','周四','周五','周六'][new Date(baselineDate+'T12:00:00Z').getUTCDay()]:'';
+-  tile.innerHTML=`<div class="key">市场情绪 · ${W.historical_review?'当周历史回溯':baselineDate&&baselineDate<W.start?'以上周收盘为基准':baselineDate?'以本周初为基准':'情绪变化'}</div><div class="sentiment-title"><span class="sentiment-emoji" role="img" aria-label="${escape(current?.label||'归档')}">${escape(current?.emoji||'📌')}</span><strong>${escape(current?.label||'归档未记录')}</strong></div><p class="sentiment-anchor">${baseline?`${escape(baselineDay)} ${escape(sourceDate)} · ${escape(baselineLabel)} <span aria-hidden="true">→</span> <b>${currentDay===W.start?'周一':escape(currentDay?.slice(5).replace('-','/'))} ${escape(current?.label)}</b>`:W.historical_review?'周收盘状态 · 依据同期证据回溯判断':'此历史周未建立情绪比较基准'}</p><p class="sentiment-reason">${P.emphasize(current?.reason||'保留原周结论；情绪跟踪从 11/02 这一周开始。',current?.emphasis||[])}</p>${mood?.conclusion?`<p class="sentiment-conclusion"><b>周五结论</b> ${escape(mood.conclusion.label)} · ${P.emphasize(mood.conclusion.reason,mood.conclusion.emphasis||[])}</p>`:''}`;
++  tile.innerHTML=`<div class="key">市场情绪 · ${M.historical_review?'当周历史回溯':baselineDate&&baselineDate<M.start?'以上周收盘为基准':baselineDate?'以本周初为基准':'情绪变化'}</div><div class="sentiment-title"><span class="sentiment-emoji" role="img" aria-label="${escape(current?.label||'归档')}">${escape(current?.emoji||'📌')}</span><strong>${escape(current?.label||'归档未记录')}</strong></div><p class="sentiment-anchor">${baseline?`${escape(baselineDay)} ${escape(sourceDate)} · ${escape(baselineLabel)} <span aria-hidden="true">→</span> <b>${currentDay===M.start?'周一':escape(currentDay?.slice(5).replace('-','/'))} ${escape(current?.label)}</b>`:M.historical_review?'周收盘状态 · 依据同期证据回溯判断':'此历史周未建立情绪比较基准'}</p><p class="sentiment-reason">${P.emphasize(current?.reason||'保留原周结论；情绪跟踪从 11/02 这一周开始。',current?.emphasis||[])}</p>${mood?.conclusion?`<p class="sentiment-conclusion"><b>周五结论</b> ${escape(mood.conclusion.label)} · ${P.emphasize(mood.conclusion.reason,mood.conclusion.emphasis||[])}</p>`:''}`;
+   metrics.prepend(tile);
+-  const previousMonday=W.start&&new Date(Date.parse(W.start+'T12:00:00Z')-7*86400000).toISOString().slice(0,10);
+-  const pastDays=(W.recent_moods||[]).filter(row=>row.week_start===W.start||row.week_start===previousMonday);
++  const previousMonday=M.start&&new Date(Date.parse(M.start+'T12:00:00Z')-7*86400000).toISOString().slice(0,10);
++  const pastDays=(M.recent_moods||[]).filter(row=>row.week_start===M.start||(currentWeek&&row.week_start===previousMonday));
+   if(pastDays.length){
+     const panel=document.createElement('aside');panel.id='mood-week-history';panel.className='mood-week-history';panel.hidden=true;
+-    panel.setAttribute('aria-label','本周与上周交易日情绪和 QQQ 收盘');
++    const scope=currentWeek?'本周与上周':'所选周';
++    panel.setAttribute('aria-label',scope+'交易日情绪和 QQQ 收盘');
+     const dayName=date=>['周日','周一','周二','周三','周四','周五','周六'][new Date(date+'T12:00:00Z').getUTCDay()];
+     const entries=pastDays.map((row,i)=>{
+       const weekStart=row.week_start,range=row.date.slice(5).replace('-','/')+' '+dayName(row.date);
+       const close=Number.isFinite(row.qqq_close)?num(row.qqq_close):'—';
+       const date=row.date.slice(5).replace('-','/');
+       const label=row.label||'未单独记录情绪';
+-      const href=location.pathname.includes('/weeks/')?'../index.html#week='+weekStart:'/week/'+weekStart;
+-      const boundary=weekStart===previousMonday&&pastDays[i-1]?.week_start!==previousMonday?'<li class="mood-week-boundary">上周交易日</li>':'';
++      const targetWeek=row.week_id||weekStart;
++      const href=location.pathname.includes('/weeks/')?'../index.html#week='+targetWeek:'/week/'+targetWeek;
++      const boundary=currentWeek&&weekStart===previousMonday&&pastDays[i-1]?.week_start!==previousMonday?'<li class="mood-week-boundary">上周交易日</li>':'';
+       const change=Number.isFinite(row.pct)?`${row.pct>=0?'+':''}${row.pct.toFixed(2)}%`:'—';
+-      return `${boundary}<li class="mood-tone-${moodTone(label)}"><a href="${href}" data-week-start="${weekStart}"><div class="mood-week-top"><time datetime="${escape(row.date)}">${escape(range)}</time><span>${row.kind==='recorded'?'当日记录':'收盘回溯'}</span></div><div class="mood-week-main"><span class="mood-week-emoji" role="img" aria-label="${escape(label)}">${escape(row.emoji||'📝')}</span><strong>${escape(label)}</strong></div>${row.reason?`<p>${escape(row.reason)}</p>`:''}<div class="mood-week-close"><span>QQQ · ${escape(date)} 收盘</span><b>${close} <small>${change}</small></b></div></a></li>`;
++      const cause=row.attribution;
++      const why=cause?`<div class="mood-day-driver"><small>${cause.kind==='event'?'事件归因':'量化归因'}</small><b>${escape(cause.driver)}</b></div>`:'';
++      const urls=[...new Set(cause?.source_urls||[])].filter(u=>/^https:\/\//.test(u));
++      const sources=urls.length?`<div class="mood-day-sources">${urls.map((u,n)=>`<a href="${escape(u)}" target="_blank" rel="noopener">${n?'补充依据':'依据'} ↗</a>`).join('')}</div>`:'';
++      const vol=Number.isFinite(row.vix_close)?'VIX '+num(row.vix_close)+' · ':'';
++      return `${boundary}<li class="mood-tone-${moodTone(label)}"><a href="${href}" data-week-start="${escape(targetWeek)}"><div class="mood-week-top"><time datetime="${escape(row.date)}">${escape(range)}</time><span>${vol}${row.kind==='recorded'?'当日记录':'收盘回溯'}</span></div><div class="mood-week-main"><span class="mood-week-emoji" role="img" aria-label="${escape(label)}">${escape(row.emoji||'📝')}</span><strong>${escape(label)}</strong></div>${why}${row.reason?`<p>${escape(row.reason)}</p>`:''}<div class="mood-week-close"><span>QQQ · ${escape(date)} 收盘</span><b>${close} <small>${change}</small></b></div></a>${sources}</li>`;
+     });
+-    panel.innerHTML=`<div class="mood-week-heading"><strong>交易日情绪</strong><span>本周与上周</span></div><ol>${entries.join('')}</ol><p class="mood-week-foot">标为「收盘回溯」的日期依据同期收盘与已知事件整理。</p>`;
++    panel.innerHTML=`<div class="mood-week-heading"><strong>交易日情绪</strong><span>${currentWeek?'本周与上周':M.start.slice(5).replace('-','/')+'–'+M.end.slice(5).replace('-','/')}</span></div><ol>${entries.join('')}</ol><p class="mood-week-foot">标为「收盘回溯」的日期依据同期收盘与已知事件整理。</p>`;
+     const list=panel.querySelector('ol');
+     function fitFour(){const cards=[...list.querySelectorAll('li:not(.mood-week-boundary)')];const fifth=cards[4];if(!fifth)return;const cutoff=fifth.offsetTop-list.offsetTop-8;list.style.maxHeight=`min(${Math.max(0,Math.round(cutoff))}px, calc(100vh - 150px))`}
+     document.body.append(panel);
+     tile.tabIndex=0;tile.setAttribute('aria-haspopup','true');tile.setAttribute('aria-controls',panel.id);tile.setAttribute('aria-expanded','false');
+-    tile.setAttribute('aria-label','市场情绪，点击查看本周与上周交易日情绪和 QQQ 收盘');
++    tile.setAttribute('aria-label','市场情绪，点击查看'+scope+'交易日情绪和 QQQ 收盘');
+     let lastPointer;
+     function place(){
+       const rect=tile.getBoundingClientRect();
+@@ -72,12 +81,13 @@
+     if(key.startsWith('dimension:'))return document.getElementById('toggle-'+key.slice(10));
+     if(key.startsWith('question:'))return [...document.querySelectorAll('[data-question-id]')].find(n=>n.dataset.questionId===key.slice(9));
+     if(key.startsWith('answer:'))return [...document.querySelectorAll('[data-record-id]')].find(n=>n.dataset.recordId===key.slice(7));
++    if(key.startsWith('x-author:'))return [...document.querySelectorAll('.x-author-card[data-author]')].find(n=>n.dataset.author===key.slice(9));
+     if(key.startsWith('x:'))return [...document.querySelectorAll('[data-post-id]')].find(n=>n.dataset.postId===key.slice(2));
+     if(key.startsWith('trend:'))return [...document.querySelectorAll('[data-trend-id]')].find(n=>n.dataset.trendId===key.slice(6));
+     const metric={NDX:'ndx',QQQ:'ndx',SPX:'spx',VIX:'vix',VXN:'vix',VXFutures:'vix',CNN:'fear-greed',BofA:'bofa',CTA:'spx',UST10Y:'cta',UST30Y:'cta',Brent:'cta'}[key.slice(7)];
+     return key.startsWith('metric:')&&metric?q(`[data-metric="${metric}"]`):null;
+   };
+-  for(const agent of ['GPT','Muse'])for(const key of markerMap[agent]?.keys||[]){const node=targetFor(key);if(!node||node.querySelector(`.update-dot[data-agent="${agent}"]`))continue;node.classList.add('has-update-dot');node.insertAdjacentHTML('beforeend',`<span class="update-dot" data-agent="${agent}" title="${agent} 本轮更新" aria-label="${agent} 本轮更新"></span>`)}
++  for(const agent of ['GPT','Muse'])for(const key of markerMap[agent]?.keys||[]){const node=targetFor(key);if(!node||node.querySelector(`:scope > .update-dot[data-agent="${agent}"]`))continue;node.classList.add('has-update-dot');node.insertAdjacentHTML('beforeend',`<span class="update-dot" data-agent="${agent}" title="${agent} 本轮更新" aria-label="${agent} 本轮更新"></span>`)}
+   tile.querySelector('.sentiment-emoji').style.fontSize=getComputedStyle(q('h1')).fontSize;
+   for(const [id,key,max] of [['fear-greed','CNN',100],['bofa','BofA',10]]){
+     const host=q(`[data-metric="${id}"]`),value=S.sentiment?.[key]?.value;
+diff --git a/dashboard-enhancements.css b/dashboard-enhancements.css
+--- a/dashboard-enhancements.css
++++ b/dashboard-enhancements.css
+@@ -31,13 +31,18 @@
+ .market-overview .sentiment-tile[class*="mood-tone-"]{background:var(--mood-surface);box-shadow:inset 0 3px var(--mood-border)}
+ .market-overview .sentiment-tile .sentiment-title strong{color:var(--mood-accent)}
+ .mood-week-history li{border:0;border-radius:9px;background:var(--mood-surface);margin:8px 3px;overflow:hidden}
+-.mood-week-history li a{display:block;color:inherit;text-decoration:none;padding:12px;border-radius:7px}
+-.mood-week-history li a:hover,.mood-week-history li a:focus-visible{outline:2px solid var(--mood-accent);outline-offset:-2px}
++.mood-week-history a[data-week-start]{display:block;color:inherit;text-decoration:none;padding:12px;border-radius:7px}
++.mood-week-history a[data-week-start]:hover,.mood-week-history a[data-week-start]:focus-visible{outline:2px solid var(--mood-accent);outline-offset:-2px}
+ .mood-week-top,.mood-week-close{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+ .mood-week-top time{font-size:12px;color:#535b68;font-variant-numeric:tabular-nums}.mood-week-top>span{font-size:11px;color:#676083}
+ .mood-week-main{display:flex;align-items:center;gap:11px;margin-top:7px;line-height:1.35}
+ .mood-week-main strong{font-size:17px;font-weight:650;color:#000}.mood-week-emoji{font-family:'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif;font-size:27px;line-height:1;flex-shrink:0}
+-.mood-week-history li p{font-size:13px;line-height:1.55;color:#000;margin:7px 0 0;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
++.mood-week-history li p{font-size:13px;line-height:1.55;color:#111b2d;margin:5px 0 0;overflow-wrap:anywhere}
++.mood-day-driver{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 7px;margin-top:8px;color:#38445d}
++.mood-day-driver small{font-size:10px;color:#646c82}.mood-day-driver b{font-size:12px}
++.mood-day-sources{display:flex;gap:10px;justify-content:flex-end;padding:0 12px 8px;margin-top:-5px}
++.mood-day-sources a{color:#53618b;font-size:10px;text-underline-offset:2px}
++
+ .mood-week-close{margin-top:9px;padding:8px 10px;border:0;border-radius:6px;background:#ffffffa6;color:#39465b;font-variant-numeric:tabular-nums}
+ .mood-week-close span{font-size:12px}.mood-week-close b{font-size:16px;color:#202d45}
+ .mood-week-close small{font-size:11px;font-weight:500;margin-left:4px;color:#6b7890}
+@@ -81,10 +86,16 @@
+ /* X has two distinct rows: curated heat above, Muse's author stream below. */
+ #narrative .x-frequent-section{display:block;margin-top:34px;padding-top:24px;border-top:1px solid #dce3ed}
+ #narrative .x-frequent-section .section-head{margin-bottom:15px}
+-#narrative .x-trend-heading{display:flex;align-items:baseline;gap:12px;margin:4px 0 12px;color:#18263d}
++#narrative .x-trend-heading{display:flex;align-items:center;flex-wrap:wrap;gap:12px;margin:4px 0 12px;color:#18263d}
+ #narrative .x-trend-heading b{font-size:15px}
+ #narrative .x-trend-heading span{font-size:11px;color:#66738a}
+-#narrative .x-trend-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-bottom:23px}
++#narrative .x-trend-grid{display:flex;flex-flow:row nowrap;align-items:stretch;gap:14px;margin-bottom:23px}
++#narrative .x-trend-card{flex:1 1 0;min-width:0;overflow-wrap:anywhere}
++#narrative .x-trend-card[hidden],#narrative .x-trend-pages[hidden]{display:none!important}
++#narrative .x-trend-pages{margin-left:auto;display:flex;align-items:center;gap:8px}
++#narrative .x-trend-pages button{width:32px;height:32px;border:1px solid #dbe2ee;border-radius:7px;background:white;color:#52658a;cursor:pointer;font-size:19px;line-height:1}
++#narrative .x-trend-pages button:disabled{opacity:.35;cursor:default}
++#narrative .x-trend-pages button:focus-visible{outline:2px solid #7466a5;outline-offset:2px}
+ #narrative .x-trend-card{position:relative;padding:20px 22px;background:#fffdf6}
+ #narrative .x-trend-top{display:flex;justify-content:space-between;gap:10px;align-items:baseline;color:#896b23;font-size:11px}
+ #narrative .x-trend-top time{color:#758093}
+@@ -95,6 +106,15 @@
+ #narrative .x-trend-caveat{display:block;margin-top:8px;color:#7a6870;font-size:11px;line-height:1.5}
+ #narrative .x-trend-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:13px}
+ #narrative .x-trend-tags span{padding:4px 8px;border-radius:99px;background:#e9f2ed;color:#25604e;font-size:11px;font-weight:600}
++@media(max-width:760px){
++ #narrative .x-trend-grid{gap:6px}
++ #narrative .x-trend-card{padding:18px clamp(5px,1.2vw,10px) 11px}
++ #narrative .x-trend-top{flex-wrap:wrap;gap:2px 6px}
++ #narrative .x-trend-card h3{font-size:14px;line-height:1.4}
++ #narrative .x-trend-card p{font-size:12px;line-height:1.55}
++ #narrative .x-trend-tags{gap:4px}
++ #narrative .x-trend-tags span{max-width:100%;box-sizing:border-box;padding:3px 5px;border-radius:6px}
++}
+ #narrative .x-trend-card{cursor:pointer}
+ #narrative .x-trend-select{appearance:none;font:inherit;color:inherit;line-height:inherit;text-align:left;background:transparent;border:0;padding:0;cursor:pointer}
+ #narrative .x-trend-select:focus-visible,#narrative [data-jump-to-related]:focus-visible{outline:2px solid #5b5298;outline-offset:3px;border-radius:3px}
+@@ -110,6 +130,8 @@
+ #narrative .x-simple-post{padding:15px 0;border-top:1px solid #e5eaf1}
+ #narrative .x-simple-post:first-of-type{border-top:0;padding-top:0}
+ #narrative .x-author-card>.x-author-identity{padding-bottom:13px}
++#narrative .x-author-pin{font-size:10px;line-height:1.4;font-weight:500;color:#5c6383;background:#eff0f7;border-radius:4px;padding:2px 5px}
++#narrative .x-pinned-empty{margin:0;color:#66738a;font-size:12px}
+ #narrative .x-author-card .x-simple-post:first-of-type{border-top:1px solid #e5eaf1;padding-top:15px}
+ #narrative .x-author-lines b{font-size:13px;color:#1d2a40}
+ #narrative .x-author-lines time{font-size:11px;color:#65748b}
+@@ -127,7 +149,7 @@
+ #narrative .x-single-heat{font-size:13px;font-weight:700;color:#384f80;white-space:nowrap}
+ #narrative .x-simple-foot .x-single-heat:only-child{margin-left:auto}
+ @media(max-width:900px){#narrative .x-frequent-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+-@media(max-width:600px){#narrative .x-frequent-grid,#narrative .x-trend-grid{grid-template-columns:1fr}#narrative .x-trend-heading{display:block}}
++@media(max-width:600px){#narrative .x-frequent-grid{grid-template-columns:1fr}#narrative .x-trend-heading{gap:5px 9px}}
+ .main{color:#000;font-weight:400}
+ .main .hero p,.main .strategy-note,.main .x-view,.main .x-post-view,.main .x-impact p,.main blockquote,.main .chain-step p,.main .prior-question,.main .week-pending li p,.main .pending-foot p,.main .calendar-event p,.main .live-event-card p,.main .action-table td,.main .sentiment-reason,.main .review-invalidation{color:#000;font-size:14px;font-weight:400;line-height:1.8}
+ .main .chain-step p,.main .x-post-view{font-size:15px;line-height:1.85}
+diff --git a/UPDATER.md b/UPDATER.md
+--- a/UPDATER.md
++++ b/UPDATER.md
+@@ -2,13 +2,15 @@
+ 
+ ## 关键财报与本轮更新标识（2026-11-03）
+ 
+-日历财报小卡优先取已核验的总营收与 EPS，分别列市场预期和实际值。两者沿用展开详情的同一份 `earnings_metrics`。用 `business_highlight` 写一句业务看点，例如“iPhone 超预期，服务符合预期”。财报未公布时实际值写“待公布”，预期带来源。小卡用一个业绩 emoji，逐项对照、指引、分时段行情和叙事写在展开详情。仅改卡片交互时，`presentation_updates` 可用 `mood`、`trend:<id>` 或 `calendar:<id>` 标记本轮 GPT 改动。
++日历财报小卡优先取已核验的总营收与 EPS，分别列市场预期和实际值。两者沿用展开详情的同一份 `earnings_metrics`。用 `business_highlight` 写一句业务看点，例如“iPhone 超预期，服务符合预期”。财报未公布时实际值写“待公布”，预期带来源。小卡用一个业绩 emoji，逐项对照、指引、分时段行情和叙事写在展开详情。仅改卡片交互时，`presentation_updates` 可用 `mood`、`trend:<id>`、`calendar:<id>` 或 `x-author:@账号` 标记本轮 GPT 改动。
+ 
+ 关键权重财报公布后即更新唯一的共享日历事件，不等开盘或收盘：用 `calendar_upsert` 的原事件 ID，填写 `expectation`、`earnings_metrics:[{label,expected,actual,note?}]`、`result`、`guidance`、`market_reaction`、`reaction_phases:[{session,value,at,source_url}]`、`narrative_impact`。逐项预期与实际必须可比，注明共识口径与 `consensus_source`、公司原始 `result_source`、指引出处 `guidance_source`。盘后、夜盘、盘前、常规时段各自有明确美东/北京时间与报价来源，未开始或无可靠报价写“尚未开始／待核验”，不以常规收盘冒充；叙事影响是基于已知结果的即时判断，立即填写并注明后续验证条件。可分别填写 `result_emoji` 与 `reaction_emoji`，前者表达业绩相对预期，后者表达已观察的价格反应；两者可能相反，不能用一个“利好”表情替代实测结果。
+ 
+-每次 `dashboard_apply_daily_update` 会用该轮 patch 自动替换 `change_markers.GPT` 的键集合，对被改写的卡片和日历事件显示右上角小黄点，趋势使用 `trend:<id>`。下一次 GPT 写入只移除并重建 GPT 自己的点，Muse 点保持原样；即使没有显示内容变化，该轮也可留下空集合。不要直接编辑 `change_markers.Muse`。情绪浮层按所选周和前一周筛选已收盘的交易日，保留星期，两组间留白并居中标“上周交易日”。旧日情绪缺记录时按同期收盘数据补为“回溯判断”，写明交易日、星期与出处，不伪造当时的实时观测。
++每次 `dashboard_apply_daily_update` 会用该轮 patch 自动替换 `change_markers.GPT` 的键集合，对被改写的卡片和日历事件显示右上角小黄点，趋势使用 `trend:<id>`。下一次 GPT 写入只移除并重建 GPT 自己的点，Muse 点保持原样；即使没有显示内容变化，该轮也可留下空集合。不要直接编辑 `change_markers.Muse`。只有进行中的周显示本周与上周，组间留白并居中标“上周交易日”。归档浮层只显示所选周实际开市的交易日，休市日跳过。旧日情绪缺记录时按同期收盘数据补为“回溯判断”，写明交易日、星期与出处，不伪造当时的实时观测。
+ 
+-X 高频顶部的 `x_trends_upsert` 接受 `{id,title,summary,status:"tracking"|"final",asof,evidence_post_ids:[至少两个不同作者原帖 ID],caveat,benefit_tags:[...]}`。本周由 Muse 在累计 feed 的 `weekly_trends` 持续更新，周末固化。GPT 只补充自己核验的初始趋势，不能替 Muse 清除其点；标签可包含潜在利好标的、行业或大盘，须由原帖和推理支持，条件未满足时写“潜在”并说明不确定性。归档周不追认后见之明。
++每个收盘日的 `market_mood.current.reason` 用一至两句解释一个主要驱动和价格传导。在 `attribution` 填 `{kind:"event"|"quant",driver,source_urls,known_by?,session?,event_at?}`。可选 FOMC、重大财报、地缘消息或油债关口。区分美东盘前、盘中、前一晚盘后，油价写明 WTI/Brent 及盘中/结算，收益率写明期限和点位。事件类型的 `known_by` 必填，表示消息最晚已公开的美东日期。可用 `event_at` 填带时区的实际时间，`session:"after_close"` 仅可用于之后的交易日。若无明确单一事件，选择 `quant` 并用跳空与盘中幅度、相对等权表现或相对前20日均量及成交区间解释。证据使用公开原始公告、当时行情或当日收盘报道。展示保留 QQQ 收盘涨跌、VIX 观察值和依据链接。
++
++X 高频顶部的 `x_trends_upsert` 接受 `{id,title,summary,status:"tracking"|"final",asof,evidence_post_ids:[至少两个不同作者原帖 ID],caveat,benefit_tags:[...]}`。本周由 Muse 在累计 feed 的 `weekly_trends` 持续更新，周末固化。GPT 只补充自己核验的初始趋势，不能替 Muse 清除其点；标签可包含潜在利好标的、行业或大盘，须由原帖和推理支持，条件未满足时写“潜在”并说明不确定性。归档周不追认后见之明。趋势卡单行排列，每页最多四张，当前页的卡片等分可用宽度。超出一页时用左右箭头切换，所有已核验趋势继续保存在本周数据中。
+ 
+ 正式查看 https://vitaslam.github.io/nasdaq-narrative-dashboard/
+ GPT 迭代与数据源 https://nasdaq-narrative-tracker-vj.thatvitaslam.chatgpt.site
+@@ -71,6 +73,6 @@
+ 
+ ## X 双板块更新补充（2026-11-02）
+ 
+-高热度话题由 GPT 主责，独立查找并核验原帖、真实账号头像、忠实中文翻译、可溯源的单帖热度和确有证据的利好标的。高频板块由 Muse 累计 feed 主责，不限数量，按博主纵向合并；达到 100 万浏览或 1000 转发/评论的单帖自动晋级高热度，上下排不重复。页面只显示译文、账号头像与原帖跳转、利好标的和一项热度；核验与推断保留在内部字段，不显示于卡面。无可核验数字时保持空值，不能编造。发布及锁协议详见仓库 `MAINTENANCE.md`。
++高热度话题由 GPT 主责，独立查找并核验原帖、真实账号头像、忠实中文翻译、可溯源的单帖热度和确有证据的利好标的。高频板块由 Muse 累计 feed 主责，不限数量，按博主纵向合并。高频作者卡把 @labubu_trader 长期固定在第一位，卡内按发帖时间倒序；达到 100 万浏览或 1000 转发/评论的单帖自动晋级高热度，上下排不重复。页面只显示译文、账号头像与原帖跳转、利好标的和一项热度；核验与推断保留在内部字段，不显示于卡面。无可核验数字时保持空值，不能编造。发布及锁协议详见仓库 `MAINTENANCE.md`。
+ 
+ CNN、BofA 和标普 CTA 卖出触发点的日常采集与更新由 Muse 经 `market_indicators` 提交；GPT 不再独立更新。缺报告保留旧日期或待核验，不能补造。字段与冲突规则见 `MAINTENANCE.md`。
+diff --git a/DAILY_UPDATE.md b/DAILY_UPDATE.md
+--- a/DAILY_UPDATE.md
++++ b/DAILY_UPDATE.md
+@@ -22,7 +22,7 @@
+ ## 必须保留的内容规则
+ 
+ - 每周最多4个事件驱动，总和100%；逐项预计/实际时间与已落地/未落地。五维权重另算100%。
+-- 周一情绪比较上周五（休市取最后实际收盘），结合周末消息；周二至五比较已存周一/周二观测。状态、emoji、一句归因、有证据；周五收盘后说明延续或转变。浮层展示所选周和前一周的已收盘交易日，组间留白并居中标“上周交易日”。基准不改写。
++- 周一情绪比较上周五（休市取最后实际收盘），结合周末消息；周二至五比较已存周一/周二观测。状态、emoji、一句归因、有证据；周五收盘后说明延续或转变。进行中的周展示本周和上周的已收盘交易日，归档只展示该周实际交易日。收盘观测的 reason 与 attribution 必须写一项可核验的当日催化及传导，例如 FOMC、财报、地缘、油价/债息关口。若没有明确事件，写跳空/盘中、成交量或等权对照并附出处。当天盘后消息只解释后续时段。基准不改写。
+ - `importance` 中 metrics 仅用于轻量高亮，顶部行情区不显示星级；dimensions/events/questions/answers 使用 `{score,reason}`，0.5–3半星步进。五维及右侧验证卡的3星彩色底白字，普通卡白底；左侧事件占比和问题列表只显示星级，不填色，点击问题仍定位右侧记录。日历3星以分类高饱和底色白字强调。只在重要性变化或新增项目时更新；星级与权重独立。
+ - CTA 格展示标普500的机构模型卖出触发点位，须写清 SPX 现货或 ES 期货、模型、日期和来源；不同合约点位不可混用。只有仓位敞口而无触发价时保持待核验，媒体转述明确标示，不能冒充机构原报告或实际卖盘。
+ - 新回答写question_id关联左侧问题；原回答追加、不可覆盖；最新6条显示，继承保留原时间。X 原文短引，观点与推断分开，真实头像，缺热度=null。

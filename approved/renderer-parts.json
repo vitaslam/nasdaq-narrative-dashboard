@@ -9,5 +9,9 @@
     "renderer-v38.part-06.gz",
     "renderer-v38.part-07.gz"
   ],
-  "sha256": "b63f092bdb3018593929b86502750b06ed6bc4974b9b37611968363a715a597d"
+  "sha256": "b63f092bdb3018593929b86502750b06ed6bc4974b9b37611968363a715a597d",
+  "update": {
+    "file": "renderer-v39.patch",
+    "renderer_sha256": "79bf0578fe682d87557bba52e1b14e3976bf5b52c195bee387db47387af7dcc0"
+  }
 }
