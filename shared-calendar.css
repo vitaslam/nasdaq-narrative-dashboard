@@ -18,6 +18,10 @@
 .calendar-detail-row b{display:block;color:#586d8b;font-size:11px;margin-bottom:5px}
 .calendar-detail-row p{font-size:13px;line-height:1.65;margin:0;overflow-wrap:anywhere}
 .calendar-detail-row p.is-pending{color:#8998ab}
+.calendar-earnings-table{border:1px solid #e4e8ef;border-radius:7px;overflow:hidden;font-size:11px;font-variant-numeric:tabular-nums}
+.earnings-row{display:grid;grid-template-columns:minmax(64px,1.15fr) minmax(50px,.9fr) minmax(50px,.9fr);gap:4px;padding:6px 7px;border-top:1px solid #e9edf3;align-items:baseline}
+.earnings-row:first-child{border-top:0}.earnings-row.headings{background:#f4f6fa;color:#67788f;font-size:10px}.earnings-row strong{text-align:right;color:#253752}.earnings-row span:nth-child(2){text-align:right}
+.reaction-phases{display:grid;gap:5px;margin:0 0 12px}.reaction-phases>div{display:grid;grid-template-columns:52px 1fr;gap:2px 5px;padding:7px;background:#f4f6fa;border-radius:5px;font-size:11px}.reaction-phases b{color:#526683}.reaction-phases span{text-align:right;font-variant-numeric:tabular-nums}.reaction-phases small{grid-column:1/-1;color:#75849a;font-size:10px}
 .calendar-detail-links{font-size:10px;line-height:1.7;margin-top:auto;padding-top:10px;border-top:1px solid #e7ebf2}
 .calendar-detail-links a{color:#627cb3}
 @media(max-width:900px){.calendar-detail{position:fixed;inset:12vh 16px auto;width:min(480px,calc(100vw - 32px));max-height:76vh;margin:auto;border:1px solid #dbe3ef;border-radius:10px;box-shadow:0 12px 40px #26395740}}
