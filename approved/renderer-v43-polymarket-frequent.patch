@@ -1,0 +1,66 @@
+diff --git a/DAILY_UPDATE.md b/DAILY_UPDATE.md
+index acbfd52..53bf32b 100644
+--- a/DAILY_UPDATE.md
++++ b/DAILY_UPDATE.md
+@@ -35,6 +35,6 @@ GPT 仅做新增证据筛选、叙事判断和小字段更新。数据去重、
+ 
+ ## X 双板块更新补充（2026-11-02）
+ 
+-高热度话题由 GPT 主责，独立查找并核验原帖、真实账号头像、忠实中文翻译、可溯源的单帖热度和确有证据的利好标的。高频板块由 Muse 累计 feed 主责，不限数量，按博主纵向合并；其上方趋势捕捉由本周至少两位作者的独立原帖支持，Muse 独立选题、周内跟进、周末固化并附条件性受益标签。趋势卡只显示 Muse 黄点。GPT 日更只读已发布的趋势，周归档照存 Muse 的状态。达到 100 万浏览或 1000 转发/评论的单帖自动晋级高热度，上下排不重复。页面只显示译文、账号头像与原帖跳转、利好标的和一项热度；核验与推断保留在内部字段，不显示于卡面。无可核验数字时保持空值，不能编造。发布及锁协议详见仓库 `MAINTENANCE.md`。
++高热度话题由 GPT 主责，独立查找并核验原帖、真实账号头像、忠实中文翻译、可溯源的单帖热度和确有证据的利好标的。高频板块由 Muse 累计 feed 主责，不限数量，按博主纵向合并；其上方趋势捕捉由本周至少两位作者的独立原帖支持，Muse 独立选题、周内跟进、周末固化并附条件性受益标签。趋势卡只显示 Muse 黄点。GPT 日更只读已发布的趋势，周归档照存 Muse 的状态。Polymarket 帖子始终只在高频作者卡展示，包括市场事件和各 Polymarket 账号的原帖。其余单帖达到 100 万浏览或 1000 转发/评论才自动进入高热度。市场成交额不计为浏览量。页面只显示译文、账号头像与原帖跳转、利好标的和一项热度；核验与推断保留在内部字段，不显示于卡面。无可核验数字时保持空值，不能编造。发布及锁协议详见仓库 `MAINTENANCE.md`。
+ 
+ CNN、BofA 和标普 CTA 卖出触发点的日常采集与更新由 Muse 经 `market_indicators` 提交；GPT 不再独立更新。缺报告保留旧日期或待核验，不能补造。字段与冲突规则见 `MAINTENANCE.md`。
+diff --git a/UPDATER.md b/UPDATER.md
+index 6869d23..b9e6d58 100644
+--- a/UPDATER.md
++++ b/UPDATER.md
+@@ -43,7 +43,7 @@ GPT 迭代与数据源 https://nasdaq-narrative-tracker-vj.thatvitaslam.chatgpt.
+ - market.sentiment_history:{CNN:[{date,value,source_url,frequency,source_kind?,observation_date?}],BofA:[...],VIX:[...],VXN:[...],CTA:[...]}：给顶部迷你折线补充带日期的真实观测，系统按日期合并并保留历史，不传整套虚构日频值。指数和NDX/200日偏离自动从已保存日线计算；每张图截止所选周行情日期，向前两个月，无横纵坐标，hover显示实际日期和读数。CNN当前使用周频公开归档，BofA按报告发布日期（有明确观测截止日则一并保留），不插值制造每日读数；来源存在冲突时采用一致口径并注明。VIX/VXN日线每天追加；CTA必须附institution与model，无法核实保持空值。只补历史曲线，不修改归档周结论。
+ - questions_upsert:[{id,question,schedule,status,resolved,answer_ids?}]：左侧「本周待验证」由本周事件及日历归纳，3–6个关键问题；答案出现后标部分确认/确认/反证等，保留问题。新增回答必须提供question_id关联问题；继承记录可用问题的answer_ids关联。点击问题定位最新相关卡片并同步选中；无结果显示待验证卡片，不捏造结果。
+ - answers_append:[{id,question_id?,occurred_at,time_label?,title,question,verdict,tone,evidence,reaction,impact,next_check,source_url,unexpected?}]：新回答追加，按时间最新在前；保留既有记录，不能覆盖已确认回答。突发事件加unexpected=true。发现旧答案错误，追加一个有新id并注明更正的记录。关键信息短句，关键数字会自动加粗；不要把同期相关写成单一因果。
+-- x_topics_upsert:[{id,title,summary,posts:[{id,author,avatar_url?,avatar_source?,avatar_verification?,published_at,quote,viewpoint,views,reposts,replies,observed_at,source_url,metrics_source,verification,context?,impact:[{targets,direction,reason}]}]}]：相同话题复用topic id，在同一卡片追加新观点。每条作者旁显示真实X头像；优先核验原账号或公开账号归档中的profile image，avatar_url为HTTPS图片或站点已存头像地址，avatar_source保留核验页。不能用任意肖像或生成图片冒充头像；无法核实时明确缺失。已有post仅更新已核验热度和说明，保留首次发现时间。浏览/转发/评论缺失=null，不算0，热度必须有记录时间和来源。新增高亮24小时；高热阈值为单帖100万浏览或1000转发/评论，仅指观察样本。原帖摘引短而准确，每个非用户来源累计不超过25词；中文概述具体观点，标具体受影响标的/行业与利好利空分化，把推断与原帖事实分开。不把热度直接视为交易重要性。
++- x_topics_upsert:[{id,title,summary,posts:[{id,author,avatar_url?,avatar_source?,avatar_verification?,published_at,quote,viewpoint,views,reposts,replies,observed_at,source_url,metrics_source,verification,context?,impact:[{targets,direction,reason}]}]}]：相同话题复用topic id，在同一卡片追加新观点。每条作者旁显示真实X头像；优先核验原账号或公开账号归档中的profile image，avatar_url为HTTPS图片或站点已存头像地址，avatar_source保留核验页。不能用任意肖像或生成图片冒充头像；无法核实时明确缺失。已有post仅更新已核验热度和说明，保留首次发现时间。浏览/转发/评论缺失=null，不算0，热度必须有记录时间和来源。新增高亮24小时；除固定在高频的 Polymarket 帖子外，高热阈值为单帖100万浏览或1000转发/评论，仅指观察样本。原帖摘引短而准确，每个非用户来源累计不超过25词；中文概述具体观点，标具体受影响标的/行业与利好利空分化，把推断与原帖事实分开。不把热度直接视为交易重要性。
+ - calendar_upsert:[{id,iso_date,time,event,watch,kind,source,status,result?,market_reaction?,reaction_session?,result_source?,reaction_source?,observed_at?,ongoing?}]：所有周共用的唯一事件表；稳定id避免重复。iso_date 对应事件所归属交易日期，time明确北京时间及盘前盘后。status=scheduled/released/occurred/cancelled/postponed。released/occurred 必须有结果、官方结果链接，不能提前标；市场反应补一句具体指数/标的、涨跌及实际交易时间，必须有reaction_session（当日收盘/盘后/下一交易日收盘）和行情来源。多家公司或宏观+财报不同时间发布应拆分成不同事件，避免一项公布把整组误标完成。突发持续事项用ongoing=true，不能预设发生时间。历史数据不要求补齐。
+ - sources_add:[{id,url,title,observed_at}]；note 为这次更新一句话。
+ 
+@@ -73,6 +73,6 @@ GPT 迭代与数据源 https://nasdaq-narrative-tracker-vj.thatvitaslam.chatgpt.
+ 
+ ## X 双板块更新补充（2026-11-02）
+ 
+-高热度话题由 GPT 主责，独立查找并核验原帖、真实账号头像、忠实中文翻译、可溯源的单帖热度和确有证据的利好标的。高频板块由 Muse 累计 feed 主责，不限数量，按博主纵向合并。高频作者卡把 @labubu_trader 长期固定在第一位，卡内按发帖时间倒序；达到 100 万浏览或 1000 转发/评论的单帖自动晋级高热度，上下排不重复。页面只显示译文、账号头像与原帖跳转、利好标的和一项热度；核验与推断保留在内部字段，不显示于卡面。无可核验数字时保持空值，不能编造。发布及锁协议详见仓库 `MAINTENANCE.md`。
++高热度话题由 GPT 主责，独立查找并核验原帖、真实账号头像、忠实中文翻译、可溯源的单帖热度和确有证据的利好标的。高频板块由 Muse 累计 feed 主责，不限数量，按博主纵向合并。高频作者卡把 @labubu_trader 长期固定在第一位，卡内按发帖时间倒序；Polymarket 帖子始终只在高频作者卡展示，包括市场事件和各 Polymarket 账号的原帖。其余单帖达到 100 万浏览或 1000 转发/评论才自动进入高热度。市场成交额不计为浏览量。页面只显示译文、账号头像与原帖跳转、利好标的和一项热度；核验与推断保留在内部字段，不显示于卡面。无可核验数字时保持空值，不能编造。发布及锁协议详见仓库 `MAINTENANCE.md`。
+ 
+ CNN、BofA 和标普 CTA 卖出触发点的日常采集与更新由 Muse 经 `market_indicators` 提交；GPT 不再独立更新。缺报告保留旧日期或待核验，不能补造。字段与冲突规则见 `MAINTENANCE.md`。
+diff --git a/live-week.js b/live-week.js
+index 4900fa8..03964b7 100644
+--- a/live-week.js
++++ b/live-week.js
+@@ -95,9 +95,17 @@
+  all('#instrument button').forEach(b=>b.addEventListener('click',()=>requestAnimationFrame(highlight)));highlight();
+  q('.daily-trigger-row span:last-child').textContent='区间制定 '+md(W.weekly_plan.effective_week)+' · 周内固定';
+  q('.review-invalidation').innerHTML='<b>失效检查：</b>进入区间只高亮，仍须确认止跌、广度与波动条件。突发冲击时可暂停计划；本周点位保持固定。';
+- // A qualifying post moves from the Muse-led author stream into the curated heat lane.
+  const heat=n=>n>=10000?(n/10000).toFixed(n%10000?1:0)+'万':num(n,0);
+- const hot=p=>p.views>=1000000||p.reposts>=1000||p.replies>=1000;
++ const polymarketHandle=/^@?polymarket[a-z0-9_]*$/i;
++ function isPolymarketPost(post){
++  if(polymarketHandle.test(String(post.author||'').trim())||/^polymarket-ev-/i.test(post.id))return true;
++  try{
++   const source=new URL(post.source_url);
++   if(/(^|\.)polymarket\.(com|us)$/i.test(source.hostname))return true;
++   return /^(?:(?:www|mobile)\.)?(?:x|twitter)\.com$/i.test(source.hostname)&&polymarketHandle.test(source.pathname.split('/')[1]);
++  }catch{return false}
++ }
++ const hot=post=>!isPolymarketPost(post)&&(post.views>=1000000||post.reposts>=1000||post.replies>=1000);
+  const author=(p,pinned=false)=>{
+    const profile=(W.author_profiles||[]).find(a=>a.author.toLowerCase()===String(p.author).toLowerCase());
+    const avatar=p.avatar_url||profile?.asset_url,valid=/^https:\/\//.test(avatar||'')||/^(?:\/|\.\.\/)assets\/avatars\/[a-z0-9_-]+\.jpg$/.test(avatar||'');
+@@ -128,7 +136,7 @@
+   return `<article class="card x-author-card x-simple-card" data-author="${esc(handle)}"${pinned?` data-pinned="true" aria-label="${esc(handle)}，置顶作者"`:''}>${header}${items||'<p class="x-pinned-empty">本周暂无高频帖。</p>'}</article>`;
+  }).join('');
+  q('#narrative .section-head h2').textContent='𝕏 高热度话题';
+- q('#narrative .section-sub').textContent='单帖达到热度门槛后归入此处 · 最新在左';
++ q('#narrative .section-sub').textContent='达标帖子按时间倒序排列 · Polymarket 帖子固定在高频板块';
+  q('#narrative .x-card-grid').innerHTML=hotPosts.map(p=>`<article class="card x-topic-card x-simple-card" data-post-id="${esc(p.id)}"><h3>${esc(p.topic_title)}</h3><section class="x-simple-post">${author(p)}${body(p)}</section></article>`).join('')||'<article class="card live-empty">本周暂无达到高热门槛的帖子。</article>';
+  const hotStream=q('#narrative .x-card-grid'),hotCards=[...hotStream.querySelectorAll('.x-topic-card')];
+  const arrangeHot=()=>{if(!hotCards.length)return;const count=window.matchMedia('(max-width:600px)').matches?1:window.matchMedia('(max-width:900px)').matches?2:3,columns=Array.from({length:count},()=>{const col=document.createElement('div');col.className='x-masonry-column';return col});hotStream.replaceChildren(...columns);for(const card of hotCards){const heights=columns.map(col=>col.getBoundingClientRect().height),shortest=heights.indexOf(Math.min(...heights));columns[shortest].append(card)}};

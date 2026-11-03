@@ -26,6 +26,10 @@
     {
       "file": "renderer-v42-aligned-daily-cards.patch",
       "renderer_sha256": "dc3d56334103de340ae247f38867d57b13f4f5734ead0a828a6f009f1831953e"
+    },
+    {
+      "file": "renderer-v43-polymarket-frequent.patch",
+      "renderer_sha256": "d5fa7f2ffc6a16729be565de4ef55a8fb536a02bf9d077c4b560612f76d77624"
     }
   ]
 }
