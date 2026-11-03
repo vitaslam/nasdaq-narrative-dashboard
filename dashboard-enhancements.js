@@ -87,7 +87,13 @@
     const metric={NDX:'ndx',QQQ:'ndx',SPX:'spx',VIX:'vix',VXN:'vix',VXFutures:'vix',CNN:'fear-greed',BofA:'bofa',CTA:'spx',UST10Y:'cta',UST30Y:'cta',Brent:'cta'}[key.slice(7)];
     return key.startsWith('metric:')&&metric?q(`[data-metric="${metric}"]`):null;
   };
-  for(const agent of ['GPT','Muse'])for(const key of markerMap[agent]?.keys||[]){const node=targetFor(key);if(!node||node.querySelector(`:scope > .update-dot[data-agent="${agent}"]`))continue;node.classList.add('has-update-dot');node.insertAdjacentHTML('beforeend',`<span class="update-dot" data-agent="${agent}" title="${agent} 本轮更新" aria-label="${agent} 本轮更新"></span>`)}
+  for(const agent of ['GPT','Muse'])for(const key of markerMap[agent]?.keys||[]){
+    if(agent==='GPT'&&key.startsWith('trend:'))continue;
+    const node=targetFor(key);
+    if(!node||node.querySelector(`:scope > .update-dot[data-agent="${agent}"]`))continue;
+    node.classList.add('has-update-dot');
+    node.insertAdjacentHTML('beforeend',`<span class="update-dot" data-agent="${agent}" title="${agent} 本轮更新" aria-label="${agent} 本轮更新"></span>`);
+  }
   tile.querySelector('.sentiment-emoji').style.fontSize=getComputedStyle(q('h1')).fontSize;
   for(const [id,key,max] of [['fear-greed','CNN',100],['bofa','BofA',10]]){
     const host=q(`[data-metric="${id}"]`),value=S.sentiment?.[key]?.value;
