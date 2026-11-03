@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "holder": "GPT",
-  "token": "gpt-2026-11-03T08:05:06.000Z-7tsklbmlfg",
-  "purpose": "daily:2026-11-03:16",
-  "acquired_at": "2026-11-03T08:05:06.000Z",
-  "expires_at": "2026-11-03T08:50:06.000Z"
+  "holder": null,
+  "token": null,
+  "purpose": null,
+  "acquired_at": null,
+  "expires_at": null
 }
