@@ -1,0 +1,210 @@
+diff --git a/UPDATER.md b/UPDATER.md
+index ff02cdb..6869d23 100644
+--- a/UPDATER.md
++++ b/UPDATER.md
+@@ -3,5 +3,5 @@
+ ## 关键财报与本轮更新标识（2026-11-03）
+ 
+-日历财报小卡优先取已核验的总营收与 EPS，分别列市场预期和实际值。两者沿用展开详情的同一份 `earnings_metrics`。用 `business_highlight` 写一句业务看点，例如“iPhone 超预期，服务符合预期”。财报未公布时实际值写“待公布”，预期带来源。小卡用一个业绩 emoji，逐项对照、指引、分时段行情和叙事写在展开详情。仅改卡片交互时，`presentation_updates` 可用 `mood`、`calendar:<id>` 或 `x-author:@账号` 标记本轮 GPT 改动。
++日历财报小卡优先取已核验的总营收与 EPS，分别列市场预期和实际值。两者沿用展开详情的同一份 `earnings_metrics`。用 `business_highlight` 写一句业务看点，例如“iPhone 超预期，服务符合预期”。财报未公布时实际值写“待公布”，预期带来源。小卡用一个业绩 emoji，逐项对照、指引、分时段行情和叙事写在展开详情。仅改卡片交互时，`presentation_updates` 可用 `mood`、`price-chart`、`calendar:<id>` 或 `x-author:@账号` 标记本轮 GPT 改动。
+ 
+ 关键权重财报公布后即更新唯一的共享日历事件，不等开盘或收盘：用 `calendar_upsert` 的原事件 ID，填写 `expectation`、`earnings_metrics:[{label,expected,actual,note?}]`、`result`、`guidance`、`market_reaction`、`reaction_phases:[{session,value,at,source_url}]`、`narrative_impact`。逐项预期与实际必须可比，注明共识口径与 `consensus_source`、公司原始 `result_source`、指引出处 `guidance_source`。盘后、夜盘、盘前、常规时段各自有明确美东/北京时间与报价来源，未开始或无可靠报价写“尚未开始／待核验”，不以常规收盘冒充；叙事影响是基于已知结果的即时判断，立即填写并注明后续验证条件。可分别填写 `result_emoji` 与 `reaction_emoji`，前者表达业绩相对预期，后者表达已观察的价格反应；两者可能相反，不能用一个“利好”表情替代实测结果。
+diff --git a/template.html b/template.html
+index fbc19ca..e214701 100644
+--- a/template.html
++++ b/template.html
+@@ -459,4 +459,20 @@ function candleChart(id, bars, lines, options = {}) {
+     html += `<line x1="${pad.l}" x2="${width-pad.r}" y1="${posY}" y2="${posY}" stroke="${C.grid}"/><text x="${pad.l-9}" y="${posY+3}" text-anchor="end" fill="${C.muted}" font-size="10">${escapeHTML(fmt(value, 0))}</text>`;
+   }
++  const tradingWeek = label => {
++    const day = new Date(label + 'T00:00:00Z');
++    day.setUTCDate(day.getUTCDate() - (day.getUTCDay() + 6) % 7);
++    return day.getTime();
++  };
++  let previousWeek = tradingWeek(labels[0]);
++  html += '<g class="price-week-dividers" aria-hidden="true" pointer-events="none" stroke="#a2b0c1" stroke-opacity=".34" stroke-width=".8" stroke-dasharray="2 5">';
++  for (let index = 1; index < labels.length; index++) {
++    const week = tradingWeek(labels[index]);
++    if (week > previousWeek) {
++      const boundary = (x(index-1) + x(index)) / 2;
++      html += `<line x1="${boundary}" x2="${boundary}" y1="${pad.t}" y2="${pad.t + plotHeight}" vector-effect="non-scaling-stroke"/>`;
++    }
++    previousWeek = week;
++  }
++  html += '</g>';
+   const ticks = Math.min(bars.length, width < 430 ? 4 : 6);
+   const tickIndices = [...new Set(Array.from({length:ticks}, (_, i) => Math.round(i * (bars.length-1) / Math.max(1, ticks-1))))];
+diff --git a/dashboard-enhancements.css b/dashboard-enhancements.css
+index 1193d54..8c2c55d 100644
+--- a/dashboard-enhancements.css
++++ b/dashboard-enhancements.css
+@@ -21,9 +21,9 @@
+ .sentiment-tile{cursor:pointer}
+ .sentiment-tile:focus-visible{outline:2px solid #8a80be;outline-offset:-2px}
+-.mood-week-history{position:fixed;z-index:10020;width:min(390px,calc(100vw - 20px));box-sizing:border-box;background:linear-gradient(135deg,#f4f2fd,#fafbfe);color:#000;border:1px solid #dce2f0;border-radius:13px;box-shadow:0 16px 45px #2434522c;padding:19px 20px 15px;max-height:calc(100vh - 20px);overflow:auto}
++.mood-week-history{position:fixed;z-index:10020;width:min(390px,calc(100vw - 20px));box-sizing:border-box;background:linear-gradient(135deg,#f4f2fd,#fafbfe);color:#000;border:1px solid #dce2f0;border-radius:13px;box-shadow:0 16px 45px #2434522c;padding:19px 20px 15px;display:flex;flex-direction:column;max-height:calc(100vh - 20px);max-height:calc(100dvh - 20px);overflow:hidden}
+ .mood-week-history[hidden]{display:none!important}
+ .mood-week-heading{display:flex;align-items:baseline;justify-content:space-between;gap:10px;padding-bottom:6px}
+ .mood-week-heading strong{font-size:16px}.mood-week-heading span{font-size:11px;color:#5d6572}
+-.mood-week-history ol{list-style:none;margin:0;padding:0;max-height:min(890px,calc(100vh - 150px));overflow-y:auto;overscroll-behavior:contain;scrollbar-color:#b9c4dc transparent;scrollbar-width:thin}
++.mood-week-history ol{display:flex;flex-direction:column;gap:8px;list-style:none;margin:0;padding:0;min-height:0;overflow-y:auto;overscroll-behavior:contain;scrollbar-color:#b9c4dc transparent;scrollbar-width:thin}
+ .mood-tone-positive{--mood-surface:#eaf6f0;--mood-border:#8ec7ad;--mood-accent:#246b50}
+ .mood-tone-neutral{--mood-surface:#f1f0fb;--mood-border:#b6b3dc;--mood-accent:#514d8e}
+@@ -31,5 +31,7 @@
+ .market-overview .sentiment-tile[class*="mood-tone-"]{background:var(--mood-surface);box-shadow:inset 0 3px var(--mood-border)}
+ .market-overview .sentiment-tile .sentiment-title strong{color:var(--mood-accent)}
+-.mood-week-history li{border:0;border-radius:9px;background:var(--mood-surface);margin:8px 3px;overflow:hidden}
++.mood-week-history li{flex:none;border:0;border-radius:9px;background:var(--mood-surface);margin:0 2px;overflow:hidden}
++.mood-week-history .has-older-days{scrollbar-gutter:stable}
++.mood-week-heading,.mood-week-foot{flex:none}
+ .mood-week-history a[data-week-start]{display:block;color:inherit;text-decoration:none;padding:12px;border-radius:7px}
+ .mood-week-history a[data-week-start]:hover,.mood-week-history a[data-week-start]:focus-visible{outline:2px solid var(--mood-accent);outline-offset:-2px}
+@@ -39,4 +41,5 @@
+ .mood-week-main strong{font-size:17px;font-weight:650;color:#000}.mood-week-emoji{font-family:'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif;font-size:27px;line-height:1;flex-shrink:0}
+ .mood-week-history li p{font-size:13px;line-height:1.55;color:#111b2d;margin:5px 0 0;overflow-wrap:anywhere}
++.mood-day-copy{display:contents}
+ .mood-day-driver{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 7px;margin-top:8px;color:#38445d}
+ .mood-day-driver small{font-size:10px;color:#646c82}.mood-day-driver b{font-size:12px}
+@@ -50,4 +53,61 @@
+ .mood-week-history .mood-week-boundary:first-child{margin-top:6px}
+ .mood-week-foot{font-size:11px;line-height:1.55;color:#4d5c70;margin:12px 2px 0}
++/* Preserve all five daily explanations when the regular cards exceed the viewport. */
++.mood-week-history.is-compact{padding:11px 12px 9px}
++.is-compact .mood-week-heading{padding-bottom:6px}
++.is-compact .mood-week-foot{margin:7px 2px 0}
++.mood-week-history.is-compact ol{gap:5px}
++.mood-week-history.is-compact li{position:relative;margin:0 1px}
++.mood-week-history.is-compact .mood-week-boundary{padding:3px 0}
++.is-compact a[data-week-start]{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:3px 8px;padding:7px 10px}
++.is-compact .mood-week-top,.is-compact li p,.is-compact .mood-week-close{grid-column:1/-1}
++.is-compact .mood-week-top{line-height:16px}
++.is-compact .mood-week-main{gap:6px;margin:0}
++.is-compact .mood-week-main strong{font-size:15px}
++.is-compact .mood-week-emoji{font-size:21px}
++.is-compact .mood-day-driver{justify-content:flex-end;margin:0;gap:0 5px;line-height:15px}
++.mood-week-history.is-compact li p{margin:0;font-size:13px;line-height:1.4}
++.is-compact .mood-week-close{flex-wrap:wrap;justify-content:flex-start;gap:1px 8px;line-height:18px;margin:0;padding:2px 5px}
++.is-compact li:has(.mood-day-sources) .mood-week-close{padding-right:90px}
++.is-compact .mood-week-close b{font-size:14px}
++.is-compact .mood-day-sources{position:absolute;right:14px;bottom:9px;line-height:18px;gap:6px;margin:0;padding:0}
++/* On short screens let the date, mood and VIX share a header. */
++.mood-week-history.is-tight{padding:7px 8px;container-type:inline-size}
++.is-tight .mood-week-heading{line-height:20px;padding-bottom:4px}
++.is-tight .mood-week-foot{line-height:14px;margin:4px 2px 0}
++.mood-week-history.is-tight ol{gap:4px}
++.is-tight a[data-week-start]{grid-template-columns:auto minmax(0,1fr) auto;gap:2px 5px;line-height:16px;padding:4px 7px}
++.is-tight .mood-week-top{display:contents}
++.is-tight .mood-week-top time,.is-tight .mood-week-main,.is-tight .mood-week-top>span{grid-row:1}
++.is-tight .mood-week-top time{grid-column:1}
++.is-tight .mood-week-main{grid-column:2}
++.is-tight .mood-week-top>span{grid-column:3;font-size:10px;line-height:13px;text-align:right}
++.is-tight .mood-week-main strong{font-size:14px}
++.is-tight .mood-week-emoji{font-size:18px}
++.is-tight .mood-day-driver{grid-column:1/-1;justify-content:flex-start;line-height:14px}
++.mood-week-history.is-tight li p{font-size:12px;line-height:1.4}
++.is-tight .mood-week-close{gap:0 5px;padding:1px 4px;line-height:16px}
++.is-tight .mood-week-close span,.is-tight .mood-week-close small{font-size:10px}
++.is-tight .mood-week-close b{font-size:12px}
++.is-tight li:has(.mood-day-sources) .mood-week-close{padding-right:86px}
++.is-tight .mood-day-sources{right:9px;bottom:5px;line-height:16px;gap:4px}
++@container(min-width:500px){
++ .is-tight a[data-week-start]{grid-template-columns:auto auto minmax(0,1fr) auto}
++ .is-tight .mood-week-top>span{grid-column:4}
++ .is-tight .mood-day-driver{grid-column:3;grid-row:1}
++}
++@media(max-width:480px){
++ .mood-week-history{max-height:calc(100dvh - 8px)}
++}
++.mood-week-history.is-short{padding:4px}
++.is-short .mood-week-heading{padding:0 3px 2px;font-size:13px;line-height:17px}
++.is-short .mood-week-heading strong{font-size:14px}
++.is-short .mood-week-foot{font-size:10px;line-height:12px;margin:3px 2px 0}
++.mood-week-history.is-short ol{gap:3px}
++.is-short a[data-week-start]{padding:3px 5px;gap:1px 4px}
++.is-short .mood-day-copy{display:block;grid-column:1/-1;font-size:12px;line-height:1.25}
++.is-short .mood-day-driver,.mood-week-history.is-short li p{display:inline;line-height:inherit}
++.is-short .mood-day-driver small,.is-short .mood-day-driver b{margin-right:4px}
++.is-short .mood-day-sources{bottom:4px;right:7px}
+ .has-update-dot{position:relative}
+ .update-dot{position:absolute;right:9px;top:9px;width:7px;height:7px;box-sizing:border-box;border-radius:50%;background:#f5bf31;border:1px solid #d79d1d;box-shadow:0 0 0 2px #fff9;z-index:12;pointer-events:none}
+diff --git a/dashboard-enhancements.js b/dashboard-enhancements.js
+index 9383472..3e83e81 100644
+--- a/dashboard-enhancements.js
++++ b/dashboard-enhancements.js
+@@ -41,9 +41,33 @@
+       const sources=urls.length?`<div class="mood-day-sources">${urls.map((u,n)=>`<a href="${escape(u)}" target="_blank" rel="noopener">${n?'补充依据':'依据'} ↗</a>`).join('')}</div>`:'';
+       const vol=Number.isFinite(row.vix_close)?'VIX '+num(row.vix_close)+' · ':'';
+-      return `${boundary}<li class="mood-tone-${moodTone(label)}"><a href="${href}" data-week-start="${escape(targetWeek)}"><div class="mood-week-top"><time datetime="${escape(row.date)}">${escape(range)}</time><span>${vol}${row.kind==='recorded'?'当日记录':'收盘回溯'}</span></div><div class="mood-week-main"><span class="mood-week-emoji" role="img" aria-label="${escape(label)}">${escape(row.emoji||'📝')}</span><strong>${escape(label)}</strong></div>${why}${row.reason?`<p>${escape(row.reason)}</p>`:''}<div class="mood-week-close"><span>QQQ · ${escape(date)} 收盘</span><b>${close} <small>${change}</small></b></div></a>${sources}</li>`;
++      return `${boundary}<li class="mood-tone-${moodTone(label)}"><a href="${href}" data-week-start="${escape(targetWeek)}"><div class="mood-week-top"><time datetime="${escape(row.date)}">${escape(range)}</time><span>${vol}${row.kind==='recorded'?'当日记录':'收盘回溯'}</span></div><div class="mood-week-main"><span class="mood-week-emoji" role="img" aria-label="${escape(label)}">${escape(row.emoji||'📝')}</span><strong>${escape(label)}</strong></div><div class="mood-day-copy">${why}${row.reason?`<p>${escape(row.reason)}</p>`:''}</div><div class="mood-week-close"><span>QQQ · ${escape(date)} 收盘</span><b>${close} <small>${change}</small></b></div></a>${sources}</li>`;
+     });
+     panel.innerHTML=`<div class="mood-week-heading"><strong>交易日情绪</strong><span>${currentWeek?'本周与上周':M.start.slice(5).replace('-','/')+'–'+M.end.slice(5).replace('-','/')}</span></div><ol>${entries.join('')}</ol><p class="mood-week-foot">标为「收盘回溯」的日期依据同期收盘与已知事件整理。</p>`;
+     const list=panel.querySelector('ol');
+-    function fitFour(){const cards=[...list.querySelectorAll('li:not(.mood-week-boundary)')];const fifth=cards[4];if(!fifth)return;const cutoff=fifth.offsetTop-list.offsetTop-8;list.style.maxHeight=`min(${Math.max(0,Math.round(cutoff))}px, calc(100vh - 150px))`}
++    const cards=[...list.querySelectorAll('li:not(.mood-week-boundary)')];
++    const lastVisible=cards[Math.min(5,cards.length)-1];
++    list.classList.toggle('has-older-days',cards.length>5);
++    const panelMargin=()=>document.documentElement.clientWidth<480?4:10;
++    function fitFive(){
++      const availableWidth=document.documentElement.clientWidth-2*panelMargin();
++      const base=Math.min(availableWidth,Math.max(320,tile.getBoundingClientRect().width));
++      const widths=[...new Set([base,420,540,720].map(width=>Math.min(availableWidth,Math.max(base,width))))];
++      // Measure the bottom of the fifth day with the final wrapping and week divider in place.
++      const requiredHeight=()=>lastVisible.getBoundingClientRect().bottom-list.getBoundingClientRect().top+list.scrollTop;
++      function fits(width){
++        panel.style.width=width+'px';
++        return requiredHeight()<=list.getBoundingClientRect().height+.5;
++      }
++      panel.classList.remove('is-compact','is-tight','is-short');
++      list.style.maxHeight='none';
++      if(!fits(base)){
++        panel.classList.add('is-compact');
++        if(!widths.some(fits)){
++          panel.classList.add('is-tight');
++          if(!widths.some(fits))panel.classList.add('is-short');
++        }
++      }
++      list.style.maxHeight=Math.ceil(requiredHeight())+'px';
++    }
+     document.body.append(panel);
+     tile.tabIndex=0;tile.setAttribute('aria-haspopup','true');tile.setAttribute('aria-controls',panel.id);tile.setAttribute('aria-expanded','false');
+@@ -53,6 +77,5 @@
+       const rect=tile.getBoundingClientRect();
+       const cursor=lastPointer||{x:rect.left+Math.min(rect.width/2,150),y:rect.top+Math.min(rect.height/2,110)};
+-      const gap=16,margin=10;
+-      panel.style.width=Math.min(rect.width,innerWidth-margin*2)+'px';
++      const gap=16,margin=panelMargin();
+       const width=panel.offsetWidth;
+       let left;
+@@ -64,5 +87,5 @@
+       panel.style.top=Math.round(Math.max(margin,Math.min(innerHeight-panel.offsetHeight-margin,cursor.y-90)))+'px';
+     }
+-    function show(){panel.hidden=false;list.scrollTop=0;tile.setAttribute('aria-expanded','true');fitFour();place()}
++    function show(){panel.hidden=false;list.scrollTop=0;tile.setAttribute('aria-expanded','true');fitFive();place()}
+     function hide(){panel.hidden=true;tile.setAttribute('aria-expanded','false')}
+     tile.addEventListener('click',e=>{lastPointer=Number.isFinite(e.clientX)&&e.clientX?{x:e.clientX,y:e.clientY}:null;panel.hidden?show():hide()});
+@@ -71,5 +94,7 @@
+     document.addEventListener('keydown',e=>{if(e.key==='Escape')hide()});
+     document.addEventListener('pointerdown',e=>{if(!tile.contains(e.target)&&!panel.contains(e.target))hide()});
+-    window.addEventListener('scroll',()=>{if(!panel.hidden)place()},{passive:true});window.addEventListener('resize',()=>{if(!panel.hidden){fitFour();place()}});
++    const refit=()=>{if(!panel.hidden){fitFive();place()}};
++    window.addEventListener('scroll',()=>{if(!panel.hidden)place()},{passive:true});window.addEventListener('resize',refit);
++    document.fonts?.ready.then(refit);
+   }
+   // Each contributor owns one independent set of dots; a new batch replaces only its own set.
+@@ -77,4 +102,5 @@
+   const targetFor=key=>{
+     if(key==='mood')return tile;
++    if(key==='price-chart')return document.getElementById('price-chart')?.closest('.card');
+     if(key==='events')return q('#toggle-event-drivers');
+     if(key==='strategy')return q('.dashboard-chart-heading');
+diff --git a/runtime.js b/runtime.js
+index 7e0e234..ef43ac3 100644
+--- a/runtime.js
++++ b/runtime.js
+@@ -180,5 +180,5 @@ function daily(state,args){only(args,['week_id','expected_revision','run_id','pa
+  if(p.presentation_updates!==undefined){
+   const targets=p.presentation_updates;
+-  ok(Array.isArray(targets)&&targets.length<=32&&targets.every(id=>typeof id==='string'&&(id==='mood'||/^x-author:@[a-z0-9_]{1,15}$/.test(id)||/^calendar:[a-z0-9][a-z0-9-]{1,99}$/.test(id))), 'Use a mood, calendar or X author key for GPT interface change markers');
++  ok(Array.isArray(targets)&&targets.length<=32&&targets.every(id=>typeof id==='string'&&(id==='mood'||id==='price-chart'||/^x-author:@[a-z0-9_]{1,15}$/.test(id)||/^calendar:[a-z0-9][a-z0-9-]{1,99}$/.test(id))), 'Use a mood, price chart, calendar or X author key for GPT interface change markers');
+   keys.push(...targets);
+  }

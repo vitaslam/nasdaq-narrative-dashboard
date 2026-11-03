@@ -18,6 +18,10 @@
     {
       "file": "renderer-v40-muse-trends.patch",
       "renderer_sha256": "53c93e826f9d282097396fa5285e55abf9e23bdc5462a1f9257c3a69c6a3d3cb"
+    },
+    {
+      "file": "renderer-v41-mood-five-week-guides.patch",
+      "renderer_sha256": "f2bec0a58dfc274c6bc236303f214edfa3f6f8911d822a9aa3aba3c942e5f511"
     }
   ]
 }
