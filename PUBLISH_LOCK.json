@@ -1,8 +1,8 @@
 {
  "schema_version": 1,
- "holder": "Muse",
- "token": "Muse-2026-11-03T0055Z-a68a2d6515e08b51",
- "purpose": "muse:2026-11-03:08 feed \u63d0\u4ea4",
- "acquired_at": "2026-11-03T00:55:00Z",
- "expires_at": "2026-11-03T01:40:00Z"
+ "holder": null,
+ "token": null,
+ "purpose": null,
+ "acquired_at": null,
+ "expires_at": null
 }
