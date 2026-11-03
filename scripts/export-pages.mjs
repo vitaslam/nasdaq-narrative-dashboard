@@ -53,7 +53,9 @@ try {
     console.warn('::warning::Retaining the previously validated Muse batch '+museFeed.batch_id+'.');
   }catch{}
 }
-const unchanged=previous?.data_revision===data.revision&&previous?.renderer_sha256===rendererHash&&previous?.muse_feed_sha256===museHash&&previous?.shell_override_sha256===shellOverrideHash;
+const assetVersion=rendererHash.slice(0,12);
+const layoutChanged=previous?.renderer_sha256!==rendererHash||previous?.shell_override_sha256!==shellOverrideHash||previous?.asset_version!==assetVersion;
+const unchanged=previous?.data_revision===data.revision&&previous?.muse_feed_sha256===museHash&&!layoutChanged;
 if(process.argv.includes('--skip-unchanged')&&unchanged){console.log('Export, approved renderer and Muse feed unchanged; no render or deploy needed.');process.exit(0)}
 if(museFeed){
   const merged=mergeMuseFeed(data,museFeed);
@@ -97,9 +99,10 @@ await write('api/index.json',JSON.stringify(index));
 await write('api/calendar.json',JSON.stringify({revision:data.revision,change_markers:data.change_markers,events:data.calendar.filter(e=>e.iso_date),ongoing:data.calendar.filter(e=>e.ongoing||e.week===0)}));
 await write('api/export.json',JSON.stringify(data));
 if(museFeed)await write('muse-last-valid.json',museBytes);
+const releaseRevision=Math.max(previous?.release_revision||0,previous?.data_revision||0,data.revision)+1;
 let shell=await (await response('/')).text();
 shell=shell.replace('allow-scripts allow-same-origin allow-downloads allow-modals','allow-scripts allow-same-origin allow-downloads allow-modals allow-popups allow-popups-to-escape-sandbox');
-shell=shell.replace("fetch('/api/index'","fetch('./api/index.json'").replace("const weekURL=date=>'/week/'+date","const weekURL=date=>'./weeks/'+date+'.html'");
+shell=shell.replace("fetch('/api/index'","fetch('./api/index.json'").replace("const weekURL=date=>'/week/'+date",`const weekURL=date=>'./weeks/'+date+'.html?v=${releaseRevision}'`);
 shell=shell.replace('</head>','<style>'+shellOverrideCSS+'</style></head>');
 await write('index.html',shell);await write('.nojekyll','');
 const assets=new Set(['/dashboard-priority.js','/shared-calendar.js','/shared-calendar.css','/dashboard-enhancements.js','/dashboard-enhancements.css']);
@@ -108,16 +111,17 @@ for(const week of index.weeks){
  for(const m of html.matchAll(/(?:src|href)="(\/assets\/[^"<>]+)"/g))assets.add(m[1]);
  for(const m of html.matchAll(/"asset_url":"(\/assets\/[^"<>]+)"/g))assets.add(m[1]);
  html=html.replace("fetch('/api/index'","fetch('../api/index.json'").replace("location.assign('/week/'+neighbor.date)","location.assign('../weeks/'+neighbor.date+'.html')").replace(/((?:src|href)=["'])\/(?!\/)/g,'$1../').replaceAll('"asset_url":"/assets/','"asset_url":"../assets/').replaceAll('"avatar_url":"/assets/','"avatar_url":"../assets/');
+ // Stable weekly links can outlive a deployment in a returning reader's browser cache.
+ html=html.replace(/((?:src|href)=["']\.\.\/[\w.-]+\.(?:js|css))(?=["'])/g,'$1?v='+assetVersion);
  await write('weeks/'+week.date+'.html',html);
 }
 for(const asset of assets){const r=await response(asset);let value;if(asset.endsWith('.js')){value=await r.text();if(asset==='/shared-calendar.js')value=value.replace('fetch(`/api/calendar?from=${start}&to=${end}`','fetch(`../api/calendar.json`')}else value=Buffer.from(await r.arrayBuffer());await write(asset.slice(1),value)}
 const builtAt=new Date().toISOString();
-const releaseRevision=Math.max(previous?.release_revision||0,previous?.data_revision||0,data.revision)+1;
-const release={schema_version:1,data_revision:data.revision,release_revision:releaseRevision,active_week:data.active_week,content_updated_at:data.weeks[data.active_week].updated_at,built_at:builtAt,renderer_release:'2026-11-03-v41-five-days-week-guides',renderer_sha256:rendererHash,shell_override_sha256:shellOverrideHash,muse_feed_batch:museFeed?.batch_id||null,muse_feed_sha256:museHash,muse_merge:museStats};
+const release={schema_version:1,data_revision:data.revision,release_revision:releaseRevision,active_week:data.active_week,content_updated_at:data.weeks[data.active_week].updated_at,built_at:builtAt,renderer_release:'2026-11-03-v41-five-days-week-guides',renderer_sha256:rendererHash,asset_version:assetVersion,shell_override_sha256:shellOverrideHash,muse_feed_batch:museFeed?.batch_id||null,muse_feed_sha256:museHash,muse_merge:museStats};
 await write('release.json',JSON.stringify(release,null,2));
 let log;try{log=await fs.readFile(path.join(root,'PUBLISH_LOG.md'),'utf8')}catch{log='# 发布日志\n\n构建提交记录；具体上线状态以 GitHub Pages 构建结果为准。\n\n| 北京时间 | 来源 | 批次 / revision | 变更摘要 |\n| --- | --- | --- | --- |\n'}
 const stamp=new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Shanghai',dateStyle:'short',timeStyle:'medium'}).format(new Date(builtAt));
-if(previous?.data_revision!==data.revision||previous?.renderer_sha256!==rendererHash||previous?.shell_override_sha256!==shellOverrideHash)log+=`| ${stamp} | GPT | export r${data.revision} | 主体内容/渲染器或时间轴样式更新，发布序号 ${releaseRevision} |\n`;
+if(previous?.data_revision!==data.revision||layoutChanged)log+=`| ${stamp} | GPT | export r${data.revision} | 主体内容/渲染器或时间轴样式更新，发布序号 ${releaseRevision} |\n`;
 if(museFeed&&previous?.muse_feed_sha256!==museHash)log+=`| ${stamp} | Muse | ${museFeed.batch_id} | 累计 ${museStats.topics} 话题、${museStats.posts} 帖；剔除 ${museStats.rejected_posts} 条时间冲突帖；行情 ${museStats.bars} 条、波动率 ${museStats.volatility_dates} 日；发布序号 ${releaseRevision} |\n`;
 await write('PUBLISH_LOG.md',log);
 console.log('Rendered '+index.weeks.length+' weeks; GPT revision '+data.revision+', publication '+releaseRevision+', Muse '+(museFeed?.batch_id||'none'));
