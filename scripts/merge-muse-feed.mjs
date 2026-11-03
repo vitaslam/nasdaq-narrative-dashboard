@@ -55,6 +55,20 @@ export function mergeMuseFeed(exportData, feed, {now = new Date().toISOString()}
     stats.topics++;
   }
   week.x_topics = [...topics.values()];
+  if (Array.isArray(feed.weekly_trends)) {
+    week.x_trends ??= [];
+    const trends = new Map(week.x_trends.map(trend => [trend.id, trend]));
+    const posts = new Map(week.x_topics.flatMap(topic => (topic.posts || []).map(post => [post.id, post])));
+    for (const trend of feed.weekly_trends) {
+      const evidence = [...new Set(trend.evidence_post_ids)].map(id => posts.get(id)).filter(Boolean);
+      if (evidence.length < 2 || new Set(evidence.map(post => post.author.toLowerCase())).size < 2) {
+        warnings.push(`Muse trend ${trend.id}: needs two available posts by different authors; skipped`);
+        continue;
+      }
+      trends.set(trend.id, {...trends.get(trend.id), ...clone(trend), status: week.status === 'archived' ? 'final' : trend.status});
+    }
+    week.x_trends = [...trends.values()];
+  }
 
   const snap = week.snapshot;
   snap.bars ??= {};

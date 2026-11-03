@@ -27,6 +27,7 @@ const rendererHash=createHash('sha256').update(archive).digest('hex');
 const shellOverrideCSS=''; // The approved renderer now includes the timeline layout.
 const shellOverrideHash=createHash('sha256').update(shellOverrideCSS).digest('hex');
 let previous;try{previous=JSON.parse(await fs.readFile(path.join(root,'release.json'),'utf8'))}catch{}
+let priorPublished;try{priorPublished=JSON.parse(await fs.readFile(path.join(root,'api/export.json'),'utf8'))}catch{}
 let museFeed=null, museHash=null, museStats=null, museBytes=null;
 try {
   const bytes=await fs.readFile(path.join(root,'muse-feed.json'));
@@ -56,6 +57,26 @@ if(museFeed){
   for(const warning of merged.warnings)console.warn('::warning::'+warning);
   if(museFeed.week_id!==data.active_week)console.warn('::warning::Muse batch targets '+museFeed.week_id+'; active week is '+data.active_week+'.');
 }
+// Keep the two contributors' change markers separate across export and feed merges.
+data.change_markers ??= {};
+if(priorPublished?.change_markers?.Muse)data.change_markers.Muse=priorPublished.change_markers.Muse;
+if(museFeed&&previous?.muse_feed_batch!==museFeed.batch_id){
+ const prior=priorPublished?.weeks?.[museFeed.week_id],now=data.weeks?.[museFeed.week_id],keys=[];
+ const shownPost=p=>p&&[p.author,p.published_at,p.translation_zh,p.translation_scope,p.viewpoint,p.views,p.reposts,p.replies,p.avatar_url,p.source_url,p.impact];
+ const priorPosts=new Map((prior?.x_topics||[]).flatMap(t=>(t.posts||[]).map(p=>[p.id,shownPost(p)])));
+ for(const topic of now?.x_topics||[])for(const post of topic.posts||[])if(JSON.stringify(shownPost(post))!==JSON.stringify(priorPosts.get(post.id)))keys.push('x:'+post.id);
+ const priorTrends=new Map((prior?.x_trends||[]).map(t=>[t.id,t]));
+ for(const trend of now?.x_trends||[])if(JSON.stringify(trend)!==JSON.stringify(priorTrends.get(trend.id)))keys.push('trend:'+trend.id);
+ for(const symbol of ['NDX','QQQ','SPX']){
+  const a=prior?.snapshot?.bars?.[symbol]?.at(-1),b=now?.snapshot?.bars?.[symbol]?.at(-1);
+  if(b&&JSON.stringify([a?.date,a?.c])!==JSON.stringify([b.date,b.c]))keys.push('metric:'+symbol);
+ }
+ for(const symbol of ['VIX','VXN','CNN','BofA','CTA','UST10Y','UST30Y','Brent','FedHike','VXFutures']){
+  const a=prior?.snapshot?.sentiment?.[symbol],b=now?.snapshot?.sentiment?.[symbol];
+  if(b&&JSON.stringify([a?.value,a?.asof,a?.vx1,a?.vx2])!==JSON.stringify([b.value,b.asof,b.vx1,b.vx2]))keys.push('metric:'+symbol);
+ }
+ data.change_markers.Muse={batch_id:museFeed.batch_id,at:new Date().toISOString(),keys:[...new Set(keys)]};
+}
 const approved=gunzipSync(archive).toString('utf8');
 const {default:worker}=await import('data:text/javascript;base64,'+Buffer.from(approved).toString('base64'));
 const state={...data,completed_runs:[]};
@@ -65,7 +86,7 @@ const out=path.join(root,'_site');await fs.rm(out,{recursive:true,force:true});a
 const write=async(name,value)=>{const target=path.join(out,name);await fs.mkdir(path.dirname(target),{recursive:true});await fs.writeFile(target,value)};
 const index=await (await response('/api/index')).json();delete index.schedule.id;
 await write('api/index.json',JSON.stringify(index));
-await write('api/calendar.json',JSON.stringify({revision:data.revision,events:data.calendar.filter(e=>e.iso_date),ongoing:data.calendar.filter(e=>e.ongoing||e.week===0)}));
+await write('api/calendar.json',JSON.stringify({revision:data.revision,change_markers:data.change_markers,events:data.calendar.filter(e=>e.iso_date),ongoing:data.calendar.filter(e=>e.ongoing||e.week===0)}));
 await write('api/export.json',JSON.stringify(data));
 if(museFeed)await write('muse-last-valid.json',museBytes);
 let shell=await (await response('/')).text();
@@ -84,7 +105,7 @@ for(const week of index.weeks){
 for(const asset of assets){const r=await response(asset);let value;if(asset.endsWith('.js')){value=await r.text();if(asset==='/shared-calendar.js')value=value.replace('fetch(`/api/calendar?from=${start}&to=${end}`','fetch(`../api/calendar.json`')}else value=Buffer.from(await r.arrayBuffer());await write(asset.slice(1),value)}
 const builtAt=new Date().toISOString();
 const releaseRevision=Math.max(previous?.release_revision||0,previous?.data_revision||0,data.revision)+1;
-const release={schema_version:1,data_revision:data.revision,release_revision:releaseRevision,active_week:data.active_week,content_updated_at:data.weeks[data.active_week].updated_at,built_at:builtAt,renderer_release:'2026-11-02-v32-pages-week-path',renderer_sha256:rendererHash,shell_override_sha256:shellOverrideHash,muse_feed_batch:museFeed?.batch_id||null,muse_feed_sha256:museHash,muse_merge:museStats};
+const release={schema_version:1,data_revision:data.revision,release_revision:releaseRevision,active_week:data.active_week,content_updated_at:data.weeks[data.active_week].updated_at,built_at:builtAt,renderer_release:'2026-11-03-v36-daily-mood-earnings-trends-x-masonry',renderer_sha256:rendererHash,shell_override_sha256:shellOverrideHash,muse_feed_batch:museFeed?.batch_id||null,muse_feed_sha256:museHash,muse_merge:museStats};
 await write('release.json',JSON.stringify(release,null,2));
 let log;try{log=await fs.readFile(path.join(root,'PUBLISH_LOG.md'),'utf8')}catch{log='# 发布日志\n\n构建提交记录；具体上线状态以 GitHub Pages 构建结果为准。\n\n| 北京时间 | 来源 | 批次 / revision | 变更摘要 |\n| --- | --- | --- | --- |\n'}
 const stamp=new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Shanghai',dateStyle:'short',timeStyle:'medium'}).format(new Date(builtAt));

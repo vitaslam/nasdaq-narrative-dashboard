@@ -10,7 +10,7 @@ const keys = (value, allowed, label) => {
   if (!value || typeof value !== 'object' || Array.isArray(value)) fail(`${label} must be an object`);
   for (const key of Object.keys(value)) if (!allowed.includes(key)) fail(`${label}.${key} is not an allowed field`);
 };
-keys(feed, ['schema_version','batch_id','week_id','generated_at','x_topics_upsert','market_bars','volatility_readings','market_indicators'], 'root');
+keys(feed, ['schema_version','batch_id','week_id','generated_at','x_topics_upsert','weekly_trends','market_bars','volatility_readings','market_indicators'], 'root');
 if (feed.schema_version !== 1 || !date(feed.week_id)) fail('invalid schema version or week_id');
 if (typeof feed.batch_id !== 'string' || !/^[a-zA-Z0-9:._-]{1,80}$/.test(feed.batch_id)) fail('invalid batch_id');
 if (feed.batch_id !== 'template' && !timestamp(feed.generated_at)) fail('generated_at must be a timestamp');
@@ -39,6 +39,19 @@ for (const topic of feed.x_topics_upsert) {
       keys(item, ['targets','direction','reason'], 'impact');
       if (!item.targets?.trim() || !item.direction?.trim() || !item.reason?.trim()) fail('impact needs targets, direction and reason');
     }
+  }
+}
+if (feed.weekly_trends != null) {
+  if (!Array.isArray(feed.weekly_trends) || feed.weekly_trends.length > 8) fail('weekly_trends needs at most eight clusters');
+  const trendIds = new Set();
+  for (const trend of feed.weekly_trends) {
+    keys(trend, ['id','title','summary','status','asof','evidence_post_ids','caveat','benefit_tags'], 'weekly_trend');
+    if (!/^[a-z0-9][a-z0-9-]{1,79}$/.test(trend.id || '') || trendIds.has(trend.id)) fail('invalid or duplicate weekly trend id');
+    trendIds.add(trend.id);
+    if (!trend.title?.trim() || !trend.summary?.trim() || !['tracking','final'].includes(trend.status) || !timestamp(trend.asof)) fail('trend needs dated title, summary and status');
+    if (!Array.isArray(trend.evidence_post_ids) || new Set(trend.evidence_post_ids).size < 2 || trend.evidence_post_ids.length > 12) fail('trend needs at least two distinct post IDs');
+    if (!Array.isArray(trend.benefit_tags) || trend.benefit_tags.length > 6 || !trend.benefit_tags.every(tag => typeof tag === 'string' && tag.trim() && tag.length <= 45)) fail('trend benefit tags invalid');
+    if (trend.caveat != null && (typeof trend.caveat !== 'string' || trend.caveat.length > 300)) fail('trend caveat too long');
   }
 }
 keys(feed.market_bars, ['NDX','QQQ','SPX'], 'market_bars');
