@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "holder": null,
-  "token": null,
-  "purpose": null,
-  "acquired_at": null,
-  "expires_at": null
+  "holder": "GPT",
+  "token": "8eab3978-0c24-4385-809a-2095c5126883",
+  "purpose": "Hand X frequent posts, authors and trends exclusively to Muse; remove GPT markers",
+  "acquired_at": "2026-11-03T06:37:40.185Z",
+  "expires_at": "2026-11-03T07:22:40.185Z"
 }
