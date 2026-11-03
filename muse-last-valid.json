@@ -1,8 +1,8 @@
 {
  "schema_version": 1,
- "batch_id": "muse:2026-11-03:16e",
+ "batch_id": "muse:2026-11-03:18",
  "week_id": "2026-11-02",
- "generated_at": "2026-11-03T08:49:37Z",
+ "generated_at": "2026-11-03T10:28:09Z",
  "x_topics_upsert": [
   {
    "id": "polymarket-32228",
@@ -14,12 +14,12 @@
      "author": "@PolymarketA",
      "published_at": "2026-11-03T08:21:58Z",
      "quote": null,
-     "viewpoint": "YES：76.5% (+0.5%)\nNO：23.5%",
-     "translation_zh": "Polymarket 事件「民主党横扫中期选举」最新双边概率：YES 76.5% / NO 23.5%，YES 较上轮快照变化 +0.5pp；该事件累计成交额约 $60,880,681。点击跳转 Polymarket 该事件页。",
+     "viewpoint": "YES：75.5% (-1.5%)\nNO：24.5%",
+     "translation_zh": "Polymarket 事件「民主党横扫中期选举」最新双边概率：YES 75.5% / NO 24.5%，YES 较上轮快照变化 -1.5pp；该事件累计成交额约 $61,677,048。点击跳转 Polymarket 该事件页。",
      "views": null,
      "reposts": null,
      "replies": null,
-     "observed_at": "2026-11-03T08:26:42Z",
+     "observed_at": "2026-11-03T10:28:09Z",
      "source_url": "https://polymarket.com/event/balance-of-power-2026-midterms",
      "metrics_source": "https://gamma-api.polymarket.com/events/32228",
      "verification": "Polymarket 官方 Gamma API 读取该事件双边概率。",
@@ -39,12 +39,12 @@
      "author": "@PolymarketA",
      "published_at": "2026-11-03T08:21:58Z",
      "quote": null,
-     "viewpoint": "YES：87.0% (-12.9%)\nNO：13.0%",
-     "translation_zh": "Polymarket 事件「WTI 11月破$100」最新双边概率：YES 87.0% / NO 13.0%，YES 较上轮快照变化 -12.9pp；该事件累计成交额约 $655,212。点击跳转 Polymarket 该事件页。",
+     "viewpoint": "YES：84.5% (-2.5%)\nNO：15.5%",
+     "translation_zh": "Polymarket 事件「WTI 11月破$100」最新双边概率：YES 84.5% / NO 15.5%，YES 较上轮快照变化 -2.5pp；该事件累计成交额约 $695,260。点击跳转 Polymarket 该事件页。",
      "views": null,
      "reposts": null,
      "replies": null,
-     "observed_at": "2026-11-03T08:26:42Z",
+     "observed_at": "2026-11-03T10:28:09Z",
      "source_url": "https://polymarket.com/event/what-price-will-wti-hit-in-november-2026",
      "metrics_source": "https://gamma-api.polymarket.com/events/1250301",
      "verification": "Polymarket 官方 Gamma API 读取该事件双边概率。",
@@ -65,11 +65,11 @@
      "published_at": "2026-11-03T08:21:58Z",
      "quote": null,
      "viewpoint": "YES：72.5% (-0.5%)\nNO：27.5%",
-     "translation_zh": "Polymarket 事件「Fed 12月决议·加息25bp」最新双边概率：YES 72.5% / NO 27.5%，YES 较上轮快照变化 -0.5pp；该事件累计成交额约 $10,933,502。点击跳转 Polymarket 该事件页。",
+     "translation_zh": "Polymarket 事件「Fed 12月决议·加息25bp」最新双边概率：YES 72.5% / NO 27.5%，YES 较上轮快照变化 -0.5pp；该事件累计成交额约 $10,941,281。点击跳转 Polymarket 该事件页。",
      "views": null,
      "reposts": null,
      "replies": null,
-     "observed_at": "2026-11-03T08:26:42Z",
+     "observed_at": "2026-11-03T10:28:09Z",
      "source_url": "https://polymarket.com/event/fed-decision-in-december-20260729232808632",
      "metrics_source": "https://gamma-api.polymarket.com/events/770450",
      "verification": "Polymarket 官方 Gamma API 读取该事件双边概率。",
@@ -89,12 +89,12 @@
      "author": "@PolymarketB",
      "published_at": "2026-11-03T08:21:58Z",
      "quote": null,
-     "viewpoint": "YES：72.5% (+0.5%)\nNO：27.5%",
-     "translation_zh": "Polymarket 事件「2026年再加息」最新双边概率：YES 72.5% / NO 27.5%，YES 较上轮快照变化 +0.5pp；该事件累计成交额约 $1,294,300。点击跳转 Polymarket 该事件页。",
+     "viewpoint": "YES：72.5% (-0.5%)\nNO：27.5%",
+     "translation_zh": "Polymarket 事件「2026年再加息」最新双边概率：YES 72.5% / NO 27.5%，YES 较上轮快照变化 -0.5pp；该事件累计成交额约 $1,294,300。点击跳转 Polymarket 该事件页。",
      "views": null,
      "reposts": null,
      "replies": null,
-     "observed_at": "2026-11-03T08:26:42Z",
+     "observed_at": "2026-11-03T10:28:09Z",
      "source_url": "https://polymarket.com/event/another-fed-rate-hike-in-2026",
      "metrics_source": "https://gamma-api.polymarket.com/events/1034268",
      "verification": "Polymarket 官方 Gamma API 读取该事件双边概率。",
@@ -119,7 +119,7 @@
      "views": null,
      "reposts": null,
      "replies": null,
-     "observed_at": "2026-11-03T08:26:42Z",
+     "observed_at": "2026-11-03T10:28:09Z",
      "source_url": "https://polymarket.com/event/us-yemen-ceasefire-continues-throughptptpt",
      "metrics_source": "https://gamma-api.polymarket.com/events/1053896",
      "verification": "Polymarket 官方 Gamma API 读取该事件双边概率。",
@@ -139,12 +139,12 @@
      "author": "@PolymarketB",
      "published_at": "2026-11-03T08:21:58Z",
      "quote": null,
-     "viewpoint": "YES：91.5% (-0.3%)\nNO：8.5%",
-     "translation_zh": "Polymarket 事件「Anthropic 2026年底前IPO」最新双边概率：YES 91.5% / NO 8.5%，YES 较上轮快照变化 -0.3pp；该事件累计成交额约 $6,257,492。点击跳转 Polymarket 该事件页。",
+     "viewpoint": "YES：92.4% (+0.5%)\nNO：7.6%",
+     "translation_zh": "Polymarket 事件「Anthropic 2026年底前IPO」最新双边概率：YES 92.4% / NO 7.6%，YES 较上轮快照变化 +0.5pp；该事件累计成交额约 $6,260,727。点击跳转 Polymarket 该事件页。",
      "views": null,
      "reposts": null,
      "replies": null,
-     "observed_at": "2026-11-03T08:26:42Z",
+     "observed_at": "2026-11-03T10:28:09Z",
      "source_url": "https://polymarket.com/event/anthropic-ipo-by",
      "metrics_source": "https://gamma-api.polymarket.com/events/549019",
      "verification": "Polymarket 官方 Gamma API 读取该事件双边概率。",
@@ -169,7 +169,7 @@
      "views": null,
      "reposts": null,
      "replies": null,
-     "observed_at": "2026-11-03T08:26:42Z",
+     "observed_at": "2026-11-03T10:28:09Z",
      "source_url": "https://polymarket.com/event/us-recession-by-end-of-2026",
      "metrics_source": "https://gamma-api.polymarket.com/events/48802",
      "verification": "Polymarket 官方 Gamma API 读取该事件双边概率。",
@@ -190,11 +190,11 @@
      "published_at": "2026-11-03T08:21:58Z",
      "quote": null,
      "viewpoint": "YES：0.0% (-0.1%)\nNO：100.0%",
-     "translation_zh": "Polymarket 事件「美伊停火延续至11月底」最新双边概率：YES 0.0% / NO 100.0%，YES 较上轮快照变化 -0.1pp；该事件累计成交额约 $37,639,917。点击跳转 Polymarket 该事件页。",
+     "translation_zh": "Polymarket 事件「美伊停火延续至11月底」最新双边概率：YES 0.0% / NO 100.0%，YES 较上轮快照变化 -0.1pp；该事件累计成交额约 $38,052,451。点击跳转 Polymarket 该事件页。",
      "views": null,
      "reposts": null,
      "replies": null,
-     "observed_at": "2026-11-03T08:26:42Z",
+     "observed_at": "2026-11-03T10:28:09Z",
      "source_url": "https://polymarket.com/event/us-iran-ceasefire-continues-throughptptpt",
      "metrics_source": "https://gamma-api.polymarket.com/events/1038648",
      "verification": "Polymarket 官方 Gamma API 读取该事件双边概率。",
@@ -581,6 +581,32 @@
        "targets": "WTI / Brent 原油",
        "direction": "利空",
        "reason": "谈判姿态缓和地缘溢价，油价当日大幅回落；下一验证点为多哈谈判进展与霍尔木兹通航安排能否落地。"
+      }
+     ]
+    },
+    {
+     "id": "2117551681139507299",
+     "author": "@wallstengine",
+     "published_at": "2026-11-03T09:37:17Z",
+     "quote": "Iran remains “far from a deal” with the U.S. & will not accept Washington's “excessive demands” a senior Iranian official tells Reuters",
+     "viewpoint": "伊朗高官向路透社称伊方仍远未与美国达成协议，不接受美方过分要求，霍尔木兹海峡只按伊方条件重开，油价随之反弹。",
+     "translation_zh": "一位伊朗高级官员告诉路透社：伊朗仍“远未与美国达成协议”，不会接受华盛顿的“过分要求”。\n\n德黑兰坚持霍尔木兹海峡只按伊方条件重开，核谈判随后再进行。\n\n调解人正在努力缩小分歧。",
+     "translation_scope": "full",
+     "translation_source_url": "https://x.com/wallstengine/status/2117551681139507299",
+     "views": 9958,
+     "reposts": 6,
+     "replies": 4,
+     "observed_at": "2026-11-03T10:28:09Z",
+     "source_url": "https://x.com/wallstengine/status/2117551681139507299",
+     "metrics_source": "https://x.com/wallstengine/status/2117551681139507299",
+     "verification": "X 精华监控 18:13 轮报告，FxTwitter 核对原帖全文；路透社信源转述。",
+     "avatar_url": "https://pbs.twimg.com/profile_images/1691846947857178624/oZp5wB4r_400x400.jpg",
+     "avatar_source": "https://x.com/wallstengine",
+     "impact": [
+      {
+       "targets": "WTI / Brent 原油",
+       "direction": "利多",
+       "reason": "谈判仍远、霍尔木兹重开设条件，地缘溢价回升；下一验证点为多哈谈判进展与通航安排。"
       }
      ]
     }
@@ -1366,6 +1392,105 @@
        "targets": "银行信贷 / AI 基建",
        "direction": "扩张",
        "reason": "信贷扩张印证 AI 基建正由债务融资支撑，关注信贷质量与利率传导；不直接等于利好单一标的。"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "deepseek-huawei-ascend",
+   "title": "DeepSeek 拟用华为昇腾预训练 V5",
+   "summary": "DeepSeek 计划用华为昇腾芯片预训练下一代大模型 V5，引用帖称 Ascend 960DT 预计 2027 年一季度就绪。",
+   "posts": [
+    {
+     "id": "2117540499712352336",
+     "author": "@jukan05",
+     "published_at": "2026-11-03T08:52:51Z",
+     "quote": "DeepSeek plans to pretrain its next-generation large AI model, DeepSeek V5, using Huawei Ascend chips.",
+     "viewpoint": "DeepSeek 计划用华为昇腾芯片预训练下一代大模型 V5；引用帖称 Ascend 960DT 预计 2027 年一季度就绪。",
+     "translation_zh": "“DeepSeek 计划用华为昇腾芯片预训练下一代大模型 DeepSeek V5。”\n\n引用 @Zekunnnnn 的原帖：“DeepSeek 计划在华为昇腾芯片上预训练 V5。如果你一直在关注 DeepSeek，这并不令人意外。Ascend 960DT 预计将于 2027 年第一季度就绪。”",
+     "translation_scope": "full",
+     "translation_source_url": "https://x.com/jukan05/status/2117540499712352336",
+     "views": 20636,
+     "reposts": 14,
+     "replies": 24,
+     "observed_at": "2026-11-03T10:28:09Z",
+     "source_url": "https://x.com/jukan05/status/2117540499712352336",
+     "metrics_source": "https://x.com/jukan05/status/2117540499712352336",
+     "verification": "X 精华监控 18:13 轮报告，FxTwitter 核对原帖全文；单源消息。",
+     "avatar_url": "https://pbs.twimg.com/profile_images/2113208994739433472/RG71j-sh_400x400.jpg",
+     "avatar_source": "https://x.com/jukan05",
+     "impact": [
+      {
+       "targets": "DeepSeek / 华为昇腾芯片链",
+       "direction": "利好",
+       "reason": "国产算力替代叙事再获证据；下一验证点为 V5 训练进展与 Ascend 960DT 2027 年一季度交付。"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "solidigm-nand-fabs",
+   "title": "Solidigm 拟在纽约建两座 NAND 晶圆厂",
+   "summary": "据韩媒报道，SK 海力士子公司 Solidigm 拟在纽约 Marcy Nanocenter 建两座 NAND 晶圆厂，总成本 1000 亿美元。",
+   "posts": [
+    {
+     "id": "2117541588184551815",
+     "author": "@jukan05",
+     "published_at": "2026-11-03T08:57:11Z",
+     "quote": "SK HYNIX SUBSIDIARY SOLIDIGM IS PURSUING PLANS TO BUILD TWO NAND FABS AT THE MARCY NANOCENTER IN NEW YORK",
+     "viewpoint": "SK 海力士子公司 Solidigm 拟在纽约 Marcy Nanocenter 建两座 NAND 晶圆厂，总成本 1000 亿美元。",
+     "translation_zh": "据韩媒报道：SK 海力士子公司 Solidigm 正推进计划，在纽约 Marcy Nanocenter 建设两座 NAND 晶圆厂，总成本 1000 亿美元。",
+     "translation_scope": "full",
+     "translation_source_url": "https://x.com/jukan05/status/2117541588184551815",
+     "views": 32482,
+     "reposts": 14,
+     "replies": 15,
+     "observed_at": "2026-11-03T10:28:09Z",
+     "source_url": "https://x.com/jukan05/status/2117541588184551815",
+     "metrics_source": "https://x.com/jukan05/status/2117541588184551815",
+     "verification": "X 精华监控 18:13 轮报告，FxTwitter 核对原帖全文；韩媒消息单源。",
+     "avatar_url": "https://pbs.twimg.com/profile_images/2113208994739433472/RG71j-sh_400x400.jpg",
+     "avatar_source": "https://x.com/jukan05",
+     "impact": [
+      {
+       "targets": "SK 海力士 / NAND 存储",
+       "direction": "利好",
+       "reason": "美国本土存储产能扩张叙事；下一验证点为公司官方公告与补贴细节。"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "trump-putin-xi-summit",
+   "title": "美俄中据报商讨 11 月三方峰会",
+   "summary": "美俄中据报正认真商讨 11 月借深圳 APEC 峰会举行特朗普–普京–习近平三方会晤，但中方尚未同意主办、议程仍是障碍。",
+   "posts": [
+    {
+     "id": "2117558704090620312",
+     "author": "@wallstengine",
+     "published_at": "2026-11-03T10:05:12Z",
+     "quote": "TRUMP-PUTIN-XI SUMMIT BEING DISCUSSED FOR NOVEMBER",
+     "viewpoint": "美俄中据报商讨 11 月三方峰会：克里姆林宫称筹备进行中，但中方尚未同意主办、议程仍是障碍，三方会晤尚未正式确认。",
+     "translation_zh": "特朗普–普京–习近平峰会正在商讨，拟于 11 月举行。\n\n据报道，美国、俄罗斯与中国官员正认真商讨，拟借 11 月 18–19 日在中国深圳举行的 APEC 峰会，安排特朗普、普京与习近平之间的首次三方会晤。\n\n克里姆林宫证实筹备工作正在进行，并希望计划能在未来几天内敲定。\n\n但中国尚未同意主办此次会晤，拟议议程仍是一大障碍。\n\n特朗普希望聚焦核军控，而北京一直抵制此类会谈。据报道，俄罗斯不预期就乌克兰问题进行实质性讨论。\n\n目前三方会晤尚未正式确认。\n\n来源：金融时报",
+     "translation_scope": "full",
+     "translation_source_url": "https://x.com/wallstengine/status/2117558704090620312",
+     "views": 7872,
+     "reposts": 4,
+     "replies": 6,
+     "observed_at": "2026-11-03T10:28:09Z",
+     "source_url": "https://x.com/wallstengine/status/2117558704090620312",
+     "metrics_source": "https://x.com/wallstengine/status/2117558704090620312",
+     "verification": "X 精华监控 18:13 轮报告，FxTwitter 核对原帖全文；来源为金融时报报道转述。",
+     "avatar_url": "https://pbs.twimg.com/profile_images/1691846947857178624/oZp5wB4r_400x400.jpg",
+     "avatar_source": "https://x.com/wallstengine",
+     "impact": [
+      {
+       "targets": "全球风险资产 / 原油",
+       "direction": "分化",
+       "reason": "三方峰会若成行可缓和地缘溢价，但中方尚未同意主办、议程仍是障碍；下一验证点为中方与克里姆林宫正式表态。"
       }
      ]
     }
