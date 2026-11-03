@@ -1,7 +1,7 @@
 {
- "holder": null,
- "token": null,
- "purpose": null,
- "acquired_at": null,
- "expires_at": null
+ "holder": "Muse",
+ "token": "muse-1793693868-poly2",
+ "purpose": "muse:2026-11-03:16b polymarket per-event posts",
+ "acquired_at": "2026-11-03T08:17:48Z",
+ "expires_at": "2026-11-03T09:02:48Z"
 }
