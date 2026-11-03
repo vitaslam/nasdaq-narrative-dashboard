@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "holder": "GPT",
-  "token": "188b360d-a931-4790-9b61-adfb4f1ac8df",
-  "purpose": "Show five complete trading-day sentiment cards in the open panel",
-  "acquired_at": "2026-11-03T06:56:30.436Z",
-  "expires_at": "2026-11-03T07:41:30.436Z"
+  "holder": null,
+  "token": null,
+  "purpose": null,
+  "acquired_at": null,
+  "expires_at": null
 }
