@@ -22,6 +22,10 @@
     {
       "file": "renderer-v41-mood-five-week-guides.patch",
       "renderer_sha256": "f2bec0a58dfc274c6bc236303f214edfa3f6f8911d822a9aa3aba3c942e5f511"
+    },
+    {
+      "file": "renderer-v42-aligned-daily-cards.patch",
+      "renderer_sha256": "dc3d56334103de340ae247f38867d57b13f4f5734ead0a828a6f009f1831953e"
     }
   ]
 }
