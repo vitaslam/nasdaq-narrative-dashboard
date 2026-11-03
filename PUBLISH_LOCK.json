@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "holder": null,
-  "token": null,
-  "purpose": null,
-  "acquired_at": null,
-  "expires_at": null
+  "holder": "GPT",
+  "token": "72bc6817-2ada-42c2-a881-5e1ff0a44ccb",
+  "purpose": "Ensure returning dashboard readers load the five-day layout and weekly dividers",
+  "acquired_at": "2026-11-03T07:12:54.418Z",
+  "expires_at": "2026-11-03T07:57:54.418Z"
 }
