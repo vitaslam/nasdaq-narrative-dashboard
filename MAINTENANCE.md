@@ -5,7 +5,7 @@
 
 ## 两个站点与一条数据主线
 
-GPT 站点的 `/api/export` 是主体内容主源，提供 `revision`、`active_week`、各周记录与共用日历。Muse 在 `muse-feed.json` 主责 X 的「高频板块」和 NDX/QQQ/SPX、VIX/VXN、CNN、BofA、CTA 最新读数；GPT 主责「高热度话题」的选题、核验与补充。GitHub Actions 先拉 export，再按下述归属合并 feed，用仓库 `approved/renderer-parts.json` 指定、校验后重组的用户确认渲染器生成静态页面。清单的可选 `update` 记录公开文本补丁，构建同时校验补丁应用后的渲染器 SHA-256。仓库根目录生成的 HTML、`weeks/`、`api/`、CSS/JS 是**产物**，不可手改；下次同步会覆盖。`approved/snapshot.json` 只是发布时的备份，日常不作为最新数据源。
+GPT 站点的 `/api/export` 是主体内容主源，提供 `revision`、`active_week`、各周记录与共用日历。Muse 在 `muse-feed.json` 主责 X 的「高频板块」和 NDX/QQQ/SPX、VIX/VXN、CNN、BofA、CTA 最新读数；GPT 主责「高热度话题」的选题、核验与补充。GitHub Actions 先拉 export，再按下述归属合并 feed，用仓库 `approved/renderer-parts.json` 指定、校验后重组的用户确认渲染器生成静态页面。清单的 `update` 按顺序列出公开文本补丁，构建校验每一步重建后的渲染器 SHA-256。仓库根目录生成的 HTML、`weeks/`、`api/`、CSS/JS 是**产物**，不可手改；下次同步会覆盖。`approved/snapshot.json` 只是发布时的备份，日常不作为最新数据源。
 
 页面改版先在 GPT 站点验证；用户确认后才更换 GitHub 的渲染器。主体内容更新由数据工具写回 GPT 站点，再让 `data-revision.json` 触发 GitHub 同步；Muse 提交 `muse-feed.json` 也直接触发**同一条**构建发布管线。`/api/export` 是只读的主体数据，不包含构建期 Muse 合并结果；正式发布的合并数据可用 GitHub Pages 的 `/api/export.json` 核对。动手前先读根目录 `PUBLISH_LOG.md` 最新记录。
 
@@ -42,11 +42,11 @@ Muse 和 GPT 开始**任何数据写入**（包括 `muse-feed.json`、GPT 站点
 
 GPT 通过站点 `dashboard_apply_daily_update` 按 patch 自动生成并替换自己的键集合；Muse **不要改 GPT 的集合**。Muse 仍提交现有 `muse-feed.json` 累计数据并用新的 `batch_id`；构建时将本批合并结果与上次发布的可见数据比较，产生新 `Muse` 键集合，只替换旧 Muse 点，不清除 GPT 点。相同批次的重建沿用现有 Muse 点；新批次即使没有可见变化，也应清空旧 Muse 点。不要往累计 feed 塞整站黄点或手工删除另一个代理的标记。检查 `/api/export.json` 的 `change_markers` 与页面卡片，确保来源归属正确。
 
-2026-11-03 用户定版：趋势捕捉板块由 Muse 独家管理，GPT 不再对 trend:* 打黄点；存量 GPT trend 键已由 Muse 按用户指令清除。
+**趋势捕捉由 Muse 独立维护。** Muse 用本周的 `weekly_trends` 更新选题、证据、受益标签及定稿状态，并通过自己的批次管理 `trend:<id>` 黄点。GPT 日更只读，周归档保留 Muse 已发布的状态。存量 GPT 趋势标记由 GPT 在主体数据源清理。
 
 关键财报当日由 GPT 立即完善共用日历；具体 `earnings_metrics` 逐项预期/实际、`guidance`、`reaction_phases` 按盘后/夜盘/盘前的出处与时间分别写，`narrative_impact` 先作有条件的即时分析，不留空白。Muse 的行情 feed 更新只负责其价格/指标与 X，不应覆盖 GPT 的日历解释。10 月按交易日补齐的情绪为回溯判断，不能冒称当时实时保存。
 
-X 高频板块顶部有「趋势捕捉」。趋势卡单行等分，每页最多四张，超出可翻页。点选趋势后，页面按 `evidence_post_ids` 给每条对应的帖子添加底色。即使同一作者有多帖，也须分别填写对应的稳定 post ID。Muse 每次抓帖后复核本周**累计**原帖，寻找至少两位不同作者的独立帖子所支持的共同驱动（例如企业发债、电力与并网瓶颈）。通过 `weekly_trends` 累计提交最多 8 条，沿用稳定趋势 ID 并更新 `asof`、依据帖子 ID、简短结论、反例/不确定性与 `benefit_tags`。标签可写利好标的、行业或大盘，但要写清是潜在受益及所需条件；发债本身不自动利好，供电紧张也可能压制云厂商。避免把同一转载/同一消息源的多帖当成独立证据。趋势随帖子修正，周内 `tracking`，周末最终收盘核验后 `final`；历史周固定，不因新消息改写旧周判断。Muse 新批只改自己的趋势与 Muse 黄点；GPT 对初始趋势的黄点仍按 GPT 下一次更新清除。日历中的 `result_emoji` 表示业绩相对预期，`reaction_emoji` 表示观察到的价格反应，二者分开且须与数据一致。
+X 高频板块顶部有「趋势捕捉」。趋势卡单行等分，每页最多四张，超出可翻页。点选趋势后，页面按 `evidence_post_ids` 给每条对应的帖子添加底色。即使同一作者有多帖，也须分别填写对应的稳定 post ID。Muse 每次抓帖后复核本周**累计**原帖，寻找至少两位不同作者的独立帖子所支持的共同驱动（例如企业发债、电力与并网瓶颈）。通过 `weekly_trends` 累计提交最多 8 条，沿用稳定趋势 ID 并更新 `asof`、依据帖子 ID、简短结论、反例/不确定性与 `benefit_tags`。标签可写利好标的、行业或大盘，但要写清是潜在受益及所需条件；发债本身不自动利好，供电紧张也可能压制云厂商。避免把同一转载/同一消息源的多帖当成独立证据。趋势随帖子修正，周内 `tracking`，周末最终收盘核验后 `final`；历史周固定，不因新消息改写旧周判断。趋势卡只显示 Muse 本批的黄点。日历中的 `result_emoji` 表示业绩相对预期，`reaction_emoji` 表示观察到的价格反应，二者分开且须与数据一致。
 
 `muse-feed.json` 是**本周累计版**，不是整周主体快照，也不改页面模板。高频的帖子与话题不设数量上限；按稳定 post ID 去重，不能靠截断凑上限。每批写新 `batch_id`（例如 `muse:2026-11-02:20`）、当前 `week_id`、生成时间和来源；**每次带上本周已提交的全部 Muse 话题与帖子，只增改不删减；新周换新文件**。同话题沿用原 topic ID，帖子用稳定 post ID 去重。仅保留内容和行情约束：quote ≤25 词，bars 与波动率各 ≤5 个交易日。高热度合格帖子与高频 feed 都不设数量上限。不删除 GPT 补充的话题或帖子。结构：
 

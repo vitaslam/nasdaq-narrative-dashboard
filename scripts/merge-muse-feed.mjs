@@ -65,7 +65,7 @@ export function mergeMuseFeed(exportData, feed, {now = new Date().toISOString()}
         warnings.push(`Muse trend ${trend.id}: needs two available posts by different authors; skipped`);
         continue;
       }
-      trends.set(trend.id, {...trends.get(trend.id), ...clone(trend), status: week.status === 'archived' ? 'final' : trend.status});
+      trends.set(trend.id, {...trends.get(trend.id), ...clone(trend)});
     }
     week.x_trends = [...trends.values()];
   }

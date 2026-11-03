@@ -12,21 +12,21 @@ let data;
 if(process.argv.includes('--snapshot'))data=JSON.parse(await fs.readFile(path.join(root,'approved/snapshot.json'),'utf8'));
 else {const r=await fetch(source,{signal:AbortSignal.timeout(45000)});if(!r.ok)throw Error('Public data source returned '+r.status);data=await r.json()}
 if(data.schema_version!==1||!Number.isInteger(data.revision)||!data.weeks?.[data.active_week]||!Array.isArray(data.calendar))throw Error('Unsupported or incomplete public data; keep the last deployment');
-let archive,update;
+let archive,updates=[];
 try {
   const manifest=JSON.parse(await fs.readFile(path.join(root,'approved/renderer-parts.json'),'utf8'));
   if(manifest.version!==1||!Array.isArray(manifest.parts)||!manifest.parts.length||manifest.parts.some(name=>!/^[a-z0-9.-]+$/.test(name)))throw Error('Invalid approved renderer parts manifest');
-  update=manifest.update;
-  if(update&&(!/^[a-z0-9.-]+\.patch$/.test(update.file)||!/^[a-f0-9]{64}$/.test(update.renderer_sha256)))throw Error('Invalid approved renderer update');
+  updates=[].concat(manifest.update||[]);
+  if(updates.some(update=>!update||!/^[a-z0-9.-]+\.patch$/.test(update.file)||!/^[a-f0-9]{64}$/.test(update.renderer_sha256)))throw Error('Invalid approved renderer update');
   archive=Buffer.concat(await Promise.all(manifest.parts.map(name=>fs.readFile(path.join(root,'approved',name)))));
   if(createHash('sha256').update(archive).digest('hex')!==manifest.sha256)throw Error('Approved renderer parts failed SHA-256 check');
 } catch(error) {
   if(error.code!=='ENOENT')throw error;
   archive=await fs.readFile(path.join(root,'approved/renderer.mjs.gz'));
 }
-const base=gunzipSync(archive).toString('utf8');
-const approved=update?await applyRendererUpdate(base,path.join(root,'approved',update.file),update.renderer_sha256):base;
-const rendererHash=update?.renderer_sha256||createHash('sha256').update(archive).digest('hex');
+let approved=gunzipSync(archive).toString('utf8');
+for(const update of updates)approved=await applyRendererUpdate(approved,path.join(root,'approved',update.file),update.renderer_sha256);
+const rendererHash=updates.at(-1)?.renderer_sha256||createHash('sha256').update(archive).digest('hex');
 // The public time axis is rendered by the approved shell. Keep this small
 // compatibility rule until the next approved renderer bundle includes it.
 const shellOverrideCSS=''; // The approved renderer now includes the timeline layout.
@@ -64,6 +64,9 @@ if(museFeed){
 }
 // Keep the two contributors' change markers separate across export and feed merges.
 data.change_markers ??= {};
+// Older source snapshots can still contain retired GPT trend keys.
+const gptDots=data.change_markers.GPT;
+if(gptDots?.keys)gptDots.keys=gptDots.keys.filter(key=>!key.startsWith('trend:'));
 if(priorPublished?.change_markers?.Muse)data.change_markers.Muse=priorPublished.change_markers.Muse;
 if(museFeed&&previous?.muse_feed_batch!==museFeed.batch_id){
  const prior=priorPublished?.weeks?.[museFeed.week_id],now=data.weeks?.[museFeed.week_id],keys=[];
@@ -110,7 +113,7 @@ for(const week of index.weeks){
 for(const asset of assets){const r=await response(asset);let value;if(asset.endsWith('.js')){value=await r.text();if(asset==='/shared-calendar.js')value=value.replace('fetch(`/api/calendar?from=${start}&to=${end}`','fetch(`../api/calendar.json`')}else value=Buffer.from(await r.arrayBuffer());await write(asset.slice(1),value)}
 const builtAt=new Date().toISOString();
 const releaseRevision=Math.max(previous?.release_revision||0,previous?.data_revision||0,data.revision)+1;
-const release={schema_version:1,data_revision:data.revision,release_revision:releaseRevision,active_week:data.active_week,content_updated_at:data.weeks[data.active_week].updated_at,built_at:builtAt,renderer_release:'2026-11-03-v39-pinned-author-daily-drivers-trend-pages',renderer_sha256:rendererHash,shell_override_sha256:shellOverrideHash,muse_feed_batch:museFeed?.batch_id||null,muse_feed_sha256:museHash,muse_merge:museStats};
+const release={schema_version:1,data_revision:data.revision,release_revision:releaseRevision,active_week:data.active_week,content_updated_at:data.weeks[data.active_week].updated_at,built_at:builtAt,renderer_release:'2026-11-03-v40-muse-trend-ownership',renderer_sha256:rendererHash,shell_override_sha256:shellOverrideHash,muse_feed_batch:museFeed?.batch_id||null,muse_feed_sha256:museHash,muse_merge:museStats};
 await write('release.json',JSON.stringify(release,null,2));
 let log;try{log=await fs.readFile(path.join(root,'PUBLISH_LOG.md'),'utf8')}catch{log='# 发布日志\n\n构建提交记录；具体上线状态以 GitHub Pages 构建结果为准。\n\n| 北京时间 | 来源 | 批次 / revision | 变更摘要 |\n| --- | --- | --- | --- |\n'}
 const stamp=new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Shanghai',dateStyle:'short',timeStyle:'medium'}).format(new Date(builtAt));
