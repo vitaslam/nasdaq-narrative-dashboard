@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "holder": "Muse",
-  "token": "Muse-2026-11-03T0230Z-2a0006c6",
-  "purpose": "muse:2026-11-03:10 feed 提交",
-  "acquired_at": "2026-11-03T02:30:00Z",
-  "expires_at": "2026-11-03T03:15:00Z"
+  "holder": null,
+  "token": null,
+  "purpose": null,
+  "acquired_at": null,
+  "expires_at": null
 }
