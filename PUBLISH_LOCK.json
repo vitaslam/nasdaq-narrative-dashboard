@@ -1,7 +1,7 @@
 {
- "holder": null,
- "token": null,
- "purpose": null,
- "acquired_at": null,
- "expires_at": null
+  "holder": "GPT",
+  "token": "2874a9c0-82fd-41f9-b451-aaa5b770ca03",
+  "purpose": "Keep Polymarket posts in the X frequent-author section across all releases",
+  "acquired_at": "2026-11-03T08:51:08.585Z",
+  "expires_at": "2026-11-03T09:36:08.585Z"
 }
