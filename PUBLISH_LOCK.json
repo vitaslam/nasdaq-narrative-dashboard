@@ -1,7 +1,7 @@
 {
- "holder": null,
- "token": null,
- "purpose": null,
- "acquired_at": null,
- "expires_at": null
+  "holder": "GPT",
+  "token": "GPT-2026-11-03T14:05:54.047Z-4ecss6w4k04",
+  "purpose": "daily:2026-11-03:22",
+  "acquired_at": "2026-11-03T14:05:54.047Z",
+  "expires_at": "2026-11-03T14:50:54.047Z"
 }
