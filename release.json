@@ -1,22 +1,22 @@
 {
   "schema_version": 1,
   "data_revision": 20,
-  "release_revision": 60,
+  "release_revision": 61,
   "active_week": "2026-11-02",
-  "content_updated_at": "2026-11-03T16:28:23.604Z",
-  "built_at": "2026-11-03T16:28:23.923Z",
+  "content_updated_at": "2026-11-03T18:35:04.108Z",
+  "built_at": "2026-11-03T18:35:04.308Z",
   "renderer_release": "2026-11-03-v43-polymarket-frequent",
   "renderer_sha256": "d5fa7f2ffc6a16729be565de4ef55a8fb536a02bf9d077c4b560612f76d77624",
   "asset_version": "d5fa7f2ffc6a",
   "shell_override_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-  "muse_feed_batch": "muse:2026-11-04:00",
-  "muse_feed_sha256": "79546b8a665175f2e435b90267343e432ac77766022d8f6722be1ec25ae57dff",
+  "muse_feed_batch": "muse:2026-11-04:02",
+  "muse_feed_sha256": "77fa50340b20bfa8b3dda29f42c4d45d4c8a1be1b3ee189b3be24867fa1cd980",
   "muse_merge": {
-    "topics": 55,
-    "posts": 62,
+    "topics": 60,
+    "posts": 70,
     "rejected_posts": 0,
-    "bars": 3,
-    "volatility_dates": 1,
+    "bars": 6,
+    "volatility_dates": 2,
     "changed": true
   }
 }
