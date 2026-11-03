@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "holder": null,
-  "token": null,
-  "purpose": null,
-  "acquired_at": null,
-  "expires_at": null
+  "holder": "GPT",
+  "token": "GPT-pin-1793680144303-ahg2f0enae",
+  "purpose": "Keep @labubu_trader first in the frequent X author stream",
+  "acquired_at": "2026-11-03T04:29:04.303Z",
+  "expires_at": "2026-11-03T05:14:04.303Z"
 }
