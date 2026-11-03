@@ -31,13 +31,18 @@
 .market-overview .sentiment-tile[class*="mood-tone-"]{background:var(--mood-surface);box-shadow:inset 0 3px var(--mood-border)}
 .market-overview .sentiment-tile .sentiment-title strong{color:var(--mood-accent)}
 .mood-week-history li{border:0;border-radius:9px;background:var(--mood-surface);margin:8px 3px;overflow:hidden}
-.mood-week-history li a{display:block;color:inherit;text-decoration:none;padding:12px;border-radius:7px}
-.mood-week-history li a:hover,.mood-week-history li a:focus-visible{outline:2px solid var(--mood-accent);outline-offset:-2px}
+.mood-week-history a[data-week-start]{display:block;color:inherit;text-decoration:none;padding:12px;border-radius:7px}
+.mood-week-history a[data-week-start]:hover,.mood-week-history a[data-week-start]:focus-visible{outline:2px solid var(--mood-accent);outline-offset:-2px}
 .mood-week-top,.mood-week-close{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
 .mood-week-top time{font-size:12px;color:#535b68;font-variant-numeric:tabular-nums}.mood-week-top>span{font-size:11px;color:#676083}
 .mood-week-main{display:flex;align-items:center;gap:11px;margin-top:7px;line-height:1.35}
 .mood-week-main strong{font-size:17px;font-weight:650;color:#000}.mood-week-emoji{font-family:'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif;font-size:27px;line-height:1;flex-shrink:0}
-.mood-week-history li p{font-size:13px;line-height:1.55;color:#000;margin:7px 0 0;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.mood-week-history li p{font-size:13px;line-height:1.55;color:#111b2d;margin:5px 0 0;overflow-wrap:anywhere}
+.mood-day-driver{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 7px;margin-top:8px;color:#38445d}
+.mood-day-driver small{font-size:10px;color:#646c82}.mood-day-driver b{font-size:12px}
+.mood-day-sources{display:flex;gap:10px;justify-content:flex-end;padding:0 12px 8px;margin-top:-5px}
+.mood-day-sources a{color:#53618b;font-size:10px;text-underline-offset:2px}
+
 .mood-week-close{margin-top:9px;padding:8px 10px;border:0;border-radius:6px;background:#ffffffa6;color:#39465b;font-variant-numeric:tabular-nums}
 .mood-week-close span{font-size:12px}.mood-week-close b{font-size:16px;color:#202d45}
 .mood-week-close small{font-size:11px;font-weight:500;margin-left:4px;color:#6b7890}
@@ -81,10 +86,16 @@
 /* X has two distinct rows: curated heat above, Muse's author stream below. */
 #narrative .x-frequent-section{display:block;margin-top:34px;padding-top:24px;border-top:1px solid #dce3ed}
 #narrative .x-frequent-section .section-head{margin-bottom:15px}
-#narrative .x-trend-heading{display:flex;align-items:baseline;gap:12px;margin:4px 0 12px;color:#18263d}
+#narrative .x-trend-heading{display:flex;align-items:center;flex-wrap:wrap;gap:12px;margin:4px 0 12px;color:#18263d}
 #narrative .x-trend-heading b{font-size:15px}
 #narrative .x-trend-heading span{font-size:11px;color:#66738a}
-#narrative .x-trend-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-bottom:23px}
+#narrative .x-trend-grid{display:flex;flex-flow:row nowrap;align-items:stretch;gap:14px;margin-bottom:23px}
+#narrative .x-trend-card{flex:1 1 0;min-width:0;overflow-wrap:anywhere}
+#narrative .x-trend-card[hidden],#narrative .x-trend-pages[hidden]{display:none!important}
+#narrative .x-trend-pages{margin-left:auto;display:flex;align-items:center;gap:8px}
+#narrative .x-trend-pages button{width:32px;height:32px;border:1px solid #dbe2ee;border-radius:7px;background:white;color:#52658a;cursor:pointer;font-size:19px;line-height:1}
+#narrative .x-trend-pages button:disabled{opacity:.35;cursor:default}
+#narrative .x-trend-pages button:focus-visible{outline:2px solid #7466a5;outline-offset:2px}
 #narrative .x-trend-card{position:relative;padding:20px 22px;background:#fffdf6}
 #narrative .x-trend-top{display:flex;justify-content:space-between;gap:10px;align-items:baseline;color:#896b23;font-size:11px}
 #narrative .x-trend-top time{color:#758093}
@@ -95,6 +106,15 @@
 #narrative .x-trend-caveat{display:block;margin-top:8px;color:#7a6870;font-size:11px;line-height:1.5}
 #narrative .x-trend-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:13px}
 #narrative .x-trend-tags span{padding:4px 8px;border-radius:99px;background:#e9f2ed;color:#25604e;font-size:11px;font-weight:600}
+@media(max-width:760px){
+ #narrative .x-trend-grid{gap:6px}
+ #narrative .x-trend-card{padding:18px clamp(5px,1.2vw,10px) 11px}
+ #narrative .x-trend-top{flex-wrap:wrap;gap:2px 6px}
+ #narrative .x-trend-card h3{font-size:14px;line-height:1.4}
+ #narrative .x-trend-card p{font-size:12px;line-height:1.55}
+ #narrative .x-trend-tags{gap:4px}
+ #narrative .x-trend-tags span{max-width:100%;box-sizing:border-box;padding:3px 5px;border-radius:6px}
+}
 #narrative .x-trend-card{cursor:pointer}
 #narrative .x-trend-select{appearance:none;font:inherit;color:inherit;line-height:inherit;text-align:left;background:transparent;border:0;padding:0;cursor:pointer}
 #narrative .x-trend-select:focus-visible,#narrative [data-jump-to-related]:focus-visible{outline:2px solid #5b5298;outline-offset:3px;border-radius:3px}
@@ -110,6 +130,8 @@
 #narrative .x-simple-post{padding:15px 0;border-top:1px solid #e5eaf1}
 #narrative .x-simple-post:first-of-type{border-top:0;padding-top:0}
 #narrative .x-author-card>.x-author-identity{padding-bottom:13px}
+#narrative .x-author-pin{font-size:10px;line-height:1.4;font-weight:500;color:#5c6383;background:#eff0f7;border-radius:4px;padding:2px 5px}
+#narrative .x-pinned-empty{margin:0;color:#66738a;font-size:12px}
 #narrative .x-author-card .x-simple-post:first-of-type{border-top:1px solid #e5eaf1;padding-top:15px}
 #narrative .x-author-lines b{font-size:13px;color:#1d2a40}
 #narrative .x-author-lines time{font-size:11px;color:#65748b}
@@ -127,7 +149,7 @@
 #narrative .x-single-heat{font-size:13px;font-weight:700;color:#384f80;white-space:nowrap}
 #narrative .x-simple-foot .x-single-heat:only-child{margin-left:auto}
 @media(max-width:900px){#narrative .x-frequent-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:600px){#narrative .x-frequent-grid,#narrative .x-trend-grid{grid-template-columns:1fr}#narrative .x-trend-heading{display:block}}
+@media(max-width:600px){#narrative .x-frequent-grid{grid-template-columns:1fr}#narrative .x-trend-heading{gap:5px 9px}}
 .main{color:#000;font-weight:400}
 .main .hero p,.main .strategy-note,.main .x-view,.main .x-post-view,.main .x-impact p,.main blockquote,.main .chain-step p,.main .prior-question,.main .week-pending li p,.main .pending-foot p,.main .calendar-event p,.main .live-event-card p,.main .action-table td,.main .sentiment-reason,.main .review-invalidation{color:#000;font-size:14px;font-weight:400;line-height:1.8}
 .main .chain-step p,.main .x-post-view{font-size:15px;line-height:1.85}

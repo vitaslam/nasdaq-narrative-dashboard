@@ -7,38 +7,47 @@
   const lower=from.toISOString().slice(0,10),num=(v,d=2)=>Number(v).toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d});
   const metrics=q('.market-overview');if(!metrics)return;
   q('[data-metric="spx-ma"]')?.remove();
-  const P=window.DashboardUI,mood=W.market_mood,current=mood?.current||mood?.anchor;
+  const M=document.getElementById('mood-week-context')?read('mood-week-context'):W;
+  const currentWeek=M.status==='active';
+  const P=window.DashboardUI,mood=M.market_mood,current=mood?.current||mood?.anchor;
   const moodTone=label=>/悲观|卖压|转弱|恐慌/.test(label||'')?'negative':/修复|偏多|乐观/.test(label||'')?'positive':'neutral';
-  const currentDay=current?.date||current?.asof?.slice(0,10)||W.start;
-  const baseline=(current?.baseline_date&&Object.values(mood?.baselines||{}).find(b=>b.date===current.baseline_date))||mood?.baselines?.[currentDay===W.start?'previous_close':'week_open']||mood?.baselines?.previous_close;
+  const currentDay=current?.date||current?.asof?.slice(0,10)||M.start;
+  const baseline=(current?.baseline_date&&Object.values(mood?.baselines||{}).find(b=>b.date===current.baseline_date))||mood?.baselines?.[currentDay===M.start?'previous_close':'week_open']||mood?.baselines?.previous_close;
   const baselineDate=baseline?.date,baselineLabel=baseline?.label;
   const tile=document.createElement('div');tile.className='metric sentiment-tile mood-tone-'+moodTone(current?.label);tile.dataset.metric='market-mood';
   const sourceDate=baselineDate?baselineDate.slice(5).replace('-','/'):'';
   const baselineDay=baselineDate?['周日','周一','周二','周三','周四','周五','周六'][new Date(baselineDate+'T12:00:00Z').getUTCDay()]:'';
-  tile.innerHTML=`<div class="key">市场情绪 · ${W.historical_review?'当周历史回溯':baselineDate&&baselineDate<W.start?'以上周收盘为基准':baselineDate?'以本周初为基准':'情绪变化'}</div><div class="sentiment-title"><span class="sentiment-emoji" role="img" aria-label="${escape(current?.label||'归档')}">${escape(current?.emoji||'📌')}</span><strong>${escape(current?.label||'归档未记录')}</strong></div><p class="sentiment-anchor">${baseline?`${escape(baselineDay)} ${escape(sourceDate)} · ${escape(baselineLabel)} <span aria-hidden="true">→</span> <b>${currentDay===W.start?'周一':escape(currentDay?.slice(5).replace('-','/'))} ${escape(current?.label)}</b>`:W.historical_review?'周收盘状态 · 依据同期证据回溯判断':'此历史周未建立情绪比较基准'}</p><p class="sentiment-reason">${P.emphasize(current?.reason||'保留原周结论；情绪跟踪从 11/02 这一周开始。',current?.emphasis||[])}</p>${mood?.conclusion?`<p class="sentiment-conclusion"><b>周五结论</b> ${escape(mood.conclusion.label)} · ${P.emphasize(mood.conclusion.reason,mood.conclusion.emphasis||[])}</p>`:''}`;
+  tile.innerHTML=`<div class="key">市场情绪 · ${M.historical_review?'当周历史回溯':baselineDate&&baselineDate<M.start?'以上周收盘为基准':baselineDate?'以本周初为基准':'情绪变化'}</div><div class="sentiment-title"><span class="sentiment-emoji" role="img" aria-label="${escape(current?.label||'归档')}">${escape(current?.emoji||'📌')}</span><strong>${escape(current?.label||'归档未记录')}</strong></div><p class="sentiment-anchor">${baseline?`${escape(baselineDay)} ${escape(sourceDate)} · ${escape(baselineLabel)} <span aria-hidden="true">→</span> <b>${currentDay===M.start?'周一':escape(currentDay?.slice(5).replace('-','/'))} ${escape(current?.label)}</b>`:M.historical_review?'周收盘状态 · 依据同期证据回溯判断':'此历史周未建立情绪比较基准'}</p><p class="sentiment-reason">${P.emphasize(current?.reason||'保留原周结论；情绪跟踪从 11/02 这一周开始。',current?.emphasis||[])}</p>${mood?.conclusion?`<p class="sentiment-conclusion"><b>周五结论</b> ${escape(mood.conclusion.label)} · ${P.emphasize(mood.conclusion.reason,mood.conclusion.emphasis||[])}</p>`:''}`;
   metrics.prepend(tile);
-  const previousMonday=W.start&&new Date(Date.parse(W.start+'T12:00:00Z')-7*86400000).toISOString().slice(0,10);
-  const pastDays=(W.recent_moods||[]).filter(row=>row.week_start===W.start||row.week_start===previousMonday);
+  const previousMonday=M.start&&new Date(Date.parse(M.start+'T12:00:00Z')-7*86400000).toISOString().slice(0,10);
+  const pastDays=(M.recent_moods||[]).filter(row=>row.week_start===M.start||(currentWeek&&row.week_start===previousMonday));
   if(pastDays.length){
     const panel=document.createElement('aside');panel.id='mood-week-history';panel.className='mood-week-history';panel.hidden=true;
-    panel.setAttribute('aria-label','本周与上周交易日情绪和 QQQ 收盘');
+    const scope=currentWeek?'本周与上周':'所选周';
+    panel.setAttribute('aria-label',scope+'交易日情绪和 QQQ 收盘');
     const dayName=date=>['周日','周一','周二','周三','周四','周五','周六'][new Date(date+'T12:00:00Z').getUTCDay()];
     const entries=pastDays.map((row,i)=>{
       const weekStart=row.week_start,range=row.date.slice(5).replace('-','/')+' '+dayName(row.date);
       const close=Number.isFinite(row.qqq_close)?num(row.qqq_close):'—';
       const date=row.date.slice(5).replace('-','/');
       const label=row.label||'未单独记录情绪';
-      const href=location.pathname.includes('/weeks/')?'../index.html#week='+weekStart:'/week/'+weekStart;
-      const boundary=weekStart===previousMonday&&pastDays[i-1]?.week_start!==previousMonday?'<li class="mood-week-boundary">上周交易日</li>':'';
+      const targetWeek=row.week_id||weekStart;
+      const href=location.pathname.includes('/weeks/')?'../index.html#week='+targetWeek:'/week/'+targetWeek;
+      const boundary=currentWeek&&weekStart===previousMonday&&pastDays[i-1]?.week_start!==previousMonday?'<li class="mood-week-boundary">上周交易日</li>':'';
       const change=Number.isFinite(row.pct)?`${row.pct>=0?'+':''}${row.pct.toFixed(2)}%`:'—';
-      return `${boundary}<li class="mood-tone-${moodTone(label)}"><a href="${href}" data-week-start="${weekStart}"><div class="mood-week-top"><time datetime="${escape(row.date)}">${escape(range)}</time><span>${row.kind==='recorded'?'当日记录':'收盘回溯'}</span></div><div class="mood-week-main"><span class="mood-week-emoji" role="img" aria-label="${escape(label)}">${escape(row.emoji||'📝')}</span><strong>${escape(label)}</strong></div>${row.reason?`<p>${escape(row.reason)}</p>`:''}<div class="mood-week-close"><span>QQQ · ${escape(date)} 收盘</span><b>${close} <small>${change}</small></b></div></a></li>`;
+      const cause=row.attribution;
+      const why=cause?`<div class="mood-day-driver"><small>${cause.kind==='event'?'事件归因':'量化归因'}</small><b>${escape(cause.driver)}</b></div>`:'';
+      const urls=[...new Set(cause?.source_urls||[])].filter(u=>/^https:\/\//.test(u));
+      const sources=urls.length?`<div class="mood-day-sources">${urls.map((u,n)=>`<a href="${escape(u)}" target="_blank" rel="noopener">${n?'补充依据':'依据'} ↗</a>`).join('')}</div>`:'';
+      const vol=Number.isFinite(row.vix_close)?'VIX '+num(row.vix_close)+' · ':'';
+      return `${boundary}<li class="mood-tone-${moodTone(label)}"><a href="${href}" data-week-start="${escape(targetWeek)}"><div class="mood-week-top"><time datetime="${escape(row.date)}">${escape(range)}</time><span>${vol}${row.kind==='recorded'?'当日记录':'收盘回溯'}</span></div><div class="mood-week-main"><span class="mood-week-emoji" role="img" aria-label="${escape(label)}">${escape(row.emoji||'📝')}</span><strong>${escape(label)}</strong></div>${why}${row.reason?`<p>${escape(row.reason)}</p>`:''}<div class="mood-week-close"><span>QQQ · ${escape(date)} 收盘</span><b>${close} <small>${change}</small></b></div></a>${sources}</li>`;
     });
-    panel.innerHTML=`<div class="mood-week-heading"><strong>交易日情绪</strong><span>本周与上周</span></div><ol>${entries.join('')}</ol><p class="mood-week-foot">标为「收盘回溯」的日期依据同期收盘与已知事件整理。</p>`;
+    panel.innerHTML=`<div class="mood-week-heading"><strong>交易日情绪</strong><span>${currentWeek?'本周与上周':M.start.slice(5).replace('-','/')+'–'+M.end.slice(5).replace('-','/')}</span></div><ol>${entries.join('')}</ol><p class="mood-week-foot">标为「收盘回溯」的日期依据同期收盘与已知事件整理。</p>`;
     const list=panel.querySelector('ol');
     function fitFour(){const cards=[...list.querySelectorAll('li:not(.mood-week-boundary)')];const fifth=cards[4];if(!fifth)return;const cutoff=fifth.offsetTop-list.offsetTop-8;list.style.maxHeight=`min(${Math.max(0,Math.round(cutoff))}px, calc(100vh - 150px))`}
     document.body.append(panel);
     tile.tabIndex=0;tile.setAttribute('aria-haspopup','true');tile.setAttribute('aria-controls',panel.id);tile.setAttribute('aria-expanded','false');
-    tile.setAttribute('aria-label','市场情绪，点击查看本周与上周交易日情绪和 QQQ 收盘');
+    tile.setAttribute('aria-label','市场情绪，点击查看'+scope+'交易日情绪和 QQQ 收盘');
     let lastPointer;
     function place(){
       const rect=tile.getBoundingClientRect();
@@ -72,12 +81,13 @@
     if(key.startsWith('dimension:'))return document.getElementById('toggle-'+key.slice(10));
     if(key.startsWith('question:'))return [...document.querySelectorAll('[data-question-id]')].find(n=>n.dataset.questionId===key.slice(9));
     if(key.startsWith('answer:'))return [...document.querySelectorAll('[data-record-id]')].find(n=>n.dataset.recordId===key.slice(7));
+    if(key.startsWith('x-author:'))return [...document.querySelectorAll('.x-author-card[data-author]')].find(n=>n.dataset.author===key.slice(9));
     if(key.startsWith('x:'))return [...document.querySelectorAll('[data-post-id]')].find(n=>n.dataset.postId===key.slice(2));
     if(key.startsWith('trend:'))return [...document.querySelectorAll('[data-trend-id]')].find(n=>n.dataset.trendId===key.slice(6));
     const metric={NDX:'ndx',QQQ:'ndx',SPX:'spx',VIX:'vix',VXN:'vix',VXFutures:'vix',CNN:'fear-greed',BofA:'bofa',CTA:'spx',UST10Y:'cta',UST30Y:'cta',Brent:'cta'}[key.slice(7)];
     return key.startsWith('metric:')&&metric?q(`[data-metric="${metric}"]`):null;
   };
-  for(const agent of ['GPT','Muse'])for(const key of markerMap[agent]?.keys||[]){const node=targetFor(key);if(!node||node.querySelector(`.update-dot[data-agent="${agent}"]`))continue;node.classList.add('has-update-dot');node.insertAdjacentHTML('beforeend',`<span class="update-dot" data-agent="${agent}" title="${agent} 本轮更新" aria-label="${agent} 本轮更新"></span>`)}
+  for(const agent of ['GPT','Muse'])for(const key of markerMap[agent]?.keys||[]){const node=targetFor(key);if(!node||node.querySelector(`:scope > .update-dot[data-agent="${agent}"]`))continue;node.classList.add('has-update-dot');node.insertAdjacentHTML('beforeend',`<span class="update-dot" data-agent="${agent}" title="${agent} 本轮更新" aria-label="${agent} 本轮更新"></span>`)}
   tile.querySelector('.sentiment-emoji').style.fontSize=getComputedStyle(q('h1')).fontSize;
   for(const [id,key,max] of [['fear-greed','CNN',100],['bofa','BofA',10]]){
     const host=q(`[data-metric="${id}"]`),value=S.sentiment?.[key]?.value;
