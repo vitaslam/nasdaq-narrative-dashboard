@@ -22,7 +22,7 @@
 .sentiment-tile:focus-visible{outline:2px solid #8a80be;outline-offset:-2px}
 .mood-week-history{position:fixed;z-index:10020;width:min(390px,calc(100vw - 20px));box-sizing:border-box;background:linear-gradient(135deg,#f4f2fd,#fafbfe);color:#000;border:1px solid #dce2f0;border-radius:13px;box-shadow:0 16px 45px #2434522c;padding:19px 20px 15px;max-height:calc(100vh - 20px);overflow:auto}
 .mood-week-history[hidden]{display:none!important}
-.mood-week-heading{display:flex;align-items:baseline;justify-content:space-between;gap:10px;padding-bottom:12px;border-bottom:1px solid #dce2ed}
+.mood-week-heading{display:flex;align-items:baseline;justify-content:space-between;gap:10px;padding-bottom:6px}
 .mood-week-heading strong{font-size:16px}.mood-week-heading span{font-size:11px;color:#5d6572}
 .mood-week-history ol{list-style:none;margin:0;padding:0;max-height:min(890px,calc(100vh - 150px));overflow-y:auto;overscroll-behavior:contain;scrollbar-color:#b9c4dc transparent;scrollbar-width:thin}
 .mood-tone-positive{--mood-surface:#eaf6f0;--mood-border:#8ec7ad;--mood-accent:#246b50}
@@ -41,10 +41,9 @@
 .mood-week-close{margin-top:9px;padding:8px 10px;border:0;border-radius:6px;background:#ffffffa6;color:#39465b;font-variant-numeric:tabular-nums}
 .mood-week-close span{font-size:12px}.mood-week-close b{font-size:16px;color:#202d45}
 .mood-week-close small{font-size:11px;font-weight:500;margin-left:4px;color:#6b7890}
-.mood-week-history .mood-week-boundary{position:relative;display:flex;align-items:center;gap:9px;margin:12px 3px 8px;background:transparent;border-radius:0;color:#6e7390;font-size:11px;font-weight:700;letter-spacing:.04em;white-space:nowrap}
-.mood-week-history .mood-week-boundary::after{content:"";height:1px;background:#a3a5c1;flex:1}
-.mood-week-history .mood-week-boundary:not(:first-child){margin-top:16px;border-top:2px solid #aaa5c4;padding-top:10px}
-.mood-week-foot{font-size:11px;line-height:1.55;color:#4d5c70;margin:7px 2px 0;border-top:1px solid #dce2ed;padding-top:9px}
+.mood-week-history .mood-week-boundary{margin:18px 3px;text-align:center;background:none;color:#6e7390;font-size:11px;font-weight:500;letter-spacing:.04em}
+.mood-week-history .mood-week-boundary:first-child{margin-top:6px}
+.mood-week-foot{font-size:11px;line-height:1.55;color:#4d5c70;margin:12px 2px 0}
 .has-update-dot{position:relative}
 .update-dot{position:absolute;right:9px;top:9px;width:7px;height:7px;box-sizing:border-box;border-radius:50%;background:#f5bf31;border:1px solid #d79d1d;box-shadow:0 0 0 2px #fff9;z-index:12;pointer-events:none}
 .update-dot[data-agent="Muse"]{right:20px}
@@ -86,7 +85,7 @@
 #narrative .x-trend-heading b{font-size:15px}
 #narrative .x-trend-heading span{font-size:11px;color:#66738a}
 #narrative .x-trend-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-bottom:23px}
-#narrative .x-trend-card{position:relative;padding:20px 22px;border-left:3px solid #d3a533;background:#fffdf6}
+#narrative .x-trend-card{position:relative;padding:20px 22px;background:#fffdf6}
 #narrative .x-trend-top{display:flex;justify-content:space-between;gap:10px;align-items:baseline;color:#896b23;font-size:11px}
 #narrative .x-trend-top time{color:#758093}
 #narrative .x-trend-card h3{margin:10px 0 8px;font-size:17px;color:#17243b}
@@ -96,6 +95,14 @@
 #narrative .x-trend-caveat{display:block;margin-top:8px;color:#7a6870;font-size:11px;line-height:1.5}
 #narrative .x-trend-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:13px}
 #narrative .x-trend-tags span{padding:4px 8px;border-radius:99px;background:#e9f2ed;color:#25604e;font-size:11px;font-weight:600}
+#narrative .x-trend-card{cursor:pointer}
+#narrative .x-trend-select{appearance:none;font:inherit;color:inherit;line-height:inherit;text-align:left;background:transparent;border:0;padding:0;cursor:pointer}
+#narrative .x-trend-select:focus-visible,#narrative [data-jump-to-related]:focus-visible{outline:2px solid #5b5298;outline-offset:3px;border-radius:3px}
+#narrative .x-trend-card.is-trend-selected{background:#eae5f8}
+#narrative .x-trend-card.is-trend-selected .x-trend-select{color:#4b3c83}
+#narrative .x-simple-post.is-trend-match{margin-inline:-7px;padding-inline:7px;border-radius:5px;background:#e9e4f8}
+#narrative .x-trend-selection:not([hidden]){display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin:-10px 0 14px;font-size:12px;color:#4d4376}
+#narrative [data-jump-to-related]{appearance:none;border:0;padding:3px 0;cursor:pointer;background:none;color:#4d4376;font:inherit;text-decoration:underline;text-underline-offset:3px}
 #narrative .x-frequent-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;align-items:start}
 #narrative .x-masonry-column{display:flex;flex-direction:column;gap:16px;min-width:0}
 #narrative .x-simple-card{padding:20px 22px;min-width:0}

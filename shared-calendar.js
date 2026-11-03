@@ -19,7 +19,34 @@
  let changeMarkers={};
  const dots=key=>['GPT','Muse'].filter(agent=>(changeMarkers[agent]?.keys||[]).includes(key)).map(agent=>`<span class="update-dot" data-agent="${agent}" title="${agent} 本轮更新" aria-label="${agent} 本轮更新"></span>`).join('');
  root.innerHTML=`<div class="section-head"><div><h2>事件日历</h2><p class="section-sub">所有周页面共用 · 所选叙事周起两周 · 北京时间，盘前／盘后另标</p></div><div class="calendar-navigation"><button type="button" data-calendar-nav="-14" aria-label="前两周">‹</button><span class="calendar-range" aria-live="polite"></span><button type="button" data-calendar-nav="14" aria-label="后两周">›</button><button type="button" data-calendar-today>回到本周</button></div></div><div class="review-calendar" id="events" aria-live="polite"></div><div class="note">事件落地后补充结果与市场反应；历史未录入日期留空。市值超过 5000 亿美元的公司财报高亮；其他事件以 3 星高亮。</div>`;
- const event=e=>`<article class="calendar-event${isHigh(e)?' priority-high':''} ${/财报/.test(e.kind)?'earnings':/政策|选举/.test(e.kind)?'policy':'macro'}" data-calendar-event-id="${esc(e.id)}" role="button" tabindex="0" aria-expanded="false">${dots('calendar:'+e.id)}<div class="calendar-event-top"><span>${esc(e.kind||'事件')}</span><span class="calendar-status ${['released','occurred'].includes(e.status)?'done':''}">${({released:'数据已公布',occurred:'已发生',cancelled:'已取消',postponed:'已延期'})[e.status]||'待发生'}</span></div>${P.stars(P.calendarImportance(e))}<h3>${link(e.source,e.event)}</h3><div class="calendar-time">${esc(e.time||'时间待核验')}</div><p>${P.emphasize(e.watch||'',e.emphasis||[])}</p>${e.result?`<p class="calendar-result"><b>${esc(e.result_emoji||'📊')} 结果</b> ${esc(e.result)}</p>`:''}${e.market_reaction?`<p class="calendar-reaction"><b>${esc(e.reaction_emoji||'📈')} ${esc(e.reaction_session||'当日市场')}</b> ${esc(e.market_reaction)}</p>`:e.status==='released'||e.status==='occurred'?'<p class="calendar-reaction">市场反应待收盘核验</p>':''}${e.result_source?`<div class="calendar-evidence">${link(e.result_source,'结果来源')}${e.reaction_source?' · '+link(e.reaction_source,'行情来源'):''}</div>`:''}</article>`;
+ function compactEarnings(e, released){
+  const metrics=e.earnings_metrics||[];
+  const revenue=metrics.find(m=>/^(?:总?营收|营业收入|总收入|(?:total )?revenue)(?:$|[（( ])/i.test(m.label));
+  const eps=metrics.find(m=>/EPS|每股(?:收益|盈利)|earnings per share/i.test(m.label));
+  const core=[revenue,eps].filter(Boolean);
+  const rows=core.length?core:metrics.slice(0,2);
+  const pending=released?'待核验':'待公布';
+  let comparison;
+  if(rows.length){
+   comparison=`<table class="earnings-glance-table" aria-label="财报核心指标"><thead><tr><th scope="col">指标</th><th scope="col">市场预期</th><th scope="col">实际</th></tr></thead><tbody>${rows.map(m=>`<tr><th scope="row">${esc(m.label)}</th><td>${esc(m.expected||'待核验')}</td><td>${esc(m.actual||pending)}</td></tr>`).join('')}</tbody></table>`;
+  }else{
+   // Older events sometimes have only a sourced result in prose.
+   const firstFact=e.result?.split(/[。；;]/,1)[0]?.trim();
+   const actual=(released&&firstFact&&firstFact.length<=56)?firstFact:(released&&e.result?'已公布，见详情':pending);
+   comparison=`<dl class="earnings-glance-fallback"><div><dt>市场预期</dt><dd>待核验</dd></div><div><dt>实际</dt><dd>${esc(actual)}</dd></div></dl>`;
+  }
+  const business=e.business_highlight||e.watch;
+  return `<div class="earnings-glance">${comparison}${business?`<div class="earnings-glance-business"><b>业务看点</b> ${esc(business)}</div>`:''}</div>`;
+ }
+ function event(e){
+  const released=['released','occurred'].includes(e.status);
+  const earnings=/财报|earnings/i.test(e.kind||'');
+  const kind=earnings?'earnings':/政策|选举/.test(e.kind)?'policy':'macro';
+  const status=({released:'数据已公布',occurred:'已发生',cancelled:'已取消',postponed:'已延期'})[e.status]||'待发生';
+  const title=earnings?`<span class="earnings-glance-emoji" aria-label="${released?'当季业绩表现':'财报状态'}">${esc(e.result_emoji||(released?'📊':e.status==='scheduled'?'⏳':'📅'))}</span> ${esc(e.event)} <span class="earnings-glance-open" aria-hidden="true">›</span>`:link(e.source,e.event);
+  const body=earnings?compactEarnings(e,released):`<p>${P.emphasize(e.watch||'',e.emphasis||[])}</p>${e.result?`<p class="calendar-result"><b>${esc(e.result_emoji||'📊')} 结果</b> ${esc(e.result)}</p>`:''}${e.market_reaction?`<p class="calendar-reaction"><b>${esc(e.reaction_emoji||'📈')} ${esc(e.reaction_session||'当日市场')}</b> ${esc(e.market_reaction)}</p>`:e.status==='released'||e.status==='occurred'?'<p class="calendar-reaction">市场反应待收盘核验</p>':''}${e.result_source?`<div class="calendar-evidence">${link(e.result_source,'结果来源')}${e.reaction_source?' · '+link(e.reaction_source,'行情来源'):''}</div>`:''}`;
+  return `<article class="calendar-event${isHigh(e)?' priority-high':''} ${kind}" data-calendar-event-id="${esc(e.id)}" role="button" tabindex="0" aria-expanded="false">${dots('calendar:'+e.id)}<div class="calendar-event-top"><span>${esc(e.kind||'事件')}</span><span class="calendar-status ${released?'done':''}">${status}</span></div>${P.stars(P.calendarImportance(e))}<h3>${title}</h3><div class="calendar-time">${esc(e.time||'时间待核验')}</div>${body}</article>`;
+ }
  const detailRow=(label,value,pending=false)=>`<div class="calendar-detail-row"><b>${esc(label)}</b><p class="${pending?'is-pending':''}">${esc(value)}</p></div>`;
  function closeDetail(){root.querySelector('[data-calendar-detail]')?.remove();if(selectedCard){selectedCard.setAttribute('aria-expanded','false');selectedCard.classList.remove('is-selected');selectedCard=null}}
  function showDetail(card){

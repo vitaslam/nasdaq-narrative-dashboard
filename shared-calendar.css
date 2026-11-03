@@ -8,6 +8,18 @@
 .calendar-event[data-calendar-event-id]{cursor:pointer}
 .calendar-event[data-calendar-event-id]:focus-visible{outline:2px solid #5c6bc4;outline-offset:2px}
 .calendar-event.is-selected{box-shadow:inset 0 0 0 2px #7787c4}
+.earnings-glance-emoji{font-size:.92em}
+.earnings-glance-open{opacity:.72;font-size:1.12em}
+.calendar-event .earnings-glance{margin-top:5px;padding-top:5px;border-top:1px solid #7a899e47;color:inherit;font-size:11px;line-height:1.45}
+.calendar-event.priority-high .earnings-glance{border-color:#ffffff45}
+.calendar-event .earnings-glance-table{width:100%;min-width:0;border:0;border-collapse:collapse;font:inherit;font-variant-numeric:tabular-nums;color:inherit;background:none}
+.calendar-event .earnings-glance-table :is(th,td){padding:2px 0;border:0;background:none;color:inherit;line-height:1.35;font-size:inherit;text-align:right}
+.calendar-event .earnings-glance-table th:first-child{text-align:left;font-weight:500}
+.calendar-event .earnings-glance-table thead th{font-weight:400;font-size:10px;opacity:.88}
+.calendar-event .earnings-glance-table td{white-space:nowrap}
+.calendar-event .earnings-glance-table td:last-child{font-weight:700}
+.earnings-glance-fallback{margin:0}.earnings-glance-fallback>div{display:flex;align-items:baseline;gap:6px;margin:2px 0}.earnings-glance-fallback dt{white-space:nowrap;font-size:10px}.earnings-glance-fallback dd{margin:0}
+.earnings-glance-business{margin-top:5px;overflow-wrap:anywhere}.earnings-glance-business b{font-size:10px;font-weight:600}
 .calendar-detail{position:absolute;inset:0 0 0 auto;width:calc(100% * 2 / 7);z-index:5;min-height:0;box-sizing:border-box;padding:18px 20px;background:#fff;border-left:1px solid #dbe3ef;box-shadow:-12px 0 32px #2e43601c;display:flex;flex-direction:column;overflow-y:auto;overscroll-behavior:contain;color:#172539}
 .calendar-detail-head{display:flex;align-items:center;justify-content:space-between;gap:8px;color:#7a8ba5;font-size:11px}
 .calendar-detail-head button{border:1px solid #e0e5ee;background:#fff;color:#5a6d8d;border-radius:6px;cursor:pointer;font-size:20px;line-height:1;width:28px;height:28px;flex:none}
