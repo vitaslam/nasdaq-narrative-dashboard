@@ -1,7 +1,7 @@
 {
-  "holder": null,
-  "token": null,
-  "purpose": null,
-  "acquired_at": null,
-  "expires_at": null
+  "holder": "GPT",
+  "token": "GPT-trends-2026-11-04T04:00:34.738Z-byvnfcrx1t",
+  "purpose": "Remove trend count limits; newest-first four-card pagination and Muse handoff",
+  "acquired_at": "2026-11-04T04:00:34.738Z",
+  "expires_at": "2026-11-04T04:45:34.738Z"
 }
