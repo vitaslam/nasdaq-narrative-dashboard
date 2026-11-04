@@ -82,28 +82,33 @@
     window.addEventListener('scroll',()=>{if(!panel.hidden)place()},{passive:true});window.addEventListener('resize',refit);
     document.fonts?.ready.then(refit);
   }
-  // Each contributor owns one independent set of dots; a new batch replaces only its own set.
+  // Owner-scoped, per-item clocks are pruned only by subsequent content updates.
   const markerMap=W.change_markers||{};
-  const targetFor=key=>{
-    if(key==='mood')return tile;
-    if(key==='price-chart')return document.getElementById('price-chart')?.closest('.card');
-    if(key==='events')return q('#toggle-event-drivers');
-    if(key==='strategy')return q('.dashboard-chart-heading');
-    if(key.startsWith('dimension:'))return document.getElementById('toggle-'+key.slice(10));
-    if(key.startsWith('question:'))return [...document.querySelectorAll('[data-question-id]')].find(n=>n.dataset.questionId===key.slice(9));
-    if(key.startsWith('answer:'))return [...document.querySelectorAll('[data-record-id]')].find(n=>n.dataset.recordId===key.slice(7));
-    if(key.startsWith('x-author:'))return [...document.querySelectorAll('.x-author-card[data-author]')].find(n=>n.dataset.author===key.slice(9));
-    if(key.startsWith('x:'))return [...document.querySelectorAll('[data-post-id]')].find(n=>n.dataset.postId===key.slice(2));
-    if(key.startsWith('trend:'))return [...document.querySelectorAll('[data-trend-id]')].find(n=>n.dataset.trendId===key.slice(6));
-    const metric={NDX:'ndx',QQQ:'ndx',SPX:'spx',VIX:'vix',VXN:'vix',VXFutures:'vix',CNN:'fear-greed',BofA:'bofa',CTA:'spx',UST10Y:'cta',UST30Y:'cta',Brent:'cta'}[key.slice(7)];
-    return key.startsWith('metric:')&&metric?q(`[data-metric="${metric}"]`):null;
+  const targetsFor=key=>{
+    if(key==='mood')return [tile];
+    if(key==='price-chart')return [document.getElementById('price-chart')?.closest('.card')];
+    if(key==='events')return [q('#toggle-event-drivers'),...document.querySelectorAll('#event-drivers .live-event-card')];
+    if(key==='strategy')return [q('.dashboard-chart-heading')];
+    if(key.startsWith('dimension:'))return [document.getElementById('toggle-'+key.slice(10)),...document.querySelectorAll('#'+key.slice(10)+' .live-dimension-detail')];
+    const fields=[['question:','questionId','[data-question-id]'],['answer:','recordId','[data-record-id]'],['x-author:','author','.x-author-card[data-author]'],['x:','postId','[data-post-id]'],['trend:','trendId','[data-trend-id]']];
+    for(const [prefix,field,selector]of fields)if(key.startsWith(prefix))return [...document.querySelectorAll(selector)].filter(n=>n.dataset[field]===key.slice(prefix.length));
+    if(key==='metric:FedHike')return [q('#toggle-macro')];
+    const metrics={NDX:['ndx'],QQQ:['ndx','ndx-ma'],SPX:['spx'],VIX:['vix'],VXN:['vix'],VXFutures:['vix'],CNN:['fear-greed'],BofA:['bofa'],CTA:['spx'],UST10Y:['cta'],UST30Y:['cta'],Brent:['cta']}[key.slice(7)];
+    return key.startsWith('metric:')&&metrics?metrics.map(metric=>q(`[data-metric="${metric}"]`)):[];
   };
-  for(const agent of ['GPT','Muse'])for(const key of markerMap[agent]?.keys||[]){
-    if(agent==='GPT'&&key.startsWith('trend:'))continue;
-    const node=targetFor(key);
-    if(!node||node.querySelector(`:scope > .update-dot[data-agent="${agent}"]`))continue;
-    node.classList.add('has-update-dot');
-    node.insertAdjacentHTML('beforeend',`<span class="update-dot" data-agent="${agent}" title="${agent} 本轮更新" aria-label="${agent} 本轮更新"></span>`);
+  for(const agent of ['GPT','Muse']){
+    const group=markerMap[agent],nodes=new Map();
+    for(const key of group?.keys||[]){
+      if(agent==='GPT'&&key.startsWith('trend:'))continue;
+      const at=group.key_times?.[key]||group.at;
+      for(const node of targetsFor(key))if(node&&(!nodes.has(node)||Date.parse(at)>Date.parse(nodes.get(node))))nodes.set(node,at);
+    }
+    for(const [node,at]of nodes){
+      const stamp=Number.isFinite(Date.parse(at))?new Intl.DateTimeFormat('zh-CN',{timeZone:'Asia/Shanghai',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false}).format(new Date(at))+' 北京时间':'时间未记录';
+      const label=agent+' 更新于 '+stamp+'；满 3 小时后在下一轮更新清理';
+      node.classList.add('has-update-dot');
+      node.insertAdjacentHTML('beforeend',`<span class="update-dot" data-agent="${agent}" data-updated-at="${escape(at||'')}" title="${escape(label)}" aria-label="${escape(label)}"></span>`);
+    }
   }
   tile.querySelector('.sentiment-emoji').style.fontSize=getComputedStyle(q('h1')).fontSize;
   for(const [id,key,max] of [['fear-greed','CNN',100],['bofa','BofA',10]]){
@@ -156,8 +161,8 @@
   const volatility=S.volatility||{},vix=(volatility.dates||[]).map((date,i)=>({date,value:volatility.vix[i]}));
   const merged=key=>[...(E.indicator_history?.[key]||[]),...(S.indicator_history?.[key]||[])].filter(p=>p.date<=cutoff);
   draw('vix',[...vix,...merged('VIX')]);
-  draw('fear-greed',merged('CNN'),0,'','周频归档');draw('bofa',merged('BofA'),1,'','周频报告');if(!q('[data-metric="cta"]')?.classList.contains('risk-tile'))draw('cta',merged('CTA').filter(p=>p.model===S.sentiment?.CTA?.model&&p.institution===S.sentiment?.CTA?.institution),S.sentiment?.CTA?.digits??0,S.sentiment?.CTA?.unit||'','模型观测');
-  const sources=q('.source-content');if(sources){const p=document.createElement('p');p.className='fineprint';p.innerHTML='小折线：指数与 VIX 使用已保存的日频行情；CNN 为周频公开归档，BofA 为报告发布日读数，均不补造日值。CTA 缺少可核验序列时留空。';sources.append(p);
+  draw('fear-greed',merged('CNN'),0,'','日频读数');draw('bofa',merged('BofA'),1,'','周频报告');if(!q('[data-metric="cta"]')?.classList.contains('risk-tile'))draw('cta',merged('CTA').filter(p=>p.model===S.sentiment?.CTA?.model&&p.institution===S.sentiment?.CTA?.institution),S.sentiment?.CTA?.digits??0,S.sentiment?.CTA?.unit||'','模型观测');
+  const sources=q('.source-content');if(sources){const p=document.createElement('p');p.className='fineprint';p.innerHTML='小折线：指数与 VIX 使用已保存的日频行情；CNN 使用已核验的日频读数及早期留存归档，BofA 为报告发布日读数；缺失日期不补造。CTA 缺少可核验序列时留空。';sources.append(p);
     const links=[...new Set(['CNN','BofA'].flatMap(k=>merged(k).map(p=>p.source_url)).filter(Boolean))];const list=document.createElement('div');list.className='scan-source-list';links.forEach((url,i)=>{if(!/^https:\/\//.test(url))return;const a=document.createElement('a');a.href=url;a.target='_blank';a.rel='noopener';a.textContent='情绪历史来源 '+(i+1)+' ↗';list.append(a)});sources.append(list);
   }
 })();
