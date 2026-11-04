@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "batch_id": "muse:2026-11-04:18",
+  "batch_id": "muse:2026-11-04:20",
   "week_id": "2026-11-02",
-  "generated_at": "2026-11-04T10:39:00Z",
+  "generated_at": "2026-11-04T12:29:51Z",
   "x_topics_upsert": [
     {
       "id": "polymarket-32228",
@@ -15,7 +15,7 @@
           "published_at": "2026-11-03T08:21:58Z",
           "quote": null,
           "viewpoint": "YES：99.9% (+0.0%)\nNO：0.1%",
-          "translation_zh": "Polymarket 事件「民主党横扫中期选举」最新双边概率：YES 99.9% / NO 0.1%，YES 较上轮快照变化 +0.0pp；该事件累计成交额约 $75,172,825。点击跳转 Polymarket 该事件页。",
+          "translation_zh": "Polymarket 事件「民主党横扫中期选举」最新双边概率：YES 99.9% / NO 0.1%，YES 较上轮快照变化 +0.0pp；该事件累计成交额约 $75,274,392。点击跳转 Polymarket 该事件页。",
           "views": null,
           "reposts": null,
           "replies": null,
@@ -40,7 +40,7 @@
           "published_at": "2026-11-03T08:21:58Z",
           "quote": null,
           "viewpoint": "YES：99.9% (+0.0%)\nNO：0.1%",
-          "translation_zh": "Polymarket 事件「WTI 11月破$100」最新双边概率：YES 99.9% / NO 0.1%，YES 较上轮快照变化 +0.0pp；该事件累计成交额约 $898,564。点击跳转 Polymarket 该事件页。",
+          "translation_zh": "Polymarket 事件「WTI 11月破$100」最新双边概率：YES 99.9% / NO 0.1%，YES 较上轮快照变化 +0.0pp；该事件累计成交额约 $903,750。点击跳转 Polymarket 该事件页。",
           "views": null,
           "reposts": null,
           "replies": null,
@@ -64,8 +64,8 @@
           "author": "@PolymarketA",
           "published_at": "2026-11-03T08:21:58Z",
           "quote": null,
-          "viewpoint": "YES：78.0% (+2.0%)\nNO：22.0%",
-          "translation_zh": "Polymarket 事件「Fed 12月决议·加息25bp」最新双边概率：YES 78.0% / NO 22.0%，YES 较上轮快照变化 +2.0pp；该事件累计成交额约 $12,113,643。点击跳转 Polymarket 该事件页。",
+          "viewpoint": "YES：78.0% (+0.0%)\nNO：22.0%",
+          "translation_zh": "Polymarket 事件「Fed 12月决议·加息25bp」最新双边概率：YES 78.0% / NO 22.0%，YES 较上轮快照变化 +0.0pp；该事件累计成交额约 $12,315,902。点击跳转 Polymarket 该事件页。",
           "views": null,
           "reposts": null,
           "replies": null,
@@ -89,8 +89,8 @@
           "author": "@PolymarketB",
           "published_at": "2026-11-03T08:21:58Z",
           "quote": null,
-          "viewpoint": "YES：75.0% (+0.0%)\nNO：25.0%",
-          "translation_zh": "Polymarket 事件「2026年再加息」最新双边概率：YES 75.0% / NO 25.0%，YES 较上轮快照变化 +0.0pp；该事件累计成交额约 $1,391,143。点击跳转 Polymarket 该事件页。",
+          "viewpoint": "YES：78.0% (+3.0%)\nNO：22.0%",
+          "translation_zh": "Polymarket 事件「2026年再加息」最新双边概率：YES 78.0% / NO 22.0%，YES 较上轮快照变化 +3.0pp；该事件累计成交额约 $1,398,377。点击跳转 Polymarket 该事件页。",
           "views": null,
           "reposts": null,
           "replies": null,
@@ -115,7 +115,7 @@
           "published_at": "2026-11-03T08:21:58Z",
           "quote": null,
           "viewpoint": "YES：88.0% (+0.0%)\nNO：12.0%",
-          "translation_zh": "Polymarket 事件「美也门停火延续至11月底」最新双边概率：YES 88.0% / NO 12.0%，YES 较上轮快照变化 +0.0pp；该事件累计成交额约 $2,602,100。点击跳转 Polymarket 该事件页。",
+          "translation_zh": "Polymarket 事件「美也门停火延续至11月底」最新双边概率：YES 88.0% / NO 12.0%，YES 较上轮快照变化 +0.0pp；该事件累计成交额约 $2,602,394。点击跳转 Polymarket 该事件页。",
           "views": null,
           "reposts": null,
           "replies": null,
@@ -140,7 +140,7 @@
           "published_at": "2026-11-03T08:21:58Z",
           "quote": null,
           "viewpoint": "YES：90.8% (+0.0%)\nNO：9.2%",
-          "translation_zh": "Polymarket 事件「Anthropic 2026年底前IPO」最新双边概率：YES 90.8% / NO 9.2%，YES 较上轮快照变化 +0.0pp；该事件累计成交额约 $6,318,100。点击跳转 Polymarket 该事件页。",
+          "translation_zh": "Polymarket 事件「Anthropic 2026年底前IPO」最新双边概率：YES 90.8% / NO 9.2%，YES 较上轮快照变化 +0.0pp；该事件累计成交额约 $6,319,045。点击跳转 Polymarket 该事件页。",
           "views": null,
           "reposts": null,
           "replies": null,
@@ -190,7 +190,7 @@
           "published_at": "2026-11-03T08:21:58Z",
           "quote": null,
           "viewpoint": "YES：0.1% (+0.0%)\nNO：99.9%",
-          "translation_zh": "Polymarket 事件「美伊停火延续至11月底」最新双边概率：YES 0.1% / NO 99.9%，YES 较上轮快照变化 +0.0pp；该事件累计成交额约 $39,411,640。点击跳转 Polymarket 该事件页。",
+          "translation_zh": "Polymarket 事件「美伊停火延续至11月底」最新双边概率：YES 0.1% / NO 99.9%，YES 较上轮快照变化 +0.0pp；该事件累计成交额约 $39,554,330。点击跳转 Polymarket 该事件页。",
           "views": null,
           "reposts": null,
           "replies": null,
@@ -2728,7 +2728,7 @@
     {
       "id": "midterm-election-night",
       "title": "中期选举开票夜：民主党夺众议院、翻转 7 参议院席位、期货走弱",
-      "summary": "决策台预测民主党赢得众议院控制权，横扫概率升至 99.9%；民主党最终翻转 7 个参议院席位，为 1986 年以来最大中期参议院收获（北卡、南卡、得州、堪萨斯、俄亥俄、爱荷华、缅因），纳指 100 期货跌超 2%、标普 500 有望自 7 月 31 日以来首次开盘跌破 7500 点；特朗普称接受结果并愿与民主党合作。密歇根参议员席位据 VoteHub 预测由埃尔-赛义德拿下。",
+      "summary": "决策台预测民主党赢得众议院控制权，横扫概率升至 99.9%；民主党最终翻转 7 个参议院席位，为 1986 年以来最大中期参议院收获（北卡、南卡、得州、堪萨斯、俄亥俄、爱荷华、缅因），纳指 100 期货跌超 2%、标普 500 有望自 7 月 31 日以来首次开盘跌破 7500 点；特朗普称接受结果并愿与民主党合作。密歇根参议员席位据 VoteHub 预测由埃尔-赛义德拿下。民主党控制两院后金银飙升，两金属单日合计市值增 1 万亿美元。",
       "posts": [
         {
           "id": "2117775477545062469",
@@ -3119,6 +3119,32 @@
               "reason": "密歇根参议员席位预测归属，补开票夜席位版图。"
             }
           ]
+        },
+        {
+          "id": "2117926578818810086",
+          "author": "@KobeissiLetter",
+          "published_at": "2026-11-04T10:27:00Z",
+          "quote": "BREAKING: Gold and silver prices surge after the Democrats take control of the US House and Senate. The metals have added a combined +$1 trillion",
+          "viewpoint": "民主党控制参众两院后金银价格飙升，两金属当日合计市值增加 1 万亿美元；附图显示黄金 +2.94%、白银 +4.39%。",
+          "translation_zh": "突发：民主党控制美国参议院和众议院后，金银价格飙升。两金属今日合计市值增加 1 万亿美元。",
+          "translation_scope": "full",
+          "translation_source_url": "https://x.com/KobeissiLetter/status/2117926578818810086",
+          "views": 247541,
+          "reposts": 527,
+          "replies": 125,
+          "observed_at": "2026-11-04T12:29:00Z",
+          "source_url": "https://x.com/KobeissiLetter/status/2117926578818810086",
+          "metrics_source": "https://x.com/KobeissiLetter/status/2117926578818810086",
+          "verification": "X 精华监控 20 轮报告，原帖页核对。",
+          "avatar_url": "https://pbs.twimg.com/profile_images/1975243710846640128/fwYCe67Y_400x400.jpg",
+          "avatar_source": "https://x.com/KobeissiLetter",
+          "impact": [
+            {
+              "targets": "金银 / 民主党横扫交易",
+              "direction": "利好",
+              "reason": "民主党控制两院后金银飙升、两金属单日合计市值增 1 万亿美元，属横扫交易中的贵金属方向。"
+            }
+          ]
         }
       ]
     },
@@ -3368,7 +3394,7 @@
       "source_url": "https://www.eia.gov/TodayinEnergy/prices.php"
     },
     "FedHike": {
-      "value": 78.85,
+      "value": 79.75,
       "meeting": "2026-12-09",
       "asof": "2026-11-04",
       "source_url": "https://polymarket.com/event/fed-decision-in-december-20260729232808632",
