@@ -1,8 +1,8 @@
 {
  "schema_version": 1,
- "batch_id": "muse:2026-11-05:02",
+ "batch_id": "muse:2026-11-05:04",
  "week_id": "2026-11-02",
- "generated_at": "2026-11-04T18:32:33Z",
+ "generated_at": "2026-11-04T20:33:21Z",
  "x_topics_upsert": [
   {
    "id": "polymarket-32228",
@@ -19,7 +19,7 @@
      "views": null,
      "reposts": null,
      "replies": null,
-     "observed_at": "2026-11-04T18:32:33Z",
+     "observed_at": "2026-11-04T20:33:21Z",
      "source_url": "https://polymarket.com/event/balance-of-power-2026-midterms",
      "metrics_source": "https://gamma-api.polymarket.com/events/32228",
      "verification": "Polymarket 官方 Gamma API 读取该事件双边概率。",
@@ -40,11 +40,11 @@
      "published_at": "2026-11-03T08:21:58Z",
      "quote": null,
      "viewpoint": "YES：99.9% (+0.0%)\nNO：0.1%",
-     "translation_zh": "Polymarket 事件「WTI 11月破$100」最新双边概率：YES 99.9% / NO 0.1%，YES 较上轮快照变化 +0.0pp；该事件累计成交额约 $1,104,914。点击跳转 Polymarket 该事件页。",
+     "translation_zh": "Polymarket 事件「WTI 11月破$100」最新双边概率：YES 99.9% / NO 0.1%，YES 较上轮快照变化 +0.0pp；该事件累计成交额约 $1,120,519。点击跳转 Polymarket 该事件页。",
      "views": null,
      "reposts": null,
      "replies": null,
-     "observed_at": "2026-11-04T18:32:33Z",
+     "observed_at": "2026-11-04T20:33:21Z",
      "source_url": "https://polymarket.com/event/what-price-will-wti-hit-in-november-2026",
      "metrics_source": "https://gamma-api.polymarket.com/events/1250301",
      "verification": "Polymarket 官方 Gamma API 读取该事件双边概率。",
@@ -64,12 +64,12 @@
      "author": "@PolymarketA",
      "published_at": "2026-11-03T08:21:58Z",
      "quote": null,
-     "viewpoint": "YES：78.0% (-2.0%)\nNO：22.0%",
-     "translation_zh": "Polymarket 事件「Fed 12月决议·加息25bp」最新双边概率：YES 78.0% / NO 22.0%，YES 较上轮快照变化 -2.0pp；该事件累计成交额约 $12,813,419。点击跳转 Polymarket 该事件页。",
+     "viewpoint": "YES：77.0% (-1.0%)\nNO：23.0%",
+     "translation_zh": "Polymarket 事件「Fed 12月决议·加息25bp」最新双边概率：YES 77.0% / NO 23.0%，YES 较上轮快照变化 -1.0pp；该事件累计成交额约 $12,851,433。点击跳转 Polymarket 该事件页。",
      "views": null,
      "reposts": null,
      "replies": null,
-     "observed_at": "2026-11-04T18:32:33Z",
+     "observed_at": "2026-11-04T20:33:21Z",
      "source_url": "https://polymarket.com/event/fed-decision-in-december-20260729232808632",
      "metrics_source": "https://gamma-api.polymarket.com/events/770450",
      "verification": "Polymarket 官方 Gamma API 读取该事件双边概率。",
@@ -89,12 +89,12 @@
      "author": "@PolymarketB",
      "published_at": "2026-11-03T08:21:58Z",
      "quote": null,
-     "viewpoint": "YES：78.0% (-2.0%)\nNO：22.0%",
-     "translation_zh": "Polymarket 事件「2026年再加息」最新双边概率：YES 78.0% / NO 22.0%，YES 较上轮快照变化 -2.0pp；该事件累计成交额约 $1,426,780。点击跳转 Polymarket 该事件页。",
+     "viewpoint": "YES：78.0% (+0.0%)\nNO：22.0%",
+     "translation_zh": "Polymarket 事件「2026年再加息」最新双边概率：YES 78.0% / NO 22.0%，YES 较上轮快照变化 +0.0pp；该事件累计成交额约 $1,426,852。点击跳转 Polymarket 该事件页。",
      "views": null,
      "reposts": null,
      "replies": null,
-     "observed_at": "2026-11-04T18:32:33Z",
+     "observed_at": "2026-11-04T20:33:21Z",
      "source_url": "https://polymarket.com/event/another-fed-rate-hike-in-2026",
      "metrics_source": "https://gamma-api.polymarket.com/events/1034268",
      "verification": "Polymarket 官方 Gamma API 读取该事件双边概率。",
@@ -114,12 +114,12 @@
      "author": "@PolymarketC",
      "published_at": "2026-11-03T08:21:58Z",
      "quote": null,
-     "viewpoint": "YES：89.0% (+1.0%)\nNO：11.0%",
-     "translation_zh": "Polymarket 事件「美也门停火延续至11月底」最新双边概率：YES 89.0% / NO 11.0%，YES 较上轮快照变化 +1.0pp；该事件累计成交额约 $2,607,270。点击跳转 Polymarket 该事件页。",
+     "viewpoint": "YES：92.0% (+3.0%)\nNO：8.0%",
+     "translation_zh": "Polymarket 事件「美也门停火延续至11月底」最新双边概率：YES 92.0% / NO 8.0%，YES 较上轮快照变化 +3.0pp；该事件累计成交额约 $2,607,280。点击跳转 Polymarket 该事件页。",
      "views": null,
      "reposts": null,
      "replies": null,
-     "observed_at": "2026-11-04T18:32:33Z",
+     "observed_at": "2026-11-04T20:33:21Z",
      "source_url": "https://polymarket.com/event/us-yemen-ceasefire-continues-throughptptpt",
      "metrics_source": "https://gamma-api.polymarket.com/events/1053896",
      "verification": "Polymarket 官方 Gamma API 读取该事件双边概率。",
@@ -139,12 +139,12 @@
      "author": "@PolymarketB",
      "published_at": "2026-11-03T08:21:58Z",
      "quote": null,
-     "viewpoint": "YES：90.9% (+3.3%)\nNO：9.1%",
-     "translation_zh": "Polymarket 事件「Anthropic 2026年底前IPO」最新双边概率：YES 90.9% / NO 9.1%，YES 较上轮快照变化 +3.3pp；该事件累计成交额约 $6,384,639。点击跳转 Polymarket 该事件页。",
+     "viewpoint": "YES：86.7% (-4.2%)\nNO：13.3%",
+     "translation_zh": "Polymarket 事件「Anthropic 2026年底前IPO」最新双边概率：YES 86.7% / NO 13.3%，YES 较上轮快照变化 -4.2pp；该事件累计成交额约 $6,388,711。点击跳转 Polymarket 该事件页。",
      "views": null,
      "reposts": null,
      "replies": null,
-     "observed_at": "2026-11-04T18:32:33Z",
+     "observed_at": "2026-11-04T20:33:21Z",
      "source_url": "https://polymarket.com/event/anthropic-ipo-by",
      "metrics_source": "https://gamma-api.polymarket.com/events/549019",
      "verification": "Polymarket 官方 Gamma API 读取该事件双边概率。",
@@ -165,11 +165,11 @@
      "published_at": "2026-11-03T08:21:58Z",
      "quote": null,
      "viewpoint": "YES：5.0% (+0.0%)\nNO：95.0%",
-     "translation_zh": "Polymarket 事件「美国2026年底前衰退」最新双边概率：YES 5.0% / NO 95.0%，YES 较上轮快照变化 +0.0pp；该事件累计成交额约 $2,423,415。点击跳转 Polymarket 该事件页。",
+     "translation_zh": "Polymarket 事件「美国2026年底前衰退」最新双边概率：YES 5.0% / NO 95.0%，YES 较上轮快照变化 +0.0pp；该事件累计成交额约 $2,423,918。点击跳转 Polymarket 该事件页。",
      "views": null,
      "reposts": null,
      "replies": null,
-     "observed_at": "2026-11-04T18:32:33Z",
+     "observed_at": "2026-11-04T20:33:21Z",
      "source_url": "https://polymarket.com/event/us-recession-by-end-of-2026",
      "metrics_source": "https://gamma-api.polymarket.com/events/48802",
      "verification": "Polymarket 官方 Gamma API 读取该事件双边概率。",
@@ -190,11 +190,11 @@
      "published_at": "2026-11-03T08:21:58Z",
      "quote": null,
      "viewpoint": "YES：0.1% (+0.0%)\nNO：99.9%",
-     "translation_zh": "Polymarket 事件「美伊停火延续至11月底」最新双边概率：YES 0.1% / NO 99.9%，YES 较上轮快照变化 +0.0pp；该事件累计成交额约 $39,741,578。点击跳转 Polymarket 该事件页。",
+     "translation_zh": "Polymarket 事件「美伊停火延续至11月底」最新双边概率：YES 0.1% / NO 99.9%，YES 较上轮快照变化 +0.0pp；该事件累计成交额约 $39,881,191。点击跳转 Polymarket 该事件页。",
      "views": null,
      "reposts": null,
      "replies": null,
-     "observed_at": "2026-11-04T18:32:33Z",
+     "observed_at": "2026-11-04T20:33:21Z",
      "source_url": "https://polymarket.com/event/us-iran-ceasefire-continues-throughptptpt",
      "metrics_source": "https://gamma-api.polymarket.com/events/1038648",
      "verification": "Polymarket 官方 Gamma API 读取该事件双边概率。",
@@ -3854,6 +3854,171 @@
        "targets": "原油 / 霍尔木兹海峡",
        "direction": "关注",
        "reason": "新增绕开海峡的管道计划若落地，可缓解原油运输瓶颈风险（单源标题帖，文章体未核）。"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "bigtech-best-day-datacenter-selloff",
+   "title": "大科技股创 4 月以来最佳单日，数据中心与新云厂商遭抛售",
+   "summary": "wallstengine 称 Kalshi 在开票前即判定民主党横扫；大科技股有望创 2025 年 4 月以来最佳单日，五巨头合计市值增加超 9000 亿美元；与此同时数据中心与新云厂商遭抛售，半导体 ETF 跌 2%，CIFR 跌 20%、IREN 跌 10%、CRWV 跌 9%。",
+   "posts": [
+    {
+     "id": "2118052618128028131",
+     "author": "@wallstengine",
+     "published_at": "2026-11-04T18:47:50Z",
+     "quote": "Big Tech is on track for its biggest day since April 2025",
+     "viewpoint": "wallstengine 称 Kalshi 在开票前即判定民主党横扫；大科技股有望创 2025 年 4 月以来最佳单日，苹果、亚马逊、微软、谷歌和 Meta 合计市值增加超 9000 亿美元；与此同时数据中心与新云厂商遭抛售，半导体 ETF 跌 2%，CIFR 跌 20%、IREN 跌 10%、CRWV 跌 9%。",
+     "translation_zh": "Kalshi 在一票未计之前就判定了民主党横扫。大科技股有望创下 2025 年 4 月以来最好的一天，苹果、亚马逊、微软、谷歌和 Meta 合计市值增加超 9000 亿美元。而数据中心与新云厂商正在遭到抛售：半导体 ETF 跌 2%，CIFR 跌 20%、IREN 跌 10%、CRWV 跌 9%。所引 Kalshi 原帖：“到目前为止，Kalshi 上最被看好的结果赢下了 487 场中期选举中的 479 场，即 98%，且是在一票未计之前就预测到的。市场胜过了民调与模型。数据如下。”",
+     "translation_scope": "full",
+     "translation_source_url": "https://x.com/wallstengine/status/2118052618128028131",
+     "views": 16262,
+     "reposts": 10,
+     "replies": 14,
+     "observed_at": "2026-11-04T20:33:21Z",
+     "source_url": "https://x.com/wallstengine/status/2118052618128028131",
+     "metrics_source": "https://x.com/wallstengine/status/2118052618128028131",
+     "verification": "X 精华监控 03 轮报告，原帖页核对。",
+     "avatar_url": "https://pbs.twimg.com/profile_images/1691846947857178624/oZp5wB4r_400x400.jpg",
+     "avatar_source": "https://x.com/wallstengine",
+     "impact": [
+      {
+       "targets": "Mag7 / 数据中心与新云厂商",
+       "direction": "分化",
+       "reason": "大科技股普涨创 4 月以来最佳单日的同时，数据中心与新云厂商遭抛售，横扫后行情出现分化。"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "spx-oversold-breadth-divergence",
+   "title": "标普处极端超卖但广度显示市场更健康",
+   "summary": "KobeissiLetter 称标普 500 较 50 日均线低逾 2 个标准差，为 4 月以来首次，处历史极端超卖区域；但仅约 17% 成分股超卖、约 47% 超买，广度显示整体市场比指数表现更健康。",
+   "posts": [
+    {
+     "id": "2118048633438319039",
+     "author": "@KobeissiLetter",
+     "published_at": "2026-11-04T18:32:00Z",
+     "quote": "The S&P 500 is trading more than 2 standard deviations below its 50-day moving average",
+     "viewpoint": "KobeissiLetter 称标普 500 较 50 日均线低逾 2 个标准差，为 4 月以来首次，处历史极端超卖区域；但仅约 17% 成分股超卖、约 47% 超买，广度显示整体市场比指数表现更健康。",
+     "translation_zh": "这非常不寻常：标普 500 目前较其 50 日均线低逾 2 个标准差，为 4 月以来首次出现这种情况。这一读数使标普 500 处于历史上极端超卖的区域。与此同时，目前仅约 17% 的成分股处于超卖状态，接近 7 月以来的最低比例。而目前约 47% 的股票处于超买状态，为 2 月初以来的最高比例。自 10 月初以来，这一数字已翻了一倍多，因为许多股票在表面之下已经上涨。整体市场看起来比标普 500 近期的表现所显示的要健康得多。",
+     "translation_scope": "full",
+     "translation_source_url": "https://x.com/KobeissiLetter/status/2118048633438319039",
+     "views": 147050,
+     "reposts": 78,
+     "replies": 113,
+     "observed_at": "2026-11-04T20:33:21Z",
+     "source_url": "https://x.com/KobeissiLetter/status/2118048633438319039",
+     "metrics_source": "https://x.com/KobeissiLetter/status/2118048633438319039",
+     "verification": "X 精华监控 03 轮报告，原帖页核对。",
+     "avatar_url": "https://pbs.twimg.com/profile_images/1975243710846640128/fwYCe67Y_400x400.jpg",
+     "avatar_source": "https://x.com/KobeissiLetter",
+     "impact": [
+      {
+       "targets": "SPX / 市场广度",
+       "direction": "关注",
+       "reason": "指数极端超卖与成分股广度背离，广度更健康，超卖修复待确认。"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "central-bank-gold-buying",
+   "title": "央行以 2024 年以来最快速度买入黄金",
+   "summary": "zerohedge 转述世界黄金协会称，央行正以 2024 年以来最快的速度买入黄金（标题帖，文章体未核）。",
+   "posts": [
+    {
+     "id": "2118055791068336332",
+     "author": "@zerohedge",
+     "published_at": "2026-11-04T19:00:26Z",
+     "quote": "Central Banks Just Bought Gold At Fastest Pace Since 2024, World Gold Council Says",
+     "viewpoint": "zerohedge 转述世界黄金协会称，央行正以 2024 年以来最快的速度买入黄金（标题帖，文章体未核）。",
+     "translation_zh": "世界黄金协会称，央行正以 2024 年以来最快的速度买入黄金。",
+     "translation_scope": "excerpt",
+     "translation_source_url": "https://x.com/zerohedge/status/2118055791068336332",
+     "views": 53109,
+     "reposts": 43,
+     "replies": 39,
+     "observed_at": "2026-11-04T20:33:21Z",
+     "source_url": "https://x.com/zerohedge/status/2118055791068336332",
+     "metrics_source": "https://x.com/zerohedge/status/2118055791068336332",
+     "verification": "X 精华监控 04 轮报告，原帖页核对。",
+     "avatar_url": "https://pbs.twimg.com/profile_images/72647502/tyler_400x400.jpg",
+     "avatar_source": "https://x.com/zerohedge",
+     "impact": [
+      {
+       "targets": "黄金",
+       "direction": "关注",
+       "reason": "央行购金速度创 2024 年以来最快，购金需求支撑金价叙事，文章体未核。"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "mrvl-lite-pair-trade",
+   "title": "labubu：$MRVL/$LITE 成去年 CRWV/CORZ 式配对交易",
+   "summary": "labubu 称 $MRVL/$LITE 已成类似去年 CRWV/CORZ 的配对交易，套利者会让两个名字都大幅震荡；此前 $LITE 自收购消息后表现更弱。",
+   "posts": [
+    {
+     "id": "2118046853648543837",
+     "author": "@labubu_trader",
+     "published_at": "2026-11-04T18:24:55Z",
+     "quote": "Now $MRVL/$LITE becomes a pair trade similar to CRWV/CORZ last year.",
+     "viewpoint": "labubu 称 $MRVL/$LITE 已成类似去年 CRWV/CORZ 的配对交易，套利者会让两个名字都大幅震荡；此前 $LITE 自收购消息后表现更弱。",
+     "translation_zh": "这被墨菲那混蛋诅咒了。现在 $MRVL/$LITE 成了一组类似去年 CRWV/CORZ 的配对交易。那些套利猎手会让这两个名字都大幅震荡。所回复的 @VanillaWfr 原帖：“自收购消息以来，$LITE 表现更弱。”",
+     "translation_scope": "full",
+     "translation_source_url": "https://x.com/labubu_trader/status/2118046853648543837",
+     "views": 10134,
+     "reposts": 0,
+     "replies": 4,
+     "observed_at": "2026-11-04T20:33:21Z",
+     "source_url": "https://x.com/labubu_trader/status/2118046853648543837",
+     "metrics_source": "https://x.com/labubu_trader/status/2118046853648543837",
+     "verification": "X 精华监控 03 轮报告，原帖页核对。",
+     "avatar_url": "https://pbs.twimg.com/profile_images/1930061717826113536/beBBZQZJ_400x400.jpg",
+     "avatar_source": "https://x.com/labubu_trader",
+     "impact": [
+      {
+       "targets": "$MRVL / $LITE",
+       "direction": "关注",
+       "reason": "配对交易属性下两者联动震荡加剧，套利资金驱动波动而非基本面。"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "analog-semis-strongest",
+   "title": "labubu：模拟芯片是近期半导体中最强的名字",
+   "summary": "labubu 称近期半导体中最强的名字是 $ADI、$TXN、$NXPI 等模拟芯片，猜测原因或是过去共识做空、或是其已成实体 AI 标的、或是市场计入电车销售复苏。",
+   "posts": [
+    {
+     "id": "2118056081046044842",
+     "author": "@labubu_trader",
+     "published_at": "2026-11-04T19:01:35Z",
+     "quote": "The strongest names recently is the analog names such as $ADI $TXN $NXPI",
+     "viewpoint": "labubu 称近期半导体中最强的名字是 $ADI、$TXN、$NXPI 等模拟芯片，猜测原因或是过去共识做空、或是其已成实体 AI 标的、或是市场计入电车销售复苏。",
+     "translation_zh": "说到半导体……最近最强的名字是模拟芯片名字，比如 $ADI、$TXN、$NXPI。我猜它们过去只是该板块里的共识做空标的？而现在它们也是实体 AI 名字了。或者市场正在计入电动汽车销售的复苏？不知道🤷",
+     "translation_scope": "full",
+     "translation_source_url": "https://x.com/labubu_trader/status/2118056081046044842",
+     "views": 7601,
+     "reposts": 0,
+     "replies": 9,
+     "observed_at": "2026-11-04T20:33:21Z",
+     "source_url": "https://x.com/labubu_trader/status/2118056081046044842",
+     "metrics_source": "https://x.com/labubu_trader/status/2118056081046044842",
+     "verification": "X 精华监控 04 轮报告，原帖页核对。",
+     "avatar_url": "https://pbs.twimg.com/profile_images/1930061717826113536/beBBZQZJ_400x400.jpg",
+     "avatar_source": "https://x.com/labubu_trader",
+     "impact": [
+      {
+       "targets": "$ADI / $TXN / $NXPI",
+       "direction": "关注",
+       "reason": "模拟芯片领涨半导体，成因待验证（空头回补、实体 AI 叙事或电车复苏预期）。"
       }
      ]
     }
