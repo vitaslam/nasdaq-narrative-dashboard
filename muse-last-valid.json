@@ -1,8 +1,8 @@
 {
  "schema_version": 1,
- "batch_id": "muse:2026-11-05:04",
+ "batch_id": "muse:2026-11-05:06",
  "week_id": "2026-11-02",
- "generated_at": "2026-11-04T20:33:21Z",
+ "generated_at": "2026-11-04T22:32:24Z",
  "x_topics_upsert": [
   {
    "id": "polymarket-32228",
@@ -19,7 +19,7 @@
      "views": null,
      "reposts": null,
      "replies": null,
-     "observed_at": "2026-11-04T20:33:21Z",
+     "observed_at": "2026-11-04T22:32:24Z",
      "source_url": "https://polymarket.com/event/balance-of-power-2026-midterms",
      "metrics_source": "https://gamma-api.polymarket.com/events/32228",
      "verification": "Polymarket 官方 Gamma API 读取该事件双边概率。",
@@ -40,11 +40,11 @@
      "published_at": "2026-11-03T08:21:58Z",
      "quote": null,
      "viewpoint": "YES：99.9% (+0.0%)\nNO：0.1%",
-     "translation_zh": "Polymarket 事件「WTI 11月破$100」最新双边概率：YES 99.9% / NO 0.1%，YES 较上轮快照变化 +0.0pp；该事件累计成交额约 $1,120,519。点击跳转 Polymarket 该事件页。",
+     "translation_zh": "Polymarket 事件「WTI 11月破$100」最新双边概率：YES 99.9% / NO 0.1%，YES 较上轮快照变化 +0.0pp；该事件累计成交额约 $1,127,521。点击跳转 Polymarket 该事件页。",
      "views": null,
      "reposts": null,
      "replies": null,
-     "observed_at": "2026-11-04T20:33:21Z",
+     "observed_at": "2026-11-04T22:32:24Z",
      "source_url": "https://polymarket.com/event/what-price-will-wti-hit-in-november-2026",
      "metrics_source": "https://gamma-api.polymarket.com/events/1250301",
      "verification": "Polymarket 官方 Gamma API 读取该事件双边概率。",
@@ -64,12 +64,12 @@
      "author": "@PolymarketA",
      "published_at": "2026-11-03T08:21:58Z",
      "quote": null,
-     "viewpoint": "YES：77.0% (-1.0%)\nNO：23.0%",
-     "translation_zh": "Polymarket 事件「Fed 12月决议·加息25bp」最新双边概率：YES 77.0% / NO 23.0%，YES 较上轮快照变化 -1.0pp；该事件累计成交额约 $12,851,433。点击跳转 Polymarket 该事件页。",
+     "viewpoint": "YES：78.0% (+0.0%)\nNO：22.0%",
+     "translation_zh": "Polymarket 事件「Fed 12月决议·加息25bp」最新双边概率：YES 78.0% / NO 22.0%，YES 较上轮快照变化 +0.0pp；该事件累计成交额约 $12,862,062。点击跳转 Polymarket 该事件页。",
      "views": null,
      "reposts": null,
      "replies": null,
-     "observed_at": "2026-11-04T20:33:21Z",
+     "observed_at": "2026-11-04T22:32:24Z",
      "source_url": "https://polymarket.com/event/fed-decision-in-december-20260729232808632",
      "metrics_source": "https://gamma-api.polymarket.com/events/770450",
      "verification": "Polymarket 官方 Gamma API 读取该事件双边概率。",
@@ -90,11 +90,11 @@
      "published_at": "2026-11-03T08:21:58Z",
      "quote": null,
      "viewpoint": "YES：78.0% (+0.0%)\nNO：22.0%",
-     "translation_zh": "Polymarket 事件「2026年再加息」最新双边概率：YES 78.0% / NO 22.0%，YES 较上轮快照变化 +0.0pp；该事件累计成交额约 $1,426,852。点击跳转 Polymarket 该事件页。",
+     "translation_zh": "Polymarket 事件「2026年再加息」最新双边概率：YES 78.0% / NO 22.0%，YES 较上轮快照变化 +0.0pp；该事件累计成交额约 $1,426,861。点击跳转 Polymarket 该事件页。",
      "views": null,
      "reposts": null,
      "replies": null,
-     "observed_at": "2026-11-04T20:33:21Z",
+     "observed_at": "2026-11-04T22:32:24Z",
      "source_url": "https://polymarket.com/event/another-fed-rate-hike-in-2026",
      "metrics_source": "https://gamma-api.polymarket.com/events/1034268",
      "verification": "Polymarket 官方 Gamma API 读取该事件双边概率。",
@@ -114,12 +114,12 @@
      "author": "@PolymarketC",
      "published_at": "2026-11-03T08:21:58Z",
      "quote": null,
-     "viewpoint": "YES：92.0% (+3.0%)\nNO：8.0%",
-     "translation_zh": "Polymarket 事件「美也门停火延续至11月底」最新双边概率：YES 92.0% / NO 8.0%，YES 较上轮快照变化 +3.0pp；该事件累计成交额约 $2,607,280。点击跳转 Polymarket 该事件页。",
+     "viewpoint": "YES：91.0% (+0.0%)\nNO：9.0%",
+     "translation_zh": "Polymarket 事件「美也门停火延续至11月底」最新双边概率：YES 91.0% / NO 9.0%，YES 较上轮快照变化 +0.0pp；该事件累计成交额约 $2,619,875。点击跳转 Polymarket 该事件页。",
      "views": null,
      "reposts": null,
      "replies": null,
-     "observed_at": "2026-11-04T20:33:21Z",
+     "observed_at": "2026-11-04T22:32:24Z",
      "source_url": "https://polymarket.com/event/us-yemen-ceasefire-continues-throughptptpt",
      "metrics_source": "https://gamma-api.polymarket.com/events/1053896",
      "verification": "Polymarket 官方 Gamma API 读取该事件双边概率。",
@@ -139,12 +139,12 @@
      "author": "@PolymarketB",
      "published_at": "2026-11-03T08:21:58Z",
      "quote": null,
-     "viewpoint": "YES：86.7% (-4.2%)\nNO：13.3%",
-     "translation_zh": "Polymarket 事件「Anthropic 2026年底前IPO」最新双边概率：YES 86.7% / NO 13.3%，YES 较上轮快照变化 -4.2pp；该事件累计成交额约 $6,388,711。点击跳转 Polymarket 该事件页。",
+     "viewpoint": "YES：88.7% (+0.0%)\nNO：11.3%",
+     "translation_zh": "Polymarket 事件「Anthropic 2026年底前IPO」最新双边概率：YES 88.7% / NO 11.3%，YES 较上轮快照变化 +0.0pp；该事件累计成交额约 $6,396,541。点击跳转 Polymarket 该事件页。",
      "views": null,
      "reposts": null,
      "replies": null,
-     "observed_at": "2026-11-04T20:33:21Z",
+     "observed_at": "2026-11-04T22:32:24Z",
      "source_url": "https://polymarket.com/event/anthropic-ipo-by",
      "metrics_source": "https://gamma-api.polymarket.com/events/549019",
      "verification": "Polymarket 官方 Gamma API 读取该事件双边概率。",
@@ -165,11 +165,11 @@
      "published_at": "2026-11-03T08:21:58Z",
      "quote": null,
      "viewpoint": "YES：5.0% (+0.0%)\nNO：95.0%",
-     "translation_zh": "Polymarket 事件「美国2026年底前衰退」最新双边概率：YES 5.0% / NO 95.0%，YES 较上轮快照变化 +0.0pp；该事件累计成交额约 $2,423,918。点击跳转 Polymarket 该事件页。",
+     "translation_zh": "Polymarket 事件「美国2026年底前衰退」最新双边概率：YES 5.0% / NO 95.0%，YES 较上轮快照变化 +0.0pp；该事件累计成交额约 $2,426,234。点击跳转 Polymarket 该事件页。",
      "views": null,
      "reposts": null,
      "replies": null,
-     "observed_at": "2026-11-04T20:33:21Z",
+     "observed_at": "2026-11-04T22:32:24Z",
      "source_url": "https://polymarket.com/event/us-recession-by-end-of-2026",
      "metrics_source": "https://gamma-api.polymarket.com/events/48802",
      "verification": "Polymarket 官方 Gamma API 读取该事件双边概率。",
@@ -190,11 +190,11 @@
      "published_at": "2026-11-03T08:21:58Z",
      "quote": null,
      "viewpoint": "YES：0.1% (+0.0%)\nNO：99.9%",
-     "translation_zh": "Polymarket 事件「美伊停火延续至11月底」最新双边概率：YES 0.1% / NO 99.9%，YES 较上轮快照变化 +0.0pp；该事件累计成交额约 $39,881,191。点击跳转 Polymarket 该事件页。",
+     "translation_zh": "Polymarket 事件「美伊停火延续至11月底」最新双边概率：YES 0.1% / NO 99.9%，YES 较上轮快照变化 +0.0pp；该事件累计成交额约 $39,903,046。点击跳转 Polymarket 该事件页。",
      "views": null,
      "reposts": null,
      "replies": null,
-     "observed_at": "2026-11-04T20:33:21Z",
+     "observed_at": "2026-11-04T22:32:24Z",
      "source_url": "https://polymarket.com/event/us-iran-ceasefire-continues-throughptptpt",
      "metrics_source": "https://gamma-api.polymarket.com/events/1038648",
      "verification": "Polymarket 官方 Gamma API 读取该事件双边概率。",
@@ -4023,6 +4023,72 @@
      ]
     }
    ]
+  },
+  {
+   "id": "qualcomm-custom-ai-accelerators",
+   "title": "高通：定制 AI 加速器 10 月已出货",
+   "summary": "高通称定制 AI 加速器 10 月已开始出货，AWS 连接业务本月爬坡，Dragonfly CPU 仍按计划向 Meta 出货。",
+   "posts": [
+    {
+     "id": "2118099974814937566",
+     "author": "@wallstengine",
+     "published_at": "2026-11-04T21:56:01Z",
+     "quote": null,
+     "viewpoint": "高通称定制 AI 加速器 10 月已开始出货，AWS 连接业务本月正在爬坡，Dragonfly CPU 仍按计划向 Meta 出货。",
+     "translation_zh": "高通 $QCOM 表示，其定制 AI 加速器已于 10 月开始出货，AWS 连接业务本月正在爬坡，其 Dragonfly CPU 仍按计划将向 Meta 出货。",
+     "translation_scope": "full",
+     "translation_source_url": "https://x.com/wallstengine/status/2118099974814937566",
+     "views": 9889,
+     "reposts": 2,
+     "replies": 8,
+     "observed_at": "2026-11-04T22:32:24Z",
+     "source_url": "https://x.com/wallstengine/status/2118099974814937566",
+     "metrics_source": "https://x.com/wallstengine/status/2118099974814937566",
+     "verification": "X 精华监控 06 轮报告，原帖页核对。",
+     "avatar_url": "https://pbs.twimg.com/profile_images/1691846947857178624/oZp5wB4r_400x400.jpg",
+     "avatar_source": "https://x.com/wallstengine",
+     "impact": [
+      {
+       "targets": "$QCOM / 定制 AI 芯片",
+       "direction": "关注",
+       "reason": "定制加速器开始放量、AWS 连接业务爬坡，Meta 交付在即。"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "labubu-healthcare-cvs",
+   "title": "labubu：医疗保健股坚挺，例外是财报糟糕的 CVS",
+   "summary": "labubu 称今日医疗保健家族股票都还好，例外是刚刚交出糟糕财报的 CVS。",
+   "posts": [
+    {
+     "id": "2118077727337239002",
+     "author": "@labubu_trader",
+     "published_at": "2026-11-04T20:27:36Z",
+     "quote": "today's medical care family. The exception is CVS which just had a bad ER today.",
+     "viewpoint": "labubu 称今日医疗保健家族股票都还好，例外是刚刚交出糟糕财报的 CVS。",
+     "translation_zh": "今天的医疗保健家族（股票）都还好。例外是 CVS，它今天刚刚交出了一份糟糕的财报。",
+     "translation_scope": "full",
+     "translation_source_url": "https://x.com/labubu_trader/status/2118077727337239002",
+     "views": 8286,
+     "reposts": 3,
+     "replies": 8,
+     "observed_at": "2026-11-04T22:32:24Z",
+     "source_url": "https://x.com/labubu_trader/status/2118077727337239002",
+     "metrics_source": "https://x.com/labubu_trader/status/2118077727337239002",
+     "verification": "X 精华监控 05 轮报告，原帖页核对。",
+     "avatar_url": "https://pbs.twimg.com/profile_images/1930061717826113536/beBBZQZJ_400x400.jpg",
+     "avatar_source": "https://x.com/labubu_trader",
+     "impact": [
+      {
+       "targets": "$CVS / 医疗保健",
+       "direction": "关注",
+       "reason": "医疗保健股普遍坚挺，CVS 因糟糕财报成例外。"
+      }
+     ]
+    }
+   ]
   }
  ],
  "market_bars": {
@@ -4042,6 +4108,14 @@
     "l": 28114.39,
     "c": 28180.26,
     "source_url": "https://api.nasdaq.com/api/quote/NDX/chart?assetclass=index"
+   },
+   {
+    "date": "2026-11-04",
+    "o": 28389.83,
+    "h": 28805.11,
+    "l": 28276.22,
+    "c": 28437.17,
+    "source_url": "https://api.nasdaq.com/api/quote/NDX/chart?assetclass=index"
    }
   ],
   "QQQ": [
@@ -4060,6 +4134,14 @@
     "l": 683.8238,
     "c": 685.5,
     "source_url": "https://api.nasdaq.com/api/quote/QQQ/chart?assetclass=etf"
+   },
+   {
+    "date": "2026-11-04",
+    "o": 690.67,
+    "h": 700.705,
+    "l": 688.1,
+    "c": 692.82,
+    "source_url": "https://api.nasdaq.com/api/quote/QQQ/chart?assetclass=etf"
    }
   ],
   "SPX": [
@@ -4077,6 +4159,14 @@
     "h": 7594.61,
     "l": 7545.39,
     "c": 7568.92,
+    "source_url": "https://www.wsj.com/market-data/quotes/index/SPX/historical-prices"
+   },
+   {
+    "date": "2026-11-04",
+    "o": 7635.81,
+    "h": 7715.57,
+    "l": 7635.81,
+    "c": 7688.62,
     "source_url": "https://www.wsj.com/market-data/quotes/index/SPX/historical-prices"
    }
   ]
@@ -4123,13 +4213,13 @@
    "label": "标普500 · CTA卖出触发（高盛）"
   },
   "UST10Y": {
-   "value": 4.95,
-   "asof": "2026-11-03",
+   "value": 4.9,
+   "asof": "2026-11-04",
    "source_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value_month=202611"
   },
   "UST30Y": {
-   "value": 5.32,
-   "asof": "2026-11-03",
+   "value": 5.28,
+   "asof": "2026-11-04",
    "source_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value_month=202611"
   },
   "Brent": {
