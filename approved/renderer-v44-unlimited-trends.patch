@@ -1,0 +1,121 @@
+--- a/live-week.js
++++ b/live-week.js
+@@ -146,7 +146,9 @@
+  const frequent=document.createElement('section');frequent.className='x-frequent-section';frequent.setAttribute('aria-labelledby','x-frequent-title');
+  const allPosts=new Map(topics.flatMap(t=>(t.posts||[]).map(p=>[p.id,p])));
+  const trendEvidence=new Map();
+- const trendCards=(W.x_trends||[]).map(t=>{
++ const trendTime=t=>Date.parse(t.asof)||0;
++ const trends=[...(W.x_trends||[])].sort((a,b)=>trendTime(b)-trendTime(a));
++ const trendCards=trends.map(t=>{
+   const evidence=[...new Set(t.evidence_post_ids||[])].map(id=>allPosts.get(id)).filter(Boolean);
+   const authors=new Set(evidence.map(p=>String(p.author).toLowerCase()));
+   if(evidence.length<2||authors.size<2)return '';
+--- a/UPDATER.md
++++ b/UPDATER.md
+@@ -1,4 +1,13 @@
+ # 美股叙事与市场点位：固定框架每日维护
++
++## 每轮主动核查范围（2026-11-04）
++
++GPT 每轮主动核查整个顶部 Dashboard，只有 CTA 继续由 Muse 独立维护。包括市场情绪及逐日归因、NDX/QQQ/SPX 收盘和涨跌、50/200 日均线与偏离、VIX/VXN、VX1/VX2/Contango、CNN、BofA、10Y/30Y 美债、Brent。不能因为 Muse 也提供行情就跳过。使用独立来源核验后通过 `market` 更新；均线和图表从连续日线计算。CNN/BofA 按最新可核验报告频率；没有新报告保留观察日期，检查时间不得冒充数据日期。所有时间注明时区，盘后/夜盘/盘前与常规收盘分开。
++
++「本周事件驱动」和 earnings/macro/trend/valuation/position 五维，每张卡面和展开详情都必须逐项检查。同步核对读数、观察日期、状态、比较基准、叙事权重、星级、事实、来源、图表说明、市场反应及后续验证条件。事件已落地就及时补结果和实际反应；部分财报已发布时分清已发布与仍待公布，不能整个事件继续笼统写“待落地”。行情已更新时，同时核对头部摘要与立场的时态，不能仍写“尚未开盘”。维度资料未发布或无同口径数据时保留真实日期/待核验，不能为了更新而编数字或只改日期。卡面和详情必须描述同一观察期，同一数字一致。每轮在 note/结果简报注明已覆盖 Dashboard（CTA 除外）、事件驱动及五维卡面与详情；有缺项明确指出，不把只更新日历称为整轮完成。
++
++只提交实际变化，保留周内固定点位、历史归档和已保存基准。GPT 只替换自己的黄点，Muse 黄点保持；趋势内容与趋势黄点仍由 Muse 独立维护。`market` 写入会自动记录 `snapshot.gpt_verified_market`：同交易日/报告日已由 GPT 核验的行情不会被 Muse 累计旧值覆盖，Muse 的更新日期读数仍可补充；CTA 不受此保护规则影响。
++
+ 
+ ## 关键财报与本轮更新标识（2026-11-03）
+ 
+@@ -10,7 +19,7 @@
+ 
+ 每个收盘日的 `market_mood.current.reason` 用一至两句解释一个主要驱动和价格传导。在 `attribution` 填 `{kind:"event"|"quant",driver,source_urls,known_by?,session?,event_at?}`。可选 FOMC、重大财报、地缘消息或油债关口。区分美东盘前、盘中、前一晚盘后，油价写明 WTI/Brent 及盘中/结算，收益率写明期限和点位。事件类型的 `known_by` 必填，表示消息最晚已公开的美东日期。可用 `event_at` 填带时区的实际时间，`session:"after_close"` 仅可用于之后的交易日。若无明确单一事件，选择 `quant` 并用跳空与盘中幅度、相对等权表现或相对前20日均量及成交区间解释。证据使用公开原始公告、当时行情或当日收盘报道。展示保留 QQQ 收盘涨跌、VIX 观察值和依据链接。
+ 
+-X 高频顶部的「趋势捕捉」由 Muse 独立维护。Muse 在累计 feed 的 `weekly_trends` 中选题、更新原帖依据和受益标签，周末核验后自行标为 `final`。GPT 日更只读趋势，周归档照存已发布的状态。趋势黄点由 Muse 按批次更新。标签可包含潜在利好标的、行业或大盘，须由原帖和推理支持，条件未满足时写“潜在”并说明不确定性。归档周不追认后见之明。趋势卡单行排列，每页最多四张，当前页的卡片等分可用宽度。超出一页时用左右箭头切换，所有已核验趋势继续保存在本周数据中。
++X 高频顶部的「趋势捕捉」由 Muse 独立维护。Muse 在累计 feed 的 `weekly_trends` 中选题、更新原帖依据和受益标签，周末核验后自行标为 `final`。GPT 日更只读趋势，周归档照存已发布的状态。趋势黄点由 Muse 按批次更新。标签可包含潜在利好标的、行业或大盘，须由原帖和推理支持，条件未满足时写“潜在”并说明不确定性。归档周不追认后见之明。趋势总数不设上限；所有已核验趋势按 `asof` 从新到旧排列，最新放左边，同一时间保留原有顺序。只有内容或证据实质更新时才推进该趋势的 `asof`，不要为每批抓取统一刷新时间。趋势卡保持单行，每页最多四张；不足四张及末页按实际张数等分整行。超过四张才显示左右翻页，首尾停止、不循环，所有趋势都可翻到，不截断累计数据。
+ 
+ 正式查看 https://vitaslam.github.io/nasdaq-narrative-dashboard/
+ GPT 迭代与数据源 https://nasdaq-narrative-tracker-vj.thatvitaslam.chatgpt.site
+@@ -34,13 +43,13 @@
+ 
+ - title / summary / headline / hero_note：简洁中文。
+ - stance:{title,note,left,right}：title 直接给出仓位倾向及适合左/右侧，left/right 如「未触发」「待确认」「已触发」「已失效」。周内固定 weekly_plan 的区间、条件与解释。价格进入区间只高亮，只有止跌、等权/广度、波动等实际满足时才标触发。仓位属于条件分析，不是保证收益。
+-- market:{bars:{NDX:[{date,c,o,h,l,v?,source_url}],QQQ:[...],SPX:[...]},sentiment,asof_metrics,volatility,facts,source_urls}。只追加/核对本周已发生交易日 OHLC，date 为交易所交易日期。系统保留完整均线历史，自动计算20/50/100/200日简单均线和ATR。不要传 weekly_plan。sentiment 可按键更新 VIX/VXN/CNN/BofA/CTA；CTA 格仅展示带 data_kind=sell_trigger 的标普卖出线，另附 institution、model、scope（写清现货/期货合约）、source_kind、label、summary、confidence_note、report_date、unit、digits。不同模型和合约不可直接互换；数值须有当期可追溯机构报告或明确标示的可靠转述，不能称实际成交。facts 更新沿用读取结果结构，保持观测日期与发布日期区别。
++- market:{bars:{NDX:[{date,c,o,h,l,v?,source_url}],QQQ:[...],SPX:[...]},sentiment,asof_metrics,volatility,facts,source_urls}。只追加/核对本周已发生交易日 OHLC，date 为交易所交易日期。系统保留完整均线历史，自动计算20/50/100/200日简单均线和ATR。不要传 weekly_plan。sentiment 可按键更新 VIX/VXN/CNN/BofA/UST10Y/UST30Y/Brent/FedHike/VXFutures；每项保留 value（期货为 vx1/vx2）、asof、source_url，期货另含 front_expiry/second_expiry。CTA 日常不由 GPT 写入；CTA 格仅展示带 data_kind=sell_trigger 的标普卖出线，另附 institution、model、scope（写清现货/期货合约）、source_kind、label、summary、confidence_note、report_date、unit、digits。不同模型和合约不可直接互换；数值须有当期可追溯机构报告或明确标示的可靠转述，不能称实际成交。facts 更新沿用读取结果结构，保持观测日期与发布日期区别。
+ - dimensions：全五项 earnings/macro/trend/valuation/position，每项 {id,weight,state,tone,status?,as_of,metric?:{value,unit},comparison?,detail_blocks?:[{title,text,source_url}]}。weight 是最近1–2周市场关注的分析估计，合计100，和事件权重单独计算。prior_weight 是上周固定值，不修改。变化0显示—，非0单▲/▼，绝对变动≥10个百分点双▲▲/▼▼。均线偏离周变化用同逻辑，≥2个百分点双箭头；方向不是简单“高于均线就向上”。tone 为 improve/worsen/mixed/pending。详情最多两块，文本简洁，保留数据图表含义与来源。
+ - event_drivers:[{id?,name,weight,status,scheduled_at?,occurred_at?,time_label,source_url}]：最多4项本周重点催化，包含已发生和未发生事件；这组权重合计100，与五维占比独立，是本周叙事关注度的分析估计，不是事件发生概率。status=scheduled/occurred，界面逐项显示未落地/已落地，不设整卡的待落地标签。scheduled需本周预计日期；occurred需本周真实发生时间和证据。time_label使用简短北京时间/盘前盘后。谈判进展落地不等于协议达成，不可提前标后者。事件发生时更新同一项，维持总和100。event_details:[{title,text,metrics?:[{label,value}],source_url}] 最多两卡，合并简洁说明、已知结果与下一验证点。
+ - market_mood:{baselines?,current,conclusion?}：每项{date,asof?,label,emoji,reason,source_urls,baseline_date?,emphasis?}。首次建立 baselines.previous_close，date 为上周五（休市用上周最后实际收盘日），依据完整收盘证据判断情绪。周一 current.baseline_date 必须指向 previous_close.date，结合周末消息和已发生的周一新消息比较；不能与周一本身比较。另保存 baselines.week_open（周一真实观测），周二起可选建立 baselines.early_week（周二真实观测）。周二至周五 current.baseline_date 指向周一或周二；注明基准状态→当前状态及一句话归因。基准一经保存不重写；current 使用实际时间戳，历史自动保留。周五完整收盘后 conclusion 标明全周延续或由何转何及一句归因。休市以最后实际交易日核验，不提前下周末结论。emoji 随状态变化，不把分析判断写成客观指数。
+ - importance:{metrics:{指标id:{score,reason}},dimensions:{维度id:{score,reason}},events:{事件id:{score,reason}},questions:{问题id:{score,reason}},answers:{记录id:{score,reason,emphasis?}}}。score 为0.5–3，半星步进，reason为本周重要性依据。五维和右侧验证卡3星以彩色底白字强调，普通卡白底；左侧事件和问题列表不填色，只保留星级。按当周变化幅度、市场相关性和是否改变验证条件评估，不照用户圈选，不按百分比换算。calendar_upsert 各项加 importance:{score,reason}，所有事件都有星级；关键财报、CPI、非农、FOMC优先考虑3星。
+ - 强调短语：market_mood.current.emphasis 为短语数组；answers 的 importance.emphasis 可按 evidence/reaction/impact/next_check 字段列短语；日历 emphasis 为 watch 文本中短语；X viewpoint/impact 可带 emphasis。只强调原文真实关键判断，不添加结论。正文纯黑Regular400，关键数据和信息Bold700，彩色重点卡对应反白。
+-- market.sentiment_history:{CNN:[{date,value,source_url,frequency,source_kind?,observation_date?}],BofA:[...],VIX:[...],VXN:[...],CTA:[...]}：给顶部迷你折线补充带日期的真实观测，系统按日期合并并保留历史，不传整套虚构日频值。指数和NDX/200日偏离自动从已保存日线计算；每张图截止所选周行情日期，向前两个月，无横纵坐标，hover显示实际日期和读数。CNN当前使用周频公开归档，BofA按报告发布日期（有明确观测截止日则一并保留），不插值制造每日读数；来源存在冲突时采用一致口径并注明。VIX/VXN日线每天追加；CTA必须附institution与model，无法核实保持空值。只补历史曲线，不修改归档周结论。
++- market.sentiment_history:{CNN:[{date,value,source_url,frequency,source_kind?,observation_date?}],BofA:[...],VIX:[...],VXN:[...],CTA:[...]}：给顶部迷你折线补充带日期的真实观测，系统按日期合并并保留历史，不传整套虚构日频值。指数和NDX/200日偏离自动从已保存日线计算；每张图截止所选周行情日期，向前两个月，无横纵坐标，hover显示实际日期和读数。CNN优先最新官方读数，官方不可取才用注明日期的可核验归档；BofA按报告发布日期（有明确观测截止日则一并保留），不插值制造每日读数；来源存在冲突时采用一致口径并注明。VIX/VXN日线每天追加；CTA必须附institution与model，无法核实保持空值。只补历史曲线，不修改归档周结论。
+ - questions_upsert:[{id,question,schedule,status,resolved,answer_ids?}]：左侧「本周待验证」由本周事件及日历归纳，3–6个关键问题；答案出现后标部分确认/确认/反证等，保留问题。新增回答必须提供question_id关联问题；继承记录可用问题的answer_ids关联。点击问题定位最新相关卡片并同步选中；无结果显示待验证卡片，不捏造结果。
+ - answers_append:[{id,question_id?,occurred_at,time_label?,title,question,verdict,tone,evidence,reaction,impact,next_check,source_url,unexpected?}]：新回答追加，按时间最新在前；保留既有记录，不能覆盖已确认回答。突发事件加unexpected=true。发现旧答案错误，追加一个有新id并注明更正的记录。关键信息短句，关键数字会自动加粗；不要把同期相关写成单一因果。
+ - x_topics_upsert:[{id,title,summary,posts:[{id,author,avatar_url?,avatar_source?,avatar_verification?,published_at,quote,viewpoint,views,reposts,replies,observed_at,source_url,metrics_source,verification,context?,impact:[{targets,direction,reason}]}]}]：相同话题复用topic id，在同一卡片追加新观点。每条作者旁显示真实X头像；优先核验原账号或公开账号归档中的profile image，avatar_url为HTTPS图片或站点已存头像地址，avatar_source保留核验页。不能用任意肖像或生成图片冒充头像；无法核实时明确缺失。已有post仅更新已核验热度和说明，保留首次发现时间。浏览/转发/评论缺失=null，不算0，热度必须有记录时间和来源。新增高亮24小时；除固定在高频的 Polymarket 帖子外，高热阈值为单帖100万浏览或1000转发/评论，仅指观察样本。原帖摘引短而准确，每个非用户来源累计不超过25词；中文概述具体观点，标具体受影响标的/行业与利好利空分化，把推断与原帖事实分开。不把热度直接视为交易重要性。
+@@ -75,4 +84,4 @@
+ 
+ 高热度话题由 GPT 主责，独立查找并核验原帖、真实账号头像、忠实中文翻译、可溯源的单帖热度和确有证据的利好标的。高频板块由 Muse 累计 feed 主责，不限数量，按博主纵向合并。高频作者卡把 @labubu_trader 长期固定在第一位，卡内按发帖时间倒序；Polymarket 帖子始终只在高频作者卡展示，包括市场事件和各 Polymarket 账号的原帖。其余单帖达到 100 万浏览或 1000 转发/评论才自动进入高热度。市场成交额不计为浏览量。页面只显示译文、账号头像与原帖跳转、利好标的和一项热度；核验与推断保留在内部字段，不显示于卡面。无可核验数字时保持空值，不能编造。发布及锁协议详见仓库 `MAINTENANCE.md`。
+ 
+-CNN、BofA 和标普 CTA 卖出触发点的日常采集与更新由 Muse 经 `market_indicators` 提交；GPT 不再独立更新。缺报告保留旧日期或待核验，不能补造。字段与冲突规则见 `MAINTENANCE.md`。
++CNN、BofA 由 GPT 每轮主动核查并更新；CTA 卖出触发点仍由 Muse 经 `market_indicators.CTA` 独立提交。无新报告保留真实日期，不能补造。Muse 可补充更新日期的行情，但不覆盖 GPT 同日核验值。字段与冲突规则见 `MAINTENANCE.md`。
+--- a/DAILY_UPDATE.md
++++ b/DAILY_UPDATE.md
+@@ -1,4 +1,13 @@
+ # 每日增量更新：无人值守与低 token 流程
++
++## 每轮主动核查范围（2026-11-04）
++
++GPT 每轮主动核查整个顶部 Dashboard，只有 CTA 继续由 Muse 独立维护。包括市场情绪及逐日归因、NDX/QQQ/SPX 收盘和涨跌、50/200 日均线与偏离、VIX/VXN、VX1/VX2/Contango、CNN、BofA、10Y/30Y 美债、Brent。不能因为 Muse 也提供行情就跳过。使用独立来源核验后通过 `market` 更新；均线和图表从连续日线计算。CNN/BofA 按最新可核验报告频率；没有新报告保留观察日期，检查时间不得冒充数据日期。所有时间注明时区，盘后/夜盘/盘前与常规收盘分开。
++
++「本周事件驱动」和 earnings/macro/trend/valuation/position 五维，每张卡面和展开详情都必须逐项检查。同步核对读数、观察日期、状态、比较基准、叙事权重、星级、事实、来源、图表说明、市场反应及后续验证条件。事件已落地就及时补结果和实际反应；部分财报已发布时分清已发布与仍待公布，不能整个事件继续笼统写“待落地”。行情已更新时，同时核对头部摘要与立场的时态，不能仍写“尚未开盘”。维度资料未发布或无同口径数据时保留真实日期/待核验，不能为了更新而编数字或只改日期。卡面和详情必须描述同一观察期，同一数字一致。每轮在 note/结果简报注明已覆盖 Dashboard（CTA 除外）、事件驱动及五维卡面与详情；有缺项明确指出，不把只更新日历称为整轮完成。
++
++只提交实际变化，保留周内固定点位、历史归档和已保存基准。GPT 只替换自己的黄点，Muse 黄点保持；趋势内容与趋势黄点仍由 Muse 独立维护。`market` 写入会自动记录 `snapshot.gpt_verified_market`：同交易日/报告日已由 GPT 核验的行情不会被 Muse 累计旧值覆盖，Muse 的更新日期读数仍可补充；CTA 不受此保护规则影响。
++
+ 
+ 关键财报在公布后立刻更新共享日历：逐项预期/实际、下季指引、盘后/夜盘/盘前分时段价格与时间、即时叙事判断；未开始的时段明示，不留空白。业绩与股价反应可分别配准确的 emoji。完整字段和来源口径见 `UPDATER.md`。本站每轮数据写入自动替换 GPT 小黄点，仅表示 GPT 这一轮改变的内容；Muse 小黄点由其 feed 批次独立管理，不互相清除。 日历小卡取总营收和 EPS 的预期、实际，另用 `business_highlight` 填一句业务亮点或落差。
+ 
+@@ -7,12 +16,14 @@
+ 
+ ## 执行边界
+ 
++趋势总数不设上限，按 `asof` 从新到旧排列、最新在左；单行每页最多四张，超出翻页，不足四张等分整行。
++
+ 原生任务每天北京时间 10:00、16:00、22:00 各执行一次。全部在云端使用 Dashboard、IBKR、搜索、GitHub 插件；日常不打开或接管 Chrome，不依赖用户电脑在线。缺连接时报告真实阻塞，不要求用浏览器绕过。页面样式与代码先在 GPT 站点迭代，用户确认后才发布 GitHub；每日只更新数据。
+ 
+ ## 最短可靠路径
+ 
+ 1. 调用 `dashboard_update_context` 一次，默认返回增量摘要、revision、当前周和两周日历；不要读取整站、历年归档、HTML、所有价格历史或聊天历史。只有遇到新字段、周六归档/开周、修正疑点才读 `/updater-instructions` 完整规范或 `dashboard_read_week`。
+-2. 核对最近已完整收盘交易日、市场休市及上次更新时间。批量查询 IBKR / 官方来源，行情只取缺少的交易日；均线和图表由代码计算。CNN、BofA、CTA 由 Muse 按真实报告频率维护；GPT 日常只读其结果，不重复抓取或写入。休市仍检查重大新消息、X 和已到期日历，不重复拉历史行情。
++2. 核对最近已完整收盘交易日、市场休市及上次更新时间。批量查询 IBKR / 官方来源，行情只取缺少的交易日；均线和图表由代码计算。CNN、BofA 由 GPT 每轮主动核查最新报告；只有 CTA 继续由 Muse 维护。休市仍检查重大新消息、X 和已到期日历，不重复拉历史行情。
+ 3. 围绕未回答问题、今日到期日历和自上次更新以来的新消息查询。优先公司 IR、交易所、BLS/ISM/BEA/Fed/Cboe；可靠新闻交叉核验。只打开与变化相关的来源，首次确认后复用已存出处。X 同话题追加，仅记录新增/实质变化和有时间戳的热度，访问失败如实标明；不为填满页面造观点，不重抓全部旧帖。
+ 4. 一次 `dashboard_apply_daily_update`，稳定 `run_id=daily:北京时间日期:计划时段（10/16/22）`、刚读到的 `expected_revision`。只发变化字段；OHLC/指标按日期追加、记录按稳定 id 去重。不改周内固定点位或归档，不复制共享日历。无实质变化则不写、不发布；保留上次内容更新时间，简报可说明已检查。
+ 5. 写后一次 `dashboard_update_context` 核对新 revision、行情日期、改动摘要和 counts。冲突才重新读后合并，保留 run_id；同一失败路径最多一次有依据重试，不反复盲试。禁止因节省 token 跳过数据核验。
+@@ -31,10 +42,10 @@
+ 
+ ## 成本策略
+ 
+-GPT 仅做新增证据筛选、叙事判断和小字段更新。数据去重、指标计算、评分条/星级样式、图表、历史拼装、页面渲染和部署均由确定性脚本执行。普通日用默认精简摘要，完整规则按需读取；不重复更新任务状态，不每天改模板或上传全站。实际 token 节省取决于当天事件量，不承诺固定百分比。
++GPT 每轮主动核查上述全部范围，实际写入限于新增证据、叙事判断和变化字段。数据去重、指标计算、评分条/星级样式、图表、历史拼装、页面渲染和部署均由确定性脚本执行。普通日用默认精简摘要，完整规则按需读取；不重复更新任务状态，不每天改模板或上传全站。实际 token 节省取决于当天事件量，不承诺固定百分比。
+ 
+ ## X 双板块更新补充（2026-11-02）
+ 
+ 高热度话题由 GPT 主责，独立查找并核验原帖、真实账号头像、忠实中文翻译、可溯源的单帖热度和确有证据的利好标的。高频板块由 Muse 累计 feed 主责，不限数量，按博主纵向合并；其上方趋势捕捉由本周至少两位作者的独立原帖支持，Muse 独立选题、周内跟进、周末固化并附条件性受益标签。趋势卡只显示 Muse 黄点。GPT 日更只读已发布的趋势，周归档照存 Muse 的状态。Polymarket 帖子始终只在高频作者卡展示，包括市场事件和各 Polymarket 账号的原帖。其余单帖达到 100 万浏览或 1000 转发/评论才自动进入高热度。市场成交额不计为浏览量。页面只显示译文、账号头像与原帖跳转、利好标的和一项热度；核验与推断保留在内部字段，不显示于卡面。无可核验数字时保持空值，不能编造。发布及锁协议详见仓库 `MAINTENANCE.md`。
+ 
+-CNN、BofA 和标普 CTA 卖出触发点的日常采集与更新由 Muse 经 `market_indicators` 提交；GPT 不再独立更新。缺报告保留旧日期或待核验，不能补造。字段与冲突规则见 `MAINTENANCE.md`。
++CNN、BofA 由 GPT 每轮主动核查并更新；CTA 卖出触发点仍由 Muse 经 `market_indicators.CTA` 独立提交。无新报告保留真实日期，不能补造。Muse 可补充更新日期的行情，但不覆盖 GPT 同日核验值。字段与冲突规则见 `MAINTENANCE.md`。
+--- a/runtime.js
++++ b/runtime.js
+@@ -162,6 +162,13 @@
+  for(const k of ['sentiment','asof_metrics','volatility'])if(patch[k])d[k]={...d[k],...clone(patch[k])};
+  if(patch.facts){only(patch.facts,['ndx_weekly','ndx_prior_week','ndxe_weekly','ndxe_prior_week','reserves','nfci','cftc','vix_monthly','research','notes']);Object.assign(d,clone(patch.facts));}
+  if(patch.source_urls)d.source_urls=[...new Set([...(d.source_urls||[]),...patch.source_urls])];
++ // Remember the exact observations GPT verified so a cumulative Muse feed
++ // cannot restore an older value for the same session or report date.
++ const verified=d.gpt_verified_market??={bars:{},sentiment:{},volatility:{}};
++ const checkedAt=new Date().toISOString();
++ for(const [symbol,bars]of Object.entries(patch.bars||{})){verified.bars[symbol]??={};for(const bar of bars)verified.bars[symbol][bar.date]=checkedAt}
++ for(const [key,row]of Object.entries(patch.sentiment||{}))if(key!=='CTA'&&iso(row?.asof))verified.sentiment[key]={asof:row.asof,verified_at:checkedAt};
++ if(patch.volatility?.dates)for(const [i,date]of patch.volatility.dates.entries())if(iso(date)){verified.volatility[date]??={};for(const key of ['vix','vxn'])if(Number.isFinite(patch.volatility[key]?.[i]))verified.volatility[date][key]=checkedAt}
+  const last=d.bars.NDX.at(-1);w.price_cutoff=last.date;d.price_cutoff=last.date;d.generated_date=last.date;const base=d.bars.NDX.filter(b=>b.date<w.start).at(-1);if(base&&last.date>=w.start)d.ndx_weekly=100*(last.c/base.c-1);
+ }
+ function mergeCalendar(state,items){identified(items);for(const e of items){only(e,['id','iso_date','date','time','event','watch','expectation','kind','source','status','result','result_emoji','business_highlight','earnings_metrics','guidance','market_reaction','reaction_emoji','reaction_session','reaction_phases','narrative_impact','result_source','consensus_source','guidance_source','reaction_source','observed_at','occurred_at','ongoing','week','importance','emphasis']);if(e.business_highlight!==undefined)ok(typeof e.business_highlight==='string'&&e.business_highlight.trim()&&e.business_highlight.length<=72,'Business highlight needs a short sentence');for(const mark of ['result_emoji','reaction_emoji'])if(e[mark])ok(typeof e[mark]==='string'&&e[mark].length<=8,'Emoji marker must be a single concise symbol');if(e.importance)importanceRating(e.importance);if(e.emphasis)ok(Array.isArray(e.emphasis)&&e.emphasis.every(x=>typeof x==='string'&&x.length<=180),'Invalid calendar emphasis');if(e.earnings_metrics){ok(Array.isArray(e.earnings_metrics)&&e.earnings_metrics.length<=16,'At most 16 earnings comparison rows');for(const row of e.earnings_metrics){only(row,['label','expected','actual','note']);ok(row.label&&row.expected&&row.actual,'Earnings metrics need a label and comparable values')}}if(e.reaction_phases){ok(Array.isArray(e.reaction_phases)&&e.reaction_phases.length<=4,'At most four priced sessions');for(const phase of e.reaction_phases){only(phase,['session','value','at','source_url']);ok(phase.session&&phase.value&&phase.at&&url(phase.source_url),'Reaction phase needs session, timestamp and evidence')}}const old=state.calendar.find(x=>x.id===e.id),next={...old,...e};ok(next.ongoing||next.week===0||iso(next.iso_date),'Calendar item needs iso_date');ok(url(next.source),'Calendar item needs official/source URL');ok(['scheduled','released','occurred','cancelled','postponed'].includes(next.status),'Invalid calendar status');if(next.status==='released'||next.status==='occurred'){ok(next.result&&url(next.result_source),'An occurred event requires result and evidence URL');ok(next.iso_date<=today(),'Cannot mark future event as occurred');}if(next.market_reaction)ok(url(next.reaction_source)&&next.reaction_session,'Market reaction needs source and session');if(next.consensus_source)ok(url(next.consensus_source),'Consensus needs source');if(next.guidance_source)ok(url(next.guidance_source),'Guidance needs source');}upsert(state.calendar,items)}

@@ -71,12 +71,15 @@ export function mergeMuseFeed(exportData, feed, {now = new Date().toISOString()}
   }
 
   const snap = week.snapshot;
+  const verified = snap.gpt_verified_market || {};
+  const gptOwnsReading = (key, asof) => key !== 'CTA' && verified.sentiment?.[key]?.asof === asof && snap.sentiment?.[key]?.asof === asof;
   snap.bars ??= {};
   snap.analytics ??= {};
   for (const symbol of ['NDX', 'QQQ', 'SPX']) {
     const incoming = feed.market_bars[symbol];
     const byDate = new Map((snap.bars[symbol] || []).map(bar => [bar.date, bar]));
     for (const bar of incoming) {
+      if (verified.bars?.[symbol]?.[bar.date] && byDate.has(bar.date)) continue;
       byDate.set(bar.date, {...byDate.get(bar.date), ...clone(bar)});
       stats.bars++;
     }
@@ -95,9 +98,12 @@ export function mergeMuseFeed(exportData, feed, {now = new Date().toISOString()}
   snap.asof_metrics ??= {};
   snap.sentiment ??= {};
   for (const reading of feed.volatility_readings) {
-    byDate.set(reading.date, {vix: reading.vix.value, vxn: reading.vxn.value});
+    const row = byDate.get(reading.date) || {};
+    for (const key of ['vix', 'vxn']) if (!verified.volatility?.[reading.date]?.[key] || !Number.isFinite(row[key])) row[key] = reading[key].value;
+    byDate.set(reading.date, row);
     stats.volatility_dates++;
     for (const [key, source] of [['VIX', reading.vix], ['VXN', reading.vxn]]) {
+      if (gptOwnsReading(key, reading.date)) continue;
       const lower = key.toLowerCase();
       if (reading.date >= (snap.sentiment[key]?.asof || ''))
         snap.sentiment[key] = {...snap.sentiment[key], value: source.value, asof: reading.date, source_url: source.source_url};
@@ -117,6 +123,7 @@ export function mergeMuseFeed(exportData, feed, {now = new Date().toISOString()}
   for (const key of ['CNN', 'BofA', 'CTA', 'UST10Y', 'UST30Y', 'Brent', 'FedHike']) {
     const incoming = feed.market_indicators?.[key];
     if (!incoming || incoming.asof < (snap.sentiment[key]?.asof || '')) continue;
+    if (gptOwnsReading(key, incoming.asof)) continue;
     snap.sentiment[key] = {...snap.sentiment[key], ...clone(incoming)};
     const field = {CNN: 'cnnFearGreed', BofA: 'bofaBullBear', CTA: 'cta', UST10Y: 'ust10y', UST30Y: 'ust30y', Brent: 'brent', FedHike: 'fedHike'}[key];
     snap.asof_metrics[field] = {...snap.asof_metrics[field], value: incoming.value, observation_date: incoming.asof, available_date: incoming.asof, source_url: incoming.source_url};
@@ -126,7 +133,7 @@ export function mergeMuseFeed(exportData, feed, {now = new Date().toISOString()}
     snap.indicator_history[key] = [...byReportDate.values()].sort((a, b) => a.date.localeCompare(b.date));
   }
   const futures = feed.market_indicators?.VXFutures;
-  if (futures && futures.asof >= (snap.sentiment.VXFutures?.asof || '')) {
+  if (futures && !gptOwnsReading('VXFutures', futures.asof) && futures.asof >= (snap.sentiment.VXFutures?.asof || '')) {
     snap.sentiment.VXFutures = clone(futures);
     const history = snap.indicator_history.VXFutures ??= [];
     const byDate = new Map(history.map(row => [row.date, row]));

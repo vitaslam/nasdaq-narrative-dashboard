@@ -30,6 +30,10 @@
     {
       "file": "renderer-v43-polymarket-frequent.patch",
       "renderer_sha256": "d5fa7f2ffc6a16729be565de4ef55a8fb536a02bf9d077c4b560612f76d77624"
+    },
+    {
+      "file": "renderer-v44-unlimited-trends.patch",
+      "renderer_sha256": "afef54743dd82e1fd2c39fdb33ab54b8fc646041b2a101d381b17b66f5bdae80"
     }
   ]
 }

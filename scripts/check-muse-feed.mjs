@@ -42,7 +42,7 @@ for (const topic of feed.x_topics_upsert) {
   }
 }
 if (feed.weekly_trends != null) {
-  if (!Array.isArray(feed.weekly_trends) || feed.weekly_trends.length > 8) fail('weekly_trends needs at most eight clusters');
+  if (!Array.isArray(feed.weekly_trends)) fail('weekly_trends must be an array');
   const trendIds = new Set();
   for (const trend of feed.weekly_trends) {
     keys(trend, ['id','title','summary','status','asof','evidence_post_ids','caveat','benefit_tags'], 'weekly_trend');
@@ -117,3 +117,4 @@ if (feed.market_indicators != null) {
   }
 }
 console.log(`Valid Muse handoff: ${feed.batch_id}; ${feed.x_topics_upsert.length} topics, ${barDates.NDX.length} market sessions, ${volDates.size} volatility sessions. Evidence still requires human/agent verification.`);
+
