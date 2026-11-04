@@ -1,8 +1,8 @@
 {
  "schema_version": 1,
- "batch_id": "muse:2026-11-04:22",
+ "batch_id": "muse:2026-11-05:00",
  "week_id": "2026-11-02",
- "generated_at": "2026-11-04T14:45:29Z",
+ "generated_at": "2026-11-04T16:31:59Z",
  "x_topics_upsert": [
   {
    "id": "polymarket-32228",
@@ -15,11 +15,11 @@
      "published_at": "2026-11-03T08:21:58Z",
      "quote": null,
      "viewpoint": "YES：99.9% (+0.0%)\nNO：0.1%",
-     "translation_zh": "Polymarket 事件「民主党横扫中期选举」最新双边概率：YES 99.9% / NO 0.1%，YES 较上轮快照变化 +0.0pp；该事件累计成交额约 $75,331,795。点击跳转 Polymarket 该事件页。",
+     "translation_zh": "Polymarket 事件「民主党横扫中期选举」最新双边概率：YES 99.9% / NO 0.1%，YES 较上轮快照变化 +0.0pp；该事件累计成交额约 $75,409,520。点击跳转 Polymarket 该事件页。",
      "views": null,
      "reposts": null,
      "replies": null,
-     "observed_at": "2026-11-04T14:45:29Z",
+     "observed_at": "2026-11-04T16:31:59Z",
      "source_url": "https://polymarket.com/event/balance-of-power-2026-midterms",
      "metrics_source": "https://gamma-api.polymarket.com/events/32228",
      "verification": "Polymarket 官方 Gamma API 读取该事件双边概率。",
@@ -40,11 +40,11 @@
      "published_at": "2026-11-03T08:21:58Z",
      "quote": null,
      "viewpoint": "YES：99.9% (+0.0%)\nNO：0.1%",
-     "translation_zh": "Polymarket 事件「WTI 11月破$100」最新双边概率：YES 99.9% / NO 0.1%，YES 较上轮快照变化 +0.0pp；该事件累计成交额约 $915,998。点击跳转 Polymarket 该事件页。",
+     "translation_zh": "Polymarket 事件「WTI 11月破$100」最新双边概率：YES 99.9% / NO 0.1%，YES 较上轮快照变化 +0.0pp；该事件累计成交额约 $1,000,058。点击跳转 Polymarket 该事件页。",
      "views": null,
      "reposts": null,
      "replies": null,
-     "observed_at": "2026-11-04T14:45:29Z",
+     "observed_at": "2026-11-04T16:31:59Z",
      "source_url": "https://polymarket.com/event/what-price-will-wti-hit-in-november-2026",
      "metrics_source": "https://gamma-api.polymarket.com/events/1250301",
      "verification": "Polymarket 官方 Gamma API 读取该事件双边概率。",
@@ -64,12 +64,12 @@
      "author": "@PolymarketA",
      "published_at": "2026-11-03T08:21:58Z",
      "quote": null,
-     "viewpoint": "YES：78.0% (+0.0%)\nNO：22.0%",
-     "translation_zh": "Polymarket 事件「Fed 12月决议·加息25bp」最新双边概率：YES 78.0% / NO 22.0%，YES 较上轮快照变化 +0.0pp；该事件累计成交额约 $12,426,503。点击跳转 Polymarket 该事件页。",
+     "viewpoint": "YES：80.0% (+2.0%)\nNO：20.0%",
+     "translation_zh": "Polymarket 事件「Fed 12月决议·加息25bp」最新双边概率：YES 80.0% / NO 20.0%，YES 较上轮快照变化 +2.0pp；该事件累计成交额约 $12,571,268。点击跳转 Polymarket 该事件页。",
      "views": null,
      "reposts": null,
      "replies": null,
-     "observed_at": "2026-11-04T14:45:29Z",
+     "observed_at": "2026-11-04T16:31:59Z",
      "source_url": "https://polymarket.com/event/fed-decision-in-december-20260729232808632",
      "metrics_source": "https://gamma-api.polymarket.com/events/770450",
      "verification": "Polymarket 官方 Gamma API 读取该事件双边概率。",
@@ -89,12 +89,12 @@
      "author": "@PolymarketB",
      "published_at": "2026-11-03T08:21:58Z",
      "quote": null,
-     "viewpoint": "YES：78.0% (+0.0%)\nNO：22.0%",
-     "translation_zh": "Polymarket 事件「2026年再加息」最新双边概率：YES 78.0% / NO 22.0%，YES 较上轮快照变化 +0.0pp；该事件累计成交额约 $1,399,395。点击跳转 Polymarket 该事件页。",
+     "viewpoint": "YES：80.0% (+2.0%)\nNO：20.0%",
+     "translation_zh": "Polymarket 事件「2026年再加息」最新双边概率：YES 80.0% / NO 20.0%，YES 较上轮快照变化 +2.0pp；该事件累计成交额约 $1,408,873。点击跳转 Polymarket 该事件页。",
      "views": null,
      "reposts": null,
      "replies": null,
-     "observed_at": "2026-11-04T14:45:29Z",
+     "observed_at": "2026-11-04T16:31:59Z",
      "source_url": "https://polymarket.com/event/another-fed-rate-hike-in-2026",
      "metrics_source": "https://gamma-api.polymarket.com/events/1034268",
      "verification": "Polymarket 官方 Gamma API 读取该事件双边概率。",
@@ -119,7 +119,7 @@
      "views": null,
      "reposts": null,
      "replies": null,
-     "observed_at": "2026-11-04T14:45:29Z",
+     "observed_at": "2026-11-04T16:31:59Z",
      "source_url": "https://polymarket.com/event/us-yemen-ceasefire-continues-throughptptpt",
      "metrics_source": "https://gamma-api.polymarket.com/events/1053896",
      "verification": "Polymarket 官方 Gamma API 读取该事件双边概率。",
@@ -139,12 +139,12 @@
      "author": "@PolymarketB",
      "published_at": "2026-11-03T08:21:58Z",
      "quote": null,
-     "viewpoint": "YES：90.9% (+0.1%)\nNO：9.1%",
-     "translation_zh": "Polymarket 事件「Anthropic 2026年底前IPO」最新双边概率：YES 90.9% / NO 9.1%，YES 较上轮快照变化 +0.1pp；该事件累计成交额约 $6,327,277。点击跳转 Polymarket 该事件页。",
+     "viewpoint": "YES：87.6% (-3.3%)\nNO：12.4%",
+     "translation_zh": "Polymarket 事件「Anthropic 2026年底前IPO」最新双边概率：YES 87.6% / NO 12.4%，YES 较上轮快照变化 -3.3pp；该事件累计成交额约 $6,374,223。点击跳转 Polymarket 该事件页。",
      "views": null,
      "reposts": null,
      "replies": null,
-     "observed_at": "2026-11-04T14:45:29Z",
+     "observed_at": "2026-11-04T16:31:59Z",
      "source_url": "https://polymarket.com/event/anthropic-ipo-by",
      "metrics_source": "https://gamma-api.polymarket.com/events/549019",
      "verification": "Polymarket 官方 Gamma API 读取该事件双边概率。",
@@ -169,7 +169,7 @@
      "views": null,
      "reposts": null,
      "replies": null,
-     "observed_at": "2026-11-04T14:45:29Z",
+     "observed_at": "2026-11-04T16:31:59Z",
      "source_url": "https://polymarket.com/event/us-recession-by-end-of-2026",
      "metrics_source": "https://gamma-api.polymarket.com/events/48802",
      "verification": "Polymarket 官方 Gamma API 读取该事件双边概率。",
@@ -190,11 +190,11 @@
      "published_at": "2026-11-03T08:21:58Z",
      "quote": null,
      "viewpoint": "YES：0.1% (+0.0%)\nNO：99.9%",
-     "translation_zh": "Polymarket 事件「美伊停火延续至11月底」最新双边概率：YES 0.1% / NO 99.9%，YES 较上轮快照变化 +0.0pp；该事件累计成交额约 $39,678,647。点击跳转 Polymarket 该事件页。",
+     "translation_zh": "Polymarket 事件「美伊停火延续至11月底」最新双边概率：YES 0.1% / NO 99.9%，YES 较上轮快照变化 +0.0pp；该事件累计成交额约 $39,700,132。点击跳转 Polymarket 该事件页。",
      "views": null,
      "reposts": null,
      "replies": null,
-     "observed_at": "2026-11-04T14:45:29Z",
+     "observed_at": "2026-11-04T16:31:59Z",
      "source_url": "https://polymarket.com/event/us-iran-ceasefire-continues-throughptptpt",
      "metrics_source": "https://gamma-api.polymarket.com/events/1038648",
      "verification": "Polymarket 官方 Gamma API 读取该事件双边概率。",
@@ -1061,7 +1061,7 @@
   {
    "id": "dem-sweep-trades",
    "title": "民主党横扫题材交易",
-   "summary": "民主党横扫情形下的交易讨论：长端实际收益率下行、12 月债务上限博弈与政府停摆风险，逢低买入医保股与黄金看涨期权；开票夜横扫几成定局后，labubu 认为特朗普打击伊朗不再有顾忌、不确定性反而变大，主张先观望。",
+   "summary": "民主党横扫情形下的交易讨论：长端实际收益率下行、12 月债务上限博弈与政府停摆风险，逢低买入医保股与黄金看涨期权；开票夜横扫几成定局后，labubu 认为特朗普打击伊朗不再有顾忌、不确定性反而变大，主张先观望。11 月 4 日开盘，labubu 逢低买入 $SPCX、$PLTR、$TSLA，认为 TSLA 将从民主党横扫中受益良多。",
    "posts": [
     {
      "id": "2117312384629084603",
@@ -1216,6 +1216,32 @@
        "targets": "CSP / neocloud / 数据中心",
        "direction": "关注",
        "reason": "得州数据中心监管条件利好自带电力的大型云服务商，相对利空 neocloud。"
+      }
+     ]
+    },
+    {
+     "id": "2118000818230288575",
+     "author": "@labubu_trader",
+     "published_at": "2026-11-04T15:22:00Z",
+     "quote": "Thanks Dem, I bought the dip of $SPCX $PLTR $TSLA at the opening. Especially $TSLA I think it will benefit from Dem sweep a lot.",
+     "viewpoint": "labubu 感谢民主党，在开盘时逢低买入了 $SPCX、$PLTR、$TSLA，尤其是 $TSLA，认为它将从民主党横扫中受益良多；引用 11 月 2 日同账号帖“希望市场在交易中期选举民主党横扫时能给 $SPCX 更大的折扣”，附 SpaceX/SPCX 卡片 $135.45（-4.15%）。",
+     "translation_zh": "谢谢民主党，我在开盘时逢低买入了 $SPCX、$PLTR、$TSLA。尤其是 $TSLA，我认为它将从民主党横扫中受益良多。引用帖（11 月 2 日，同账号）：“希望市场在交易中期选举民主党横扫时能给 $SPCX 更大的折扣。”附 SpaceX/SPCX 卡片：$135.45，-4.15%。",
+     "translation_scope": "full",
+     "translation_source_url": "https://x.com/labubu_trader/status/2118000818230288575",
+     "views": 15679,
+     "reposts": 2,
+     "replies": 12,
+     "observed_at": "2026-11-04T16:31:59Z",
+     "source_url": "https://x.com/labubu_trader/status/2118000818230288575",
+     "metrics_source": "https://x.com/labubu_trader/status/2118000818230288575",
+     "verification": "X 精华监控 00 轮报告，浏览器原帖页核对。",
+     "avatar_url": "https://pbs.twimg.com/profile_images/1930061717826113536/beBBZQZJ_400x400.jpg",
+     "avatar_source": "https://x.com/labubu_trader",
+     "impact": [
+      {
+       "targets": "SPCX / PLTR / TSLA",
+       "direction": "利好",
+       "reason": "逢低买入 SPCX、PLTR、TSLA，认为 TSLA 将从民主党横扫中受益良多。"
       }
      ]
     }
@@ -2727,8 +2753,8 @@
   },
   {
    "id": "midterm-election-night",
-   "title": "中期选举开票夜：民主党夺众议院、翻转 7 参议院席位、期货走弱",
-   "summary": "决策台预测民主党赢得众议院控制权，横扫概率升至 99.9%；民主党最终翻转 7 个参议院席位，为 1986 年以来最大中期参议院收获（北卡、南卡、得州、堪萨斯、俄亥俄、爱荷华、缅因），纳指 100 期货跌超 2%、标普 500 有望自 7 月 31 日以来首次开盘跌破 7500 点；特朗普称接受结果并愿与民主党合作。密歇根参议员席位据 VoteHub 预测由埃尔-赛义德拿下。民主党控制两院后金银飙升，两金属单日合计市值增 1 万亿美元。",
+   "title": "中期选举开票夜：民主党夺众议院、翻转 7 参议院席位、期货走弱后盘中逆转大涨",
+   "summary": "决策台预测民主党赢得众议院控制权，横扫概率升至 99.9%；民主党最终翻转 7 个参议院席位，为 1986 年以来最大中期参议院收获（北卡、南卡、得州、堪萨斯、俄亥俄、爱荷华、缅因），纳指 100 期货跌超 2%、标普 500 有望自 7 月 31 日以来首次开盘跌破 7500 点；特朗普称接受结果并愿与民主党合作。密歇根参议员席位据 VoteHub 预测由埃尔-赛义德拿下。民主党控制两院后金银飙升，两金属单日合计市值增 1 万亿美元。11 月 4 日盘中走势逆转：Shay 称蓝色海啸是一次买入恐慌的事件，主要指数普涨超 2%；苹果涨 6%，有望创 2025 年 4 月以来最佳单日表现，驱动为民主党横扫国会。",
    "posts": [
     {
      "id": "2117775477545062469",
@@ -3171,6 +3197,58 @@
        "reason": "道指预计开盘大涨近 1000 点，选举后逆转势头增强。"
       }
      ]
+    },
+    {
+     "id": "2117992798544892175",
+     "author": "@StockSavvyShay",
+     "published_at": "2026-11-04T14:50:08Z",
+     "quote": "Turns out the blue tsunami was a buy-the-fear event.",
+     "viewpoint": "Shay 称蓝色海啸是一次买入恐慌的事件；附指数卡片显示道指 52,986.77（+2.32%）、标普 500 7,703.05（+1.77%）、纳指 25,936.73（+2.23%）、小盘股 2000 2,872.40（+2.13%），主要指数盘中普涨。",
+     "translation_zh": "事实证明，蓝色海啸是一次买入恐慌的事件。",
+     "translation_scope": "full",
+     "translation_source_url": "https://x.com/StockSavvyShay/status/2117992798544892175",
+     "views": 34360,
+     "reposts": 37,
+     "replies": 21,
+     "observed_at": "2026-11-04T16:31:59Z",
+     "source_url": "https://x.com/StockSavvyShay/status/2117992798544892175",
+     "metrics_source": "https://x.com/StockSavvyShay/status/2117992798544892175",
+     "verification": "X 精华监控 23 轮报告，浏览器原帖页核对。",
+     "avatar_url": "https://pbs.twimg.com/profile_images/1878129937737187328/DnEflT4L_400x400.jpg",
+     "avatar_source": "https://x.com/StockSavvyShay",
+     "impact": [
+      {
+       "targets": "美股主要指数",
+       "direction": "利好",
+       "reason": "蓝色海啸被视为买入恐慌的机会，主要指数盘中普涨超 2%。"
+      }
+     ]
+    },
+    {
+     "id": "2117997636460700121",
+     "author": "@wallstengine",
+     "published_at": "2026-11-04T15:09:21Z",
+     "quote": "APPLE $AAPL +6% — ON TRACK FOR ITS BEST DAY SINCE APRIL 2025 AS DEMOCRATS SWEEP CONGRESS",
+     "viewpoint": "苹果涨 6%，有望创 2025 年 4 月以来最佳单日表现，驱动为民主党横扫国会；附图行情显示 $352.56（+$20.66，+6.22%），前收 $331.90。",
+     "translation_zh": "苹果 $AAPL +6%——有望创下自 2025 年 4 月以来的最佳单日表现，因民主党横扫国会。",
+     "translation_scope": "full",
+     "translation_source_url": "https://x.com/wallstengine/status/2117997636460700121",
+     "views": 20308,
+     "reposts": 10,
+     "replies": 18,
+     "observed_at": "2026-11-04T16:31:59Z",
+     "source_url": "https://x.com/wallstengine/status/2117997636460700121",
+     "metrics_source": "https://x.com/wallstengine/status/2117997636460700121",
+     "verification": "X 精华监控 00 轮报告，浏览器原帖页核对。",
+     "avatar_url": "https://pbs.twimg.com/profile_images/1691846947857178624/oZp5wB4r_400x400.jpg",
+     "avatar_source": "https://x.com/wallstengine",
+     "impact": [
+      {
+       "targets": "苹果",
+       "direction": "利好",
+       "reason": "苹果盘中涨 6%，有望创 2025 年 4 月以来最佳单日表现，驱动为民主党横扫国会。"
+      }
+     ]
     }
    ]
   },
@@ -3398,6 +3476,105 @@
      "impact": []
     }
    ]
+  },
+  {
+   "id": "microsoft-record-high",
+   "title": "微软涨 7% 创历史新高、市值首破 4.1 万亿美元",
+   "summary": "微软涨 7% 至历史新高，市值首次突破 4.1 万亿美元，成为全球市值第三大的公司。",
+   "posts": [
+    {
+     "id": "2118004815829872890",
+     "author": "@KobeissiLetter",
+     "published_at": "2026-11-04T15:37:53Z",
+     "quote": "BREAKING: Microsoft stock, $MSFT, surges +7% to its highest level on record, now worth $4.1 trillion. Microsoft is currently the third largest company in the",
+     "viewpoint": "突发：微软股票 $MSFT 飙升 7%，创历史新高，现市值 4.1 万亿美元，目前是全球市值第三大的公司。",
+     "translation_zh": "突发：微软股票 $MSFT 飙升 7%，创历史新高，现市值 4.1 万亿美元。微软目前是全球市值第三大的公司。",
+     "translation_scope": "full",
+     "translation_source_url": "https://x.com/KobeissiLetter/status/2118004815829872890",
+     "views": 70725,
+     "reposts": 82,
+     "replies": 90,
+     "observed_at": "2026-11-04T16:31:59Z",
+     "source_url": "https://x.com/KobeissiLetter/status/2118004815829872890",
+     "metrics_source": "https://x.com/KobeissiLetter/status/2118004815829872890",
+     "verification": "X 精华监控 00 轮报告，浏览器原帖页核对。",
+     "avatar_url": "https://pbs.twimg.com/profile_images/1975243710846640128/fwYCe67Y_400x400.jpg",
+     "avatar_source": "https://x.com/KobeissiLetter",
+     "impact": [
+      {
+       "targets": "微软",
+       "direction": "利好",
+       "reason": "微软涨 7% 创历史新高，市值首次突破 4.1 万亿美元。"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "team-memory-shortage-2027",
+   "title": "TEAM 集团 CEO：存储芯片短缺恶化至 2027 年底",
+   "summary": "TEAM 集团 CEO 称存储芯片短缺将恶化至 2027 年底，且没有任何价格下行趋势。",
+   "posts": [
+    {
+     "id": "2118006846447665606",
+     "author": "@wallstengine",
+     "published_at": "2026-11-04T15:45:57Z",
+     "quote": "TEAM GROUP CEO SAYS THE MEMORY CHIP SHORTAGE WILL WORSEN THROUGH THE END OF 2027, WITH \"NO DOWNWARD PRICE TREND WHATSOEVER\"",
+     "viewpoint": "TEAM 集团 CEO 称存储芯片短缺将恶化至 2027 年底，且“没有任何价格下行趋势”。",
+     "translation_zh": "TEAM 集团 CEO 称存储芯片短缺将恶化至 2027 年底，且“没有任何价格下行趋势”。",
+     "translation_scope": "full",
+     "translation_source_url": "https://x.com/wallstengine/status/2118006846447665606",
+     "views": 13611,
+     "reposts": 8,
+     "replies": 20,
+     "observed_at": "2026-11-04T16:31:59Z",
+     "source_url": "https://x.com/wallstengine/status/2118006846447665606",
+     "metrics_source": "https://x.com/wallstengine/status/2118006846447665606",
+     "verification": "X 精华监控 00 轮报告，浏览器原帖页核对。",
+     "avatar_url": "https://pbs.twimg.com/profile_images/1691846947857178624/oZp5wB4r_400x400.jpg",
+     "avatar_source": "https://x.com/wallstengine",
+     "impact": [
+      {
+       "targets": "存储芯片价格",
+       "direction": "利好",
+       "reason": "TEAM 集团 CEO 称存储芯片短缺恶化至 2027 年底，且无任何价格下行趋势。"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "optical-msap-pcb-shortage",
+   "title": "光模块 mSAP PCB 交期近 6 个月、板材供应不足",
+   "summary": "SemiAnalysis 称光模块 mSAP PCB 交期已近 6 个月，板材供应不足高个位数百分比，瓶颈在于能通过 3 打资质清单的板材、而非电镀线。",
+   "posts": [
+    {
+     "id": "2117998060261237070",
+     "author": "@SemiAnalysis_",
+     "published_at": "2026-11-04T15:11:02Z",
+     "quote": "Optical module mSAP PCB lead times are out near six months and by our count the boards are undersupplied by high single digits. Nobody is",
+     "viewpoint": "光模块 mSAP PCB 交期已近 6 个月，按统计板材供应不足高个位数百分比；没人缺电镀线，缺的是能通过 3 打资质清单的板材，而这份清单大多是公差要求。",
+     "translation_zh": "光模块 mSAP PCB 的交期已接近 6 个月，按我们的统计，板材供应不足高个位数百分比。没人缺电镀线，缺的是能通过 3 打资质清单的板材，而这份清单大多是公差要求。（1/4）",
+     "translation_scope": "post_only",
+     "translation_source_url": "https://x.com/SemiAnalysis_/status/2117998060261237070",
+     "views": 13491,
+     "reposts": 0,
+     "replies": 10,
+     "observed_at": "2026-11-04T16:31:59Z",
+     "source_url": "https://x.com/SemiAnalysis_/status/2117998060261237070",
+     "metrics_source": "https://x.com/SemiAnalysis_/status/2117998060261237070",
+     "verification": "X 精华监控 00 轮报告，浏览器原帖页核对。",
+     "avatar_url": "https://pbs.twimg.com/profile_images/2062973370157694976/CdplNoi1_400x400.jpg",
+     "avatar_source": "https://x.com/SemiAnalysis_",
+     "impact": [
+      {
+       "targets": "光模块 PCB 供应链",
+       "direction": "关注",
+       "reason": "mSAP 板材交期近 6 个月、供应不足高个位数百分比，瓶颈在通过资质清单的板材而非电镀线。"
+      }
+     ]
+    }
+   ]
   }
  ],
  "market_bars": {
@@ -3508,12 +3685,12 @@
    "source_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value_month=202611"
   },
   "Brent": {
-   "value": 107.39,
-   "asof": "2026-11-02",
+   "value": 107.03,
+   "asof": "2026-11-03",
    "source_url": "https://www.eia.gov/TodayinEnergy/prices.php"
   },
   "FedHike": {
-   "value": 79.75,
+   "value": 80.45,
    "meeting": "2026-12-09",
    "asof": "2026-11-04",
    "source_url": "https://polymarket.com/event/fed-decision-in-december-20260729232808632",
@@ -3597,8 +3774,8 @@
    "id": "election-sweep-risk",
    "title": "中期选举横扫风险成短期焦点",
    "status": "tracking",
-   "asof": "2026-11-04T06:29:00Z",
-   "summary": "开票夜横扫预期从 91% 飙升至 99.9%，决策台预测民主党赢得众议院，民主党最终翻转 7 个参议院席位、为 1986 年以来最大中期参议院收获，纳指期货跌超 2%、标普 500 有望自 7 月 31 日以来首次开盘跌破 7500 点，10 年期收益率盘后回落；特朗普称接受结果并愿与民主党合作；此前瑞银仅给横扫概率 50%、美银 Hartnett 警告横扫或致美股跌逾 10%；labubu 认为州长对 AI 交易更为关键（掌控数据中心许可与电力审批），横扫既定后特朗普打击伊朗不再有顾忌、不确定性反而变大。",
+   "asof": "2026-11-04T16:31:59Z",
+   "summary": "开票夜横扫预期从 91% 飙升至 99.9%，决策台预测民主党赢得众议院，民主党最终翻转 7 个参议院席位、为 1986 年以来最大中期参议院收获，纳指期货跌超 2%、标普 500 有望自 7 月 31 日以来首次开盘跌破 7500 点，10 年期收益率盘后回落；特朗普称接受结果并愿与民主党合作；此前瑞银仅给横扫概率 50%、美银 Hartnett 警告横扫或致美股跌逾 10%；labubu 认为州长对 AI 交易更为关键（掌控数据中心许可与电力审批），横扫既定后特朗普打击伊朗不再有顾忌、不确定性反而变大。11 月 4 日盘中走势逆转：Shay 称蓝色海啸是买入恐慌的事件，主要指数普涨超 2%，苹果涨 6% 有望创 2025 年 4 月以来最佳单日表现。",
    "evidence_post_ids": [
     "2117640009087955205",
     "2117675911080448142",
@@ -3606,12 +3783,12 @@
     "2117785946443944049",
     "2117802876651352419",
     "2117811292387807743",
-    "2117814002776686762",
-    "2117826511197933693",
     "2117827725243416580",
     "2117805485747478798",
     "2117826903578902844",
-    "2117849265552887964"
+    "2117849265552887964",
+    "2117992798544892175",
+    "2117997636460700121"
    ],
    "caveat": "众议院归属已有预测、其余席位仍在开票；概率为市场估计而非最终计票结果；Hartnett 为情景警告非预测。",
    "benefit_tags": [
