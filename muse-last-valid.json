@@ -1,8 +1,8 @@
 {
  "schema_version": 1,
- "batch_id": "muse:2026-11-04:06",
+ "batch_id": "muse:2026-11-04:08",
  "week_id": "2026-11-02",
- "generated_at": "2026-11-03T22:34:45Z",
+ "generated_at": "2026-11-04T00:29:16Z",
  "x_topics_upsert": [
   {
    "id": "polymarket-32228",
@@ -14,12 +14,12 @@
      "author": "@PolymarketA",
      "published_at": "2026-11-03T08:21:58Z",
      "quote": null,
-     "viewpoint": "YES：74.0% (-2.0%)\nNO：26.0%",
-     "translation_zh": "Polymarket 事件「民主党横扫中期选举」最新双边概率：YES 74.0% / NO 26.0%，YES 较上轮快照变化 -2.0pp；该事件累计成交额约 $65,592,233。点击跳转 Polymarket 该事件页。",
+     "viewpoint": "YES：81.0% (+7.0%)\nNO：19.0%",
+     "translation_zh": "Polymarket 事件「民主党横扫中期选举」最新双边概率：YES 81.0% / NO 19.0%，YES 较上轮快照变化 +7.0pp；该事件累计成交额约 $66,717,432。点击跳转 Polymarket 该事件页。",
      "views": null,
      "reposts": null,
      "replies": null,
-     "observed_at": "2026-11-03T22:33:53Z",
+     "observed_at": "2026-11-04T00:29:16Z",
      "source_url": "https://polymarket.com/event/balance-of-power-2026-midterms",
      "metrics_source": "https://gamma-api.polymarket.com/events/32228",
      "verification": "Polymarket 官方 Gamma API 读取该事件双边概率。",
@@ -40,11 +40,11 @@
      "published_at": "2026-11-03T08:21:58Z",
      "quote": null,
      "viewpoint": "YES：99.9% (+0.0%)\nNO：0.1%",
-     "translation_zh": "Polymarket 事件「WTI 11月破$100」最新双边概率：YES 99.9% / NO 0.1%，YES 较上轮快照变化 +0.0pp；该事件累计成交额约 $860,417。点击跳转 Polymarket 该事件页。",
+     "translation_zh": "Polymarket 事件「WTI 11月破$100」最新双边概率：YES 99.9% / NO 0.1%，YES 较上轮快照变化 +0.0pp；该事件累计成交额约 $874,594。点击跳转 Polymarket 该事件页。",
      "views": null,
      "reposts": null,
      "replies": null,
-     "observed_at": "2026-11-03T22:33:53Z",
+     "observed_at": "2026-11-04T00:29:16Z",
      "source_url": "https://polymarket.com/event/what-price-will-wti-hit-in-november-2026",
      "metrics_source": "https://gamma-api.polymarket.com/events/1250301",
      "verification": "Polymarket 官方 Gamma API 读取该事件双边概率。",
@@ -65,11 +65,11 @@
      "published_at": "2026-11-03T08:21:58Z",
      "quote": null,
      "viewpoint": "YES：75.0% (+0.0%)\nNO：25.0%",
-     "translation_zh": "Polymarket 事件「Fed 12月决议·加息25bp」最新双边概率：YES 75.0% / NO 25.0%，YES 较上轮快照变化 +0.0pp；该事件累计成交额约 $11,470,742。点击跳转 Polymarket 该事件页。",
+     "translation_zh": "Polymarket 事件「Fed 12月决议·加息25bp」最新双边概率：YES 75.0% / NO 25.0%，YES 较上轮快照变化 +0.0pp；该事件累计成交额约 $11,476,183。点击跳转 Polymarket 该事件页。",
      "views": null,
      "reposts": null,
      "replies": null,
-     "observed_at": "2026-11-03T22:33:53Z",
+     "observed_at": "2026-11-04T00:29:16Z",
      "source_url": "https://polymarket.com/event/fed-decision-in-december-20260729232808632",
      "metrics_source": "https://gamma-api.polymarket.com/events/770450",
      "verification": "Polymarket 官方 Gamma API 读取该事件双边概率。",
@@ -90,11 +90,11 @@
      "published_at": "2026-11-03T08:21:58Z",
      "quote": null,
      "viewpoint": "YES：74.0% (+0.0%)\nNO：26.0%",
-     "translation_zh": "Polymarket 事件「2026年再加息」最新双边概率：YES 74.0% / NO 26.0%，YES 较上轮快照变化 +0.0pp；该事件累计成交额约 $1,358,998。点击跳转 Polymarket 该事件页。",
+     "translation_zh": "Polymarket 事件「2026年再加息」最新双边概率：YES 74.0% / NO 26.0%，YES 较上轮快照变化 +0.0pp；该事件累计成交额约 $1,359,488。点击跳转 Polymarket 该事件页。",
      "views": null,
      "reposts": null,
      "replies": null,
-     "observed_at": "2026-11-03T22:33:53Z",
+     "observed_at": "2026-11-04T00:29:16Z",
      "source_url": "https://polymarket.com/event/another-fed-rate-hike-in-2026",
      "metrics_source": "https://gamma-api.polymarket.com/events/1034268",
      "verification": "Polymarket 官方 Gamma API 读取该事件双边概率。",
@@ -119,7 +119,7 @@
      "views": null,
      "reposts": null,
      "replies": null,
-     "observed_at": "2026-11-03T22:33:53Z",
+     "observed_at": "2026-11-04T00:29:16Z",
      "source_url": "https://polymarket.com/event/us-yemen-ceasefire-continues-throughptptpt",
      "metrics_source": "https://gamma-api.polymarket.com/events/1053896",
      "verification": "Polymarket 官方 Gamma API 读取该事件双边概率。",
@@ -139,12 +139,12 @@
      "author": "@PolymarketB",
      "published_at": "2026-11-03T08:21:58Z",
      "quote": null,
-     "viewpoint": "YES：92.2% (-0.1%)\nNO：7.8%",
-     "translation_zh": "Polymarket 事件「Anthropic 2026年底前IPO」最新双边概率：YES 92.2% / NO 7.8%，YES 较上轮快照变化 -0.1pp；该事件累计成交额约 $6,277,222。点击跳转 Polymarket 该事件页。",
+     "viewpoint": "YES：92.3% (+0.1%)\nNO：7.7%",
+     "translation_zh": "Polymarket 事件「Anthropic 2026年底前IPO」最新双边概率：YES 92.3% / NO 7.7%，YES 较上轮快照变化 +0.1pp；该事件累计成交额约 $6,281,770。点击跳转 Polymarket 该事件页。",
      "views": null,
      "reposts": null,
      "replies": null,
-     "observed_at": "2026-11-03T22:33:53Z",
+     "observed_at": "2026-11-04T00:29:16Z",
      "source_url": "https://polymarket.com/event/anthropic-ipo-by",
      "metrics_source": "https://gamma-api.polymarket.com/events/549019",
      "verification": "Polymarket 官方 Gamma API 读取该事件双边概率。",
@@ -169,7 +169,7 @@
      "views": null,
      "reposts": null,
      "replies": null,
-     "observed_at": "2026-11-03T22:33:53Z",
+     "observed_at": "2026-11-04T00:29:16Z",
      "source_url": "https://polymarket.com/event/us-recession-by-end-of-2026",
      "metrics_source": "https://gamma-api.polymarket.com/events/48802",
      "verification": "Polymarket 官方 Gamma API 读取该事件双边概率。",
@@ -190,11 +190,11 @@
      "published_at": "2026-11-03T08:21:58Z",
      "quote": null,
      "viewpoint": "YES：0.1% (+0.0%)\nNO：99.9%",
-     "translation_zh": "Polymarket 事件「美伊停火延续至11月底」最新双边概率：YES 0.1% / NO 99.9%，YES 较上轮快照变化 +0.0pp；该事件累计成交额约 $38,596,610。点击跳转 Polymarket 该事件页。",
+     "translation_zh": "Polymarket 事件「美伊停火延续至11月底」最新双边概率：YES 0.1% / NO 99.9%，YES 较上轮快照变化 +0.0pp；该事件累计成交额约 $38,968,160。点击跳转 Polymarket 该事件页。",
      "views": null,
      "reposts": null,
      "replies": null,
-     "observed_at": "2026-11-03T22:33:53Z",
+     "observed_at": "2026-11-04T00:29:16Z",
      "source_url": "https://polymarket.com/event/us-iran-ceasefire-continues-throughptptpt",
      "metrics_source": "https://gamma-api.polymarket.com/events/1038648",
      "verification": "Polymarket 官方 Gamma API 读取该事件双边概率。",
@@ -2465,6 +2465,105 @@
        "targets": "AMGN / 制药",
        "direction": "利好",
        "reason": "17 款产品年销售额有望超 10 亿美元，产品线广度与收入结构进一步夯实。"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "amd-2027-growth-target",
+   "title": "AMD 预计 2027 年营收增长 80% 以上",
+   "summary": "AMD CEO 苏姿丰称 2027 年营收预计增长 80% 以上，数据中心业务将占总营收 80% 以上。",
+   "posts": [
+    {
+     "id": "2117751266965413972",
+     "author": "@StockSavvyShay",
+     "published_at": "2026-11-03T22:50:22Z",
+     "quote": "$AMD CEO Lisa Su says “we now expect revenue to grow more than 80% in 2027”",
+     "viewpoint": "AMD CEO 苏姿丰称 2027 年营收预计增长 80% 以上，是公司一年前长期增长目标的两倍多；数据中心业务明年将占总营收 80% 以上。",
+     "translation_zh": "AMD 首席执行官苏姿丰表示：“我们现在预计 2027 年营收将增长 80% 以上”，是公司一年前长期增长目标的两倍多。同样值得注意的是，预计数据中心明年将占 AMD 总营收的 80% 以上。",
+     "translation_scope": "full",
+     "translation_source_url": "https://x.com/StockSavvyShay/status/2117751266965413972",
+     "views": 33019,
+     "reposts": 48,
+     "replies": 38,
+     "observed_at": "2026-11-04T00:29:16Z",
+     "source_url": "https://x.com/StockSavvyShay/status/2117751266965413972",
+     "metrics_source": "https://x.com/StockSavvyShay/status/2117751266965413972",
+     "verification": "X 精华监控 07 轮报告，原帖页核对。",
+     "avatar_url": "https://pbs.twimg.com/profile_images/1878129937737187328/DnEflT4L_400x400.jpg",
+     "avatar_source": "https://x.com/StockSavvyShay",
+     "impact": [
+      {
+       "targets": "AMD / 半导体",
+       "direction": "利好",
+       "reason": "2027 年营收增长指引远超一年前长期模型，数据中心占比将超八成。"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "us-federal-debt-october",
+   "title": "美国 10 月联邦债务激增 4220 亿美元至 40.6 万亿美元",
+   "summary": "美国联邦债务 10 月激增 4220 亿美元至创纪录的 40.6 万亿美元，债务占 GDP 比重升至 123%，为 2020 年疫情高峰以来最高。",
+   "posts": [
+    {
+     "id": "2117746450180288832",
+     "author": "@KobeissiLetter",
+     "published_at": "2026-11-03T22:31:14Z",
+     "quote": "BREAKING: US federal debt surged +$422 billion in October, to a record $40.6 trillion.",
+     "viewpoint": "美国联邦债务 10 月激增 4220 亿美元至创纪录的 40.6 万亿美元，债务占 GDP 比重升至 123%，为 2020 年疫情高峰以来最高；财政部上周发债 8390 亿美元亦创纪录。",
+     "translation_zh": "突发：美国联邦债务 10 月激增 4220 亿美元，至创纪录的 40.6 万亿美元。仅自 7 月 1 日以来，美国联邦债务就飙升了 1.2 万亿美元，平均每月增加 3000 亿美元。这相当于每天增加约 100 亿美元。结果，美国公共债务占 GDP 的比重升至 123%，为 2020 年疫情高峰以来最高。与此同时，美国财政部上周通过国库券和国债拍卖借款 8390 亿美元，创下纪录，其中大部分用于偿还到期票据的持有人。这超过了 2025 年同期创下的 8340 亿美元的前历史最高纪录。美国债务危机正在全面爆发。",
+     "translation_scope": "full",
+     "translation_source_url": "https://x.com/KobeissiLetter/status/2117746450180288832",
+     "views": 120275,
+     "reposts": 215,
+     "replies": 117,
+     "observed_at": "2026-11-04T00:29:16Z",
+     "source_url": "https://x.com/KobeissiLetter/status/2117746450180288832",
+     "metrics_source": "https://x.com/KobeissiLetter/status/2117746450180288832",
+     "verification": "X 精华监控 07 轮报告，原帖页核对。",
+     "avatar_url": "https://pbs.twimg.com/profile_images/1975243710846640128/fwYCe67Y_400x400.jpg",
+     "avatar_source": "https://x.com/KobeissiLetter",
+     "impact": [
+      {
+       "targets": "美债 / 财政",
+       "direction": "关注",
+       "reason": "债务规模与发债量双创纪录，债务占 GDP 比重升至疫情高峰以来最高。"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "pboc-fx-reserve-ratio",
+   "title": "中国央行五年来首次上调外汇存准率、为人民币升值踩刹车",
+   "summary": "中国央行五年来首次上调外汇存款准备金率，人民币升值令人“不安”之际踩下刹车。",
+   "posts": [
+    {
+     "id": "2117747509552443884",
+     "author": "@zerohedge",
+     "published_at": "2026-11-03T22:35:26Z",
+     "quote": "Beijing Taps The Brakes: PBOC Hikes FX Reserve Ratio For First Time In Five Years As Yuan Rally Gets \"Uncomfortable\"",
+     "viewpoint": "中国央行五年来首次上调外汇存款准备金率，人民币升值令人“不安”之际踩下刹车。",
+     "translation_zh": "北京踩下刹车：人民币升值令人“不安”之际，中国央行五年来首次上调外汇存款准备金率。",
+     "translation_scope": "full",
+     "translation_source_url": "https://x.com/zerohedge/status/2117747509552443884",
+     "views": 58424,
+     "reposts": 15,
+     "replies": 8,
+     "observed_at": "2026-11-04T00:29:16Z",
+     "source_url": "https://x.com/zerohedge/status/2117747509552443884",
+     "metrics_source": "https://x.com/zerohedge/status/2117747509552443884",
+     "verification": "X 精华监控 07 轮报告，原帖页核对。",
+     "avatar_url": "https://pbs.twimg.com/profile_images/72647502/tyler_400x400.jpg",
+     "avatar_source": "https://x.com/zerohedge",
+     "impact": [
+      {
+       "targets": "人民币 / 外汇",
+       "direction": "关注",
+       "reason": "央行五年来首次上调外汇存准率，释放缓和人民币升值信号。"
       }
      ]
     }
