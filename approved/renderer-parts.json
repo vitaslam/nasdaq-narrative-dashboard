@@ -42,6 +42,10 @@
     {
       "file": "renderer-v46-three-hour-change-dots.patch",
       "renderer_sha256": "93037cd9a6aac5a7047571f6634d2bd5881ee1f87a419794d821425fc1f6b29c"
+    },
+    {
+      "file": "renderer-v48-daily-authors.patch",
+      "renderer_sha256": "772dba5d58bfbc88fc008b70c105728f6f6ae2b0cfba61155afe2566b136b07d"
     }
   ]
 }
