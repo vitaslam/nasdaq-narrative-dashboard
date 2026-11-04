@@ -38,6 +38,10 @@
     {
       "file": "renderer-v45-weekly-x-window.patch",
       "renderer_sha256": "e6360ef76916dff0b579c68bd7cf51e4d504e2d93a88713c41ae65792c397f11"
+    },
+    {
+      "file": "renderer-v46-three-hour-change-dots.patch",
+      "renderer_sha256": "93037cd9a6aac5a7047571f6634d2bd5881ee1f87a419794d821425fc1f6b29c"
     }
   ]
 }

@@ -6,6 +6,7 @@ import {createHash} from 'node:crypto';
 import {execFileSync} from 'node:child_process';
 import {applyRendererUpdate} from './apply-renderer-update.mjs';
 import {mergeMuseFeed} from './merge-muse-feed.mjs';
+import {advanceChangeMarkers} from './change-markers.mjs';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const source='https://nasdaq-narrative-tracker-vj.thatvitaslam.chatgpt.site/api/export';
 let data;
@@ -68,7 +69,7 @@ if(museFeed){
 data.change_markers ??= {};
 // Older source snapshots can still contain retired GPT trend keys.
 const gptDots=data.change_markers.GPT;
-if(gptDots?.keys)gptDots.keys=gptDots.keys.filter(key=>!key.startsWith('trend:'));
+if(gptDots?.keys){gptDots.keys=gptDots.keys.filter(key=>!key.startsWith('trend:'));if(gptDots.key_times)for(const key of Object.keys(gptDots.key_times))if(key.startsWith('trend:'))delete gptDots.key_times[key]}
 if(priorPublished?.change_markers?.Muse)data.change_markers.Muse=priorPublished.change_markers.Muse;
 if(museFeed&&previous?.muse_feed_batch!==museFeed.batch_id){
  const prior=priorPublished?.weeks?.[museFeed.week_id],now=data.weeks?.[museFeed.week_id],keys=[];
@@ -83,9 +84,10 @@ if(museFeed&&previous?.muse_feed_batch!==museFeed.batch_id){
  }
  for(const symbol of ['VIX','VXN','CNN','BofA','CTA','UST10Y','UST30Y','Brent','FedHike','VXFutures']){
   const a=prior?.snapshot?.sentiment?.[symbol],b=now?.snapshot?.sentiment?.[symbol];
-  if(b&&JSON.stringify([a?.value,a?.asof,a?.vx1,a?.vx2])!==JSON.stringify([b.value,b.asof,b.vx1,b.vx2]))keys.push('metric:'+symbol);
+  if(b&&JSON.stringify(a)!==JSON.stringify(b))keys.push('metric:'+symbol);
  }
- data.change_markers.Muse={batch_id:museFeed.batch_id,at:new Date().toISOString(),keys:[...new Set(keys)]};
+ for(const [symbol,row]of Object.entries(now?.snapshot?.quotes||{})){const shown=({retrieved_at,...v}={})=>v;if(JSON.stringify(shown(row))!==JSON.stringify(shown(prior?.snapshot?.quotes?.[symbol])))keys.push('metric:'+({ES:'SPX',NQ:'NDX'}[symbol]||symbol))}
+ data.change_markers.Muse=advanceChangeMarkers(data.change_markers.Muse,keys,new Date().toISOString(),{batch_id:museFeed.batch_id});
 }
 
 const {default:worker}=await import('data:text/javascript;base64,'+Buffer.from(approved).toString('base64'));
@@ -117,7 +119,7 @@ for(const week of index.weeks){
 }
 for(const asset of assets){const r=await response(asset);let value;if(asset.endsWith('.js')){value=await r.text();if(asset==='/shared-calendar.js')value=value.replace('fetch(`/api/calendar?from=${start}&to=${end}`','fetch(`../api/calendar.json`')}else value=Buffer.from(await r.arrayBuffer());await write(asset.slice(1),value)}
 const builtAt=new Date().toISOString();
-const release={schema_version:1,data_revision:data.revision,release_revision:releaseRevision,active_week:data.active_week,content_updated_at:data.weeks[data.active_week].updated_at,built_at:builtAt,renderer_release:'2026-11-04-v45-weekly-x-window',renderer_sha256:rendererHash,asset_version:assetVersion,shell_override_sha256:shellOverrideHash,muse_feed_batch:museFeed?.batch_id||null,muse_feed_sha256:museHash,muse_merge:museStats};
+const release={schema_version:1,data_revision:data.revision,release_revision:releaseRevision,active_week:data.active_week,content_updated_at:data.weeks[data.active_week].updated_at,built_at:builtAt,renderer_release:'2026-11-04-v46-three-hour-change-dots',renderer_sha256:rendererHash,asset_version:assetVersion,shell_override_sha256:shellOverrideHash,muse_feed_batch:museFeed?.batch_id||null,muse_feed_sha256:museHash,muse_merge:museStats};
 await write('release.json',JSON.stringify(release,null,2));
 let log;try{log=await fs.readFile(path.join(root,'PUBLISH_LOG.md'),'utf8')}catch{log='# 发布日志\n\n构建提交记录；具体上线状态以 GitHub Pages 构建结果为准。\n\n| 北京时间 | 来源 | 批次 / revision | 变更摘要 |\n| --- | --- | --- | --- |\n'}
 const stamp=new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Shanghai',dateStyle:'short',timeStyle:'medium'}).format(new Date(builtAt));
@@ -125,4 +127,5 @@ if(previous?.data_revision!==data.revision||layoutChanged)log+=`| ${stamp} | GPT
 if(museFeed&&previous?.muse_feed_sha256!==museHash)log+=`| ${stamp} | Muse | ${museFeed.batch_id} | 累计 ${museStats.topics} 话题、${museStats.posts} 帖；剔除 ${museStats.rejected_posts} 条时间冲突帖；行情 ${museStats.bars} 条、波动率 ${museStats.volatility_dates} 日；发布序号 ${releaseRevision} |\n`;
 await write('PUBLISH_LOG.md',log);
 console.log('Rendered '+index.weeks.length+' weeks; GPT revision '+data.revision+', publication '+releaseRevision+', Muse '+(museFeed?.batch_id||'none'));
+
 

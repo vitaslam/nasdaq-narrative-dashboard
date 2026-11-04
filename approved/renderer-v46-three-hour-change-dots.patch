@@ -1,0 +1,379 @@
+--- a/runtime.js
++++ b/runtime.js
+@@ -9,6 +9,39 @@
+ const today=()=>new Intl.DateTimeFormat('en-CA',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
+ const observationToday=()=>new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Shanghai',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
+ const url=s=>typeof s==='string'&&/^https:\/\/[^\s]+$/.test(s);
++// Dots are retained per item until the owner's next update after three hours.
++// Reading or rebuilding a page never restarts their clocks.
++function advanceChangeMarkers(previous,keys,at,meta={}){
++ const key_times={},now=Date.parse(at);
++ for(const key of previous?.keys||[]){const stamp=previous.key_times?.[key]||previous.at;const time=Date.parse(stamp);if(!Number.isFinite(time)||now-time<3*3600_000)key_times[key]=Number.isFinite(time)?stamp:at}
++ for(const key of keys)key_times[key]=at;
++ return {...previous,...meta,at,keys:Object.keys(key_times),key_times};
++}
++const stableValue=value=>JSON.stringify(value,(_,v)=>v&&typeof v==='object'&&!Array.isArray(v)?Object.fromEntries(Object.entries(v).sort(([a],[b])=>a.localeCompare(b))):v);
++function markerValues(w,calendar){
++ const s=w.snapshot||{},values={mood:w.market_mood,events:[w.event_drivers,w.event_details,w.importance?.events],strategy:w.stance};
++ for(const dim of w.dimensions||[])values['dimension:'+dim.id]=[dim,w.importance?.dimensions?.[dim.id]];
++ for(const q of w.questions||[])values['question:'+q.id]=[q,w.importance?.questions?.[q.id]];
++ for(const a of w.answers||[])values['answer:'+a.id]=[a,w.importance?.answers?.[a.id]];
++ for(const e of calendar||[]){const {observed_at,...shown}=e;values['calendar:'+e.id]=shown}
++ for(const t of w.x_topics||[])for(const p of t.posts||[])values['x:'+p.id]=[t.title,p.author,p.published_at,p.translation_zh,p.viewpoint,p.views,p.reposts,p.replies,p.avatar_url,p.source_url,p.impact];
++ for(const symbol of ['NDX','QQQ','SPX'])values['metric:'+symbol]=(s.bars?.[symbol]||[]).map(b=>[b.date,b.o,b.h,b.l,b.c,b.v]);
++ values['price-chart']=[values['metric:NDX'],values['metric:QQQ']];
++ const fields={CNN:'cnnFearGreed',BofA:'bofaBullBear',VIX:'vix',VXN:'vxn',CTA:'cta',UST10Y:'ust10y',UST30Y:'ust30y',Brent:'brent',FedHike:'fedHike'};
++ for(const symbol of [...Object.keys(fields),'VXFutures'])values['metric:'+symbol]=[s.sentiment?.[symbol],s.indicator_history?.[symbol],s.asof_metrics?.[fields[symbol]],...(['VIX','VXN'].includes(symbol)?[s.volatility?.dates,s.volatility?.[symbol.toLowerCase()]]:[])];
++ for(const [symbol,row]of Object.entries(s.quotes||{})){const {retrieved_at,...shown}=row;const key='metric:'+({ES:'SPX',NQ:'NDX'}[symbol]||symbol);values[key]=[values[key],shown]}
++ return Object.fromEntries(Object.entries(values).map(([key,value])=>[key,stableValue(value)]));
++}
++function quoteError(key,row,now=Date.now()){
++ if(!['QQQ','NDX','SPX','VIX','VXN','UST10Y','UST30Y','Brent','ES','NQ'].includes(key))return 'Unsupported quote instrument';
++ if(!row||!Number.isFinite(row.value)||row.value<=0||!/(?:Z|[+-]\d\d:\d\d)$/.test(row.asof||'')||!Number.isFinite(Date.parse(row.asof))||Date.parse(row.asof)>now+60000)return 'Quote needs a positive value and actual timestamp with timezone';
++ if(!['overnight','premarket','regular','afterhours'].includes(row.session)||!url(row.source_url)||!row.source_label?.trim()||!row.instrument?.trim()||!row.price_basis?.trim())return 'Quote needs session, instrument, price basis and source';
++ if((['ES','NQ'].includes(key)||row.price_basis.includes('future'))&&!row.contract?.trim())return 'Futures quote requires actual contract';
++ if(['QQQ','NDX','SPX','VIX','VXN'].includes(key)&&row.price_basis!=='cash')return 'Cash quote cannot be replaced by futures';
++ if(['UST10Y','UST30Y'].includes(key)&&(row.value>20||row.price_basis!=='benchmark_yield'))return 'Treasury quote requires benchmark yield';
++ if(row.delayed!=null&&typeof row.delayed!=='boolean')return 'delayed must be boolean';
++ return null;
++}
+ function only(obj,keys){ok(obj&&typeof obj==='object'&&!Array.isArray(obj),'Expected object');for(const k of Object.keys(obj))ok(keys.includes(k),'Unsupported field: '+k)}
+ function identified(list){ok(Array.isArray(list),'Expected array');for(const x of list)ok(x&&typeof x.id==='string'&&x.id.length>0&&x.id.length<180,'Each item needs a stable id')}
+ function upsert(list,items){identified(items);for(const item of items){const i=list.findIndex(x=>x.id===item.id);if(i<0)list.push(clone(item));else list[i]={...list[i],...clone(item)}}}
+@@ -70,7 +103,7 @@
+  const obj=await env.BUCKET?.get(KEY),state=obj?await obj.json():clone(ASSETS.seed);
+  const gpt=state.change_markers?.GPT;
+  const legacyTrendDots=gpt?.keys?.some(key=>key.startsWith('trend:'))===true;
+- if(legacyTrendDots)gpt.keys=gpt.keys.filter(key=>!key.startsWith('trend:'));
++ if(legacyTrendDots){gpt.keys=gpt.keys.filter(key=>!key.startsWith('trend:'));if(gpt.key_times)for(const key of Object.keys(gpt.key_times))if(key.startsWith('trend:'))delete gpt.key_times[key]}
+  return {state,etag:obj?.etag||null,persisted:!!obj,legacyTrendDots};
+ }
+ async function save(env,state,etag){ok(env.BUCKET,'Persistent storage unavailable');const conditions=etag?{etagMatches:etag}:new Headers({'If-None-Match':'*'});const result=await env.BUCKET.put(KEY,JSON.stringify(state),{onlyIf:conditions,httpMetadata:{contentType:'application/json'}});ok(result,'Revision conflict: reread context and retry');return result}
+@@ -172,7 +205,8 @@
+  return {...w,x_topics:topics,x_trends:published.x_trends?.length?published.x_trends:w.x_trends,_publishedMuseMarkers:published.muse_markers};
+ }
+ function analytical(bars){const a=bars.map(b=>b.c),last=bars.at(-1),mean=n=>a.length>=n?a.slice(-n).reduce((s,v)=>s+v,0)/n:null;let atr=null;const trs=bars.map((b,i)=>b.h!=null&&b.l!=null?Math.max(b.h-b.l,i?Math.abs(b.h-bars[i-1].c):0,i?Math.abs(b.l-bars[i-1].c):0):null);if(trs.length>=14&&trs.every(x=>x!==null)){atr=trs.slice(0,14).reduce((s,v)=>s+v,0)/14;for(const tr of trs.slice(14))atr=(atr*13+tr)/14}return {last,n:bars.length,first:bars[0]?.date,sma20:mean(20),sma50:mean(50),sma100:mean(100),sma200:mean(200),atr14:atr}}
+-function mergeMarket(w,patch){only(patch,['bars','sentiment','sentiment_history','asof_metrics','volatility','facts','source_urls']);const d=w.snapshot;
++function mergeMarket(w,patch){only(patch,['bars','quotes','sentiment','sentiment_history','asof_metrics','volatility','facts','source_urls']);const d=w.snapshot;
++ if(patch.quotes){d.quotes??={};for(const [key,row]of Object.entries(patch.quotes)){only(row,['value','asof','session','instrument','price_basis','contract','source_url','source_label','delayed','retrieved_at']);const error=quoteError(key,row);ok(!error,error);if(!d.quotes[key]||Date.parse(row.asof)>=Date.parse(d.quotes[key].asof))d.quotes[key]=clone(row)}}
+  if(patch.bars){only(patch.bars,['NDX','QQQ','SPX']);for(const [symbol,updates]of Object.entries(patch.bars)){ok(Array.isArray(updates)&&updates.length<1000,'Supply dated OHLC bars');for(const b of updates){only(b,['date','c','o','h','l','v','source_url']);ok(iso(b.date)&&b.date<=today()&&Number.isFinite(b.c)&&b.c>0&&url(b.source_url),'Each new bar requires past date, positive close and source_url');ok(b.date>=w.start,'Do not revise prior-week bars during daily updates')}const byDate=new Map((d.bars[symbol]||[]).map(b=>[b.date,b]));for(const b of updates)byDate.set(b.date,clone(b));d.bars[symbol]=[...byDate.values()].sort((a,b)=>a.date.localeCompare(b.date));d.analytics[symbol]=analytical(d.bars[symbol]);}}
+  if(patch.sentiment_history){only(patch.sentiment_history,['CNN','BofA','VIX','VXN','CTA']);d.indicator_history??={};for(const [key,points]of Object.entries(patch.sentiment_history)){ok(Array.isArray(points)&&points.length<=1000,'Supply dated indicator observations');for(const p of points){ok(iso(p.date)&&p.date<=today()&&Number.isFinite(p.value)&&url(p.source_url),'Indicator history needs date, finite value and source');if(key==='CTA')ok(p.institution&&p.model,'CTA needs institution and model');}const byDate=new Map([...(ASSETS.display.indicator_history[key]||[]),...(d.indicator_history[key]||[])].map(p=>[p.date,p]));for(const p of points)byDate.set(p.date,clone(p));d.indicator_history[key]=[...byDate.values()].sort((a,b)=>a.date.localeCompare(b.date));}}
+  for(const k of ['sentiment','asof_metrics','volatility'])if(patch[k])d[k]={...d[k],...clone(patch[k])};
+@@ -188,7 +222,7 @@
+  const last=d.bars.NDX.at(-1);w.price_cutoff=last.date;d.price_cutoff=last.date;d.generated_date=last.date;const base=d.bars.NDX.filter(b=>b.date<w.start).at(-1);if(base&&last.date>=w.start)d.ndx_weekly=100*(last.c/base.c-1);
+ }
+ function mergeCalendar(state,items){identified(items);for(const e of items){only(e,['id','iso_date','date','time','event','watch','expectation','kind','source','status','result','result_emoji','business_highlight','earnings_metrics','guidance','market_reaction','reaction_emoji','reaction_session','reaction_phases','narrative_impact','result_source','consensus_source','guidance_source','reaction_source','observed_at','occurred_at','ongoing','week','importance','emphasis']);if(e.business_highlight!==undefined)ok(typeof e.business_highlight==='string'&&e.business_highlight.trim()&&e.business_highlight.length<=72,'Business highlight needs a short sentence');for(const mark of ['result_emoji','reaction_emoji'])if(e[mark])ok(typeof e[mark]==='string'&&e[mark].length<=8,'Emoji marker must be a single concise symbol');if(e.importance)importanceRating(e.importance);if(e.emphasis)ok(Array.isArray(e.emphasis)&&e.emphasis.every(x=>typeof x==='string'&&x.length<=180),'Invalid calendar emphasis');if(e.earnings_metrics){ok(Array.isArray(e.earnings_metrics)&&e.earnings_metrics.length<=16,'At most 16 earnings comparison rows');for(const row of e.earnings_metrics){only(row,['label','expected','actual','note']);ok(row.label&&row.expected&&row.actual,'Earnings metrics need a label and comparable values')}}if(e.reaction_phases){ok(Array.isArray(e.reaction_phases)&&e.reaction_phases.length<=4,'At most four priced sessions');for(const phase of e.reaction_phases){only(phase,['session','value','at','source_url']);ok(phase.session&&phase.value&&phase.at&&url(phase.source_url),'Reaction phase needs session, timestamp and evidence')}}const old=state.calendar.find(x=>x.id===e.id),next={...old,...e};ok(next.ongoing||next.week===0||iso(next.iso_date),'Calendar item needs iso_date');ok(url(next.source),'Calendar item needs official/source URL');ok(['scheduled','released','occurred','cancelled','postponed'].includes(next.status),'Invalid calendar status');if(next.status==='released'||next.status==='occurred'){ok(next.result&&url(next.result_source),'An occurred event requires result and evidence URL');ok(next.iso_date<=today(),'Cannot mark future event as occurred');}if(next.market_reaction)ok(url(next.reaction_source)&&next.reaction_session,'Market reaction needs source and session');if(next.consensus_source)ok(url(next.consensus_source),'Consensus needs source');if(next.guidance_source)ok(url(next.guidance_source),'Guidance needs source');}upsert(state.calendar,items)}
+-function daily(state,args){only(args,['week_id','expected_revision','run_id','patch']);const w=state.weeks[args.week_id];ok(w?.status==='active','Archived weeks are immutable');const p=args.patch;only(p,['title','summary','headline','hero_note','stance','market_mood','importance','signals','dimensions','event_drivers','event_details','market','questions_upsert','answers_append','x_topics_upsert','calendar_upsert','sources_add','presentation_updates','note']);
++function daily(state,args){only(args,['week_id','expected_revision','run_id','patch']);const w=state.weeks[args.week_id];ok(w?.status==='active','Archived weeks are immutable');const before=markerValues(w,state.calendar);const p=args.patch;only(p,['title','summary','headline','hero_note','stance','market_mood','importance','signals','dimensions','event_drivers','event_details','market','questions_upsert','answers_append','x_topics_upsert','calendar_upsert','sources_add','presentation_updates','note']);
+  for(const k of ['title','summary','headline','hero_note'])if(p[k]!==undefined){ok(typeof p[k]==='string'&&p[k].length<1500,'Text too long');w[k]=p[k]}
+  if(p.stance){only(p.stance,['title','note','left','right']);w.stance={...w.stance,...clone(p.stance)}}if(p.signals)w.signals={...w.signals,...clone(p.signals)};
+  if(p.dimensions){identified(p.dimensions);ok(p.dimensions.length===5&&new Set(p.dimensions.map(x=>x.id)).size===5&&p.dimensions.every(x=>['earnings','macro','trend','valuation','position'].includes(x.id)),'Exactly five dimensions required');checkWeights(p.dimensions);for(const dim of p.dimensions){const old=w.dimensions.find(x=>x.id===dim.id);ok(dim.prior_weight===undefined||dim.prior_weight===old.prior_weight,'Previous-week weight is fixed');if(dim.detail_blocks)ok(dim.detail_blocks.length<=2,'Keep detail concise: at most two blocks');}w.dimensions=p.dimensions.map(x=>({...w.dimensions.find(y=>y.id===x.id),...clone(x)}))}
+@@ -199,13 +233,14 @@
+  if(p.x_topics_upsert){identified(p.x_topics_upsert);for(const topic of p.x_topics_upsert){let old=w.x_topics.find(x=>x.id===topic.id);if(!old){old={id:topic.id,title:topic.title,summary:topic.summary,posts:[]};w.x_topics.push(old)}if(topic.title)old.title=topic.title;if(topic.summary)old.summary=topic.summary;identified(topic.posts||[]);for(const post of topic.posts||[]){ok(url(post.source_url)&&/^https:\/\/(x|twitter)\.com\//.test(post.source_url),'X source must link to original post');for(const k of ['views','reposts','replies'])ok(post[k]===undefined||post[k]===null||(Number.isFinite(post[k])&&post[k]>=0),'Invalid engagement count');const prev=old.posts.find(x=>x.id===post.id);if(prev){const first=prev.first_seen_at;Object.assign(prev,clone(post),{first_seen_at:first})}else old.posts.push({...clone(post),first_seen_at:new Date().toISOString()})}}}
+  if(p.calendar_upsert)mergeCalendar(state,p.calendar_upsert);if(p.sources_add){for(const source of p.sources_add)ok(url(source.url),'Source needs URL');upsert(w.sources,p.sources_add)}
+  w.updated_at=new Date().toISOString();w.update_log.push({at:w.updated_at,run_id:args.run_id,note:p.note||'数据与内容更新'});w.update_log=w.update_log.slice(-200);
+- const keys=[];if(p.calendar_upsert)keys.push(...p.calendar_upsert.map(e=>'calendar:'+e.id));if(p.market_mood)keys.push('mood');if(p.dimensions)keys.push(...p.dimensions.map(d=>'dimension:'+d.id));if(p.questions_upsert)keys.push(...p.questions_upsert.map(q=>'question:'+q.id));if(p.answers_append)keys.push(...p.answers_append.map(a=>'answer:'+a.id));if(p.event_drivers)keys.push('events');if(p.event_details)keys.push('events');if(p.x_topics_upsert)keys.push(...p.x_topics_upsert.flatMap(t=>(t.posts||[]).map(post=>'x:'+post.id)));if(p.stance)keys.push('strategy');if(p.market?.bars)keys.push(...Object.keys(p.market.bars).map(s=>'metric:'+s));if(p.market?.sentiment)keys.push(...Object.keys(p.market.sentiment).map(s=>'metric:'+s));
++ const after=markerValues(w,state.calendar),keys=Object.keys(after).filter(key=>after[key]!==before[key]);
+  if(p.presentation_updates!==undefined){
+   const targets=p.presentation_updates;
+   ok(Array.isArray(targets)&&targets.length<=32&&targets.every(id=>typeof id==='string'&&(id==='mood'||id==='price-chart'||/^x-author:@[a-z0-9_]{1,15}$/.test(id)||/^calendar:[a-z0-9][a-z0-9-]{1,99}$/.test(id))), 'Use a mood, price chart, calendar or X author key for GPT interface change markers');
+   keys.push(...targets);
+  }
+- state.change_markers??={};state.change_markers.GPT={revision:state.revision+1,at:w.updated_at,keys:[...new Set(keys)]};
++ state.change_markers??={};state.change_markers.GPT=advanceChangeMarkers(state.change_markers.GPT,keys,w.updated_at,{revision:state.revision+1});
++ w.update_log.at(-1).changed_keys=[...new Set(keys)];
+  return {week_id:w.id,price_cutoff:w.price_cutoff,answers:w.answers.length,x_topics:w.x_topics.length,calendar_events:state.calendar.length};
+ }
+ const obj=(properties={},required=[])=>({type:'object',properties,required,additionalProperties:false});
+@@ -221,10 +256,10 @@
+ ];
+ function compact(w,include=false){const out=clone(displayWeek(w));if(!include)for(const k of Object.keys(out.snapshot.bars))out.snapshot.bars[k]=out.snapshot.bars[k].slice(-5);return out}
+ function dailyDigest(w){
+- const out=compact(w);delete out.update_log;delete out.sources;delete out.event_details;
++ const out=compact(w);delete out.update_log;delete out.sources;
+  const snap=out.snapshot;for(const k of ['notes','events','research','source_urls','volatility','indicator_history','plan'])delete snap[k];
+- out.answers=[...(w.answers||[])].slice(-6).map(a=>({id:a.id,occurred_at:a.occurred_at,title:a.title,verdict:a.verdict,next_check:a.next_check}));
+- out.inherited_answers=(out.inherited_answers||[]).map(a=>({id:a.id,occurred_at:a.occurred_at,title:a.title,verdict:a.verdict,next_check:a.next_check}));
++ out.answers=[...(w.answers||[])].slice(-6);
++ // Keep evidence and market reactions visible to the daily updater so stale text is detectable.
+  out.x_topics=(w.x_topics||[]).map(t=>({id:t.id,title:t.title,posts:(t.posts||[]).map(p=>({id:p.id,author:p.author,published_at:p.published_at,observed_at:p.observed_at,source_url:p.source_url,views:p.views,reposts:p.reposts,replies:p.replies}))}));
+  if(out.market_mood)delete out.market_mood.history;
+  if(out.importance)for(const group of Object.values(out.importance))for(const [id,r]of Object.entries(group))group[id]={score:r.score};
+--- a/live-week.js
++++ b/live-week.js
+@@ -28,7 +28,7 @@
+  for(const [id,s] of [['ndx-ma',qqq],['spx-ma',spx]]){const tile=q(`[data-metric="${id}"]`),base=s.b.filter(x=>x.date<W.start).map(x=>x.c),prior=base.length>=200?100*(base.at(-1)/mean(base.slice(-200))-1):null;tile.querySelector('.metric-primary-row').innerHTML=`<div class="value">${sign(s.gap)}%</div>${arrow(s.gap,prior,2)}`;tile.querySelector('.sub').textContent=`200日 ${num(s.m200,id==='ndx-ma'?2:0)} · 50日 ${num(s.m50,id==='ndx-ma'?2:0)}`;}
+  const sent=S.sentiment||{};
+  for(const [id,key,d,unit] of [['vix','VIX',2,''],['fear-greed','CNN',0,' / 100'],['bofa','BofA',1,' / 10']]){const v=sent[key];if(!v)continue;const t=q(`[data-metric="${id}"]`);t.querySelector('.metric-primary-row').innerHTML=`<div class="value">${num(v.value,d)}<small>${unit}</small></div>${change(v.prior==null?null:v.value-v.prior,'较前次','',d)}`;t.querySelector('.sub').textContent=`截至 ${v.asof||'待核验'}${v.asof<W.start?' · 前期读数':''}`;}
+- for(const [id,key] of [['fear-greed','CNN'],['bofa','BofA']]){const v=sent[key],el=q(`[data-metric="${id}"] .metric-secondary`),src=v?.source_url||(S.indicator_history?.[key]||[]).find(x=>x.date===v?.asof)?.source_url;if(el&&v)el.innerHTML=src?link(src,`${md(v.asof)} · ${key==='CNN'?'读数归档':'报告来源'}`):'原始来源待补';}
++ for(const [id,key] of [['fear-greed','CNN'],['bofa','BofA']]){const v=sent[key],el=q(`[data-metric="${id}"] .metric-secondary`),src=v?.source_url||(S.indicator_history?.[key]||[]).find(x=>x.date===v?.asof)?.source_url;if(el&&v)el.innerHTML=src?link(src,`${md(v.asof)} · ${v.source_label||(key==='CNN'?'读数归档':'报告来源')}`):'原始来源待补';}
+  const cta=sent.CTA,spxTile=q('[data-metric="spx"]');
+  const ctaValid=cta?.data_kind==='sell_trigger'&&Number.isFinite(cta.value)&&cta.source_url&&cta.institution&&cta.model;
+  spxTile.querySelector('.key').textContent='SPX · 标普500 / CTA';
+@@ -43,7 +43,7 @@
+  const tenValid=validRisk(tenYear),thirtyValid=validRisk(thirtyYear),brentValid=validRisk(brent);
+  const thirtyAlert=thirtyValid&&thirtyYear.value>5.2,brentAlert=brentValid&&brent.value>100;
+  riskTile.classList.add('risk-tile');
+- riskTile.innerHTML=`<div class="key">利率与能源风险</div><div class="risk-columns"><div class="risk-column"><span class="risk-label">10Y · 美债收益率</span><div class="value risk-main">${tenValid?num(tenYear.value,2):'—'}<small>%</small></div><div class="risk-secondary"><span>30Y${thirtyAlert?' <i aria-label="超过 5.2% 警戒线" title="超过 5.2% 警戒线">●</i>':''}</span><b class="${thirtyAlert?'is-alert':''}">${thirtyValid?num(thirtyYear.value,2)+'%':'—'}</b></div><small class="risk-source">${tenValid?`${esc(tenYear.asof)} · ${link(tenYear.source_url,'美国财政部')}`:'读数与来源待补'}</small></div><div class="risk-column"><span class="risk-label">Brent · 原油${brentAlert?' <i aria-label="超过 100 美元警戒线" title="超过 100 美元警戒线">●</i>':''}</span><div class="value risk-main ${brentAlert?'is-alert':''}">${brentValid?num(brent.value,2):'—'}<small>美元/桶</small></div><small class="risk-source">${brentValid?`${esc(brent.asof)} · ${link(brent.source_url,'来源')}`:'读数与来源待补'}</small></div></div>`;
++ riskTile.innerHTML=`<div class="key">利率与能源风险</div><div class="risk-columns"><div class="risk-column"><span class="risk-label">10Y · 美债收益率</span><div class="value risk-main">${tenValid?num(tenYear.value,2):'—'}<small>%</small></div><div class="risk-secondary"><span>30Y${thirtyAlert?' <i aria-label="超过 5.2% 警戒线" title="超过 5.2% 警戒线">●</i>':''}</span><b class="${thirtyAlert?'is-alert':''}">${thirtyValid?num(thirtyYear.value,2)+'%':'—'}</b></div><small class="risk-source">${tenValid?`${esc(tenYear.asof)} · ${link(tenYear.source_url,'美国财政部')}`:'读数与来源待补'}</small></div><div class="risk-column"><span class="risk-label">Brent · 原油${brentAlert?' <i aria-label="超过 100 美元警戒线" title="超过 100 美元警戒线">●</i>':''}</span><div class="value risk-main ${brentAlert?'is-alert':''}">${brentValid?num(brent.value,2):'—'}<small>美元/桶</small></div><small class="risk-source">${brentValid?`${esc(brent.asof)} · ${link(brent.source_url,brent.source_label||(/\/\/(?:www\.)?eia\.gov\//.test(brent.source_url)?'EIA 现货':'来源'))}`:'读数与来源待补'}</small></div></div>`;
+  if(sent.VXN)q('[data-metric="vix"] .metric-secondary').innerHTML=`<span>VXN</span><b>${num(sent.VXN.value)}</b><small>${sent.VXN.asof}</small>`;
+  const curve=S.vix_monthly||{},curveDate=Object.keys(curve).filter(d=>/^\d{4}-\d{2}-\d{2}$/.test(d)&&d<=W.price_cutoff&&Array.isArray(curve[d])&&curve[d].length>=2).sort().at(-1);
+  const saved=curveDate?{vx1:Number(curve[curveDate][0]),vx2:Number(curve[curveDate][1]),asof:curveDate,source_url:'https://www.cboe.com/markets/us/futures/market-statistics/settlement/futures/daily'}:null;
+@@ -55,7 +55,22 @@
+  termLine.innerHTML=term&&/^https:\/\//.test(term.source_url||'')?`<a href="${esc(term.source_url)}" target="_blank" rel="noopener" title="${esc(termTitle)}" aria-label="${esc(termTitle)}：VX1 ${num(term.vx1)}，VX2 ${num(term.vx2)}，Contango ${sign((term.vx2/term.vx1-1)*100,2)}%">${termLabel}</a>`:`<span title="${esc(termTitle)}">${termLabel}</span>`;
+  if(term&&term.vx2<term.vx1)termLine.classList.add('inverted');
+  q('[data-metric="vix"] .metric-secondary').insertAdjacentElement('afterend',termLine);
+- for(const dim of W.dimensions||[]){const card=q('#toggle-'+dim.id);if(!card)continue;card.querySelector('.weight-reading').innerHTML=`<strong>${dim.weight}%</strong>${arrow(dim.weight,dim.prior_weight,10)}`;card.querySelector('.weight-track span').style.width=dim.weight+'%';if(dim.state)card.querySelector('.pulse-state').textContent=dim.state;if(dim.metric)card.querySelector('.pulse-number').innerHTML=esc(dim.metric.value)+`<span>${esc(dim.metric.unit||'')}</span>`;if(dim.comparison)card.querySelector('.pulse-compare').textContent=dim.comparison;if(dim.as_of)card.querySelector('.pulse-foot').textContent='读数截至 '+dim.as_of;if(dim.tone){const badge=card.querySelector('.state-badge');badge.className='state-badge '+dim.tone;badge.textContent=dim.status||({improve:'↗ 改善',worsen:'↘ 恶化',mixed:'↔ 分化',pending:'待确认'}[dim.tone]);}if(dim.detail_blocks){const section=q('#'+dim.id);section.querySelectorAll('.live-dimension-detail').forEach(n=>n.remove());for(const block of dim.detail_blocks){const n=document.createElement('article');n.className='card live-event-card live-dimension-detail';n.innerHTML=`<h3>${esc(block.title)}</h3><p>${strong(block.text)}</p>${link(block.source_url,'来源')}`;section.append(n)}}}
++ // Intraday and extended-hours observations remain separate from closing bars.
++ const sessions={overnight:'夜盘',premarket:'盘前',regular:'盘中',afterhours:'盘后'};
++ const nyTime=t=>{const p=Object.fromEntries(new Intl.DateTimeFormat('en-CA',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(new Date(t)).map(x=>[x.type,x.value]));return `${p.year}-${p.month}-${p.day}T${p.hour}:${p.minute}`};
++ const latestQuote=(key,closeDate,cash=false)=>{const v=S.quotes?.[key];if(!active||!v||!Number.isFinite(v.value)||!Number.isFinite(Date.parse(v.asof)))return null;return nyTime(v.asof)>(closeDate||'0000-00-00')+(cash?'T16:00':'T00:00')?v:null};
++ const quoteMeta=v=>`${sessions[v.session]||'行情'} · ${bj(v.asof)} 北京时间${v.delayed?' · 延迟':''}`;
++ const quoteSource=v=>link(v.source_url,v.source_label);
++ const addNote=(tile,html)=>{let n=tile.querySelector('.quote-reference');if(!n){n=document.createElement('div');n.className='quote-reference';tile.querySelector('.sub')?.after(n)}n.innerHTML=html};
++ for(const [id,key,s]of [['ndx','QQQ',qqq],['spx','SPX',spx]]){const v=latestQuote(key,s.last?.date,true);if(!v)continue;const tile=q(`[data-metric="${id}"]`);tile.querySelector('.metric-primary-row').innerHTML=`<div class="value">${num(v.value)}</div>${change(s.last?100*(v.value/s.last.c-1):null,'较常规收盘')}`;tile.querySelector('.sub').innerHTML=`${esc(quoteMeta(v))} · ${quoteSource(v)}`;addNote(tile,`${md(s.last?.date)} 常规收盘 ${num(s.last?.c)} · 本周 ${sign(s.weekly)}%`);if(key==='QQQ'){const ma=q('[data-metric="ndx-ma"]'),gap=100*(v.value/s.m200-1);ma.querySelector('.metric-primary-row').innerHTML=`<div class="value">${sign(gap)}%</div><span class="metric-note">${sessions[v.session]}偏离</span>`;addNote(ma,`${esc(quoteMeta(v))}<br>均线基于 ${md(s.last?.date)} 常规收盘`);}}
++ const liveNdx=latestQuote('NDX',ndx.last?.date,true);if(liveNdx)q('[data-metric="ndx"] .metric-secondary').innerHTML=`<span>NDX</span><b>${num(liveNdx.value)}</b><small>${esc(quoteMeta(liveNdx))}</small>`;
++ for(const [key,id,stats]of [['ES','spx',spx],['NQ','ndx',ndx]]){const v=latestQuote(key,stats.last?.date,true);if(v){const n=document.createElement('div');n.className='quote-future';n.innerHTML=`${esc(v.instrument)} ${esc(v.contract)} <b>${num(v.value)}</b><br>${esc(quoteMeta(v))} · ${quoteSource(v)}`;q(`[data-metric="${id}"]`).append(n)}}
++ const liveVix=latestQuote('VIX',sent.VIX?.asof,true);if(liveVix){const tile=q('[data-metric="vix"]');tile.querySelector('.metric-primary-row').innerHTML=`<div class="value">${num(liveVix.value)}</div>${change(sent.VIX?liveVix.value-sent.VIX.value:null,'较常规收盘','')}`;tile.querySelector('.sub').innerHTML=`${esc(quoteMeta(liveVix))} · ${quoteSource(liveVix)}`;addNote(tile,`${md(sent.VIX?.asof)} 常规收盘 ${num(sent.VIX?.value)}`)}
++ const liveVxn=latestQuote('VXN',sent.VXN?.asof,true);if(liveVxn)q('[data-metric="vix"] .metric-secondary').innerHTML=`<span>VXN</span><b>${num(liveVxn.value)}</b><small>${esc(quoteMeta(liveVxn))}</small>`;
++ const riskCols=riskTile.querySelectorAll('.risk-column');
++ for(const [key,col,base]of [['UST10Y',riskCols[0],tenYear],['Brent',riskCols[1],brent]]){const v=latestQuote(key,base?.asof);if(!v)continue;col.querySelector('.risk-main').innerHTML=`${num(v.value)}<small>${key==='Brent'?'美元/桶':'%'}</small>`;col.querySelector('.risk-main').classList.toggle('is-alert',key==='Brent'&&v.value>100);col.querySelector('.risk-label').textContent=key==='Brent'?`Brent · ${v.price_basis.includes('future')?'期货':'现货'} ${v.contract||''}`:'10Y · 基准券收益率';col.querySelector('.risk-source').innerHTML=`${esc(quoteMeta(v))}<br>${quoteSource(v)}<br>${base?`${esc(base.source_label||(key==='Brent'?'EIA 现货':'财政部日值'))} ${num(base.value)}${key==='Brent'?'':'%'} · ${md(base.asof)}`:''}`;}
++ const liveThirty=latestQuote('UST30Y',thirtyYear?.asof);if(liveThirty){riskCols[0].querySelector('.risk-secondary').innerHTML=`<span>30Y</span><b class="${liveThirty.value>5.2?'is-alert':''}">${num(liveThirty.value)}%</b>`;riskCols[0].querySelector('.risk-source').insertAdjacentHTML('beforeend',`<br>30Y ${esc(quoteMeta(liveThirty))} · ${quoteSource(liveThirty)}`)}
++ for(const dim of W.dimensions||[]){const card=q('#toggle-'+dim.id);if(!card)continue;card.querySelector('.weight-reading').innerHTML=`<strong>${dim.weight}%</strong>${arrow(dim.weight,dim.prior_weight,10)}`;card.querySelector('.weight-track span').style.width=dim.weight+'%';if(dim.state)card.querySelector('.pulse-state').textContent=dim.state;if(dim.metric)card.querySelector('.pulse-number').innerHTML=esc(dim.metric.value)+`<span>${esc(dim.metric.unit||'')}</span>`;if(dim.comparison)card.querySelector('.pulse-compare').textContent=dim.comparison;if(dim.as_of)card.querySelector('.pulse-foot').textContent='读数截至 '+(dim.metric?.asof||dim.as_of)+(dim.metric?.asof&&dim.metric.asof!==dim.as_of?' · 证据更新 '+md(dim.as_of):'');if(dim.tone){const badge=card.querySelector('.state-badge');badge.className='state-badge '+dim.tone;badge.textContent=dim.status||({improve:'↗ 改善',worsen:'↘ 恶化',mixed:'↔ 分化',pending:'待确认'}[dim.tone]);}if(dim.detail_blocks){const section=q('#'+dim.id);section.querySelectorAll('.live-dimension-detail').forEach(n=>n.remove());for(const block of dim.detail_blocks){const n=document.createElement('article');n.className='card live-event-card live-dimension-detail';n.innerHTML=`<h3>${esc(block.title)}</h3><p>${strong(block.text)}</p>${link(block.source_url,'来源')}`;section.append(n)}}}
+  const fed=sent.FedHike||(active&&W.start==='2026-11-02'?{value:72.4,meeting:'2026-12-09',asof:'2026-11-02',source_url:'https://polymarket.com/event/fed-decision-in-december-20260729232808632',method:'25bp 与 50bp 以上加息选项之和'}:null);
+  const fedCard=q('#toggle-macro'),fedValid=Number.isFinite(fed?.value)&&/^https:\/\//.test(fed.source_url||'');
+  fedCard.querySelector('.pulse-number').insertAdjacentHTML('afterend',`<div class="fed-hike-reading"><span>${fed?.meeting?esc(fed.meeting.slice(0,7).replace('-','年'))+'月':'关注会议'}加息概率</span><strong>${fedValid?num(fed.value,1)+'%':'待核验'}</strong><small>${fedValid?`${esc(fed.asof)} · ${link(fed.source_url,'Polymarket')}`:'等 Muse 提供市场与读数'}</small></div>`);
+--- a/shared-calendar.js
++++ b/shared-calendar.js
+@@ -17,7 +17,12 @@
+  const largeCapEarnings=/(?:Apple|苹果|AMD|ASML|Meta|Tesla|Alphabet|Google|Microsoft|Amazon|微软|亚马逊|特斯拉)/i;
+  const isHigh=e=>P.calendarImportance(e).score===3||(/财报/.test(e.kind||'')&&largeCapEarnings.test(e.event||''));
+  let changeMarkers={};
+- const dots=key=>['GPT','Muse'].filter(agent=>(changeMarkers[agent]?.keys||[]).includes(key)).map(agent=>`<span class="update-dot" data-agent="${agent}" title="${agent} 本轮更新" aria-label="${agent} 本轮更新"></span>`).join('');
++ const dots=key=>['GPT','Muse'].filter(agent=>(changeMarkers[agent]?.keys||[]).includes(key)).map(agent=>{
++  const at=changeMarkers[agent].key_times?.[key]||changeMarkers[agent].at;
++  const stamp=Number.isFinite(Date.parse(at))?new Intl.DateTimeFormat('zh-CN',{timeZone:'Asia/Shanghai',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false}).format(new Date(at))+' 北京时间':'时间未记录';
++  const label=agent+' 更新于 '+stamp+'；满 3 小时后在下一轮更新清理';
++  return `<span class="update-dot" data-agent="${agent}" data-updated-at="${esc(at||'')}" title="${esc(label)}" aria-label="${esc(label)}"></span>`;
++ }).join('');
+  root.innerHTML=`<div class="section-head"><div><h2>事件日历</h2><p class="section-sub">所有周页面共用 · 所选叙事周起两周 · 北京时间，盘前／盘后另标</p></div><div class="calendar-navigation"><button type="button" data-calendar-nav="-14" aria-label="前两周">‹</button><span class="calendar-range" aria-live="polite"></span><button type="button" data-calendar-nav="14" aria-label="后两周">›</button><button type="button" data-calendar-today>回到本周</button></div></div><div class="review-calendar" id="events" aria-live="polite"></div><div class="note">事件落地后补充结果与市场反应；历史未录入日期留空。市值超过 5000 亿美元的公司财报高亮；其他事件以 3 星高亮。</div>`;
+  function compactEarnings(e, released){
+   const metrics=e.earnings_metrics||[];
+@@ -60,7 +65,7 @@
+   const impact=e.narrative_impact||(occurred?'对叙事的影响待结合结果与行情核验':'待结果与市场反应确认后评估');
+   const comparisons=(e.earnings_metrics||[]).length?`<div class="calendar-earnings-table" role="table" aria-label="财报预期与实际对照"><div class="earnings-row headings" role="row"><span>指标</span><span>预期</span><span>实际</span></div>${e.earnings_metrics.map(m=>`<div class="earnings-row" role="row"><span>${esc(m.label)}</span><span>${esc(m.expected)}</span><strong title="${esc(m.note||'')}">${esc(m.actual)}</strong></div>`).join('')}</div>`:'';
+   const phases=(e.reaction_phases||[]).length?`<div class="reaction-phases">${e.reaction_phases.map(p=>`<div><b>${esc(p.session)}</b><span>${esc(p.value)}</span><small>${esc(p.at)} · ${link(p.source_url,'来源')}</small></div>`).join('')}</div>`:'';
+-  grid.insertAdjacentHTML('beforeend',`<aside class="calendar-detail" data-calendar-detail aria-label="${esc(e.event)}事件详情"><div class="calendar-detail-head"><span>${esc(md(e.iso_date||card.closest('.calendar-day')?.dataset.date||''))} · ${esc(e.kind||'事件')} · ${esc(e.status==='occurred'||e.status==='released'?'已发生':'待发生')}</span><button type="button" data-calendar-close aria-label="关闭事件详情">×</button></div><h3>${esc(e.event)}</h3><p class="calendar-detail-time">${esc(e.time||'时间待核验')}</p><div class="calendar-detail-body">${detailRow('预期／关注',e.expectation||e.watch||'待补充',!(e.expectation||e.watch))}${comparisons}${detailRow((e.result_emoji||'📊')+' 实际结果',actual,!e.result)}${e.guidance?detailRow('下季指引',e.guidance):''}${detailRow((e.reaction_emoji||'📈')+' 分时段市场反应',reaction,!e.market_reaction)}${phases}${detailRow('对叙事的影响',impact,!e.narrative_impact)}</div><div class="calendar-detail-links">${link(e.source,'事件来源')}${e.consensus_source?' · '+link(e.consensus_source,'预期来源'):''}${e.result_source?' · '+link(e.result_source,'结果来源'):''}${e.guidance_source?' · '+link(e.guidance_source,'指引来源'):''}${e.reaction_source?' · '+link(e.reaction_source,'行情来源'):''}</div></aside>`);
++  grid.insertAdjacentHTML('beforeend',`<aside class="calendar-detail" data-calendar-detail aria-label="${esc(e.event)}事件详情">${dots('calendar:'+e.id)}<div class="calendar-detail-head"><span>${esc(md(e.iso_date||card.closest('.calendar-day')?.dataset.date||''))} · ${esc(e.kind||'事件')} · ${esc(e.status==='occurred'||e.status==='released'?'已发生':'待发生')}</span><button type="button" data-calendar-close aria-label="关闭事件详情">×</button></div><h3>${esc(e.event)}</h3><p class="calendar-detail-time">${esc(e.time||'时间待核验')}</p><div class="calendar-detail-body">${detailRow('预期／关注',e.expectation||e.watch||'待补充',!(e.expectation||e.watch))}${comparisons}${detailRow((e.result_emoji||'📊')+' 实际结果',actual,!e.result)}${e.guidance?detailRow('下季指引',e.guidance):''}${detailRow((e.reaction_emoji||'📈')+' 分时段市场反应',reaction,!e.market_reaction)}${phases}${detailRow('对叙事的影响',impact,!e.narrative_impact)}</div><div class="calendar-detail-links">${link(e.source,'事件来源')}${e.consensus_source?' · '+link(e.consensus_source,'预期来源'):''}${e.result_source?' · '+link(e.result_source,'结果来源'):''}${e.guidance_source?' · '+link(e.guidance_source,'指引来源'):''}${e.reaction_source?' · '+link(e.reaction_source,'行情来源'):''}</div></aside>`);
+  }
+  async function render(){const token=++seq,end=add(start,13);closeDetail();root.querySelector('.calendar-range').textContent=start.slice(0,4)+' · '+md(start)+' — '+md(end);root.querySelector('#events').setAttribute('aria-busy','true');let data;
+  try{const r=await fetch(`/api/calendar?from=${start}&to=${end}`,{cache:'no-store'});if(!r.ok)throw Error();data=await r.json();}catch{if(token!==seq)return;root.querySelector('#events').innerHTML='<p class="calendar-empty">日历暂时无法读取，请稍后重试。</p>';return}if(token!==seq)return;changeMarkers=data.change_markers||{};
+--- a/dashboard-enhancements.js
++++ b/dashboard-enhancements.js
+@@ -82,28 +82,33 @@
+     window.addEventListener('scroll',()=>{if(!panel.hidden)place()},{passive:true});window.addEventListener('resize',refit);
+     document.fonts?.ready.then(refit);
+   }
+-  // Each contributor owns one independent set of dots; a new batch replaces only its own set.
++  // Owner-scoped, per-item clocks are pruned only by subsequent content updates.
+   const markerMap=W.change_markers||{};
+-  const targetFor=key=>{
+-    if(key==='mood')return tile;
+-    if(key==='price-chart')return document.getElementById('price-chart')?.closest('.card');
+-    if(key==='events')return q('#toggle-event-drivers');
+-    if(key==='strategy')return q('.dashboard-chart-heading');
+-    if(key.startsWith('dimension:'))return document.getElementById('toggle-'+key.slice(10));
+-    if(key.startsWith('question:'))return [...document.querySelectorAll('[data-question-id]')].find(n=>n.dataset.questionId===key.slice(9));
+-    if(key.startsWith('answer:'))return [...document.querySelectorAll('[data-record-id]')].find(n=>n.dataset.recordId===key.slice(7));
+-    if(key.startsWith('x-author:'))return [...document.querySelectorAll('.x-author-card[data-author]')].find(n=>n.dataset.author===key.slice(9));
+-    if(key.startsWith('x:'))return [...document.querySelectorAll('[data-post-id]')].find(n=>n.dataset.postId===key.slice(2));
+-    if(key.startsWith('trend:'))return [...document.querySelectorAll('[data-trend-id]')].find(n=>n.dataset.trendId===key.slice(6));
+-    const metric={NDX:'ndx',QQQ:'ndx',SPX:'spx',VIX:'vix',VXN:'vix',VXFutures:'vix',CNN:'fear-greed',BofA:'bofa',CTA:'spx',UST10Y:'cta',UST30Y:'cta',Brent:'cta'}[key.slice(7)];
+-    return key.startsWith('metric:')&&metric?q(`[data-metric="${metric}"]`):null;
++  const targetsFor=key=>{
++    if(key==='mood')return [tile];
++    if(key==='price-chart')return [document.getElementById('price-chart')?.closest('.card')];
++    if(key==='events')return [q('#toggle-event-drivers'),...document.querySelectorAll('#event-drivers .live-event-card')];
++    if(key==='strategy')return [q('.dashboard-chart-heading')];
++    if(key.startsWith('dimension:'))return [document.getElementById('toggle-'+key.slice(10)),...document.querySelectorAll('#'+key.slice(10)+' .live-dimension-detail')];
++    const fields=[['question:','questionId','[data-question-id]'],['answer:','recordId','[data-record-id]'],['x-author:','author','.x-author-card[data-author]'],['x:','postId','[data-post-id]'],['trend:','trendId','[data-trend-id]']];
++    for(const [prefix,field,selector]of fields)if(key.startsWith(prefix))return [...document.querySelectorAll(selector)].filter(n=>n.dataset[field]===key.slice(prefix.length));
++    if(key==='metric:FedHike')return [q('#toggle-macro')];
++    const metrics={NDX:['ndx'],QQQ:['ndx','ndx-ma'],SPX:['spx'],VIX:['vix'],VXN:['vix'],VXFutures:['vix'],CNN:['fear-greed'],BofA:['bofa'],CTA:['spx'],UST10Y:['cta'],UST30Y:['cta'],Brent:['cta']}[key.slice(7)];
++    return key.startsWith('metric:')&&metrics?metrics.map(metric=>q(`[data-metric="${metric}"]`)):[];
+   };
+-  for(const agent of ['GPT','Muse'])for(const key of markerMap[agent]?.keys||[]){
+-    if(agent==='GPT'&&key.startsWith('trend:'))continue;
+-    const node=targetFor(key);
+-    if(!node||node.querySelector(`:scope > .update-dot[data-agent="${agent}"]`))continue;
+-    node.classList.add('has-update-dot');
+-    node.insertAdjacentHTML('beforeend',`<span class="update-dot" data-agent="${agent}" title="${agent} 本轮更新" aria-label="${agent} 本轮更新"></span>`);
++  for(const agent of ['GPT','Muse']){
++    const group=markerMap[agent],nodes=new Map();
++    for(const key of group?.keys||[]){
++      if(agent==='GPT'&&key.startsWith('trend:'))continue;
++      const at=group.key_times?.[key]||group.at;
++      for(const node of targetsFor(key))if(node&&(!nodes.has(node)||Date.parse(at)>Date.parse(nodes.get(node))))nodes.set(node,at);
++    }
++    for(const [node,at]of nodes){
++      const stamp=Number.isFinite(Date.parse(at))?new Intl.DateTimeFormat('zh-CN',{timeZone:'Asia/Shanghai',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false}).format(new Date(at))+' 北京时间':'时间未记录';
++      const label=agent+' 更新于 '+stamp+'；满 3 小时后在下一轮更新清理';
++      node.classList.add('has-update-dot');
++      node.insertAdjacentHTML('beforeend',`<span class="update-dot" data-agent="${agent}" data-updated-at="${escape(at||'')}" title="${escape(label)}" aria-label="${escape(label)}"></span>`);
++    }
+   }
+   tile.querySelector('.sentiment-emoji').style.fontSize=getComputedStyle(q('h1')).fontSize;
+   for(const [id,key,max] of [['fear-greed','CNN',100],['bofa','BofA',10]]){
+@@ -156,8 +161,8 @@
+   const volatility=S.volatility||{},vix=(volatility.dates||[]).map((date,i)=>({date,value:volatility.vix[i]}));
+   const merged=key=>[...(E.indicator_history?.[key]||[]),...(S.indicator_history?.[key]||[])].filter(p=>p.date<=cutoff);
+   draw('vix',[...vix,...merged('VIX')]);
+-  draw('fear-greed',merged('CNN'),0,'','周频归档');draw('bofa',merged('BofA'),1,'','周频报告');if(!q('[data-metric="cta"]')?.classList.contains('risk-tile'))draw('cta',merged('CTA').filter(p=>p.model===S.sentiment?.CTA?.model&&p.institution===S.sentiment?.CTA?.institution),S.sentiment?.CTA?.digits??0,S.sentiment?.CTA?.unit||'','模型观测');
+-  const sources=q('.source-content');if(sources){const p=document.createElement('p');p.className='fineprint';p.innerHTML='小折线：指数与 VIX 使用已保存的日频行情；CNN 为周频公开归档，BofA 为报告发布日读数，均不补造日值。CTA 缺少可核验序列时留空。';sources.append(p);
++  draw('fear-greed',merged('CNN'),0,'','日频读数');draw('bofa',merged('BofA'),1,'','周频报告');if(!q('[data-metric="cta"]')?.classList.contains('risk-tile'))draw('cta',merged('CTA').filter(p=>p.model===S.sentiment?.CTA?.model&&p.institution===S.sentiment?.CTA?.institution),S.sentiment?.CTA?.digits??0,S.sentiment?.CTA?.unit||'','模型观测');
++  const sources=q('.source-content');if(sources){const p=document.createElement('p');p.className='fineprint';p.innerHTML='小折线：指数与 VIX 使用已保存的日频行情；CNN 使用已核验的日频读数及早期留存归档，BofA 为报告发布日读数；缺失日期不补造。CTA 缺少可核验序列时留空。';sources.append(p);
+     const links=[...new Set(['CNN','BofA'].flatMap(k=>merged(k).map(p=>p.source_url)).filter(Boolean))];const list=document.createElement('div');list.className='scan-source-list';links.forEach((url,i)=>{if(!/^https:\/\//.test(url))return;const a=document.createElement('a');a.href=url;a.target='_blank';a.rel='noopener';a.textContent='情绪历史来源 '+(i+1)+' ↗';list.append(a)});sources.append(list);
+   }
+ })();
+--- a/dashboard-enhancements.css
++++ b/dashboard-enhancements.css
+@@ -76,7 +76,7 @@
+ @media(max-width:480px) and (max-height:760px){.mood-week-history li{zoom:.91}}
+ @media(max-width:400px) and (max-height:600px){.mood-week-history li{zoom:.79}}
+ .has-update-dot{position:relative}
+-.update-dot{position:absolute;right:9px;top:9px;width:7px;height:7px;box-sizing:border-box;border-radius:50%;background:#f5bf31;border:1px solid #d79d1d;box-shadow:0 0 0 2px #fff9;z-index:12;pointer-events:none}
++.update-dot{position:absolute;right:9px;top:9px;width:7px;height:7px;box-sizing:border-box;border-radius:50%;background:#f5bf31;border:1px solid #d79d1d;box-shadow:0 0 0 2px #fff9;z-index:12;pointer-events:auto}
+ .update-dot[data-agent="Muse"]{right:20px}
+ .verification-layout{display:flex;gap:16px;align-items:stretch;--verification-card-width:300px}
+ .verification-layout>.week-pending{flex:0 0 var(--verification-card-width);box-sizing:border-box;padding:20px}
+@@ -296,3 +296,10 @@
+ .main .verification-track>.chain-card.priority-high :is(.chain-step,.prior-question){border-color:#e9e1d0!important}
+ .main .verification-track>.chain-card.priority-high .chain-next{background:#f5efdf!important}
+ .main .verification-track>.chain-card.priority-high.is-selected{box-shadow:inset 0 0 0 2px #7965c6,inset 0 3px #c7a35a!important}
++
++.calendar-detail>.update-dot{top:52px}
++
++.quote-reference,.quote-future{font-size:11px;line-height:1.55;color:var(--muted,#8794aa);margin-top:6px;max-width:100%}
++.quote-future{position:relative;z-index:1;padding-right:6px}
++.risk-source{line-height:1.5;overflow-wrap:anywhere}
++@media(min-width:801px){.main .market-overview .metric:has(.quote-future){padding-bottom:100px}.metric:has(.quote-future) .sparkline{bottom:20px}.metric:has(.quote-future) .quote-future{max-width:100%}}
+--- a/UPDATER.md
++++ b/UPDATER.md
+@@ -1,4 +1,39 @@
+ # 美股叙事与市场点位：固定框架每日维护
++
++## 夜盘、盘前、盘后行情（2026-11-04）
++
++每轮抓取所有可取得的最新报价；夜盘、盘前、盘中、盘后都更新卡面，标出报价原始时点（北京时间）、交易时段、来源及延迟状态。抓取时间不得代替成交/报价时点。冻结收盘快照不是新行情；抓不到新报价保留最近核验值与真实日期。
++
++GPT 用 `market.quotes`，Muse 用 `market_quotes`，按 QQQ/NDX/SPX/VIX/VXN/UST10Y/UST30Y/Brent/ES/NQ 分键。每项 `{value,asof,session,instrument,price_basis,source_url,source_label,delayed?}`；asof 为带时区的完整时间戳；session 为 overnight/premarket/regular/afterhours；cash 用于 ETF/现金指数，benchmark_yield 用于美债基准券收益率，futures 用于期货并必填实际 `contract`（如 2027-01）。来源有延迟须 delayed=true。旧时间戳不能覆盖新报价；相同数据/仅检索时间变化不打新黄点。
++
++最新 QQQ 报价作为主值，附常规收盘参考；200日偏离随最新价重算，50/200日均线、图表日线、周基准仍用完整常规收盘。现金 SPX/NDX/VIX 不存在夜盘新值时保留实际收盘；ES/NQ 另列实际合约，不冒充现货指数。美债实时基准券与财政部日度恒定期限读数注明不同口径。Brent 最新期货报价独立显示合约、时间与来源，并保留 EIA 现货参考；实时行情不受“EIA 超3天才允许日结算兜底”的限制，但不得写入现货历史。以下 Brent 兜底规则只管理日度参考序列。
++
++
++## Brent 现货与 ICE 兜底（2026-11-04）
++
++主口径为 EIA Brent 现货，先核对 EIA Daily Prices 的 Wholesale Spot Petroleum Prices（https://www.eia.gov/TodayinEnergy/prices.php），再查历史序列；历史序列滞后不代表 Daily Prices 没有新读数。以最新已完整收盘的美股交易日为参照，只有最新可核验 EIA 现货日期落后超过 3 个自然日时，允许 ICE 布伦特实际近月合约的日结算价兜底。不能把行情站末笔/收盘价或小时价格冒充 ICE 官方结算。
++
++Muse `market_indicators.Brent` 可用 eia.gov；兜底时可用 ice.com，并必须填 `source_label:"ICE 期货结算 · EIA 现货滞后兜底"`、`price_basis:"ice_front_month_settlement"`、`contract`（实际合约月份/代码）、`eia_asof`（最新核验现货日期），另有 `value/asof/source_url`。校验器按 feed 最近共同收盘日验证 >3 天，合并还核对已保存的较新 EIA 日期，防止累计旧资料误触发。EIA 行可填 `source_label:"EIA 现货"`、`price_basis:"eia_spot"`。卡片明确显示 source_label。
++
++EIA 恢复且观察日期更新时按 asof 覆盖回现货；同日 EIA 现货优先于 ICE 兜底。替换时清除旧兜底标签和元数据，现货和兜底不并排，兜底不写入现货历史曲线。GPT 同日核验优先仍适用于同口径数据，不阻止 EIA 现货替代 ICE 兜底。
++
++2026-11-04 核验：EIA Daily Prices 已发布 11/02 现货 107.39，不能继续用 10/27=123.10 认定所有 EIA 数据未更新；当日最近美股收盘为 11/03，现货仅差一天，因此当前不触发 ICE 兜底。104.34 可见于行情站历史收盘表，尚未取得对应 ICE 合约官方结算证据；不要硬写该值。
++
++
++## 每轮抓取与收盘全页核查（2026-11-04）
++
++每天北京时间 10:00、16:00、22:00 都先获取新行情、指标、公告、事件结果和市场反应，再与已发布内容比较；不能只看旧缓存、只跑任务或只改日期。10:00 在美股最近完整收盘后执行全页面核查，覆盖 Dashboard（CTA 除外）、事件驱动、五维卡面与展开详情、叙事问题和回答、共享日历及详情、行情图与 GPT 主责 X 内容。16:00/22:00 同样查新读数和已发生事件，实时/盘后/盘前与常规收盘分清，未开市不伪造新收盘。
++
++有证据的新变化才改内容；无变化保留原文、原观察日期和原黄点时间，不为“每天更新”硬写硬改。CNN 是日常变化的 0–100 恐惧与贪婪指数，不能按周频停在旧读数；先查 CNN，官方不可取时主动交叉核对至少两个有日期的可靠归档并标明二手来源。美债查美国财政部最新交易日的 10Y/30Y；Brent 核对合约、结算/现货口径与日期，不把旧 EIA 现货和新期货结算混作连续读数。新读数同步到卡片、曲线、相关解释和来源。无新报告与未能取到数据必须区分。
++
++叙事验证和日历每轮联动核查：财报/宏观结果已公布、后续交易时段已经结束时，检查旧“尚未发生/待收盘”描述；有新证据追加回答并更新关联问题状态，旧回答作为带日期历史记录保留；日历用同一事件 ID 更新结果、市场反应、叙事和展开详情。结果简报列明实际变化、已查无变化与缺失/失败，不能把部分成功称为全页完成。
++
++## 小黄点按三小时保留（2026-11-04）
++
++每个贡献者、每个键独立保存最近实质变动的 `key_times[key]`（ISO 时间）；`keys` 保持可展示键列表，`at` 仅是该贡献者最近一次处理时间。下一次该贡献者更新时，只清理距对应键变动已满三小时的旧点；不足三小时继续保留。同一内容再次实质变化才重置该键时间。无变化检查、相同 patch、新抓取批次但无实质变化都不能重置时钟；新批次不再整体清空旧点。页面打开、刷新及相同批次重建不触发到时消失。
++
++GPT 和 Muse 只清理自己的到期点，互不覆盖，趋势黄点仍归 Muse。旧结构没有 key_times 时沿用原 at 迁移。小黄点覆盖行情与派生均线、事件/五维卡面与详情、问题/回答、日历卡片与详情、X 帖子和趋势；指向小黄点可见最近变化时间。黄点表示实际变化，不表示“查过”。日常写入自动比较前后内容，只给实际变化的对象打点；仅日期检查或 note 不制造新点。
++
+ 
+ ## X 每周承接窗口（2026-11-04）
+ 
+@@ -15,7 +50,7 @@
+ 
+ 「本周事件驱动」和 earnings/macro/trend/valuation/position 五维，每张卡面和展开详情都必须逐项检查。同步核对读数、观察日期、状态、比较基准、叙事权重、星级、事实、来源、图表说明、市场反应及后续验证条件。事件已落地就及时补结果和实际反应；部分财报已发布时分清已发布与仍待公布，不能整个事件继续笼统写“待落地”。行情已更新时，同时核对头部摘要与立场的时态，不能仍写“尚未开盘”。维度资料未发布或无同口径数据时保留真实日期/待核验，不能为了更新而编数字或只改日期。卡面和详情必须描述同一观察期，同一数字一致。每轮在 note/结果简报注明已覆盖 Dashboard（CTA 除外）、事件驱动及五维卡面与详情；有缺项明确指出，不把只更新日历称为整轮完成。
+ 
+-只提交实际变化，保留周内固定点位、历史归档和已保存基准。GPT 只替换自己的黄点，Muse 黄点保持；趋势内容与趋势黄点仍由 Muse 独立维护。`market` 写入会自动记录 `snapshot.gpt_verified_market`：同交易日/报告日已由 GPT 核验的行情不会被 Muse 累计旧值覆盖，Muse 的更新日期读数仍可补充；CTA 不受此保护规则影响。
++只提交实际变化，保留周内固定点位、历史归档和已保存基准。GPT 仅累计自己的新变化黄点并清理满三小时的旧点，Muse 黄点保持；趋势内容与趋势黄点仍由 Muse 独立维护。`market` 写入会自动记录 `snapshot.gpt_verified_market`：同交易日/报告日已由 GPT 核验的行情不会被 Muse 累计旧值覆盖，Muse 的更新日期读数仍可补充；CTA 不受此保护规则影响。
+ 
+ 
+ ## 关键财报与本轮更新标识（2026-11-03）
+@@ -24,11 +59,11 @@
+ 
+ 关键权重财报公布后即更新唯一的共享日历事件，不等开盘或收盘：用 `calendar_upsert` 的原事件 ID，填写 `expectation`、`earnings_metrics:[{label,expected,actual,note?}]`、`result`、`guidance`、`market_reaction`、`reaction_phases:[{session,value,at,source_url}]`、`narrative_impact`。逐项预期与实际必须可比，注明共识口径与 `consensus_source`、公司原始 `result_source`、指引出处 `guidance_source`。盘后、夜盘、盘前、常规时段各自有明确美东/北京时间与报价来源，未开始或无可靠报价写“尚未开始／待核验”，不以常规收盘冒充；叙事影响是基于已知结果的即时判断，立即填写并注明后续验证条件。可分别填写 `result_emoji` 与 `reaction_emoji`，前者表达业绩相对预期，后者表达已观察的价格反应；两者可能相反，不能用一个“利好”表情替代实测结果。
+ 
+-每次 `dashboard_apply_daily_update` 会用该轮 patch 自动替换 `change_markers.GPT` 的键集合，对被改写的卡片和日历事件显示右上角小黄点。趋势卡只显示 Muse 的 `trend:<id>` 黄点。下一次 GPT 写入只移除并重建 GPT 自己的点，Muse 点保持原样；即使没有显示内容变化，该轮也可留下空集合。不要直接编辑 `change_markers.Muse`。只有进行中的周显示本周与上周，组间留白并居中标“上周交易日”。归档浮层只显示所选周实际开市的交易日，休市日跳过。旧日情绪缺记录时按同期收盘数据补为“回溯判断”，写明交易日、星期与出处，不伪造当时的实时观测。
++每次 `dashboard_apply_daily_update` 比较前后显示内容，将实际变化累计到 `change_markers.GPT`，每个键单独记录 `key_times`；不足三小时的旧点保留，到期点在下一次 GPT 更新清理。无实质变化不重置该键时间，Muse 点保持原样；趋势卡只显示 Muse 的 `trend:<id>` 黄点。不要直接编辑 `change_markers.Muse`。只有进行中的周显示本周与上周，组间留白并居中标“上周交易日”。归档浮层只显示所选周实际开市的交易日，休市日跳过。旧日情绪缺记录时按同期收盘数据补为“回溯判断”，写明交易日、星期与出处，不伪造当时的实时观测。
+ 
+ 每个收盘日的 `market_mood.current.reason` 用一至两句解释一个主要驱动和价格传导。在 `attribution` 填 `{kind:"event"|"quant",driver,source_urls,known_by?,session?,event_at?}`。可选 FOMC、重大财报、地缘消息或油债关口。区分美东盘前、盘中、前一晚盘后，油价写明 WTI/Brent 及盘中/结算，收益率写明期限和点位。事件类型的 `known_by` 必填，表示消息最晚已公开的美东日期。可用 `event_at` 填带时区的实际时间，`session:"after_close"` 仅可用于之后的交易日。若无明确单一事件，选择 `quant` 并用跳空与盘中幅度、相对等权表现或相对前20日均量及成交区间解释。证据使用公开原始公告、当时行情或当日收盘报道。展示保留 QQQ 收盘涨跌、VIX 观察值和依据链接。
+ 
+-X 高频顶部的「趋势捕捉」由 Muse 独立维护。Muse 在累计 feed 的 `weekly_trends` 中选题、更新原帖依据和受益标签，周末核验后自行标为 `final`。GPT 日更只读趋势，周归档照存已发布的状态。趋势黄点由 Muse 按批次更新。标签可包含潜在利好标的、行业或大盘，须由原帖和推理支持，条件未满足时写“潜在”并说明不确定性。归档周不追认后见之明。趋势总数不设上限；所有已核验趋势按 `asof` 从新到旧排列，最新放左边，同一时间保留原有顺序。只有内容或证据实质更新时才推进该趋势的 `asof`，不要为每批抓取统一刷新时间。趋势卡保持单行，每页最多四张；不足四张及末页按实际张数等分整行。超过四张才显示左右翻页，首尾停止、不循环，所有趋势都可翻到，不截断累计数据。
++X 高频顶部的「趋势捕捉」由 Muse 独立维护。Muse 在累计 feed 的 `weekly_trends` 中选题、更新原帖依据和受益标签，周末核验后自行标为 `final`。GPT 日更只读趋势，周归档照存已发布的状态。趋势黄点由 Muse 按实际变化累计，满三小时后在下一次 Muse 更新清理。标签可包含潜在利好标的、行业或大盘，须由原帖和推理支持，条件未满足时写“潜在”并说明不确定性。归档周不追认后见之明。趋势总数不设上限；所有已核验趋势按 `asof` 从新到旧排列，最新放左边，同一时间保留原有顺序。只有内容或证据实质更新时才推进该趋势的 `asof`，不要为每批抓取统一刷新时间。趋势卡保持单行，每页最多四张；不足四张及末页按实际张数等分整行。超过四张才显示左右翻页，首尾停止、不循环，所有趋势都可翻到，不截断累计数据。
+ 
+ 正式查看 https://vitaslam.github.io/nasdaq-narrative-dashboard/
+ GPT 迭代与数据源 https://nasdaq-narrative-tracker-vj.thatvitaslam.chatgpt.site
+--- a/DAILY_UPDATE.md
++++ b/DAILY_UPDATE.md
+@@ -1,4 +1,39 @@
+ # 每日增量更新：无人值守与低 token 流程
++
++## 夜盘、盘前、盘后行情（2026-11-04）
++
++每轮抓取所有可取得的最新报价；夜盘、盘前、盘中、盘后都更新卡面，标出报价原始时点（北京时间）、交易时段、来源及延迟状态。抓取时间不得代替成交/报价时点。冻结收盘快照不是新行情；抓不到新报价保留最近核验值与真实日期。
++
++GPT 用 `market.quotes`，Muse 用 `market_quotes`，按 QQQ/NDX/SPX/VIX/VXN/UST10Y/UST30Y/Brent/ES/NQ 分键。每项 `{value,asof,session,instrument,price_basis,source_url,source_label,delayed?}`；asof 为带时区的完整时间戳；session 为 overnight/premarket/regular/afterhours；cash 用于 ETF/现金指数，benchmark_yield 用于美债基准券收益率，futures 用于期货并必填实际 `contract`（如 2027-01）。来源有延迟须 delayed=true。旧时间戳不能覆盖新报价；相同数据/仅检索时间变化不打新黄点。
++
++最新 QQQ 报价作为主值，附常规收盘参考；200日偏离随最新价重算，50/200日均线、图表日线、周基准仍用完整常规收盘。现金 SPX/NDX/VIX 不存在夜盘新值时保留实际收盘；ES/NQ 另列实际合约，不冒充现货指数。美债实时基准券与财政部日度恒定期限读数注明不同口径。Brent 最新期货报价独立显示合约、时间与来源，并保留 EIA 现货参考；实时行情不受“EIA 超3天才允许日结算兜底”的限制，但不得写入现货历史。以下 Brent 兜底规则只管理日度参考序列。
++
++
++## Brent 现货与 ICE 兜底（2026-11-04）
++
++主口径为 EIA Brent 现货，先核对 EIA Daily Prices 的 Wholesale Spot Petroleum Prices（https://www.eia.gov/TodayinEnergy/prices.php），再查历史序列；历史序列滞后不代表 Daily Prices 没有新读数。以最新已完整收盘的美股交易日为参照，只有最新可核验 EIA 现货日期落后超过 3 个自然日时，允许 ICE 布伦特实际近月合约的日结算价兜底。不能把行情站末笔/收盘价或小时价格冒充 ICE 官方结算。
++
++Muse `market_indicators.Brent` 可用 eia.gov；兜底时可用 ice.com，并必须填 `source_label:"ICE 期货结算 · EIA 现货滞后兜底"`、`price_basis:"ice_front_month_settlement"`、`contract`（实际合约月份/代码）、`eia_asof`（最新核验现货日期），另有 `value/asof/source_url`。校验器按 feed 最近共同收盘日验证 >3 天，合并还核对已保存的较新 EIA 日期，防止累计旧资料误触发。EIA 行可填 `source_label:"EIA 现货"`、`price_basis:"eia_spot"`。卡片明确显示 source_label。
++
++EIA 恢复且观察日期更新时按 asof 覆盖回现货；同日 EIA 现货优先于 ICE 兜底。替换时清除旧兜底标签和元数据，现货和兜底不并排，兜底不写入现货历史曲线。GPT 同日核验优先仍适用于同口径数据，不阻止 EIA 现货替代 ICE 兜底。
++
++2026-11-04 核验：EIA Daily Prices 已发布 11/02 现货 107.39，不能继续用 10/27=123.10 认定所有 EIA 数据未更新；当日最近美股收盘为 11/03，现货仅差一天，因此当前不触发 ICE 兜底。104.34 可见于行情站历史收盘表，尚未取得对应 ICE 合约官方结算证据；不要硬写该值。
++
++
++## 每轮抓取与收盘全页核查（2026-11-04）
++
++每天北京时间 10:00、16:00、22:00 都先获取新行情、指标、公告、事件结果和市场反应，再与已发布内容比较；不能只看旧缓存、只跑任务或只改日期。10:00 在美股最近完整收盘后执行全页面核查，覆盖 Dashboard（CTA 除外）、事件驱动、五维卡面与展开详情、叙事问题和回答、共享日历及详情、行情图与 GPT 主责 X 内容。16:00/22:00 同样查新读数和已发生事件，实时/盘后/盘前与常规收盘分清，未开市不伪造新收盘。
++
++有证据的新变化才改内容；无变化保留原文、原观察日期和原黄点时间，不为“每天更新”硬写硬改。CNN 是日常变化的 0–100 恐惧与贪婪指数，不能按周频停在旧读数；先查 CNN，官方不可取时主动交叉核对至少两个有日期的可靠归档并标明二手来源。美债查美国财政部最新交易日的 10Y/30Y；Brent 核对合约、结算/现货口径与日期，不把旧 EIA 现货和新期货结算混作连续读数。新读数同步到卡片、曲线、相关解释和来源。无新报告与未能取到数据必须区分。
++
++叙事验证和日历每轮联动核查：财报/宏观结果已公布、后续交易时段已经结束时，检查旧“尚未发生/待收盘”描述；有新证据追加回答并更新关联问题状态，旧回答作为带日期历史记录保留；日历用同一事件 ID 更新结果、市场反应、叙事和展开详情。结果简报列明实际变化、已查无变化与缺失/失败，不能把部分成功称为全页完成。
++
++## 小黄点按三小时保留（2026-11-04）
++
++每个贡献者、每个键独立保存最近实质变动的 `key_times[key]`（ISO 时间）；`keys` 保持可展示键列表，`at` 仅是该贡献者最近一次处理时间。下一次该贡献者更新时，只清理距对应键变动已满三小时的旧点；不足三小时继续保留。同一内容再次实质变化才重置该键时间。无变化检查、相同 patch、新抓取批次但无实质变化都不能重置时钟；新批次不再整体清空旧点。页面打开、刷新及相同批次重建不触发到时消失。
++
++GPT 和 Muse 只清理自己的到期点，互不覆盖，趋势黄点仍归 Muse。旧结构没有 key_times 时沿用原 at 迁移。小黄点覆盖行情与派生均线、事件/五维卡面与详情、问题/回答、日历卡片与详情、X 帖子和趋势；指向小黄点可见最近变化时间。黄点表示实际变化，不表示“查过”。日常写入自动比较前后内容，只给实际变化的对象打点；仅日期检查或 note 不制造新点。
++
+ 
+ ## X 每周承接窗口（2026-11-04）
+ 
+@@ -15,10 +50,10 @@
+ 
+ 「本周事件驱动」和 earnings/macro/trend/valuation/position 五维，每张卡面和展开详情都必须逐项检查。同步核对读数、观察日期、状态、比较基准、叙事权重、星级、事实、来源、图表说明、市场反应及后续验证条件。事件已落地就及时补结果和实际反应；部分财报已发布时分清已发布与仍待公布，不能整个事件继续笼统写“待落地”。行情已更新时，同时核对头部摘要与立场的时态，不能仍写“尚未开盘”。维度资料未发布或无同口径数据时保留真实日期/待核验，不能为了更新而编数字或只改日期。卡面和详情必须描述同一观察期，同一数字一致。每轮在 note/结果简报注明已覆盖 Dashboard（CTA 除外）、事件驱动及五维卡面与详情；有缺项明确指出，不把只更新日历称为整轮完成。
+ 
+-只提交实际变化，保留周内固定点位、历史归档和已保存基准。GPT 只替换自己的黄点，Muse 黄点保持；趋势内容与趋势黄点仍由 Muse 独立维护。`market` 写入会自动记录 `snapshot.gpt_verified_market`：同交易日/报告日已由 GPT 核验的行情不会被 Muse 累计旧值覆盖，Muse 的更新日期读数仍可补充；CTA 不受此保护规则影响。
++只提交实际变化，保留周内固定点位、历史归档和已保存基准。GPT 仅累计自己的新变化黄点并清理满三小时的旧点，Muse 黄点保持；趋势内容与趋势黄点仍由 Muse 独立维护。`market` 写入会自动记录 `snapshot.gpt_verified_market`：同交易日/报告日已由 GPT 核验的行情不会被 Muse 累计旧值覆盖，Muse 的更新日期读数仍可补充；CTA 不受此保护规则影响。
+ 
+ 
+-关键财报在公布后立刻更新共享日历：逐项预期/实际、下季指引、盘后/夜盘/盘前分时段价格与时间、即时叙事判断；未开始的时段明示，不留空白。业绩与股价反应可分别配准确的 emoji。完整字段和来源口径见 `UPDATER.md`。本站每轮数据写入自动替换 GPT 小黄点，仅表示 GPT 这一轮改变的内容；Muse 小黄点由其 feed 批次独立管理，不互相清除。 日历小卡取总营收和 EPS 的预期、实际，另用 `business_highlight` 填一句业务亮点或落差。
++关键财报在公布后立刻更新共享日历：逐项预期/实际、下季指引、盘后/夜盘/盘前分时段价格与时间、即时叙事判断；未开始的时段明示，不留空白。业绩与股价反应可分别配准确的 emoji。完整字段和来源口径见 `UPDATER.md`。本站每轮数据写入按实际变化累计 GPT 小黄点，仅在下一次 GPT 更新时清理满三小时的旧点；Muse 独立按同一时长规则管理，不互相清除。 日历小卡取总营收和 EPS 的预期、实际，另用 `business_highlight` 填一句业务亮点或落差。
+ 
+ 正式查看：https://vitaslam.github.io/nasdaq-narrative-dashboard/
+ 数据与页面迭代：https://nasdaq-narrative-tracker-vj.thatvitaslam.chatgpt.site

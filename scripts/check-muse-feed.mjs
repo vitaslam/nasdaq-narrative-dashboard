@@ -1,4 +1,6 @@
 import fs from 'node:fs/promises';
+import {quoteError} from './market-quotes.mjs';
+import {brentError} from './brent-policy.mjs';
 
 const fail = message => { throw Error(`muse-feed.json: ${message}`); };
 const feed = JSON.parse(await fs.readFile(new URL('../muse-feed.json', import.meta.url), 'utf8'));
@@ -10,7 +12,7 @@ const keys = (value, allowed, label) => {
   if (!value || typeof value !== 'object' || Array.isArray(value)) fail(`${label} must be an object`);
   for (const key of Object.keys(value)) if (!allowed.includes(key)) fail(`${label}.${key} is not an allowed field`);
 };
-keys(feed, ['schema_version','batch_id','week_id','generated_at','x_topics_upsert','weekly_trends','market_bars','volatility_readings','market_indicators'], 'root');
+keys(feed, ['schema_version','batch_id','week_id','generated_at','x_topics_upsert','weekly_trends','market_bars','volatility_readings','market_indicators','market_quotes'], 'root');
 if (feed.schema_version !== 1 || !date(feed.week_id)) fail('invalid schema version or week_id');
 if (typeof feed.batch_id !== 'string' || !/^[a-zA-Z0-9:._-]{1,80}$/.test(feed.batch_id)) fail('invalid batch_id');
 if (feed.batch_id !== 'template' && !timestamp(feed.generated_at)) fail('generated_at must be a timestamp');
@@ -100,8 +102,9 @@ if (feed.market_indicators != null) {
   for (const key of ['UST10Y','UST30Y','Brent']) {
     const row = feed.market_indicators[key];
     if (row == null) continue;
-    keys(row, ['value','asof','source_url'], key);
-    const official = key === 'Brent' ? /^https:\/\/(?:www\.)?eia\.gov\// : /^https:\/\/home\.treasury\.gov\//;
+    keys(row, key==='Brent'?['value','asof','source_url','source_label','price_basis','contract','eia_asof']:['value','asof','source_url'], key);
+    if(key==='Brent'){const error=brentError(row,[...barDates.NDX].sort().at(-1));if(error)fail(error);continue}
+    const official = /^https:\/\/home\.treasury\.gov\//;
     if (!Number.isFinite(row.value) || row.value <= 0 || row.value > (key === 'Brent' ? 500 : 15) || !date(row.asof) || !official.test(row.source_url || '')) fail(`${key} needs an official dated sourced reading`);
   }
   const fed = feed.market_indicators.FedHike;
@@ -118,3 +121,6 @@ if (feed.market_indicators != null) {
 }
 console.log(`Valid Muse handoff: ${feed.batch_id}; ${feed.x_topics_upsert.length} topics, ${barDates.NDX.length} market sessions, ${volDates.size} volatility sessions. Evidence still requires human/agent verification.`);
 
+
+
+for(const [key,row]of Object.entries(feed.market_quotes||{})){keys(row,['value','asof','session','instrument','price_basis','contract','source_url','source_label','delayed','retrieved_at'],key);const error=quoteError(key,row);if(error)fail(error)}

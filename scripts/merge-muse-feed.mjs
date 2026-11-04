@@ -1,5 +1,7 @@
 // Merge Muse's cumulative weekly handoff into a disposable export snapshot.
 // The GPT Site remains the source for every field outside X and market readings.
+import {quoteError} from './market-quotes.mjs';
+import {brentError,isEiaBrent,isIceBrent} from './brent-policy.mjs';
 const clone = value => structuredClone(value);
 const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
 
@@ -86,6 +88,8 @@ export function mergeMuseFeed(exportData, feed, {now = new Date().toISOString()}
   });
 
   const snap = week.snapshot;
+  snap.quotes??={};
+  for(const [key,row]of Object.entries(feed.market_quotes||{})){const error=quoteError(key,row,Date.parse(now));if(error){warnings.push(error);continue}if(!snap.quotes[key]||Date.parse(row.asof)>Date.parse(snap.quotes[key].asof))snap.quotes[key]=clone(row)}
   const verified = snap.gpt_verified_market || {};
   const gptOwnsReading = (key, asof) => key !== 'CTA' && verified.sentiment?.[key]?.asof === asof && snap.sentiment?.[key]?.asof === asof;
   snap.bars ??= {};
@@ -138,10 +142,17 @@ export function mergeMuseFeed(exportData, feed, {now = new Date().toISOString()}
   for (const key of ['CNN', 'BofA', 'CTA', 'UST10Y', 'UST30Y', 'Brent', 'FedHike']) {
     const incoming = feed.market_indicators?.[key];
     if (!incoming || incoming.asof < (snap.sentiment[key]?.asof || '')) continue;
-    if (gptOwnsReading(key, incoming.asof)) continue;
-    snap.sentiment[key] = {...snap.sentiment[key], ...clone(incoming)};
+    if(key==='Brent'){
+      const known=[snap.sentiment.Brent,...(snap.indicator_history.Brent||[])].filter(isEiaBrent).map(row=>row.asof||row.date).sort().at(-1);
+      const error=brentError(incoming,newest[0],known);if(error){warnings.push(error);continue}
+    }
+    const restoreSpot=key==='Brent'&&isEiaBrent(incoming)&&isIceBrent(snap.sentiment.Brent);
+    if (gptOwnsReading(key, incoming.asof)&&!restoreSpot) continue;
+    snap.sentiment[key] = key==='Brent'?{...clone(incoming),source_label:incoming.source_label||'EIA 现货',price_basis:isEiaBrent(incoming)?'eia_spot':'ice_front_month_settlement'}:{...snap.sentiment[key], ...clone(incoming)};
     const field = {CNN: 'cnnFearGreed', BofA: 'bofaBullBear', CTA: 'cta', UST10Y: 'ust10y', UST30Y: 'ust30y', Brent: 'brent', FedHike: 'fedHike'}[key];
     snap.asof_metrics[field] = {...snap.asof_metrics[field], value: incoming.value, observation_date: incoming.asof, available_date: incoming.asof, source_url: incoming.source_url};
+    if(key==='Brent')snap.indicator_history.Brent=(snap.indicator_history.Brent||[]).filter(row=>!isIceBrent(row));
+    if(key==='Brent'&&isIceBrent(incoming))continue; // Fallback is current-only, never spliced into spot history.
     const history = snap.indicator_history[key] ??= [];
     const byReportDate = new Map(history.map(row => [row.date, row]));
     byReportDate.set(incoming.asof, {...byReportDate.get(incoming.asof), date: incoming.asof, ...clone(incoming)});

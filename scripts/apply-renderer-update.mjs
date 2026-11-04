@@ -12,7 +12,7 @@ export async function applyRendererUpdate(base, patchFile, expectedHash){
  const bindings=/(<script[^>]*id="live-bindings"[^>]*>)([\s\S]*?)(<\/script>)/;
  const live=assets.template.match(bindings);
  if(!live)throw Error('Approved template lacks live bindings');
- const fields={'dashboard-enhancements.js':'enhancementJS','dashboard-enhancements.css':'enhancementCSS','UPDATER.md':'instructions','DAILY_UPDATE.md':'dailyInstructions'};
+ const fields={'shared-calendar.js':'calendarJS','dashboard-enhancements.js':'enhancementJS','dashboard-enhancements.css':'enhancementCSS','UPDATER.md':'instructions','DAILY_UPDATE.md':'dailyInstructions'};
  const files={'template.html':assets.template,'runtime.js':base.slice(boundary+2),'live-week.js':live[2],'mood-daily-review.json':JSON.stringify(assets.moodDailyReview,null,2)+'\n'};
  for(const [file,key] of Object.entries(fields))files[file]=assets[key];
  const directory=await fs.mkdtemp(path.join(os.tmpdir(),'dashboard-renderer-'));
@@ -29,3 +29,4 @@ export async function applyRendererUpdate(base, patchFile, expectedHash){
   return renderer;
  }finally{await fs.rm(directory,{force:true,recursive:true})}
 }
+
