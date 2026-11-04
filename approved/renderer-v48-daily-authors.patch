@@ -1,0 +1,44 @@
+--- a/live-week.js
++++ b/live-week.js
+@@ -134,21 +134,20 @@
+  const body=p=>{const complete=p.translation_scope==='full'&&p.translation_zh?.trim(),postOnly=p.translation_scope==='post_only'&&p.translation_zh?.trim(),copy=complete||postOnly?p.translation_zh:p.viewpoint||p.translation_zh||'原帖文字待核对',long=copy.length>180,targets=positive(p);const status=complete?'':`<small class="x-translation-status">${postOnly?'仅原帖正文已逐句译出；所引长帖未收录':'原帖全文未核实 · 保留既有记录'}</small>`;return `<time class="x-post-time" datetime="${esc(p.published_at||'')}">${bj(p.published_at)} 北京</time><p class="x-translation${long?' is-collapsed':''}">${esc(copy)}</p>${long?'<button class="x-expand-post" type="button" aria-expanded="false">展开全文</button>':''}${status}<div class="x-simple-foot">${targets?`<span>利好标的：<b>${esc(targets)}</b></span>`:''}<span class="x-single-heat">${heatLabel(p)}</span></div>`};
+  const hotPosts=topics.flatMap(t=>(t.posts||[]).filter(hot).map(p=>({...p,topic_title:t.title}))).sort((a,b)=>latest(b)-latest(a));
+  const frequentPosts=topics.flatMap(t=>(t.posts||[]).filter(p=>!hot(p)).map(p=>({...p,topic_title:t.title}))).sort((a,b)=>latest(b)-latest(a));
+- const pinnedAuthor='@labubu_trader';
+- // Map insertion order is the input to every masonry layout, including resizes.
+- const byAuthor=new Map([[pinnedAuthor,[]]]);
++ // Group by the same Beijing calendar date shown on each post; never by observation time.
++ const postDay=p=>{const date=new Date(p.published_at);return Number.isNaN(+date)?'unknown':new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Shanghai',year:'numeric',month:'2-digit',day:'2-digit'}).format(date)};
++ const byAuthor=new Map();
+  for(const post of frequentPosts){
+-  const key=String(post.author||'').trim().toLowerCase().replace(/^@?([a-z0-9_]{1,15})$/,'@$1');
+-  if(!byAuthor.has(key))byAuthor.set(key,[]);
+-  byAuthor.get(key).push(post);
++  const handle=String(post.author||'').trim().toLowerCase().replace(/^@?([a-z0-9_]{1,15})$/,'@$1');
++  const day=postDay(post),key=day+'|'+handle;
++  if(!byAuthor.has(key))byAuthor.set(key,{handle,day,posts:[]});
++  byAuthor.get(key).posts.push(post);
+  }
+- if(!active&&!byAuthor.get(pinnedAuthor).length)byAuthor.delete(pinnedAuthor);
+- const frequentAuthorCards=Array.from(byAuthor,([handle,posts])=>{
+-  const pinned=handle===pinnedAuthor;
+-  const identity=pinned?{...posts[0],author:pinnedAuthor}:posts[0];
+-  const header=author(identity,pinned);
++ const authorDays=[...byAuthor.values()].sort((a,b)=>b.day.localeCompare(a.day)||(Number(b.handle==='@labubu_trader')-Number(a.handle==='@labubu_trader'))||latest(b.posts[0])-latest(a.posts[0]));
++ const frequentAuthorCards=authorDays.map(({handle,day,posts})=>{
++  const header=author(posts[0]);
+   const items=posts.map(p=>`<section class="x-simple-post" data-post-id="${esc(p.id)}"><a class="x-post-link" href="${esc(p.source_url)}" target="_blank" rel="noopener">${esc(p.topic_title)} ↗</a>${body(p)}</section>`).join('');
+-  return `<article class="card x-author-card x-simple-card" data-author="${esc(handle)}"${pinned?` data-pinned="true" aria-label="${esc(handle)}，置顶作者"`:''}>${header}${items||'<p class="x-pinned-empty">本周暂无高频帖。</p>'}</article>`;
++  return `<article class="card x-author-card x-simple-card" data-author="${esc(handle)}" data-post-day="${esc(day)}">${header}${items}</article>`;
+  }).join('');
+  q('#narrative .section-head h2').textContent='𝕏 高热度话题';
+  q('#narrative .section-sub').textContent='达标帖子按时间倒序排列 · Polymarket 帖子固定在高频板块';
+@@ -173,7 +172,7 @@
+   return `<article class="card x-trend-card" data-trend-id="${esc(t.id)}"><div class="x-trend-top"><span>本周趋势 · ${t.status==='final'?'已固化':'追踪中'}</span><time datetime="${esc(t.asof||'')}">${bj(t.asof)} 北京</time></div><h3><button type="button" class="x-trend-select" aria-pressed="false" aria-controls="x-frequent-posts x-hot-posts">${esc(t.title)}</button></h3><p>${esc(t.summary)}</p><div class="x-trend-evidence">依据：${sources}</div>${t.caveat?`<small class="x-trend-caveat">${esc(t.caveat)}</small>`:''}<div class="x-trend-tags">${tags}</div></article>`;
+  }).filter(Boolean).join('');
+  hotStream.id='x-hot-posts';
+- frequent.innerHTML=`<div class="section-head"><div><h2 id="x-frequent-title">𝕏 高频板块</h2><p class="section-sub">Muse 持续更新 · 同一博主的帖子纵向合并</p></div></div>${trendCards?`<div class="x-trend-heading"><b>趋势捕捉</b><span>点击趋势，高亮相关帖</span><nav class="x-trend-pages" aria-label="趋势翻页" hidden><span aria-live="polite"></span><button type="button" data-trend-prev aria-label="上一页趋势">‹</button><button type="button" data-trend-next aria-label="下一页趋势">›</button></nav></div><div class="x-trend-grid">${trendCards}</div><div class="x-trend-selection" hidden><span aria-live="polite"></span><button type="button" data-jump-to-related>定位首帖 ↓</button></div>`:''}<div class="x-frequent-grid" id="x-frequent-posts">${frequentAuthorCards||'<article class="card live-empty">本周暂无高频帖子。</article>'}</div>`;
++ frequent.innerHTML=`<div class="section-head"><div><h2 id="x-frequent-title">𝕏 高频板块</h2><p class="section-sub">Muse 持续更新 · 同一博主仅合并同日帖子 · 最新日期在前</p></div></div>${trendCards?`<div class="x-trend-heading"><b>趋势捕捉</b><span>点击趋势，高亮相关帖</span><nav class="x-trend-pages" aria-label="趋势翻页" hidden><span aria-live="polite"></span><button type="button" data-trend-prev aria-label="上一页趋势">‹</button><button type="button" data-trend-next aria-label="下一页趋势">›</button></nav></div><div class="x-trend-grid">${trendCards}</div><div class="x-trend-selection" hidden><span aria-live="polite"></span><button type="button" data-jump-to-related>定位首帖 ↓</button></div>`:''}<div class="x-frequent-grid" id="x-frequent-posts">${frequentAuthorCards||'<article class="card live-empty">本周暂无高频帖子。</article>'}</div>`;
+  q('#narrative').append(frequent);
+  if(trendCards){
+   const trendNodes=[...frequent.querySelectorAll('[data-trend-id]')];
