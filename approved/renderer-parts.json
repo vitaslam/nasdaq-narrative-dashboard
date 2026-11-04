@@ -34,6 +34,10 @@
     {
       "file": "renderer-v44-unlimited-trends.patch",
       "renderer_sha256": "afef54743dd82e1fd2c39fdb33ab54b8fc646041b2a101d381b17b66f5bdae80"
+    },
+    {
+      "file": "renderer-v45-weekly-x-window.patch",
+      "renderer_sha256": "e6360ef76916dff0b579c68bd7cf51e4d504e2d93a88713c41ae65792c397f11"
     }
   ]
 }

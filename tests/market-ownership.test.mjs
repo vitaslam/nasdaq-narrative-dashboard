@@ -33,3 +33,16 @@ test('Newer observations supplement GPT-verified dates and legacy feeds keep wor
  delete original.weeks[date].snapshot.gpt_verified_market;
  assert.equal(mergeMuseFeed(original,feed()).data.weeks[date].snapshot.bars.QQQ[0].c,682);
 });
+
+test('X merge enforces prior Friday/weekend plus current week across the DST boundary',()=>{
+ const source=data();source.weeks[date].status='active';
+ const post=(id,published_at,author='@'+id)=>({id,published_at,author,observed_at:'2026-11-04T00:00:00Z'});
+ source.weeks[date].x_topics=[{id:'source',posts:[post('earlier','2026-10-29T22:00:00Z')]}];
+ source.weeks['archive']={status:'archived',snapshot:{},x_topics:[{id:'old',posts:[post('old','2026-10-26T20:00:00Z')]}]};
+ const batch=feed();batch.x_topics_upsert=[{id:'mixed',posts:[post('thursday','2026-10-30T03:59:59Z'),post('friday','2026-10-30T04:00:00Z'),post('sunday','2026-11-02T04:59:59Z'),post('monday','2026-11-02T05:00:00Z'),post('nextweek','2026-11-09T05:00:00Z')]}];
+ batch.weekly_trends=[{id:'supported',evidence_post_ids:['friday','sunday']},{id:'unsupported',evidence_post_ids:['earlier','thursday']}];
+ const {data:merged,stats}=mergeMuseFeed(source,batch);
+ assert.deepEqual(merged.weeks[date].x_topics.flatMap(t=>t.posts.map(p=>p.id)),['friday','sunday','monday']);assert.equal(stats.rejected_posts,2);
+ assert.deepEqual(merged.weeks[date].x_trends.map(t=>t.id),['supported']);assert.deepEqual(merged.weeks.archive,source.weeks.archive);assert.equal(source.weeks[date].x_topics[0].posts[0].id,'earlier');
+ source.weeks[date].status='archived';assert.deepEqual(mergeMuseFeed(source,batch).data,source);
+});

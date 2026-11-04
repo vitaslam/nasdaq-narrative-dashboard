@@ -1,0 +1,70 @@
+--- a/UPDATER.md
++++ b/UPDATER.md
+@@ -1,4 +1,13 @@
+ # 美股叙事与市场点位：固定框架每日维护
++
++## X 每周承接窗口（2026-11-04）
++
++每个周一的新周，X 高热度和高频板块只承接上周五、周六、周日的原帖，按 `published_at` 转为 America/New_York 日期判断；边界为上周五 00:00（含）至本周一 00:00（不含）。不因观察时间、抓取时间或热度更新而把上周一至周四的旧帖带入。固定按星期五处理，遇休市也不自动扩到星期四。
++
++新周内继续累计本周一至周日的新帖，按稳定 post ID 去重，不滚动淘汰本周早些时候的帖子。`dashboard_open_week` 自动筛选可承接原帖；Muse 在新周更换 `week_id` 和累计 feed，包含合格的周五/周末承接帖及本周新帖。新周提前于周六建立时，后续周末原帖直接补入新周。构建期再次过滤窗口以防累计旧 feed 把早期帖子加回来。上周历史记录原样保留，归档周不再接收 feed 改写。
++
++趋势内容继续由 Muse 维护：新周根据这个窗口内的原帖重新确认，不把上周整套趋势结论或 final 状态直接当成本周结论。必须仍有至少两位作者的独立合格帖子支持；趋势排序和每页四张的翻页规则保持。@labubu_trader 仍置顶，Polymarket 仍只进高频作者卡，GPT/Muse 黄点归属不变。
++
+ 
+ ## 每轮主动核查范围（2026-11-04）
+ 
+--- a/DAILY_UPDATE.md
++++ b/DAILY_UPDATE.md
+@@ -1,4 +1,13 @@
+ # 每日增量更新：无人值守与低 token 流程
++
++## X 每周承接窗口（2026-11-04）
++
++每个周一的新周，X 高热度和高频板块只承接上周五、周六、周日的原帖，按 `published_at` 转为 America/New_York 日期判断；边界为上周五 00:00（含）至本周一 00:00（不含）。不因观察时间、抓取时间或热度更新而把上周一至周四的旧帖带入。固定按星期五处理，遇休市也不自动扩到星期四。
++
++新周内继续累计本周一至周日的新帖，按稳定 post ID 去重，不滚动淘汰本周早些时候的帖子。`dashboard_open_week` 自动筛选可承接原帖；Muse 在新周更换 `week_id` 和累计 feed，包含合格的周五/周末承接帖及本周新帖。新周提前于周六建立时，后续周末原帖直接补入新周。构建期再次过滤窗口以防累计旧 feed 把早期帖子加回来。上周历史记录原样保留，归档周不再接收 feed 改写。
++
++趋势内容继续由 Muse 维护：新周根据这个窗口内的原帖重新确认，不把上周整套趋势结论或 final 状态直接当成本周结论。必须仍有至少两位作者的独立合格帖子支持；趋势排序和每页四张的翻页规则保持。@labubu_trader 仍置顶，Polymarket 仍只进高频作者卡，GPT/Muse 黄点归属不变。
++
+ 
+ ## 每轮主动核查范围（2026-11-04）
+ 
+--- a/runtime.js
++++ b/runtime.js
+@@ -13,9 +13,25 @@
+ function identified(list){ok(Array.isArray(list),'Expected array');for(const x of list)ok(x&&typeof x.id==='string'&&x.id.length>0&&x.id.length<180,'Each item needs a stable id')}
+ function upsert(list,items){identified(items);for(const item of items){const i=list.findIndex(x=>x.id===item.id);if(i<0)list.push(clone(item));else list[i]={...list[i],...clone(item)}}}
+ function checkWeights(items){ok(items.length&&items.every(x=>Number.isFinite(x.weight)&&x.weight>=0&&x.weight<=100),'Invalid weights');ok(Math.abs(items.reduce((s,x)=>s+x.weight,0)-100)<0.01,'Weights must sum to 100')}
++function weeklyXTopics(topics,start,carryOnly=false){
++ const first=add(start,-3),end=carryOnly?start:add(start,7);
++ const day=new Intl.DateTimeFormat('en-CA',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'});
++ return (topics||[]).map(topic=>({...topic,posts:(topic.posts||[]).filter(post=>{
++  const time=Date.parse(post.published_at);if(!Number.isFinite(time))return false;
++  const date=day.format(new Date(time));return date>=first&&date<end;
++ })})).filter(topic=>topic.posts.length);
++}
++function weeklyXTrends(trends,topics){
++ const posts=new Map(topics.flatMap(topic=>topic.posts.map(post=>[post.id,post])));
++ return (trends||[]).filter(trend=>{
++  const evidence=[...new Set(trend.evidence_post_ids||[])].map(id=>posts.get(id)).filter(Boolean);
++  return evidence.length>=2&&new Set(evidence.map(post=>String(post.author).toLowerCase())).size>=2;
++ });
++}
+ function displayWeek(w){
+  const legacy=Object.keys(ASSETS.display.legacy_answers).filter(d=>d<w.start).sort().at(-1);
+- return {...w,inherited_answers:w.inherited_answers??clone(ASSETS.display.legacy_answers[legacy]||[]),snapshot:{...w.snapshot,indicator_history:{...clone(ASSETS.display.indicator_history),...w.snapshot.indicator_history}}};
++ const topics=w.status==='active'?weeklyXTopics(w.x_topics,w.start):w.x_topics;
++ return {...w,x_topics:topics,...(w.status==='active'?{x_trends:weeklyXTrends(w.x_trends,topics)}:{}),inherited_answers:w.inherited_answers??clone(ASSETS.display.legacy_answers[legacy]||[]),snapshot:{...w.snapshot,indicator_history:{...clone(ASSETS.display.indicator_history),...w.snapshot.indicator_history}}};
+ }
+ function recentAnswers(w){return [...new Map([...(w.inherited_answers||[]),...(w.answers||[])].map(a=>[a.id,{...a,origin_week:a.origin_week||w.id}])).values()].sort((a,b)=>b.occurred_at.localeCompare(a.occurred_at)).slice(0,6)}
+ function importanceRating(r){
+@@ -227,7 +243,7 @@
+   if(published.x_trends)w.x_trends=published.x_trends;
+   w.status='archived';w.frozen_at=new Date().toISOString();w.final_note=args.note;
+   await env.BUCKET.put('archives/'+w.id+'.html',renderWeek({...w,_publishedMuseMarkers:published._publishedMuseMarkers},state),{httpMetadata:{contentType:'text/html; charset=utf-8'}});result={week_id:w.id,status:'archived',frozen_at:w.frozen_at};}
+- if(name==='dashboard_open_week'){const prev=state.weeks[state.active_week];ok(prev.status==='archived','Freeze the previous week first');ok(iso(args.start)&&args.start===add(prev.start,7),'New week must be the following Monday');ok(!state.weeks[args.start],'Week already exists');ok(args.weekly_plan?.levels?.NDX&&args.weekly_plan?.levels?.QQQ&&args.weekly_plan?.rows?.length===4,'Supply four fixed weekly price zones and conditions');identified(args.questions);ok(args.questions.length>0&&args.questions.length<=6,'Provide one to six concise questions');const now=new Date().toISOString();const w={...clone(prev),id:args.start,start:args.start,end:add(args.start,4),status:'active',created_at:now,updated_at:now,title:args.title,headline:args.headline,summary:args.summary,hero_note:args.summary,weekly_plan:{...clone(args.weekly_plan),effective_week:args.start,set_at:now},questions:clone(args.questions),inherited_answers:recentAnswers(displayWeek(prev)),answers:[],x_trends:[],importance:{},market_mood:{history:[]},event_drivers:[],event_details:[],update_log:[],stance:clone(args.stance),sources:[]};delete w.frozen_at;delete w.final_note;w.dimensions=w.dimensions.map(x=>({...x,prior_weight:x.weight}));w.baseline={weight:w.dimensions.map(x=>x.weight),market_cutoff:w.price_cutoff};w.snapshot.plan=w.weekly_plan.levels;w.snapshot.operating_window=args.start+'—'+add(args.start,11);state.weeks[w.id]=w;state.active_week=w.id;result={week_id:w.id,status:'active',shared_calendar_events:state.calendar.length};}
++ if(name==='dashboard_open_week'){const prev=state.weeks[state.active_week];ok(prev.status==='archived','Freeze the previous week first');ok(iso(args.start)&&args.start===add(prev.start,7),'New week must be the following Monday');ok(!state.weeks[args.start],'Week already exists');ok(args.weekly_plan?.levels?.NDX&&args.weekly_plan?.levels?.QQQ&&args.weekly_plan?.rows?.length===4,'Supply four fixed weekly price zones and conditions');identified(args.questions);ok(args.questions.length>0&&args.questions.length<=6,'Provide one to six concise questions');const now=new Date().toISOString();const w={...clone(prev),id:args.start,start:args.start,end:add(args.start,4),status:'active',created_at:now,updated_at:now,title:args.title,headline:args.headline,summary:args.summary,hero_note:args.summary,weekly_plan:{...clone(args.weekly_plan),effective_week:args.start,set_at:now},questions:clone(args.questions),inherited_answers:recentAnswers(displayWeek(prev)),answers:[],x_topics:weeklyXTopics(clone(prev.x_topics),args.start,true),x_trends:[],importance:{},market_mood:{history:[]},event_drivers:[],event_details:[],update_log:[],stance:clone(args.stance),sources:[]};delete w.frozen_at;delete w.final_note;w.dimensions=w.dimensions.map(x=>({...x,prior_weight:x.weight}));w.baseline={weight:w.dimensions.map(x=>x.weight),market_cutoff:w.price_cutoff};w.snapshot.plan=w.weekly_plan.levels;w.snapshot.operating_window=args.start+'—'+add(args.start,11);state.weeks[w.id]=w;state.active_week=w.id;result={week_id:w.id,status:'active',shared_calendar_events:state.calendar.length};}
+  state.revision++;result={...result,revision:state.revision};state.completed_runs.push({id:args.run_id,result});state.completed_runs=state.completed_runs.slice(-500);await save(env,state,etag);return result;
+ }
+ async function mcp(req,env){let rpc;try{rpc=await req.json()}catch{return json({error:'Invalid JSON'},400)}const id=rpc.id??null;let result;try{switch(rpc.method){case 'server/discover':result={supportedVersions:['2026-07-28'],capabilities:{tools:{}},serverInfo:{name:'nasdaq-weekly-dashboard',version:'1.0.0'}};break;case 'initialize':result={protocolVersion:'2025-03-26',capabilities:{tools:{}},serverInfo:{name:'nasdaq-weekly-dashboard',version:'1.0.0'}};break;case 'notifications/initialized':return new Response(null,{status:202});case 'ping':result={};break;case 'tools/list':result={tools:TOOLS};break;case 'tools/call':try{const data=await call(rpc.params.name,rpc.params.arguments||{},req,env);result={content:[{type:'text',text:JSON.stringify(data)}],structuredContent:data}}catch(e){result={content:[{type:'text',text:e.message}],isError:true}}break;default:return json({jsonrpc:'2.0',id,error:{code:-32601,message:'Method not found'}})}return json({jsonrpc:'2.0',id,result})}catch(e){return json({jsonrpc:'2.0',id,error:{code:-32603,message:e.message}})}}

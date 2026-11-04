@@ -28,19 +28,29 @@ function postTimeError(post) {
   return null;
 }
 
+function inWeeklyXWindow(post, start) {
+  const instant = Date.parse(post.published_at);
+  if (!Number.isFinite(instant)) return false;
+  const date = new Intl.DateTimeFormat('en-CA', {timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date(instant));
+  const add = days => new Date(Date.parse(start + 'T12:00:00Z') + days * 86400000).toISOString().slice(0,10);
+  return date >= add(-3) && date < add(7);
+}
+
 export function mergeMuseFeed(exportData, feed, {now = new Date().toISOString()} = {}) {
   const data = clone(exportData);
   const warnings = [];
   const stats = {topics: 0, posts: 0, rejected_posts: 0, bars: 0, volatility_dates: 0, changed: false};
   const week = data.weeks?.[feed.week_id];
   if (!week?.snapshot) return {data, warnings: [`Muse batch ${feed.batch_id}: week ${feed.week_id} absent from export; no merge`], stats};
+  if (week.status === 'archived') return {data, warnings: [`Muse batch ${feed.batch_id}: archived week is immutable; no merge`], stats};
   const before = JSON.stringify(week);
   week.x_topics ??= [];
+  week.x_topics = week.x_topics.map(topic => ({...topic, posts:(topic.posts || []).filter(post => inWeeklyXWindow(post, week.start))})).filter(topic => topic.posts.length);
   const topics = new Map(week.x_topics.map(topic => [topic.id, topic]));
   for (const incoming of feed.x_topics_upsert) {
     const validPosts = [];
     for (const post of incoming.posts) {
-      const error = postTimeError(post);
+      const error = postTimeError(post) || (!inWeeklyXWindow(post, week.start) ? 'outside this week and its prior Friday/weekend carryover' : null);
       if (error) {warnings.push(`Muse ${incoming.id}/${post.id}: ${error}; skipped`); stats.rejected_posts++; continue;}
       validPosts.push(post);
     }
@@ -69,6 +79,11 @@ export function mergeMuseFeed(exportData, feed, {now = new Date().toISOString()}
     }
     week.x_trends = [...trends.values()];
   }
+  const availablePosts = new Map(week.x_topics.flatMap(topic => topic.posts.map(post => [post.id, post])));
+  week.x_trends = (week.x_trends || []).filter(trend => {
+    const evidence = [...new Set(trend.evidence_post_ids || [])].map(id => availablePosts.get(id)).filter(Boolean);
+    return evidence.length >= 2 && new Set(evidence.map(post => String(post.author).toLowerCase())).size >= 2;
+  });
 
   const snap = week.snapshot;
   const verified = snap.gpt_verified_market || {};
