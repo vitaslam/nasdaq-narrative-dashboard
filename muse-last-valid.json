@@ -1,8 +1,8 @@
 {
  "schema_version": 1,
- "batch_id": "muse:2026-11-04:12b",
+ "batch_id": "muse:2026-11-04:14",
  "week_id": "2026-11-02",
- "generated_at": "2026-11-04T04:51:04Z",
+ "generated_at": "2026-11-04T06:29:00Z",
  "x_topics_upsert": [
   {
    "id": "polymarket-32228",
@@ -14,12 +14,12 @@
      "author": "@PolymarketA",
      "published_at": "2026-11-03T08:21:58Z",
      "quote": null,
-     "viewpoint": "YES：99.7% (+0.8%)\nNO：0.3%",
-     "translation_zh": "Polymarket 事件「民主党横扫中期选举」最新双边概率：YES 99.7% / NO 0.3%，YES 较上轮快照变化 +0.8pp；该事件累计成交额约 $73,464,981。点击跳转 Polymarket 该事件页。",
+     "viewpoint": "YES：99.9% (+0.2%)\nNO：0.1%",
+     "translation_zh": "Polymarket 事件「民主党横扫中期选举」最新双边概率：YES 99.9% / NO 0.1%，YES 较上轮快照变化 +0.2pp；该事件累计成交额约 $74,938,492。点击跳转 Polymarket 该事件页。",
      "views": null,
      "reposts": null,
      "replies": null,
-     "observed_at": "2026-11-04T04:35:00Z",
+     "observed_at": "2026-11-04T06:29:00Z",
      "source_url": "https://polymarket.com/event/balance-of-power-2026-midterms",
      "metrics_source": "https://gamma-api.polymarket.com/events/32228",
      "verification": "Polymarket 官方 Gamma API 读取该事件双边概率。",
@@ -40,11 +40,11 @@
      "published_at": "2026-11-03T08:21:58Z",
      "quote": null,
      "viewpoint": "YES：99.9% (+0.0%)\nNO：0.1%",
-     "translation_zh": "Polymarket 事件「WTI 11月破$100」最新双边概率：YES 99.9% / NO 0.1%，YES 较上轮快照变化 +0.0pp；该事件累计成交额约 $887,818。点击跳转 Polymarket 该事件页。",
+     "translation_zh": "Polymarket 事件「WTI 11月破$100」最新双边概率：YES 99.9% / NO 0.1%，YES 较上轮快照变化 +0.0pp；该事件累计成交额约 $893,578。点击跳转 Polymarket 该事件页。",
      "views": null,
      "reposts": null,
      "replies": null,
-     "observed_at": "2026-11-04T04:35:00Z",
+     "observed_at": "2026-11-04T06:29:00Z",
      "source_url": "https://polymarket.com/event/what-price-will-wti-hit-in-november-2026",
      "metrics_source": "https://gamma-api.polymarket.com/events/1250301",
      "verification": "Polymarket 官方 Gamma API 读取该事件双边概率。",
@@ -64,12 +64,12 @@
      "author": "@PolymarketA",
      "published_at": "2026-11-03T08:21:58Z",
      "quote": null,
-     "viewpoint": "YES：75.0% (+1.0%)\nNO：25.0%",
-     "translation_zh": "Polymarket 事件「Fed 12月决议·加息25bp」最新双边概率：YES 75.0% / NO 25.0%，YES 较上轮快照变化 +1.0pp；该事件累计成交额约 $11,590,276。点击跳转 Polymarket 该事件页。",
+     "viewpoint": "YES：76.0% (+1.0%)\nNO：24.0%",
+     "translation_zh": "Polymarket 事件「Fed 12月决议·加息25bp」最新双边概率：YES 76.0% / NO 24.0%，YES 较上轮快照变化 +1.0pp；该事件累计成交额约 $11,981,135。点击跳转 Polymarket 该事件页。",
      "views": null,
      "reposts": null,
      "replies": null,
-     "observed_at": "2026-11-04T04:35:00Z",
+     "observed_at": "2026-11-04T06:29:00Z",
      "source_url": "https://polymarket.com/event/fed-decision-in-december-20260729232808632",
      "metrics_source": "https://gamma-api.polymarket.com/events/770450",
      "verification": "Polymarket 官方 Gamma API 读取该事件双边概率。",
@@ -89,12 +89,12 @@
      "author": "@PolymarketB",
      "published_at": "2026-11-03T08:21:58Z",
      "quote": null,
-     "viewpoint": "YES：75.0% (+1.0%)\nNO：25.0%",
-     "translation_zh": "Polymarket 事件「2026年再加息」最新双边概率：YES 75.0% / NO 25.0%，YES 较上轮快照变化 +1.0pp；该事件累计成交额约 $1,385,355。点击跳转 Polymarket 该事件页。",
+     "viewpoint": "YES：75.0% (+0.0%)\nNO：25.0%",
+     "translation_zh": "Polymarket 事件「2026年再加息」最新双边概率：YES 75.0% / NO 25.0%，YES 较上轮快照变化 +0.0pp；该事件累计成交额约 $1,388,249。点击跳转 Polymarket 该事件页。",
      "views": null,
      "reposts": null,
      "replies": null,
-     "observed_at": "2026-11-04T04:35:00Z",
+     "observed_at": "2026-11-04T06:29:00Z",
      "source_url": "https://polymarket.com/event/another-fed-rate-hike-in-2026",
      "metrics_source": "https://gamma-api.polymarket.com/events/1034268",
      "verification": "Polymarket 官方 Gamma API 读取该事件双边概率。",
@@ -114,12 +114,12 @@
      "author": "@PolymarketC",
      "published_at": "2026-11-03T08:21:58Z",
      "quote": null,
-     "viewpoint": "YES：83.0% (+0.0%)\nNO：17.0%",
-     "translation_zh": "Polymarket 事件「美也门停火延续至11月底」最新双边概率：YES 83.0% / NO 17.0%，YES 较上轮快照变化 +0.0pp；该事件累计成交额约 $2,601,381。点击跳转 Polymarket 该事件页。",
+     "viewpoint": "YES：88.0% (+5.0%)\nNO：12.0%",
+     "translation_zh": "Polymarket 事件「美也门停火延续至11月底」最新双边概率：YES 88.0% / NO 12.0%，YES 较上轮快照变化 +5.0pp；该事件累计成交额约 $2,601,504。点击跳转 Polymarket 该事件页。",
      "views": null,
      "reposts": null,
      "replies": null,
-     "observed_at": "2026-11-04T04:35:00Z",
+     "observed_at": "2026-11-04T06:29:00Z",
      "source_url": "https://polymarket.com/event/us-yemen-ceasefire-continues-throughptptpt",
      "metrics_source": "https://gamma-api.polymarket.com/events/1053896",
      "verification": "Polymarket 官方 Gamma API 读取该事件双边概率。",
@@ -139,12 +139,12 @@
      "author": "@PolymarketB",
      "published_at": "2026-11-03T08:21:58Z",
      "quote": null,
-     "viewpoint": "YES：90.9% (-0.3%)\nNO：9.1%",
-     "translation_zh": "Polymarket 事件「Anthropic 2026年底前IPO」最新双边概率：YES 90.9% / NO 9.1%，YES 较上轮快照变化 -0.3pp；该事件累计成交额约 $6,297,668。点击跳转 Polymarket 该事件页。",
+     "viewpoint": "YES：89.4% (-1.5%)\nNO：10.6%",
+     "translation_zh": "Polymarket 事件「Anthropic 2026年底前IPO」最新双边概率：YES 89.4% / NO 10.6%，YES 较上轮快照变化 -1.5pp；该事件累计成交额约 $6,301,696。点击跳转 Polymarket 该事件页。",
      "views": null,
      "reposts": null,
      "replies": null,
-     "observed_at": "2026-11-04T04:35:00Z",
+     "observed_at": "2026-11-04T06:29:00Z",
      "source_url": "https://polymarket.com/event/anthropic-ipo-by",
      "metrics_source": "https://gamma-api.polymarket.com/events/549019",
      "verification": "Polymarket 官方 Gamma API 读取该事件双边概率。",
@@ -165,11 +165,11 @@
      "published_at": "2026-11-03T08:21:58Z",
      "quote": null,
      "viewpoint": "YES：5.0% (+0.0%)\nNO：95.0%",
-     "translation_zh": "Polymarket 事件「美国2026年底前衰退」最新双边概率：YES 5.0% / NO 95.0%，YES 较上轮快照变化 +0.0pp；该事件累计成交额约 $2,423,270。点击跳转 Polymarket 该事件页。",
+     "translation_zh": "Polymarket 事件「美国2026年底前衰退」最新双边概率：YES 5.0% / NO 95.0%，YES 较上轮快照变化 +0.0pp；该事件累计成交额约 $2,423,338。点击跳转 Polymarket 该事件页。",
      "views": null,
      "reposts": null,
      "replies": null,
-     "observed_at": "2026-11-04T04:35:00Z",
+     "observed_at": "2026-11-04T06:29:00Z",
      "source_url": "https://polymarket.com/event/us-recession-by-end-of-2026",
      "metrics_source": "https://gamma-api.polymarket.com/events/48802",
      "verification": "Polymarket 官方 Gamma API 读取该事件双边概率。",
@@ -190,11 +190,11 @@
      "published_at": "2026-11-03T08:21:58Z",
      "quote": null,
      "viewpoint": "YES：0.1% (+0.0%)\nNO：99.9%",
-     "translation_zh": "Polymarket 事件「美伊停火延续至11月底」最新双边概率：YES 0.1% / NO 99.9%，YES 较上轮快照变化 +0.0pp；该事件累计成交额约 $39,238,866。点击跳转 Polymarket 该事件页。",
+     "translation_zh": "Polymarket 事件「美伊停火延续至11月底」最新双边概率：YES 0.1% / NO 99.9%，YES 较上轮快照变化 +0.0pp；该事件累计成交额约 $39,282,390。点击跳转 Polymarket 该事件页。",
      "views": null,
      "reposts": null,
      "replies": null,
-     "observed_at": "2026-11-04T04:35:00Z",
+     "observed_at": "2026-11-04T06:29:00Z",
      "source_url": "https://polymarket.com/event/us-iran-ceasefire-continues-throughptptpt",
      "metrics_source": "https://gamma-api.polymarket.com/events/1038648",
      "verification": "Polymarket 官方 Gamma API 读取该事件双边概率。",
@@ -765,6 +765,32 @@
        "reason": "化武说法与打击计划推升美伊冲突风险溢价；下一验证点为美方是否授权及伊朗回应。"
       }
      ]
+    },
+    {
+     "id": "2117849043137434037",
+     "author": "@KobeissiLetter",
+     "published_at": "2026-11-04T05:18:54Z",
+     "quote": "BREAKING: Iran's Speaker of the Parliament comments on the US Midterm elections: 'Americans said no to war, and we endorse this message.'",
+     "viewpoint": "伊朗议会议长就美国中期选举发声，称“美国人对战争说了不，我们支持这一信息”，为横扫夜后的伊朗官方信号。",
+     "translation_zh": "突发：伊朗议会议长就美国中期选举表态：“美国人对战争说了不，我们支持这一信息。”",
+     "translation_scope": "full",
+     "translation_source_url": "https://x.com/KobeissiLetter/status/2117849043137434037",
+     "views": 209569,
+     "reposts": 392,
+     "replies": 68,
+     "observed_at": "2026-11-04T06:29:00Z",
+     "source_url": "https://x.com/KobeissiLetter/status/2117849043137434037",
+     "metrics_source": "https://x.com/KobeissiLetter/status/2117849043137434037",
+     "verification": "X 精华监控 14 轮报告，FxTwitter 核原文。",
+     "avatar_url": "https://pbs.twimg.com/profile_images/1975243710846640128/fwYCe67Y_400x400.jpg",
+     "avatar_source": "https://x.com/KobeissiLetter",
+     "impact": [
+      {
+       "targets": "美伊局势 / 油价",
+       "direction": "关注",
+       "reason": "伊朗议长借中期选举结果释放反战信号，与美伊谈判主线相关。"
+      }
+     ]
     }
    ]
   },
@@ -1164,6 +1190,32 @@
        "targets": "AI / 数据中心",
        "direction": "关注",
        "reason": "重申州长变量是 AI 交易的关键，呼应上一条的许可与电力审批逻辑。"
+      }
+     ]
+    },
+    {
+     "id": "2117852977595912325",
+     "author": "@labubu_trader",
+     "published_at": "2026-11-04T05:34:32Z",
+     "quote": "This sounds like benefit CSPs more than neocloud.",
+     "viewpoint": "labubu 认为希诺霍萨的得州数据中心计划对云服务商（CSP）比 neocloud 更有利：其要求（不补贴、工会劳工、无保密协议、电水费不涨）多已在推进中。",
+     "translation_zh": "这听起来对云服务商（CSP）比对 neocloud 更有利。所引 @wallstengine 帖称：吉娜·希诺霍萨对得州数据中心的影响可能没有看起来那么糟。她的计划要求：不给补贴、使用工会劳工、不签保密协议，并证明居民电费和水费不会上涨。其中大部分已经在推进中：亚马逊、谷歌、Meta、微软、OpenAI、甲骨文和 xAI 已于 3 月承诺自带电力并支付输电费用；微软承诺全额缴纳房产税而不寻求税收减免；英伟达正与 Vistra、NextEra 和 Constellation 合作建设可在电网紧张时削减用电的数据中心。",
+     "translation_scope": "full",
+     "translation_source_url": "https://x.com/labubu_trader/status/2117852977595912325",
+     "views": 11349,
+     "reposts": 4,
+     "replies": 9,
+     "observed_at": "2026-11-04T06:29:00Z",
+     "source_url": "https://x.com/labubu_trader/status/2117852977595912325",
+     "metrics_source": "https://x.com/labubu_trader/status/2117852977595912325",
+     "verification": "X 精华监控 14 轮报告，FxTwitter 核原文。",
+     "avatar_url": "https://pbs.twimg.com/profile_images/1930061717826113536/beBBZQZJ_400x400.jpg",
+     "avatar_source": "https://x.com/labubu_trader",
+     "impact": [
+      {
+       "targets": "CSP / neocloud / 数据中心",
+       "direction": "关注",
+       "reason": "得州数据中心监管条件利好自带电力的大型云服务商，相对利空 neocloud。"
       }
      ]
     }
@@ -2675,8 +2727,8 @@
   },
   {
    "id": "midterm-election-night",
-   "title": "中期选举开票夜：民主党夺众议院、横扫概率 99.7%、期货走弱",
-   "summary": "决策台预测民主党赢得众议院控制权，横扫概率升至 99.7%；南卡、堪萨斯、得州参议院席位与艾奥瓦州长翻蓝，纳指 100 期货跌超 2%、标普 500 有望自 7 月 31 日以来首次开盘跌破 7500 点；特朗普称接受结果并愿与民主党合作。",
+   "title": "中期选举开票夜：民主党夺众议院、翻转 7 参议院席位、期货走弱",
+   "summary": "决策台预测民主党赢得众议院控制权，横扫概率升至 99.9%；民主党最终翻转 7 个参议院席位，为 1986 年以来最大中期参议院收获（北卡、南卡、得州、堪萨斯、俄亥俄、爱荷华、缅因），纳指 100 期货跌超 2%、标普 500 有望自 7 月 31 日以来首次开盘跌破 7500 点；特朗普称接受结果并愿与民主党合作。",
    "posts": [
     {
      "id": "2117775477545062469",
@@ -3015,6 +3067,32 @@
        "reason": "得州参议院席位翻蓝，与州长权力主导 AI 交易的叙事同属开票夜主线。"
       }
      ]
+    },
+    {
+     "id": "2117849265552887964",
+     "author": "@wallstengine",
+     "published_at": "2026-11-04T05:19:47Z",
+     "quote": "DEMOCRATS FLIP 7 SENATE SEATS, THEIR BIGGEST MIDTERM SENATE GAIN SINCE 1986",
+     "viewpoint": "民主党中期选举翻转 7 个参议院席位，为 1986 年以来最大中期参议院收获，涉及北卡、南卡、得州、堪萨斯、俄亥俄、爱荷华、缅因。",
+     "translation_zh": "民主党翻转 7 个参议院席位，为 1986 年以来最大的中期选举参议院收获。北卡罗来纳、南卡罗来纳、得州、堪萨斯、俄亥俄、爱荷华、缅因。",
+     "translation_scope": "full",
+     "translation_source_url": "https://x.com/wallstengine/status/2117849265552887964",
+     "views": 18486,
+     "reposts": 6,
+     "replies": 5,
+     "observed_at": "2026-11-04T06:29:00Z",
+     "source_url": "https://x.com/wallstengine/status/2117849265552887964",
+     "metrics_source": "https://x.com/wallstengine/status/2117849265552887964",
+     "verification": "X 精华监控 14 轮报告，FxTwitter 核原文。",
+     "avatar_url": "https://pbs.twimg.com/profile_images/1691846947857178624/oZp5wB4r_400x400.jpg",
+     "avatar_source": "https://x.com/wallstengine",
+     "impact": [
+      {
+       "targets": "参议院席位分布 / 横扫交易",
+       "direction": "关注",
+       "reason": "7 席翻转为开票夜最终席位版图，横扫叙事的参议院侧确认。"
+      }
+     ]
     }
    ]
   },
@@ -3079,6 +3157,39 @@
        "targets": "NVDA",
        "direction": "利好",
        "reason": "约 700 亿美元量级的 RTX Pro 订单指向中国 AI 算力需求，但交付瓶颈限制短期兑现。"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "oracle-tencent-chip-deal",
+   "title": "甲骨文据报取消与腾讯 70 亿美元 AI 芯片租赁协议",
+   "summary": "据 FT 报道，甲骨文在特朗普政府施压下取消与腾讯的 70 亿美元 AI 芯片租赁协议；该五年协议本可让腾讯获得至多 10 万块先进 AI 芯片。",
+   "posts": [
+    {
+     "id": "2117847084640727436",
+     "author": "@wallstengine",
+     "published_at": "2026-11-04T05:11:07Z",
+     "quote": "Oracle $ORCL has reportedly canceled a $7B AI chip leasing deal with Tencent following pressure from the Trump administration, according to the FT.",
+     "viewpoint": "据 FT 报道，甲骨文在特朗普政府施压下取消与腾讯的 70 亿美元五年 AI 芯片租赁协议（至多 10 万块先进芯片、经东南亚数据中心），中方官员亦敦促腾讯支持国内芯片商；双方均未公开置评。",
+     "translation_zh": "据《金融时报》报道，在特朗普政府施压后，甲骨文 $ORCL 据报已取消与腾讯的一项 70 亿美元 AI 芯片租赁协议。\n这项五年协议本可让腾讯通过甲骨文在东南亚的数据中心获得至多 10 万块先进 AI 芯片，成为腾讯最大的海外芯片租赁交易。\n该安排本可让腾讯使用在中国境内因美中限制而无法获得的先进计算硬件。\n据报美国官员已就该协议向甲骨文表达关切。与此同时，中国高级官员访问腾讯，敦促该公司支持国内芯片制造商。\n尽管根据现行规则海外 AI 芯片租赁仍被允许，但在华盛顿和北京双方施压后，该交易现已取消。\n甲骨文、腾讯和白宫均未就据报的取消公开置评。",
+     "translation_scope": "full",
+     "translation_source_url": "https://x.com/wallstengine/status/2117847084640727436",
+     "views": 19063,
+     "reposts": 15,
+     "replies": 9,
+     "observed_at": "2026-11-04T06:29:00Z",
+     "source_url": "https://x.com/wallstengine/status/2117847084640727436",
+     "metrics_source": "https://x.com/wallstengine/status/2117847084640727436",
+     "verification": "X 精华监控 14 轮报告，FxTwitter 核原文。",
+     "avatar_url": "https://pbs.twimg.com/profile_images/1691846947857178624/oZp5wB4r_400x400.jpg",
+     "avatar_source": "https://x.com/wallstengine",
+     "impact": [
+      {
+       "targets": "ORCL / 腾讯 / AI 芯片出口",
+       "direction": "利空",
+       "reason": "70 亿美元芯片租赁协议取消，收紧中国获取海外先进算力渠道。"
       }
      ]
     }
@@ -3193,14 +3304,14 @@
    "source_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value_month=202611"
   },
   "Brent": {
-   "value": 123.1,
-   "asof": "2026-10-27",
-   "source_url": "https://www.eia.gov/dnav/pet/hist/RBRTED.htm"
+   "value": 107.39,
+   "asof": "2026-11-02",
+   "source_url": "https://www.eia.gov/TodayinEnergy/prices.php"
   },
   "FedHike": {
-   "value": 76.1,
+   "value": 77.0,
    "meeting": "2026-12-09",
-   "asof": "2026-11-03",
+   "asof": "2026-11-04",
    "source_url": "https://polymarket.com/event/fed-decision-in-december-20260729232808632",
    "method": "25bp 与 50bp 以上加息结果概率求和"
   },
@@ -3244,8 +3355,8 @@
    "id": "ai-power-delivery",
    "title": "AI 电力与并网成为交付约束",
    "status": "tracking",
-   "asof": "2026-11-03T14:30:00Z",
-   "summary": "Altman 称能源是 AI 最大瓶颈；俄亥俄等地以选票限制数据中心，Crusoe 自建开关设备抢交付，IREN 园区先锁定电网电力，Anthropic 预计 2026 年底算力超 3.5GW、2027 年翻一番——电力许可与并网速度正成为算力扩张的关键路径。",
+   "asof": "2026-11-04T06:29:00Z",
+   "summary": "Altman 称能源是 AI 最大瓶颈；俄亥俄等地以选票限制数据中心，Crusoe 自建开关设备抢交付，IREN 园区先锁定电网电力，Anthropic 预计 2026 年底算力超 3.5GW、2027 年翻一番；得州数据中心新规条件（自带电力、不涨居民电水费）被认为对大型云服务商比 neocloud 更有利——电力许可与并网速度正成为算力扩张的关键路径。",
    "evidence_post_ids": [
     "2117205453373677917",
     "2117434463403622871",
@@ -3253,7 +3364,8 @@
     "2117286506826268832",
     "2117373417594994876",
     "zero-power",
-    "2117600568638329153"
+    "2117600568638329153",
+    "2117852977595912325"
    ],
    "caveat": "许可、备忘录与交期改善不等于收入兑现；供电紧张也可能反过来压制云厂商扩张。",
    "benefit_tags": [
@@ -3281,8 +3393,8 @@
    "id": "election-sweep-risk",
    "title": "中期选举横扫风险成短期焦点",
    "status": "tracking",
-   "asof": "2026-11-04T04:35:00Z",
-   "summary": "开票夜横扫预期从 91% 飙升至 99.7%，决策台预测民主党赢得众议院，南卡、堪萨斯、得州参议院席位与艾奥瓦州长翻蓝，纳指期货跌超 2%、标普 500 有望自 7 月 31 日以来首次开盘跌破 7500 点，10 年期收益率盘后回落；特朗普称接受结果并愿与民主党合作；此前瑞银仅给横扫概率 50%、美银 Hartnett 警告横扫或致美股跌逾 10%；labubu 认为州长对 AI 交易更为关键（掌控数据中心许可与电力审批），横扫既定后特朗普打击伊朗不再有顾忌、不确定性反而变大。",
+   "asof": "2026-11-04T06:29:00Z",
+   "summary": "开票夜横扫预期从 91% 飙升至 99.9%，决策台预测民主党赢得众议院，民主党最终翻转 7 个参议院席位、为 1986 年以来最大中期参议院收获，纳指期货跌超 2%、标普 500 有望自 7 月 31 日以来首次开盘跌破 7500 点，10 年期收益率盘后回落；特朗普称接受结果并愿与民主党合作；此前瑞银仅给横扫概率 50%、美银 Hartnett 警告横扫或致美股跌逾 10%；labubu 认为州长对 AI 交易更为关键（掌控数据中心许可与电力审批），横扫既定后特朗普打击伊朗不再有顾忌、不确定性反而变大。",
    "evidence_post_ids": [
     "2117640009087955205",
     "2117675911080448142",
@@ -3290,12 +3402,12 @@
     "2117785946443944049",
     "2117802876651352419",
     "2117811292387807743",
-    "2117813431411892352",
     "2117814002776686762",
     "2117826511197933693",
     "2117827725243416580",
     "2117805485747478798",
-    "2117826903578902844"
+    "2117826903578902844",
+    "2117849265552887964"
    ],
    "caveat": "众议院归属已有预测、其余席位仍在开票；概率为市场估计而非最终计票结果；Hartnett 为情景警告非预测。",
    "benefit_tags": [
