@@ -172,4 +172,73 @@
   const moodKey=q('.sentiment-title')?.previousElementSibling;if(moodKey)moodKey.textContent='市场情绪';
   const moodReason=q('.sentiment-reason');if(moodReason)moodReason.innerHTML=moodReason.innerHTML.replace(/^相对周一悲观基准[，,；;]\s*/,'');
   const pulseCaption=q('.pulse-heading > span > .pulse-caption');if(pulseCaption)pulseCaption.remove();
+  // Mobile-only shortcuts, scoped to the weekly document so iframe scrolling stays local.
+  const navSvg=body=>`<svg viewBox="0 0 28 28" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2.7" stroke-linecap="square" stroke-linejoin="round">${body}</svg>`;
+  const navIcons={
+    overview:navSvg('<path d="M11 4H7a3 3 0 0 0-3 3v17l6-5h11a3 3 0 0 0 3-3v-4"/><path d="m9 14 4-4 4 3"/><path d="m21 2 1.5 3.5L26 7l-3.5 1.5L21 12l-1.5-3.5L16 7l3.5-1.5Z" stroke-width="2"/>'),
+    dimensions:navSvg('<path d="m14 3 5 5-5 5-5-5Z M8 10l5 5-5 5-5-5Z M20 10l5 5-5 5-5-5Z M14 17l5 5-5 5-5-5Z" stroke-width="2.2"/>'),
+    verification:navSvg('<path d="M13 4H7a3 3 0 0 0-3 3v17l6-5h11a3 3 0 0 0 3-3v-4"/><path d="m9 11 3 3 5-6"/><path d="m23 2 3 3-3 3-3-3Z" fill="currentColor" stroke="none"/>'),
+    levels:navSvg('<path d="M4 4v17a3 3 0 0 0 3 3h17 M9 17l5-5 4 3 6-9 M19 6h5v5"/>'),
+    calendar:navSvg('<rect x="4" y="6" width="20" height="18" rx="3"/><path d="M4 12h20 M9 3v6 M19 3v6"/><path d="m17 15 3 3-3 3-3-3Z" fill="currentColor" stroke="none"/>'),
+    x:'<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="currentColor"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.64 7.584H.47l8.6-9.835L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg>'
+  };
+  const sectionSpecs=[
+    ['overview','市场概览',['.week-live-banner','.topbar','#overview','.hero','.market-overview'],'overview'],
+    ['dimensions','五维状态',['.pulse-heading','.pulse-grid','#dimension-details'],'dimensions'],
+    ['verification','叙事验证',['#verification'],'verification'],
+    ['levels','操作点位',['.dashboard-chart-heading','.daily-trigger-row','.review-market'],'levels'],
+    ['x-hot','X 高热',['#narrative'],'x'],
+    ['x-frequent','X 高频',['.x-frequent-section'],'x'],
+    ['calendar','事件日历',['#calendar'],'calendar']
+  ];
+  const main=q('main'),sectionRoot=document.createElement('div');sectionRoot.className='managed-sections';
+  const sectionNodes=sectionSpecs.map(([key,label,selectors,icon])=>({key,label,nodes:selectors.map(q).filter(Boolean),icon}));
+  const allShortcuts=sectionNodes.map(({key,label,nodes,icon})=>{if(!nodes.length)return null;const target=document.createElement('div');target.className='managed-section mobile-section-target';target.dataset.section=key;target.setAttribute('aria-label',label);nodes.forEach(node=>target.append(node));sectionRoot.append(target);return {key,label,target,icon};}).filter(Boolean);
+  main.prepend(sectionRoot);
+  const prefKey='nasdaq_dashboard_layout_v1',defaultOrder=allShortcuts.map(item=>item.key);
+  let prefDoc=document;try{if(parent!==window&&parent.location.origin===location.origin)prefDoc=parent.document}catch{}
+  const normalize=value=>({order:[...new Set([...(Array.isArray(value?.order)?value.order:[]),...defaultOrder])].filter(key=>defaultOrder.includes(key)),hidden:[...new Set(Array.isArray(value?.hidden)?value.hidden:[])].filter(key=>defaultOrder.includes(key))});
+  const readPreference=()=>{try{const value=prefDoc.cookie.split('; ').find(row=>row.startsWith(prefKey+'='));return normalize(value?JSON.parse(decodeURIComponent(value.slice(prefKey.length+1))):null)}catch{return normalize(null)}};
+  let preference=readPreference(),shortcuts=[],links=[],expanded=false;
+  const nav=document.createElement('nav');nav.className='mobile-section-nav';nav.setAttribute('aria-label','板块快捷导航');
+  const dots='<svg viewBox="0 0 28 28" aria-hidden="true" focusable="false"><circle cx="6" cy="14" r="2.3"/><circle cx="14" cy="14" r="2.3"/><circle cx="22" cy="14" r="2.3"/></svg>';
+  const closeIcon=navSvg('<path d="m8 8 12 12 M20 8 8 20"/>');
+  const manageIcon=navSvg('<path d="M5 7h18 M5 14h18 M5 21h18"/><rect x="9" y="4" width="5" height="6" rx="1" fill="white"/><rect x="17" y="11" width="5" height="6" rx="1" fill="white"/><rect x="6" y="18" width="5" height="6" rx="1" fill="white"/>');
+  nav.innerHTML=`<div class="mobile-section-list" id="mobile-section-links" hidden></div><button type="button" class="mobile-section-toggle" aria-label="打开板块导航" aria-controls="mobile-section-links" aria-expanded="false">${dots}</button>`;
+  const backdrop=document.createElement('div');backdrop.className='mobile-section-backdrop';backdrop.hidden=true;backdrop.setAttribute('aria-hidden','true');document.body.append(backdrop,nav);
+  const toggle=nav.querySelector('.mobile-section-toggle'),list=nav.querySelector('.mobile-section-list'),mobile=matchMedia('(max-width:600px)');
+  const empty=document.createElement('div');empty.className='managed-empty';empty.textContent='当前板块已全部隐藏，可在「板块管理」中重新打开。';sectionRoot.after(empty);
+  const updateCurrent=()=>{let current=shortcuts[0];for(const item of shortcuts)if(item.target.getBoundingClientRect().top<=Math.min(160,innerHeight*.25))current=item;links.forEach(button=>{if(button.dataset.sectionKey===current?.key)button.setAttribute('aria-current','location');else button.removeAttribute('aria-current')})};
+  const applyPreference=()=>{preference=normalize(preference);shortcuts=[];for(const key of preference.order){const item=allShortcuts.find(item=>item.key===key);sectionRoot.append(item.target);item.target.hidden=preference.hidden.includes(key);if(!item.target.hidden)shortcuts.push(item)}empty.hidden=shortcuts.length>0;
+    list.innerHTML=shortcuts.map(item=>`<button type="button" class="mobile-section-link" data-section-key="${item.key}" aria-label="前往${item.label}"><span class="mobile-section-icon">${navIcons[item.icon]}</span><span class="mobile-section-label">${item.label}</span></button>`).join('')+`<button type="button" class="mobile-section-link" data-manage-sections aria-label="板块管理"><span class="mobile-section-icon">${manageIcon}</span><span class="mobile-section-label">板块管理</span></button>`;
+    links=[...list.querySelectorAll('button')];updateCurrent();window.dispatchEvent(new Event('resize'));
+  };
+  const setOpen=(open,restore=false)=>{expanded=open;list.hidden=!open;backdrop.hidden=!open;nav.classList.toggle('is-open',open);toggle.setAttribute('aria-expanded',String(open));toggle.setAttribute('aria-label',open?'收起板块导航':'打开板块导航');toggle.innerHTML=open?closeIcon:dots;if(restore)toggle.focus({preventScroll:true});};
+  toggle.addEventListener('click',event=>{setOpen(!expanded);if(expanded&&event.detail===0)links[0]?.focus()});
+  backdrop.addEventListener('click',()=>setOpen(false,true));
+  nav.addEventListener('keydown',event=>{if(event.key==='Escape'){event.preventDefault();setOpen(false,true)}else if(expanded&&['ArrowUp','ArrowDown','Home','End'].includes(event.key)){event.preventDefault();const i=links.indexOf(document.activeElement);links[event.key==='Home'?0:event.key==='End'?links.length-1:(i+(event.key==='ArrowUp'?-1:1)+links.length)%links.length]?.focus()}});
+  let cancelNavScroll=()=>{};
+  function scrollToSection(target){
+    cancelNavScroll();const start=window.scrollY,end=Math.max(0,Math.min(start+target.getBoundingClientRect().top-14,document.documentElement.scrollHeight-innerHeight));
+    if(matchMedia('(prefers-reduced-motion:reduce)').matches){window.scrollTo({top:end,behavior:'instant'});return}
+    const began=performance.now();let frame=0;const events=['wheel','touchstart','pointerdown','keydown'];
+    const stop=()=>{cancelAnimationFrame(frame);events.forEach(type=>window.removeEventListener(type,stop));cancelNavScroll=()=>{}};
+    cancelNavScroll=stop;events.forEach(type=>window.addEventListener(type,stop,{passive:true,once:true}));
+    const tick=now=>{const progress=Math.min(1,(now-began)/280),ease=1-Math.pow(1-progress,3);window.scrollTo({top:start+(end-start)*ease,behavior:'instant'});if(progress<1)frame=requestAnimationFrame(tick);else stop()};frame=requestAnimationFrame(tick);
+  }
+  list.addEventListener('click',event=>{if(event.target.closest('[data-manage-sections]')){openManager();return}const button=event.target.closest('[data-section-key]');if(!button)return;const item=shortcuts.find(item=>item.key===button.dataset.sectionKey);if(!item)return;setOpen(false);const target=item.target,previous=target.getAttribute('tabindex');target.setAttribute('tabindex','-1');target.focus({preventScroll:true});target.addEventListener('blur',()=>{if(previous===null)target.removeAttribute('tabindex');else target.setAttribute('tabindex',previous)},{once:true});scrollToSection(target);});
+  let scheduled=false;window.addEventListener('scroll',()=>{if(mobile.matches&&!scheduled){scheduled=true;requestAnimationFrame(()=>{scheduled=false;updateCurrent()})}},{passive:true});
+  mobile.addEventListener('change',()=>{setOpen(false);updateCurrent()});
+  const manager=document.createElement('dialog');manager.className='section-manager';manager.setAttribute('aria-labelledby','section-manager-title');
+  manager.innerHTML='<header><button type="button" data-manager-back aria-label="返回页面">‹</button><div><h2 id="section-manager-title">板块管理</h2><p>选择显示内容，调整阅读顺序</p></div><button type="button" data-manager-reset>恢复默认</button></header><div class="section-manager-list"></div><footer><p role="status" class="section-manager-status">保存到此浏览器，下次打开自动沿用。</p><button type="button" data-manager-save>保存并返回</button></footer>';
+  document.body.append(manager);let draft=normalize(preference),returnFocus=null;
+  const renderManager=()=>{manager.querySelector('.section-manager-list').innerHTML=draft.order.map((key,index)=>{const item=allShortcuts.find(item=>item.key===key);return `<div class="section-manager-row" data-manage-key="${key}"><span class="section-manager-icon">${navIcons[item.icon]}</span><b>${item.label}</b><div class="section-order"><button type="button" data-move="-1" aria-label="上移${item.label}" ${index===0?'disabled':''}>↑</button><button type="button" data-move="1" aria-label="下移${item.label}" ${index===draft.order.length-1?'disabled':''}>↓</button></div><button type="button" class="section-switch" role="switch" aria-label="显示${item.label}" aria-checked="${!draft.hidden.includes(key)}"><span></span></button></div>`}).join('')};
+  function openManager(){returnFocus=document.activeElement;setOpen(false);draft=normalize(preference);renderManager();manager.querySelector('.section-manager-status').textContent='保存到此浏览器，下次打开自动沿用。';manager.showModal();manager.querySelector('[data-manager-back]').focus()}
+  manager.querySelector('[data-manager-back]').addEventListener('click',()=>manager.close());
+  manager.addEventListener('close',()=>{(returnFocus?.isConnected&&returnFocus.offsetParent?returnFocus:toggle).focus({preventScroll:true})});
+  manager.querySelector('[data-manager-reset]').addEventListener('click',()=>{draft=normalize(null);renderManager();manager.querySelector('.section-manager-status').textContent='已恢复默认，保存后生效。'});
+  manager.querySelector('.section-manager-list').addEventListener('click',event=>{const row=event.target.closest('[data-manage-key]');if(!row)return;const key=row.dataset.manageKey;if(event.target.closest('.section-switch')){draft.hidden=draft.hidden.includes(key)?draft.hidden.filter(k=>k!==key):[...draft.hidden,key];const button=row.querySelector('.section-switch');button.setAttribute('aria-checked',String(!draft.hidden.includes(key)))}else{const button=event.target.closest('[data-move]');if(!button)return;const i=draft.order.indexOf(key),j=i+Number(button.dataset.move);if(j<0||j>=draft.order.length)return;const positions=new Map([...manager.querySelectorAll('.section-manager-row')].map(row=>[row.dataset.manageKey,row.getBoundingClientRect().top]));[draft.order[i],draft.order[j]]=[draft.order[j],draft.order[i]];renderManager();if(!matchMedia('(prefers-reduced-motion:reduce)').matches)for(const row of manager.querySelectorAll('.section-manager-row')){const offset=positions.get(row.dataset.manageKey)-row.getBoundingClientRect().top;if(offset)row.animate([{transform:'translateY('+offset+'px)'},{transform:'translateY(0)'}],{duration:240,easing:'cubic-bezier(.2,.8,.2,1)'})}manager.querySelector(`[data-manage-key="${key}"] [data-move="${button.dataset.move}"]:not(:disabled)`)?.focus({preventScroll:true})}});
+  manager.querySelector('[data-manager-save]').addEventListener('click',()=>{const value=normalize(draft);try{prefDoc.cookie=prefKey+'='+encodeURIComponent(JSON.stringify(value))+'; Max-Age=31536000; Path=/; SameSite=Lax'+(location.protocol==='https:'?'; Secure':'');const saved=readPreference();if(JSON.stringify(saved)!==JSON.stringify(value))throw Error('cookie unavailable');preference=value;applyPreference();manager.close();window.scrollTo({top:0,behavior:'instant'})}catch{manager.querySelector('.section-manager-status').textContent='浏览器未允许保存 Cookie，请允许后再试；设置尚未保存。'}});
+  const manageEntry=document.createElement('button');manageEntry.type='button';manageEntry.className='section-manager-entry';manageEntry.textContent='板块管理';manageEntry.addEventListener('click',openManager);q('footer.footer')?.append(manageEntry);
+  applyPreference();
 })();
