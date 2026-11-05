@@ -94,6 +94,10 @@
     {
       "file": "renderer-v60-presentation.patch",
       "renderer_sha256": "a55e33e3da5a6ff83d9d7572f160fa2e3d926549d3fdc0a569a7806ccd255c6a"
+    },
+    {
+      "file": "renderer-v61-time-labels.patch",
+      "renderer_sha256": "eea392d5a22160c2ad1eeb20fdb78f4ec6da370bba315bcde55986ba3fc54227"
     }
   ]
 }
