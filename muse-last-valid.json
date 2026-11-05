@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "batch_id": "muse:2026-11-06:0144",
+  "batch_id": "gpt-trend:2026-11-06:mail-0144",
   "week_id": "2026-11-02",
-  "generated_at": "2026-11-05T17:55:07.999Z",
+  "generated_at": "2026-11-05T18:17:08.698Z",
   "x_topics_upsert": [
     {
       "id": "polymarket-32228",
@@ -4736,7 +4736,7 @@
           "observed_at": "2026-11-05T17:44:00Z",
           "source_url": "https://x.com/wallstengine/status/2118285658947203530",
           "metrics_source": "https://x.com/wallstengine/status/2118285658947203530",
-          "verification": "Muse 邮件 muse:2026-11-06:0144（Gmail 1a1acd71c62a3ce1）称逐条打开原帖核对；GPT另核 post ID 编码时间。利好数据中心电力与散热链（VRT、CRWV）；利好电力股",
+          "verification": "Muse 邮件 muse:2026-11-06:0144（Gmail 1a1acd71c62a3ce1）称逐条打开原帖核对；GPT另核 post ID 编码时间。利好数据中心电力与散热链（VRT、CRWV）；利好电力股；GPT 交叉核对 OpenAI 11/05 官方政策：https://openai.com/index/setting-new-standard-responsible-ai-infrastructure/",
           "avatar_url": "https://pbs.twimg.com/profile_images/1691846947857178624/oZp5wB4r_400x400.jpg",
           "avatar_source": "https://x.com/wallstengine",
           "impact": []
@@ -4763,7 +4763,7 @@
           "observed_at": "2026-11-05T17:44:00Z",
           "source_url": "https://x.com/StockSavvyShay/status/2118304692933652684",
           "metrics_source": "https://x.com/StockSavvyShay/status/2118304692933652684",
-          "verification": "Muse 邮件 muse:2026-11-06:0144（Gmail 1a1acd71c62a3ce1）称逐条打开原帖核对；GPT另核 post ID 编码时间。利好 CRWV（现有客户承诺不受影响、已通电容量价值提升）",
+          "verification": "Muse 邮件 muse:2026-11-06:0144（Gmail 1a1acd71c62a3ce1）称逐条打开原帖核对；GPT另核 post ID 编码时间。利好 CRWV（现有客户承诺不受影响、已通电容量价值提升）；GPT 交叉核对 CoreWeave 10/27 官方在运/签约容量：https://coreweave.com/blog/coreweave-builds-the-first-global-backbone-network-purpose-built-for-ai；选举影响仍只作 X 观点。",
           "avatar_url": "https://pbs.twimg.com/profile_images/1878129937737187328/DnEflT4L_400x400.jpg",
           "avatar_source": "https://x.com/StockSavvyShay",
           "impact": [
@@ -5784,23 +5784,23 @@
       "id": "ai-power-delivery",
       "title": "AI 电力与并网成为交付约束",
       "status": "tracking",
-      "asof": "2026-11-05T08:28:17Z",
-      "summary": "Altman 称能源是 AI 最大瓶颈；俄亥俄等地以选票限制数据中心，最新至少 29 地批准禁限措施、高盛警告州与地方民主党胜利或使 45% 规划产能面临风险，Crusoe 自建开关设备抢交付，IREN 园区先锁定电网电力，Anthropic 预计 2026 年底算力超 3.5GW、2027 年翻一番；得州数据中心新规条件（自带电力、不涨居民电水费）被认为对大型云服务商比 neocloud 更有利——电力许可与并网速度正成为算力扩张的关键路径。得州方面：中期选举后许可风险上升，ERCOT 大负荷排队与 TCEQ 许可冻结或延长、条件更严，2027 年交付预测暂不变，2028 年新项目风险更大。另据 SemiAnalysis：微软三季度资本开支比计划少约 50 亿美元，部分归因于 IREN 交付延迟，IREN 站点多日断电、存储故障等问题在 neocloud 客户中口碑最差——交付瓶颈从电力许可延伸到站点运营可靠性。社区条件成为新变量：labubu 称只有数据中心缴纳本地\"代币销售税\"资助社区、或向居民发放\"分红\"才会支持落户，所引观点称行业已在自付能源、循环用水并取得社区同意。",
+      "asof": "2026-11-05T17:44:00Z",
+      "summary": "地方选举后的数据中心许可阻力与电力交付约束同步升温。OpenAI 11/05 承诺未来自有自营园区承担全额电力与接入基础设施成本、公开建设方案并征询社区；CoreWeave 官方 10/27 披露在运电力超 1.5GW、已签约约 4.2GW，签约容量不能视为已通电。此前 IREN 交付延误和得州许可讨论提示，项目落地仍取决于社区成本、并网与站点可靠性。",
       "evidence_post_ids": [
         "2117205453373677917",
         "2117434463403622871",
         "2117316103546294587",
         "2117286506826268832",
-        "2117373417594994876",
-        "zero-power",
         "2117600568638329153",
         "2117852977595912325",
         "2118022712270664006",
         "2118100750392041686",
         "2118133582979813819",
-        "2118245097871728884"
+        "2118245097871728884",
+        "2118285658947203530",
+        "2118304692933652684"
       ],
-      "caveat": "许可、备忘录与交期改善不等于收入兑现；供电紧张也可能反过来压制云厂商扩张。",
+      "caveat": "OpenAI 承诺仅覆盖其自有自营园区，不代表所有合作站点；CoreWeave 1.5/4.2GW 是 10/27 已公布容量，不是 11/05 新增。有关选举不影响在手订单的 X 说法尚待公司正式确认。",
       "benefit_tags": [
         "潜在利好：电力设备",
         "潜在利好：燃料电池",
