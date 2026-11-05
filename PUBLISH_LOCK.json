@@ -1,7 +1,7 @@
 {
-  "holder": null,
-  "token": null,
-  "purpose": null,
-  "acquired_at": null,
-  "expires_at": null
+  "holder": "GPT",
+  "token": "codex-mobile-nav-1793854090337",
+  "purpose": "Mobile floating section navigation",
+  "acquired_at": "2026-11-05T04:48:10.337Z",
+  "expires_at": "2026-11-05T05:33:10.337Z"
 }
