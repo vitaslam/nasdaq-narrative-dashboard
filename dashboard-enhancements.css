@@ -419,3 +419,8 @@
  #calendar>.note{font-size:11px;line-height:1.65;margin-top:12px}
 }
 @media(max-width:360px){#calendar .mobile-agenda-event>time{flex-basis:65px;font-size:10px}#calendar .mobile-agenda-copy h3{font-size:14px}#calendar .calendar-navigation [data-calendar-today]{flex-basis:100%;margin-top:2px}}
+
+.section-manager [data-manager-back]{display:grid;place-items:center;width:44px;height:44px;padding:10px;color:#1b2633;background:#eef1f5}.section-manager [data-manager-back] svg{display:block;width:24px;height:24px}.section-manager [data-manager-back]:active{background:#e2e7ed;transform:scale(.96)}
+
+html.section-manager-open,html.section-manager-open body{overflow:hidden!important;overscroll-behavior:none}
+@media(max-width:600px){.section-manager header{padding-top:calc(16px + env(safe-area-inset-top))}}
