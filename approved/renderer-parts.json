@@ -70,6 +70,10 @@
     {
       "file": "renderer-v54-mobile-nav.patch",
       "renderer_sha256": "555c2adb392b971e02c31b1f9f26ddedc5de55c3279b5099f568c67818141d3b"
+    },
+    {
+      "file": "renderer-v55-back-icon.patch",
+      "renderer_sha256": "3efd6ffb44df18f6df629fea39c189ca63a8d925ab83e502d651104469aae427"
     }
   ]
 }
