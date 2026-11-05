@@ -78,6 +78,10 @@
     {
       "file": "renderer-v56-mobile-controls.patch",
       "renderer_sha256": "4b5fe8aa7b029e1ad6c24b72800bb45acb06e440d7c95465f0a1b96332f01701"
+    },
+    {
+      "file": "renderer-v57-refresh-polish.patch",
+      "renderer_sha256": "1281774e3d4d77571317385554c7c931da4cb5485fb292f9024a8c29bf3b82a5"
     }
   ]
 }
