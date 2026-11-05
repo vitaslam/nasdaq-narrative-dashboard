@@ -1,5 +1,5 @@
 /* Readout refinements: real dated sparklines, Monday sentiment anchor and author identity. */
-.main>.topbar,.main>header#overview{display:none}
+.main .topbar,.main header#overview{display:none!important}
 .market-overview .metric{position:relative;min-height:168px;padding-bottom:21px}
 .metric.has-spark .sub,.metric.has-spark .metric-secondary{max-width:64%;line-height:1.7}
 .metric.has-spark .metric-secondary .metric-change{flex-direction:row;align-items:baseline}
@@ -340,7 +340,7 @@
 .main .metric>.key+.compact-info{margin:0 0 5px}.main .compact-info-body .direction-legend{display:block;text-align:left;margin:6px 0}.main .compact-info-body .direction-legend span{display:block}
 .main .compact-info[open]{position:relative;z-index:5}.main .compact-info[open]>.compact-info-body{position:absolute;top:100%;left:0;min-width:230px;max-width:min(360px,80vw);z-index:10}.main .week-live-banner .compact-info[open]>.compact-info-body{left:auto;right:0;width:340px}
 
-/* Left-hand thumb navigation; the monochrome symbols exist only in this control. */
+/* Mobile thumb navigation; the monochrome symbols exist only in this control. */
 .mobile-section-nav,.mobile-section-backdrop{display:none}
 @media(max-width:600px){
  .mobile-section-nav{display:flex;position:fixed;left:max(14px,env(safe-area-inset-left));bottom:calc(18px + env(safe-area-inset-bottom));z-index:450;flex-direction:column;align-items:flex-start;gap:12px;pointer-events:none}
@@ -424,3 +424,38 @@
 
 html.section-manager-open,html.section-manager-open body{overflow:hidden!important;overscroll-behavior:none}
 @media(max-width:600px){.section-manager header{padding-top:calc(16px + env(safe-area-inset-top))}}
+
+/* Shared center inset keeps the round menu away from rounded screen corners. */
+@media(max-width:600px){
+ .mobile-section-nav{--nav-corner-center:max(60px,calc(env(safe-area-inset-bottom) + 26px),calc(env(safe-area-inset-right) + 26px));left:auto;right:calc(var(--nav-corner-center) - 26px);bottom:calc(var(--nav-corner-center) - 26px);width:52px;align-items:center;gap:14px}
+ .mobile-section-stepper{display:flex;flex-direction:column;align-items:center;width:52px;padding:3px 0;border-radius:28px;background:#fffffff2;box-shadow:0 4px 18px #1a293624,inset 0 0 0 1px #15171909;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);pointer-events:auto}
+ .mobile-section-stepper[hidden]{display:none!important}.mobile-section-stepper button{display:grid;place-items:center;width:52px;height:48px;padding:12px;border:0;background:transparent;border-radius:26px}.mobile-section-stepper button+button{position:relative}.mobile-section-stepper button+button:before{content:'';position:absolute;top:0;left:14px;right:14px;height:1px;background:#dfe4eb}.mobile-section-stepper svg{width:24px;height:24px}.mobile-section-stepper button:disabled{color:#b9c1cb;cursor:default}.mobile-section-stepper button:active:not(:disabled){background:#edf0f5}.mobile-section-stepper button:active svg{transform:scale(.9)}
+ .mobile-section-nav .mobile-section-list{position:absolute;right:-6px;bottom:66px;width:max-content;max-width:calc(100vw - 56px);align-items:flex-end;max-height:calc(100dvh - var(--nav-corner-center) - 80px);margin:0;padding:8px}
+ .mobile-section-link{flex-direction:row-reverse;text-align:right}.mobile-section-label{font-weight:600}
+ .main{padding-bottom:calc(100px + env(safe-area-inset-bottom))}
+}
+
+.mobile-info-stamp{display:none}
+@media(max-width:600px){
+ #calendar .mobile-agenda-event{display:grid;grid-template-columns:32px minmax(0,1fr) 78px;gap:10px;align-items:center;padding:16px 0;min-height:82px}
+ #calendar .mobile-agenda-event:before{display:none}
+ #calendar .mobile-agenda-logo{display:grid;place-items:center;width:32px;height:32px;align-self:start;margin-top:2px;background:#fff;border-radius:8px;overflow:hidden;flex-shrink:0}
+ #calendar .mobile-agenda-logo img{display:block;width:26px;height:26px;object-fit:contain}#calendar .mobile-agenda-logo svg{width:26px;height:26px}.mobile-agenda-logo.is-agency{color:#536c89}.mobile-agenda-logo .agency-wordmark{font:700 11px/1 -apple-system,BlinkMacSystemFont,sans-serif;letter-spacing:-.5px}
+ #calendar .mobile-agenda-title{line-height:1.6}#calendar .mobile-agenda-title h3{display:inline;font-size:14px;font-weight:650;line-height:1.55}
+ #calendar .mobile-agenda-title .importance-rating{display:inline-flex;vertical-align:baseline;margin-left:6px;gap:1px;color:#7967a0;white-space:nowrap}#calendar .mobile-agenda-title .importance-star{width:10px;height:10px}
+ #calendar .mobile-agenda-copy p{color:#7b8795;font-size:11px;line-height:1.65;margin:4px 0 0;overflow-wrap:break-word}
+ #calendar .mobile-agenda-event>.mobile-agenda-time{display:flex;flex-direction:column;align-items:flex-end;gap:3px;min-width:0;width:78px;line-height:1.4;white-space:nowrap;font-size:11px;color:#8490a0}
+ #calendar .mobile-agenda-time strong{font-size:12px;font-weight:550;color:#657486}#calendar .mobile-agenda-time small{font-size:10px;line-height:1.5;font-weight:400}#calendar .mobile-agenda-time.is-note{white-space:normal;font-size:10px}
+ .main .compact-info,.main .fed-hike-reading small,.mobile-source-only,#method,.source-disclosure,.source-content,.scan-source-list,.x-trend-evidence,.x-trend-caveat,.calendar-detail-links,.calendar-evidence,.event-detail-sources,.mood-day-sources,.mood-week-foot,.importance-legend,.direction-legend,.weight-method,.event-weight-note,.fineprint,#calendar>.note,.footer>span{display:none!important}
+ .main .mobile-info-stamp{display:block;font-size:10px;line-height:1.5;color:#8a96a6;margin:5px 0}
+ .main .metric>.key+.mobile-info-stamp{margin:0 0 5px}.main .week-live-banner .update-policy{gap:0}
+ #calendar .section-head .section-sub{font-size:0;margin:0}#calendar .section-head .section-sub:after{content:'北京时间';font-size:10px;color:#8a96a6}
+ .reaction-phases small a{display:none}.reaction-phases small{font-size:10px}.footer{padding-top:0;margin-top:0}
+}
+@media(max-width:360px){#calendar .mobile-agenda-event{grid-template-columns:28px minmax(0,1fr) 68px;gap:8px}#calendar .mobile-agenda-logo{width:28px;height:28px}#calendar .mobile-agenda-logo img,#calendar .mobile-agenda-logo svg{width:23px;height:23px}#calendar .mobile-agenda-event>.mobile-agenda-time{width:68px}#calendar .mobile-agenda-title h3{font-size:13px}}
+
+@media(max-width:600px){.main .topbar,.weekly-rule-label,.live-week-footer{display:none!important}}
+
+@media(max-width:600px){.mobile-agenda-returns{display:grid;gap:3px;margin-top:5px;font-size:10px;line-height:1.5;color:#65748a;font-variant-numeric:tabular-nums}.mobile-agenda-returns span{display:block}.mobile-agenda-copy{min-width:0}.mobile-agenda-copy p{margin-bottom:0}}
+
+@media(max-width:600px){.mobile-agenda-returns{grid-column:2/-1;grid-row:2;margin-top:0}.mobile-agenda-time{grid-column:3;grid-row:1}.mobile-agenda-event{row-gap:4px}}
