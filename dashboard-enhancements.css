@@ -467,6 +467,21 @@ html.section-manager-open,html.section-manager-open body{overflow:hidden!importa
 
 /* Keep long event names clear of their weights on narrow cards. */
 @media(max-width:600px){
+ #calendar .mobile-agenda-day>header{padding:0;margin-bottom:2px}
+ #calendar .mobile-agenda-day>header h3{width:100%}
+ #calendar .mobile-agenda-day-toggle{display:flex;align-items:center;gap:10px;width:100%;min-height:48px;padding:8px 2px;border:0;background:transparent;color:inherit;font:inherit;text-align:left;cursor:pointer;touch-action:manipulation}
+ #calendar .mobile-agenda-day-toggle time{flex:1;min-width:0}
+ #calendar .mobile-agenda-day-count{flex-shrink:0;font-size:11px;font-weight:500;color:#8a96a6}
+ #calendar .is-today .mobile-agenda-day-count{color:#b54b5c}
+ #calendar .mobile-agenda-day-toggle svg{width:18px;height:18px;flex-shrink:0;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transition:transform .16s ease}
+ #calendar .mobile-agenda-day-toggle[aria-expanded=false] svg{transform:rotate(-90deg)}
+ #calendar .mobile-agenda-day-events[hidden]{display:none!important}
+ #calendar .mobile-agenda-day-toggle:focus-visible{outline:2px solid #667fa1;outline-offset:2px;border-radius:6px}
+}
+@media(prefers-reduced-motion:reduce){#calendar .mobile-agenda-day-toggle svg{transition:none}}
+
+/* Mobile weights sit beside the stars, below the full-width title. */
+@media(max-width:600px){
  #toggle-event-drivers .event-weight-row{min-width:0;grid-template-columns:minmax(0,1fr) auto;align-items:start;gap:6px 8px}
  #toggle-event-drivers .event-row-title{grid-column:1/-1;grid-row:1;min-width:0;overflow-wrap:anywhere}
  #toggle-event-drivers .event-row-rating{grid-column:1;grid-row:2;align-self:center;margin:0}
