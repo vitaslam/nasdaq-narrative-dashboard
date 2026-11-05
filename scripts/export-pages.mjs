@@ -7,6 +7,7 @@ import {execFileSync} from 'node:child_process';
 import {applyRendererUpdate} from './apply-renderer-update.mjs';
 import {mergeMuseFeed} from './merge-muse-feed.mjs';
 import {advanceChangeMarkers} from './change-markers.mjs';
+import {renderPremarketSection,premarketCSS} from './premarket-section.mjs';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const source='https://nasdaq-narrative-tracker-vj.thatvitaslam.chatgpt.site/api/export';
 let data;
@@ -33,6 +34,10 @@ const rendererHash=updates.at(-1)?.renderer_sha256||createHash('sha256').update(
 const shellOverrideCSS=''; // The approved renderer now includes the timeline layout.
 const shellOverrideHash=createHash('sha256').update(shellOverrideCSS).digest('hex');
 let previous;try{previous=JSON.parse(await fs.readFile(path.join(root,'release.json'),'utf8'))}catch{}
+let premarketData={schema_version:1,days:{}};
+try{premarketData=JSON.parse(await fs.readFile(path.join(root,'premarket-logic.json'),'utf8'))}catch(error){if(error.code!=='ENOENT')throw error}
+if(premarketData.schema_version!==1||!premarketData.days||typeof premarketData.days!=='object')throw Error('Invalid premarket logic data');
+const premarketHash=createHash('sha256').update(JSON.stringify(premarketData)).digest('hex');
 let priorPublished;try{priorPublished=JSON.parse(await fs.readFile(path.join(root,'api/export.json'),'utf8'))}catch{}
 let museFeed=null, museHash=null, museStats=null, museBytes=null;
 try {
@@ -56,7 +61,7 @@ try {
 }
 const assetVersion=rendererHash.slice(0,12);
 const layoutChanged=previous?.renderer_sha256!==rendererHash||previous?.shell_override_sha256!==shellOverrideHash||previous?.asset_version!==assetVersion;
-const unchanged=previous?.data_revision===data.revision&&previous?.muse_feed_sha256===museHash&&!layoutChanged;
+const unchanged=previous?.data_revision===data.revision&&previous?.muse_feed_sha256===museHash&&previous?.premarket_sha256===premarketHash&&!layoutChanged;
 if(process.argv.includes('--skip-unchanged')&&unchanged){console.log('Export, approved renderer and Muse feed unchanged; no render or deploy needed.');process.exit(0)}
 if(museFeed){
   const merged=mergeMuseFeed(data,museFeed);
@@ -110,6 +115,12 @@ await write('index.html',shell);await write('.nojekyll','');
 const assets=new Set(['/dashboard-priority.js','/shared-calendar.js','/shared-calendar.css','/dashboard-enhancements.js','/dashboard-enhancements.css']);
 for(const week of index.weeks){
  let html=await (await response('/week/'+week.date)).text();
+ const premarket=renderPremarketSection(premarketData,week.date,data.active_week);
+ if(premarket){
+  const anchor='<div class="pulse-heading"><span>事件驱动与五维状态';
+  if(!html.includes(anchor))throw Error('Premarket section anchor missing for '+week.date);
+  html=html.replace(anchor,premarket+anchor).replace('</head>',premarketCSS+'</head>');
+ }
  for(const m of html.matchAll(/(?:src|href)="(\/assets\/[^"<>]+)"/g))assets.add(m[1]);
  for(const m of html.matchAll(/"asset_url":"(\/assets\/[^"<>]+)"/g))assets.add(m[1]);
  html=html.replace("fetch('/api/index'","fetch('../api/index.json'").replace("location.assign('/week/'+neighbor.date)","location.assign('../weeks/'+neighbor.date+'.html')").replace(/((?:src|href)=["'])\/(?!\/)/g,'$1../').replaceAll('"asset_url":"/assets/','"asset_url":"../assets/').replaceAll('"avatar_url":"/assets/','"avatar_url":"../assets/');
@@ -119,7 +130,7 @@ for(const week of index.weeks){
 }
 for(const asset of assets){const r=await response(asset);let value;if(asset.endsWith('.js')){value=await r.text();if(asset==='/shared-calendar.js')value=value.replace('fetch(`/api/calendar?from=${start}&to=${end}`','fetch(`../api/calendar.json`')}else value=Buffer.from(await r.arrayBuffer());await write(asset.slice(1),value)}
 const builtAt=new Date().toISOString();
-const release={schema_version:1,data_revision:data.revision,release_revision:releaseRevision,active_week:data.active_week,content_updated_at:data.weeks[data.active_week].updated_at,built_at:builtAt,renderer_release:'2026-11-04-v46-three-hour-change-dots',renderer_sha256:rendererHash,asset_version:assetVersion,shell_override_sha256:shellOverrideHash,muse_feed_batch:museFeed?.batch_id||null,muse_feed_sha256:museHash,muse_merge:museStats};
+const release={schema_version:1,data_revision:data.revision,release_revision:releaseRevision,active_week:data.active_week,content_updated_at:data.weeks[data.active_week].updated_at,built_at:builtAt,renderer_release:'2026-11-04-v46-three-hour-change-dots',renderer_sha256:rendererHash,asset_version:assetVersion,shell_override_sha256:shellOverrideHash,muse_feed_batch:museFeed?.batch_id||null,muse_feed_sha256:museHash,muse_merge:museStats,premarket_sha256:premarketHash};
 await write('release.json',JSON.stringify(release,null,2));
 let log;try{log=await fs.readFile(path.join(root,'PUBLISH_LOG.md'),'utf8')}catch{log='# 发布日志\n\n构建提交记录；具体上线状态以 GitHub Pages 构建结果为准。\n\n| 北京时间 | 来源 | 批次 / revision | 变更摘要 |\n| --- | --- | --- | --- |\n'}
 const stamp=new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Shanghai',dateStyle:'short',timeStyle:'medium'}).format(new Date(builtAt));
