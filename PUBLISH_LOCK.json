@@ -1,7 +1,7 @@
 {
-  "holder": null,
-  "token": null,
-  "purpose": null,
-  "acquired_at": null,
-  "expires_at": null
+  "holder": "GPT",
+  "token": "codex-compact-1793853010326",
+  "purpose": "Compact metadata and 32h X window",
+  "acquired_at": "2026-11-05T04:30:10.326Z",
+  "expires_at": "2026-11-05T05:15:10.326Z"
 }
