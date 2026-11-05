@@ -16,6 +16,30 @@ const list = (items, kind) => {
     return '<li class="prelogic-item"><span class="prelogic-rank">' + (index+1) + '</span><div><strong>' + heading + '</strong>' + (item.detail ? '<p>' + esc(item.detail) + '</p>' : '') + (item.test ? '<p class="prelogic-test">验证：' + esc(item.test) + '</p>' : '') + '</div></li>';
   }).join('') + '</ol>';
 };
+const openingVerification = row => {
+  const resultLabels = {supported:'得到支持',invalidated:'被推翻',mixed:'部分验证',pending:'待验证'};
+  const rounds = [['20m','开盘 +20 分钟'],['60m','开盘 +60 分钟']];
+  const cards = rounds.map(([key,label]) => {
+    const check = row?.opening_checks?.[key];
+    const ready = Boolean(check?.dominant_logic && check?.observed_at && Number.isFinite(Date.parse(check.observed_at)));
+    const head = '<div class="prelogic-opening-round"><h4>' + label + '</h4><span class="prelogic-opening-state">' + (ready ? '已核验' : '尚未核验') + '</span></div>';
+    if (!ready) return '<article class="prelogic-opening-card is-pending">' + head + '<p class="prelogic-opening-pending">等待本轮开盘行情核验</p><p class="prelogic-opening-guide">一句主导逻辑 · 关键证据 · 盘前判断验证</p></article>';
+    const evidence = Array.isArray(check.evidence) ? check.evidence : [];
+    const verdicts = Array.isArray(check.verdicts) ? check.verdicts : [];
+    const links = Array.isArray(check.source_urls) ? check.source_urls.filter(url => /^https:\/\//.test(url)) : [];
+    return '<article class="prelogic-opening-card">' + head +
+      '<p class="prelogic-opening-logic">' + esc(check.dominant_logic) + '</p>' +
+      '<div class="prelogic-opening-time">观察截至 ' + displayTime(check.observed_at) + '</div>' +
+      (evidence.length ? '<ul class="prelogic-opening-evidence">' + evidence.slice(0,3).map(item => '<li>' + esc(item) + '</li>').join('') + '</ul>' : '') +
+      (verdicts.length ? '<div class="prelogic-opening-verdicts">' + verdicts.map(item => {
+        const status = Object.hasOwn(resultLabels,item.result) ? item.result : 'pending';
+        return '<div class="prelogic-opening-verdict"><span class="prelogic-verdict-tag ' + status + '">' + resultLabels[status] + '</span><p><strong>' + esc(item.hypothesis) + '</strong>' + (item.reason ? '<span>' + esc(item.reason) + '</span>' : '') + '</p></div>';
+      }).join('') + '</div>' : '') +
+      (check.watch_next ? '<p class="prelogic-opening-watch"><b>下一观察点</b> ' + esc(check.watch_next) + '</p>' : '') +
+      '<div class="prelogic-opening-footer"><span>更新 ' + displayTime(check.updated_at) + '</span>' + (links.length ? '<div>' + links.map((url,index) => '<a href="' + esc(url) + '" target="_blank" rel="noopener noreferrer">依据 ' + (index+1) + '</a>').join(' ') + '</div>' : '') + '</div></article>';
+  }).join('');
+  return '<section class="prelogic-opening" aria-labelledby="prelogic-opening-title"><div class="prelogic-opening-heading"><h3 id="prelogic-opening-title">开盘验证</h3><span>开盘后实际在交易什么逻辑</span></div><div class="prelogic-opening-grid">' + cards + '</div></section>';
+};
 export function renderPremarketSection(data, weekStart, activeWeek) {
   const days = data?.days || {};
   const dates = Object.keys(days).filter(date => date >= weekStart && date < new Date(Date.parse(weekStart+'T00:00:00Z')+7*86400000).toISOString().slice(0,10)).sort();
@@ -23,7 +47,7 @@ export function renderPremarketSection(data, weekStart, activeWeek) {
   if (!day && weekStart !== activeWeek) return '';
   const row = day ? days[day] : null;
   const label = day ? day.slice(5).replace('-', '/') : '本周';
-  return '<section class="prelogic" id="premarket-logic" aria-labelledby="prelogic-title"><div class="prelogic-heading"><div><span class="prelogic-eyebrow">MARKET OPEN / NASDAQ</span><h2 id="prelogic-title">盘前逻辑 <em class="prelogic-beta">BETA</em> <span>' + esc(label) + '</span></h2></div><div class="prelogic-updated">更新 ' + displayTime(row?.updated_at) + '</div></div>' + marketBar(row?.market_context) + '<div class="prelogic-columns"><div class="prelogic-panel prelogic-bull"><h3>多头逻辑</h3>' + list(row?.bull,'bull') + '</div><div class="prelogic-panel prelogic-bear"><h3>空头逻辑</h3>' + list(row?.bear,'bear') + '</div></div><div class="prelogic-risk"><h3>盘中风险点 <span>按优先级排序</span></h3>' + list(row?.risks,'risk') + '</div>' + timeline(row) + '</section>';
+  return '<section class="prelogic" id="premarket-logic" aria-labelledby="prelogic-title"><div class="prelogic-heading"><div><span class="prelogic-eyebrow">MARKET OPEN / NASDAQ</span><h2 id="prelogic-title">盘前逻辑 <em class="prelogic-beta">BETA</em> <span>' + esc(label) + '</span></h2></div><div class="prelogic-updated">更新 ' + displayTime(row?.updated_at) + '</div></div>' + marketBar(row?.market_context) + '<div class="prelogic-columns"><div class="prelogic-panel prelogic-bull"><h3>多头逻辑</h3>' + list(row?.bull,'bull') + '</div><div class="prelogic-panel prelogic-bear"><h3>空头逻辑</h3>' + list(row?.bear,'bear') + '</div></div><div class="prelogic-risk"><h3>盘中风险点 <span>按优先级排序</span></h3>' + list(row?.risks,'risk') + '</div>' + openingVerification(row) + timeline(row) + '</section>';
 }
 export const premarketCSS = `<style>
 .prelogic{margin:22px 0 28px;padding:22px 26px;border:1px solid #dfe5eb;border-radius:16px;background:#fff;color:#1d2936;box-shadow:0 8px 25px #1d293608}
@@ -41,4 +65,7 @@ export const premarketCSS = `<style>
 .prelogic-item strong{font-size:13px;line-height:1.5}.prelogic-item p{font-size:12px;line-height:1.65;color:#677589;margin:3px 0 0}.prelogic-item a{color:inherit;text-decoration:none;border-bottom:1px dotted #8391a2}
 .prelogic-test{color:#344e6b!important}.prelogic-empty{font-size:12px;color:#91a0b4;margin:0}.prelogic-timeline{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:18px;padding-top:17px;border-top:1px solid #e5e9ef}.prelogic-timeline-group h3{color:#344e6b}.prelogic-timeline article{display:grid;grid-template-columns:86px minmax(0,1fr);gap:10px;padding:9px 0;border-top:1px solid #edf0f3}.prelogic-timeline time{font-size:11px;color:#8d9aae;font-variant-numeric:tabular-nums}.prelogic-timeline strong{font-size:12px}.prelogic-timeline a{color:inherit;text-decoration:none;border-bottom:1px dotted #8391a2}.prelogic-timeline p{font-size:11px;line-height:1.6;color:#68778b;margin:4px 0 0}.prelogic-timeline p b{color:#4c6177;font-weight:600}
 @media(max-width:700px){.prelogic{margin:18px 0 24px;padding:17px 16px;border-radius:15px}.prelogic-heading{align-items:start;flex-direction:column;gap:5px;margin-bottom:13px}.prelogic h2{font-size:19px}.prelogic-columns{grid-template-columns:1fr;gap:9px}.prelogic-panel,.prelogic-risk{padding:14px 15px}.prelogic-item strong{font-size:13px}.prelogic-updated{font-size:11px}.prelogic-timeline{grid-template-columns:1fr;gap:12px}.prelogic-timeline article{grid-template-columns:72px minmax(0,1fr)}.prelogic-quote{padding:7px 9px}}
+.prelogic-opening{margin-top:18px;padding-top:18px;border-top:1px solid #e5e9ef}.prelogic-opening-heading{display:flex;align-items:baseline;gap:10px;margin-bottom:12px}.prelogic-opening-heading h3{margin:0;color:#394966}.prelogic-opening-heading>span{font-size:11px;color:#91a0b4}.prelogic-opening-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.prelogic-opening-card{min-width:0;padding:17px 18px;border-radius:12px;background:#f3f6fa}.prelogic-opening-round{display:flex;align-items:center;justify-content:space-between;gap:12px}.prelogic-opening-round h4{font-size:13px;color:#3d536e;margin:0}.prelogic-opening-state{font-size:10px;color:#75879d;background:#e7edf5;padding:3px 7px;border-radius:5px;white-space:nowrap}.prelogic-opening-logic{font-size:14px;font-weight:700;color:#243b53;line-height:1.6;margin:12px 0 5px}.prelogic-opening-time{font-size:10px;color:#8797aa;font-variant-numeric:tabular-nums}.prelogic-opening-evidence{padding-left:17px;margin:12px 0;font-size:12px;line-height:1.65;color:#677589}.prelogic-opening-evidence li+li{margin-top:5px}.prelogic-opening-verdicts{display:grid;gap:9px;margin-top:12px}.prelogic-opening-verdict{display:flex;align-items:flex-start;gap:9px}.prelogic-verdict-tag{flex:0 0 auto;font-size:10px;line-height:1.5;padding:3px 6px;border-radius:5px;background:#e7edf5;color:#68798e}.prelogic-verdict-tag.supported{background:#e2f0e9;color:#33745c}.prelogic-verdict-tag.invalidated{background:#f4e4e7;color:#a35762}.prelogic-verdict-tag.mixed{background:#f4ecd9;color:#92723c}.prelogic-opening-verdict p{margin:1px 0 0;font-size:12px;line-height:1.6}.prelogic-opening-verdict strong{font-weight:600;color:#42576c}.prelogic-opening-verdict p>span{display:block;color:#718095;margin-top:2px}.prelogic-opening-watch{margin:14px 0 0;padding-top:11px;border-top:1px solid #e0e7ef;font-size:12px;line-height:1.65;color:#64768b}.prelogic-opening-watch b{font-weight:600;color:#3d536e}.prelogic-opening-footer{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:7px;margin-top:12px;font-size:10px;color:#91a0b4;font-variant-numeric:tabular-nums}.prelogic-opening-footer a{color:#7a8fa7;text-decoration:underline;text-underline-offset:3px;margin-left:5px}.prelogic-opening-pending{font-size:13px;color:#7a8ca1;margin:16px 0 5px}.prelogic-opening-guide{font-size:11px;line-height:1.6;color:#9aa7b8;margin:0}.prelogic-opening-card.is-pending{background:#f6f8fb}
+@media(max-width:700px){.prelogic-opening-grid{grid-template-columns:1fr}.prelogic-opening-card{padding:14px 15px}.prelogic-opening-heading{flex-wrap:wrap;gap:5px 10px}}
 </style>`;
+

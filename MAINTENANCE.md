@@ -4,6 +4,16 @@ GPT 页面写入北京时间每日 09:15、12:45、16:15、19:45、23:15，对�
 
 「盘前逻辑」位于 Dashboard 行情读数与「事件驱动与五维状态」之间，正式页由仓库根 `premarket-logic.json` 供给，按美东交易日保留 `days[YYYY-MM-DD]`。每条有 `updated_at`（真实 ISO 时刻，页面格式化为北京时间）、`bull`、`bear`、`risks`；数组中每项为 `{title,detail,source_urls}`。多头、空头依重要性排序；盘中风险列 2–3 项并排序。事实、判断和未验证条件分清；来源须支撑对应说法。无新事实不改更新时间，不伪造旧时段更新。`premarket-logic.json` 的变更由现有 Pages 工作流发布；不改生成产物 HTML。空白新周标注尚未更新。
 
+## 开盘验证：短平快（2026-11-05 新增）
+
+「盘前逻辑」内，在盘中风险点后展示「开盘验证」，独立保留开盘后 **20 分钟、60 分钟** 两轮记录。每轮仅写一句主导逻辑、2–3 条能区分解释的关键证据、一句盘前判断验证；有必要才补一句下一观察点。说明实际交易的驱动与可能的新叙事，推断要有依据，不用价格下跌反推唯一原因，也不把原有盘前判断改写成事后正确。
+
+数据写入当天 `premarket-logic.json` 的 `days[美东交易日].opening_checks["20m"|"60m"]`，每轮对象为 `{dominant_logic,observed_at,updated_at,evidence:[字符串],verdicts:[{hypothesis,result,reason}],watch_next,source_urls}`。result 为 `supported/invalidated/mixed/pending`，对应得到支持/被推翻/部分验证/待验证。observed_at 是行情实际观察截止时间，updated_at 是实际更新时间，均保存 ISO 并展示北京时间。首轮记录保留，第二轮单独写；无当轮证据显示尚未核验，不自动沿用上一轮结论。仅更新开盘验证时，不改盘前原文及其 updated_at。
+
+每轮同时快速核验并更新顶部 Dashboard 的新行情、涨跌、波动与风险读数，尤其 NDX/QQQ、VIX/VXN、利率及油价，保持已约定来源口径；抓不到新报价保留真实时间，不伪刷新。冻结周计划、历史快照与日线不受影响。先读最新 MAINTENANCE.md、DAILY_UPDATE.md、PUBLISH_LOCK.json 和 PUBLISH_LOG.md，按写入锁操作；数据发布通过现有 GitHub Pages 流程并验证结果。
+
+**请求的执行时点**：美东交易日 09:50、10:30（按 America/New_York 自动处理夏令时；北京时间冬令时 22:50、23:30，夏令时 21:50、22:30），非交易日跳过。这是用户要求的两次新增更新，不替换现有五档任务。**自动排程尚未创建**：当前 Automations 工具要求同一周期任务至少间隔一小时，不能执行相隔 40 分钟的两轮；不得把本说明视为已启用的任务。
+
 # 美股叙事跟踪｜页面逻辑与协作维护
 
 ## 夜盘、盘前、盘后行情（2026-11-04）
