@@ -198,6 +198,7 @@
   const navSvg=body=>`<svg viewBox="0 0 28 28" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2.7" stroke-linecap="square" stroke-linejoin="round">${body}</svg>`;
   const navIcons={
     overview:navSvg('<path d="M11 4H7a3 3 0 0 0-3 3v17l6-5h11a3 3 0 0 0 3-3v-4"/><path d="m9 14 4-4 4 3"/><path d="m21 2 1.5 3.5L26 7l-3.5 1.5L21 12l-1.5-3.5L16 7l3.5-1.5Z" stroke-width="2"/>'),
+    premarket:navSvg('<circle cx="14" cy="11" r="4"/><path d="M3 21h22 M14 2v3 M4 13l3 2 M24 13l-3 2"/>'),
     dimensions:navSvg('<path d="m14 3 5 5-5 5-5-5Z M8 10l5 5-5 5-5-5Z M20 10l5 5-5 5-5-5Z M14 17l5 5-5 5-5-5Z" stroke-width="2.2"/>'),
     verification:navSvg('<path d="M13 4H7a3 3 0 0 0-3 3v17l6-5h11a3 3 0 0 0 3-3v-4"/><path d="m9 11 3 3 5-6"/><path d="m23 2 3 3-3 3-3-3Z" fill="currentColor" stroke="none"/>'),
     levels:navSvg('<path d="M4 4v17a3 3 0 0 0 3 3h17 M9 17l5-5 4 3 6-9 M19 6h5v5"/>'),
@@ -207,6 +208,7 @@
   document.querySelectorAll('main .topbar,main header#overview').forEach(node=>node.remove());
   const sectionSpecs=[
     ['overview','市场概览',['.week-live-banner','.topbar','#overview','.hero','.market-overview'],'overview'],
+    ['premarket','盘前逻辑',['#premarket-logic'],'premarket'],
     ['dimensions','五维状态',['.pulse-heading','.pulse-grid','#dimension-details'],'dimensions'],
     ['verification','叙事验证',['#verification'],'verification'],
     ['levels','操作点位',['.dashboard-chart-heading','.daily-trigger-row','.review-market'],'levels'],
@@ -237,7 +239,7 @@
     const headerObserver=new ResizeObserver(syncHeaderInset);headerObserver.observe(shellHeader);syncHeaderInset();
     window.addEventListener('pagehide',()=>headerObserver.disconnect(),{once:true});
   }
-  const normalize=value=>({order:[...new Set([...(Array.isArray(value?.order)?value.order:[]),...defaultOrder])].filter(key=>defaultOrder.includes(key)),hidden:[...new Set(Array.isArray(value?.hidden)?value.hidden:[])].filter(key=>defaultOrder.includes(key))});
+  const normalize=value=>{const order=[...new Set([...(Array.isArray(value?.order)?value.order:[]),...defaultOrder])].filter(key=>defaultOrder.includes(key));if(defaultOrder.includes('premarket')&&!value?.order?.includes('premarket')){const old=order.indexOf('premarket');if(old>=0)order.splice(old,1);order.splice(Math.max(0,order.indexOf('overview')+1),0,'premarket')}return {order,hidden:[...new Set(Array.isArray(value?.hidden)?value.hidden:[])].filter(key=>defaultOrder.includes(key))}};
   const readPreference=()=>{try{const value=prefDoc.cookie.split('; ').find(row=>row.startsWith(prefKey+'='));return normalize(value?JSON.parse(decodeURIComponent(value.slice(prefKey.length+1))):null)}catch{return normalize(null)}};
   let preference=readPreference(),shortcuts=[],links=[],expanded=false,currentIndex=0,navScrolling=false;
   const nav=document.createElement('nav');nav.className='mobile-section-nav';nav.setAttribute('aria-label','板块快捷导航');
