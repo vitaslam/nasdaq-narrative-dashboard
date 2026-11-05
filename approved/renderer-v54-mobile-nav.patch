@@ -287,7 +287,7 @@
  .main{color:#000;font-weight:400}
  .main .hero p,.main .strategy-note,.main .x-view,.main .x-post-view,.main .x-impact p,.main blockquote,.main .chain-step p,.main .prior-question,.main .week-pending li p,.main .pending-foot p,.main .calendar-event p,.main .live-event-card p,.main .action-table td,.main .sentiment-reason,.main .review-invalidation{color:#000;font-size:14px;font-weight:400;line-height:1.8}
  .main .chain-step p,.main .x-post-view{font-size:15px;line-height:1.85}
-@@ -339,3 +339,53 @@
+@@ -339,3 +339,83 @@
  .main details.compact-info>summary{font-weight:400;background:transparent;padding:2px 0;display:block;width:fit-content}
  .main .metric>.key+.compact-info{margin:0 0 5px}.main .compact-info-body .direction-legend{display:block;text-align:left;margin:6px 0}.main .compact-info-body .direction-legend span{display:block}
  .main .compact-info[open]{position:relative;z-index:5}.main .compact-info[open]>.compact-info-body{position:absolute;top:100%;left:0;min-width:230px;max-width:min(360px,80vw);z-index:10}.main .week-live-banner .compact-info[open]>.compact-info-body{left:auto;right:0;width:340px}
@@ -341,3 +341,62 @@
 +@media(max-width:360px){.section-order{gap:0}.section-order button{width:28px}.section-manager-row{gap:7px}.section-manager-list{padding:12px 8px}.section-manager-row b{font-size:12px}}
 +
 +@media(max-width:600px){:is(#narrative,.x-frequent-section) .x-trend-grid{display:flex;gap:12px;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scrollbar-width:none;touch-action:pan-x pan-y pinch-zoom;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch}:is(#narrative,.x-frequent-section) .x-trend-grid::-webkit-scrollbar{display:none}:is(#narrative,.x-frequent-section) .x-trend-card{flex:0 0 100%;scroll-snap-align:start;scroll-snap-stop:normal;min-width:0}}
++
++/* Agenda view is mobile-only; desktop keeps the original two-week grid. */
++.mobile-calendar-agenda{display:none}
++@media(max-width:600px){
++ #calendar .calendar-week,#calendar .calendar-ongoing{display:none}
++ #calendar .mobile-calendar-agenda{display:block;padding:4px 0 12px}
++ #calendar .section-head{display:block}#calendar .section-head .section-sub{font-size:11px;line-height:1.65;margin-top:4px}
++ #calendar .calendar-navigation{display:flex;flex-wrap:wrap;align-items:center;width:100%;gap:6px;margin-top:12px}
++ #calendar .calendar-navigation .calendar-range{flex:1;text-align:center;white-space:nowrap;font-size:12px}
++ #calendar .calendar-navigation button{min-height:38px;min-width:36px}#calendar .calendar-navigation [data-calendar-today]{padding:7px 10px;font-size:11px}
++ #calendar .mobile-agenda-day{margin:22px 0 0;background:transparent;border:0;padding:0}
++ #calendar .mobile-agenda-day>header{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #dfe4eb;padding:0 2px 9px;margin-bottom:2px}
++ #calendar .mobile-agenda-day>header h3{font-size:16px;line-height:1.5;margin:0;color:#263244;font-weight:650}
++ #calendar .mobile-agenda-day>header>span{font-size:11px;color:#b54b5c;font-weight:600}
++ #calendar .mobile-agenda-day.is-today>header h3{color:#b54b5c}.mobile-agenda-day.is-past>header{opacity:.75}
++ #calendar .mobile-agenda-event{display:flex;align-items:center;gap:8px;position:relative;padding:14px 4px 14px 13px;min-height:74px;border:0;border-bottom:1px solid #e5e9ef;background:transparent;border-radius:0;cursor:pointer;touch-action:manipulation}
++ #calendar .mobile-agenda-event:before{content:'';position:absolute;left:1px;top:16px;bottom:16px;width:3px;border-radius:3px;background:#8581ad}
++ #calendar .mobile-agenda-event.earnings:before{background:#4b8b78}#calendar .mobile-agenda-event.policy:before{background:#c2a059}#calendar .mobile-agenda-event.is-important:before{width:4px}
++ #calendar .mobile-agenda-copy{flex:1;min-width:0}#calendar .mobile-agenda-copy h3{font-size:15px;line-height:1.5;font-weight:600;color:#172537;margin:0;overflow-wrap:break-word}
++ #calendar .mobile-agenda-copy p{font-size:11px;line-height:1.5;color:#8a94a2;margin:4px 0 0}
++ #calendar .mobile-agenda-event>time{flex:0 0 76px;text-align:right;font-size:11px;line-height:1.5;color:#69798d;font-variant-numeric:tabular-nums;overflow-wrap:break-word}
++ #calendar .mobile-agenda-chevron{font-size:19px;color:#9aa6b5}#calendar .mobile-agenda-event .update-dot{top:5px;right:2px;width:5px;height:5px}
++ #calendar .mobile-agenda-event.is-selected{background:#eef2f8;border-radius:8px}#calendar .mobile-agenda-event:focus-visible{outline:2px solid #667fa1;outline-offset:2px}
++ #calendar .mobile-agenda-empty{font-size:12px;color:#97a2b0;padding:14px 2px}
++ #calendar .mobile-calendar-agenda .calendar-detail{position:static;inset:auto;transform:none;grid-column:auto;width:100%;max-width:none;max-height:none;margin:8px 0 16px;padding:16px;border:1px solid #dce4ee;border-radius:12px;background:white;box-shadow:0 4px 16px #25364d08;overflow:visible}
++ #calendar .mobile-calendar-agenda .calendar-detail-body{max-height:none;overflow:visible}#calendar .mobile-calendar-agenda .calendar-detail h3{font-size:16px}.mobile-calendar-agenda .calendar-detail-row p{font-size:13px;line-height:1.75}
++ #calendar .mobile-calendar-agenda .calendar-detail-head button{width:32px;height:32px;font-size:22px;flex-shrink:0}
++ #calendar>.note{font-size:11px;line-height:1.65;margin-top:12px}
++}
++@media(max-width:360px){#calendar .mobile-agenda-event>time{flex-basis:65px;font-size:10px}#calendar .mobile-agenda-copy h3{font-size:14px}#calendar .calendar-navigation [data-calendar-today]{flex-basis:100%;margin-top:2px}}
+--- a/shared-calendar.js
++++ b/shared-calendar.js
+@@ -57,7 +57,7 @@
+  function showDetail(card){
+   const e=eventsById.get(card.dataset.calendarEventId);if(!e)return;
+   if(selectedCard===card){closeDetail();return}closeDetail();
+-  const grid=(card.closest('.calendar-week')||root.querySelector('.calendar-week'))?.querySelector('.calendar-grid');if(!grid)return;
++  const mobileDay=card.closest('.mobile-agenda-day'),grid=mobileDay||(card.closest('.calendar-week')||root.querySelector('.calendar-week'))?.querySelector('.calendar-grid');if(!grid)return;
+   selectedCard=card;card.setAttribute('aria-expanded','true');card.classList.add('is-selected');
+   const occurred=['released','occurred'].includes(e.status);
+   const actual=e.result||(occurred?'结果待核验':'待公布');
+@@ -66,12 +66,15 @@
+   const comparisons=(e.earnings_metrics||[]).length?`<div class="calendar-earnings-table" role="table" aria-label="财报预期与实际对照"><div class="earnings-row headings" role="row"><span>指标</span><span>预期</span><span>实际</span></div>${e.earnings_metrics.map(m=>`<div class="earnings-row" role="row"><span>${esc(m.label)}</span><span>${esc(m.expected)}</span><strong title="${esc(m.note||'')}">${esc(m.actual)}</strong></div>`).join('')}</div>`:'';
+   const phases=(e.reaction_phases||[]).length?`<div class="reaction-phases">${e.reaction_phases.map(p=>`<div><b>${esc(p.session)}</b><span>${esc(p.value)}</span><small>${esc(p.at)} · ${link(p.source_url,'来源')}</small></div>`).join('')}</div>`:'';
+   grid.insertAdjacentHTML('beforeend',`<aside class="calendar-detail" data-calendar-detail aria-label="${esc(e.event)}事件详情">${dots('calendar:'+e.id)}<div class="calendar-detail-head"><span>${esc(md(e.iso_date||card.closest('.calendar-day')?.dataset.date||''))} · ${esc(e.kind||'事件')} · ${esc(e.status==='occurred'||e.status==='released'?'已发生':'待发生')}</span><button type="button" data-calendar-close aria-label="关闭事件详情">×</button></div><h3>${esc(e.event)}</h3><p class="calendar-detail-time">${esc(e.time||'时间待核验')}</p><div class="calendar-detail-body">${detailRow('预期／关注',e.expectation||e.watch||'待补充',!(e.expectation||e.watch))}${comparisons}${detailRow((e.result_emoji||'📊')+' 实际结果',actual,!e.result)}${e.guidance?detailRow('下季指引',e.guidance):''}${detailRow((e.reaction_emoji||'📈')+' 分时段市场反应',reaction,!e.market_reaction)}${phases}${detailRow('对叙事的影响',impact,!e.narrative_impact)}</div><div class="calendar-detail-links">${link(e.source,'事件来源')}${e.consensus_source?' · '+link(e.consensus_source,'预期来源'):''}${e.result_source?' · '+link(e.result_source,'结果来源'):''}${e.guidance_source?' · '+link(e.guidance_source,'指引来源'):''}${e.reaction_source?' · '+link(e.reaction_source,'行情来源'):''}</div></aside>`);
++  if(mobileDay){const detail=grid.querySelector('[data-calendar-detail]');card.after(detail)}
+  }
++ const agendaEvent=e=>{const earnings=/财报|earnings/i.test(e.kind||''),kind=earnings?'earnings':/政策|选举/.test(e.kind||'')?'policy':'macro';const status=({released:'已公布',occurred:'已发生',cancelled:'已取消',postponed:'已延期'})[e.status]||'待发生';return `<article class="mobile-agenda-event ${kind}${isHigh(e)?' is-important':''}" data-calendar-event-id="${esc(e.id)}" role="button" tabindex="0" aria-expanded="false" aria-label="${esc(e.event+'，'+(e.time||'时间待定')+'，'+status)}">${dots('calendar:'+e.id)}<div class="mobile-agenda-copy"><h3>${esc(e.event)}</h3><p>${esc(e.kind||'事件')} · ${status}${isHigh(e)?' · 重点':''}</p></div><time>${esc((e.time||'时间待定').replace(/北京(?:时间)?/g,''))}</time><span class="mobile-agenda-chevron" aria-hidden="true">›</span></article>`};
++ function agenda(data){let out='<div class="mobile-calendar-agenda" aria-label="按日期排列的事件日程">';let days=0;for(let n=0;n<14;n++){const date=add(start,n),items=data.events.filter(e=>e.iso_date===date);if(!items.length&&date!==bjToday)continue;days++;const day=new Date(date+'T12:00:00Z'),label=Number(date.slice(5,7))+'月'+Number(date.slice(8,10))+'日 · 星期'+['日','一','二','三','四','五','六'][day.getUTCDay()];out+=`<section class="mobile-agenda-day${date===bjToday?' is-today':''}${date<bjToday?' is-past':''}" data-date="${date}"><header><h3><time datetime="${date}">${label}</time></h3>${date===bjToday?'<span>今天</span>':''}</header>${items.map(agendaEvent).join('')||'<p class="mobile-agenda-empty">今天暂无已录入事件</p>'}</section>`}if(!days)out+='<p class="mobile-agenda-empty">这两周暂无已录入事件</p>';if(data.ongoing?.length)out+=`<section class="mobile-agenda-day ongoing"><header><h3>持续观察</h3></header>${data.ongoing.map(agendaEvent).join('')}</section>`;return out+'</div>'}
+  async function render(){const token=++seq,end=add(start,13);closeDetail();root.querySelector('.calendar-range').textContent=start.slice(0,4)+' · '+md(start)+' — '+md(end);root.querySelector('#events').setAttribute('aria-busy','true');let data;
+  try{const r=await fetch(`/api/calendar?from=${start}&to=${end}`,{cache:'no-store'});if(!r.ok)throw Error();data=await r.json();}catch{if(token!==seq)return;root.querySelector('#events').innerHTML='<p class="calendar-empty">日历暂时无法读取，请稍后重试。</p>';return}if(token!==seq)return;changeMarkers=data.change_markers||{};
+  eventsById=new Map([...data.events,...(data.ongoing||[])].map(e=>[String(e.id),e]));
+- let out='';for(let w=0;w<2;w++){out+=`<section class="calendar-week"><div class="calendar-week-title"><b>第${w?'二':'一'}周</b><span>${md(add(start,w*7))} — ${md(add(start,w*7+6))}</span></div><div class="calendar-grid">`;for(let n=0;n<7;n++){const date=add(start,w*7+n),items=data.events.filter(e=>e.iso_date===date);out+=`<div class="calendar-day ${n>4?'weekend':''} ${date===bjToday?'is-today':''}" data-date="${date}"><header><time datetime="${date}">${md(date)}</time><span>${date===bjToday?'今天':(['周一','周二','周三','周四','周五','周六','周日'][n])}</span></header>${items.map(event).join('')||'<p class="calendar-empty">暂未录入事件</p>'}</div>`}out+='</div></section>'}if(data.ongoing?.length)out+='<div class="calendar-ongoing"><b>持续观察</b><div>'+data.ongoing.map(event).join('')+'</div></div>';root.querySelector('#events').innerHTML=out;root.querySelector('#events').removeAttribute('aria-busy');}
++ let out='';for(let w=0;w<2;w++){out+=`<section class="calendar-week"><div class="calendar-week-title"><b>第${w?'二':'一'}周</b><span>${md(add(start,w*7))} — ${md(add(start,w*7+6))}</span></div><div class="calendar-grid">`;for(let n=0;n<7;n++){const date=add(start,w*7+n),items=data.events.filter(e=>e.iso_date===date);out+=`<div class="calendar-day ${n>4?'weekend':''} ${date===bjToday?'is-today':''}" data-date="${date}"><header><time datetime="${date}">${md(date)}</time><span>${date===bjToday?'今天':(['周一','周二','周三','周四','周五','周六','周日'][n])}</span></header>${items.map(event).join('')||'<p class="calendar-empty">暂未录入事件</p>'}</div>`}out+='</div></section>'}if(data.ongoing?.length)out+='<div class="calendar-ongoing"><b>持续观察</b><div>'+data.ongoing.map(event).join('')+'</div></div>';root.querySelector('#events').innerHTML=out+agenda(data);root.querySelector('#events').removeAttribute('aria-busy');}
+  root.addEventListener('click',ev=>{if(ev.target.closest('[data-calendar-close]')){closeDetail();return}const card=ev.target.closest('[data-calendar-event-id]');if(card&&!ev.target.closest('a'))showDetail(card)});
+  root.addEventListener('keydown',ev=>{if(ev.key==='Escape'){closeDetail();return}const card=ev.target.closest('[data-calendar-event-id]');if(card&&ev.target===card&&['Enter',' '].includes(ev.key)){ev.preventDefault();showDetail(card)}});
+- root.querySelectorAll('[data-calendar-nav]').forEach(b=>b.addEventListener('click',()=>{start=add(start,Number(b.dataset.calendarNav));render()}));root.querySelector('[data-calendar-today]').addEventListener('click',()=>{start=monday;render()});render();
++ root.querySelectorAll('[data-calendar-nav]').forEach(b=>b.addEventListener('click',()=>{start=add(start,Number(b.dataset.calendarNav));render()}));matchMedia('(max-width:600px)').addEventListener('change',closeDetail);root.querySelector('[data-calendar-today]').addEventListener('click',()=>{start=monday;render()});render();
+ })();
