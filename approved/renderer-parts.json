@@ -102,6 +102,10 @@
     {
       "file": "renderer-v62-earnings-icons.patch",
       "renderer_sha256": "f9f067d12dfb7d8403f611f4e9c92db21e5b60e9c7b0e48ed46fe06b89fd5331"
+    },
+    {
+      "file": "renderer-v63-desktop-controls.patch",
+      "renderer_sha256": "6291d76cd19233817b0c9b964170b0108379ce07ea38061fb46592508d025f2f"
     }
   ]
 }
