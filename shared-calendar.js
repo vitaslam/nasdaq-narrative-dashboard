@@ -23,7 +23,7 @@
   const label=agent+' 更新于 '+stamp+'；满 3 小时后在下一轮更新清理';
   return `<span class="update-dot" data-agent="${agent}" data-updated-at="${esc(at||'')}" title="${esc(label)}" aria-label="${esc(label)}"></span>`;
  }).join('');
- root.innerHTML=`<div class="section-head"><div><h2>事件日历</h2><p class="section-sub">所有周页面共用 · 所选叙事周起两周 · 北京时间，盘前／盘后另标</p></div><div class="calendar-navigation"><button type="button" data-calendar-nav="-14" aria-label="前两周">‹</button><span class="calendar-range" aria-live="polite"></span><button type="button" data-calendar-nav="14" aria-label="后两周">›</button><button type="button" data-calendar-today>回到本周</button></div></div><div class="review-calendar" id="events" aria-live="polite"></div><div class="note">事件落地后补充结果与市场反应；历史未录入日期留空。市值超过 5000 亿美元的公司财报高亮；其他事件以 3 星高亮。</div>`;
+ root.innerHTML=`<div class="section-head"><div><h2>事件日历</h2><p class="section-sub">北京时间</p></div><div class="calendar-navigation"><button type="button" data-calendar-nav="-14" aria-label="前两周">‹</button><span class="calendar-range" aria-live="polite"></span><button type="button" data-calendar-nav="14" aria-label="后两周">›</button><button type="button" data-calendar-today>回到本周</button></div></div><div class="review-calendar" id="events" aria-live="polite"></div><div class="note">事件落地后补充结果与市场反应；历史未录入日期留空。市值超过 5000 亿美元的公司财报高亮；其他事件以 3 星高亮。</div>`;
  function compactEarnings(e, released){
   const metrics=e.earnings_metrics||[];
   const revenue=metrics.find(m=>/^(?:总?营收|营业收入|总收入|(?:total )?revenue)(?:$|[（( ])/i.test(m.label));

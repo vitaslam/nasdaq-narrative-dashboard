@@ -309,13 +309,13 @@
   .replace(/\b\d{4}[-/](\d{2})[-/](\d{2})\b/g,'$1/$2')
   .replace(/(\d{1,2})月(\d{1,2})日/g,(_,m,d)=>m.padStart(2,'0')+'/'+d.padStart(2,'0'))
   .replace(/(\d{2})\/(\d{2})\s*(\d{2}):(\d{2})\s*(?:美东(?:时间)?|ET)/g,(_,m,d,h,t)=>eastern(m,d,h,t))
-  .replace(/北京(?:时间)?/g,'')
+  .replace(/(\d{2}:\d{2})\s*北京(?:时间)?/g,'$1')
   .replace(/(\d{2}:\d{2}):\d{2}/g,'$1')
-  .replace(/(夜盘|盘前|盘中|盘后|收盘|更新)\s*[·：:]?\s*(\d{2}\/\d{2}(?:\s+\d{2}:\d{2})?)/g,'$2 $1')
-  .replace(/(\d{2}\/\d{2}(?:\s+\d{2}:\d{2})?)\s*·\s*(夜盘|盘前|盘中|盘后|收盘|更新)/g,'$1 $2')
+  .replace(/^(夜盘|盘前|盘中|盘后)\s*[·：:]?\s*(\d{2}\/\d{2}(?:\s+\d{2}:\d{2})?)/,'$2 $1')
+  .replace(/(\d{2}\/\d{2}(?:\s+\d{2}:\d{2})?)\s*·\s*(夜盘|盘前|盘中|盘后)/g,'$1 $2')
   .replace(/(\d{2}\/\d{2})\s*(\d{2}:\d{2})/g,'$1 $2');
  const compactStamp=value=>{const text=formatDisplayTime(value),date=text.match(/\d{2}\/\d{2}(?:\s+\d{2}:\d{2})?/),session=text.match(/夜盘|盘前|盘中|盘后|收盘/);return date?[date[0],session?.[0]].filter(Boolean).join(' '):''};
- const sourceSelectors='.fineprint,.weight-method,.importance-legend,.direction-legend,.event-weight-note,.pulse-foot,.risk-source,.quote-reference,.x-trend-evidence,.x-trend-caveat,.calendar-detail-links,.calendar-evidence,.calendar-progress-source,.event-detail-sources,.mood-day-sources,.mood-week-foot,.fed-hike-reading small,a.mobile-source-only';
+ const sourceSelectors='.fineprint,.weight-method,.importance-legend,.direction-legend,.event-weight-note,.pulse-foot,.risk-source,#calendar>.note,.x-trend-evidence,.x-trend-caveat,.calendar-detail-links,.calendar-evidence,.calendar-progress-source,.event-detail-sources,.mood-day-sources,.mood-week-foot,.fed-hike-reading small,a.mobile-source-only';
  const matches=(root,selector)=>[...(root.nodeType===1&&root.matches(selector)?[root]:[]),...root.querySelectorAll?.(selector)||[]];
  const addStamp=(node,text)=>{if(!text)return;let stamp=node.previousElementSibling;if(!stamp?.matches('.mobile-info-stamp,.observation-stamp')){stamp=document.createElement('span');node.before(stamp)}stamp.classList.add('observation-stamp');stamp.textContent=text;return stamp};
  function unifyDisclosure(detail){
@@ -330,10 +330,10 @@
    if(!node.isConnected||node.closest('details.compact-info,details.source-disclosure')||node.dataset.sourceFolded)continue;
    node.dataset.sourceFolded='true';
    const stamp=compactStamp(node.textContent);addStamp(node,stamp);
-   let host=node.closest('.metric,.risk-column,.chain-card,.x-trend-card,.x-topic-card,.calendar-detail,.calendar-event,.section,.managed-section')||document.querySelector('main');
+   let host=node.closest('.metric,.risk-column,.chain-card,.x-trend-card,.x-topic-card,.calendar-detail,.calendar-event,.mood-week-history,.section,.managed-section')||document.querySelector('main');
    if(!host)continue;
    if(host.closest('button,a'))host=host.closest('.managed-section')||document.querySelector('main');
-   let detail=host.querySelector(':scope > details.provenance-fold');
+   let detail=host.querySelector(':scope > details.compact-info');
    if(!detail){detail=document.createElement('details');detail.className='compact-info provenance-fold';detail.dataset.sourceUnified='true';detail.innerHTML='<summary>来源与口径</summary><div class="compact-info-body"></div>';detail.addEventListener('click',event=>event.stopPropagation());host.append(detail)}
    detail.lastElementChild.append(node);
   }
