@@ -1,0 +1,37 @@
+--- a/runtime.js
++++ b/runtime.js
+@@ -1,3 +1,4 @@
++ASSETS.shell=ASSETS.shell.replace('</head>','<style>@media(max-width:600px){html.section-manager-open .history-header{display:none}html.section-manager-open body{grid-template-rows:minmax(0,1fr)}html.section-manager-open .history-panel{grid-row:1}}</style></head>');
+ 
+ ASSETS.shell=ASSETS.shell.replace('</body>',`<script>
+ (()=>{const tabs=document.getElementById('week-tabs');if(!tabs)return;let keepRight=true;
+--- a/dashboard-enhancements.js
++++ b/dashboard-enhancements.js
+@@ -231,11 +231,14 @@
+   mobile.addEventListener('change',()=>{setOpen(false);updateCurrent()});
+   const manager=document.createElement('dialog');manager.className='section-manager';manager.setAttribute('aria-labelledby','section-manager-title');
+   manager.innerHTML='<header><button type="button" data-manager-back aria-label="返回页面">‹</button><div><h2 id="section-manager-title">板块管理</h2><p>选择显示内容，调整阅读顺序</p></div><button type="button" data-manager-reset>恢复默认</button></header><div class="section-manager-list"></div><footer><p role="status" class="section-manager-status">保存到此浏览器，下次打开自动沿用。</p><button type="button" data-manager-save>保存并返回</button></footer>';
++  manager.querySelector('[data-manager-back]').innerHTML=navSvg('<path d="m17 6-8 8 8 8" stroke-linecap="round"/>');
+   document.body.append(manager);let draft=normalize(preference),returnFocus=null;
+   const renderManager=()=>{manager.querySelector('.section-manager-list').innerHTML=draft.order.map((key,index)=>{const item=allShortcuts.find(item=>item.key===key);return `<div class="section-manager-row" data-manage-key="${key}"><span class="section-manager-icon">${navIcons[item.icon]}</span><b>${item.label}</b><div class="section-order"><button type="button" data-move="-1" aria-label="上移${item.label}" ${index===0?'disabled':''}>↑</button><button type="button" data-move="1" aria-label="下移${item.label}" ${index===draft.order.length-1?'disabled':''}>↓</button></div><button type="button" class="section-switch" role="switch" aria-label="显示${item.label}" aria-checked="${!draft.hidden.includes(key)}"><span></span></button></div>`}).join('')};
+-  function openManager(){returnFocus=document.activeElement;setOpen(false);draft=normalize(preference);renderManager();manager.querySelector('.section-manager-status').textContent='保存到此浏览器，下次打开自动沿用。';manager.showModal();manager.querySelector('[data-manager-back]').focus()}
++  const setManagerMode=open=>{document.documentElement.classList.toggle('section-manager-open',open);prefDoc.documentElement.classList.toggle('section-manager-open',open)};
++  window.addEventListener('pagehide',()=>setManagerMode(false));
++  function openManager(){returnFocus=document.activeElement;setOpen(false);draft=normalize(preference);renderManager();manager.querySelector('.section-manager-status').textContent='保存到此浏览器，下次打开自动沿用。';setManagerMode(true);manager.showModal();manager.querySelector('[data-manager-back]').focus({preventScroll:true})}
+   manager.querySelector('[data-manager-back]').addEventListener('click',()=>manager.close());
+-  manager.addEventListener('close',()=>{(returnFocus?.isConnected&&returnFocus.offsetParent?returnFocus:toggle).focus({preventScroll:true})});
++  manager.addEventListener('close',()=>{setManagerMode(false);(returnFocus?.isConnected&&returnFocus.offsetParent?returnFocus:toggle).focus({preventScroll:true})});
+   manager.querySelector('[data-manager-reset]').addEventListener('click',()=>{draft=normalize(null);renderManager();manager.querySelector('.section-manager-status').textContent='已恢复默认，保存后生效。'});
+   manager.querySelector('.section-manager-list').addEventListener('click',event=>{const row=event.target.closest('[data-manage-key]');if(!row)return;const key=row.dataset.manageKey;if(event.target.closest('.section-switch')){draft.hidden=draft.hidden.includes(key)?draft.hidden.filter(k=>k!==key):[...draft.hidden,key];const button=row.querySelector('.section-switch');button.setAttribute('aria-checked',String(!draft.hidden.includes(key)))}else{const button=event.target.closest('[data-move]');if(!button)return;const i=draft.order.indexOf(key),j=i+Number(button.dataset.move);if(j<0||j>=draft.order.length)return;const positions=new Map([...manager.querySelectorAll('.section-manager-row')].map(row=>[row.dataset.manageKey,row.getBoundingClientRect().top]));[draft.order[i],draft.order[j]]=[draft.order[j],draft.order[i]];renderManager();if(!matchMedia('(prefers-reduced-motion:reduce)').matches)for(const row of manager.querySelectorAll('.section-manager-row')){const offset=positions.get(row.dataset.manageKey)-row.getBoundingClientRect().top;if(offset)row.animate([{transform:'translateY('+offset+'px)'},{transform:'translateY(0)'}],{duration:240,easing:'cubic-bezier(.2,.8,.2,1)'})}manager.querySelector(`[data-manage-key="${key}"] [data-move="${button.dataset.move}"]:not(:disabled)`)?.focus({preventScroll:true})}});
+   manager.querySelector('[data-manager-save]').addEventListener('click',()=>{const value=normalize(draft);try{prefDoc.cookie=prefKey+'='+encodeURIComponent(JSON.stringify(value))+'; Max-Age=31536000; Path=/; SameSite=Lax'+(location.protocol==='https:'?'; Secure':'');const saved=readPreference();if(JSON.stringify(saved)!==JSON.stringify(value))throw Error('cookie unavailable');preference=value;applyPreference();manager.close();window.scrollTo({top:0,behavior:'instant'})}catch{manager.querySelector('.section-manager-status').textContent='浏览器未允许保存 Cookie，请允许后再试；设置尚未保存。'}});
+--- a/dashboard-enhancements.css
++++ b/dashboard-enhancements.css
+@@ -419,3 +419,8 @@
+  #calendar>.note{font-size:11px;line-height:1.65;margin-top:12px}
+ }
+ @media(max-width:360px){#calendar .mobile-agenda-event>time{flex-basis:65px;font-size:10px}#calendar .mobile-agenda-copy h3{font-size:14px}#calendar .calendar-navigation [data-calendar-today]{flex-basis:100%;margin-top:2px}}
++
++.section-manager [data-manager-back]{display:grid;place-items:center;width:44px;height:44px;padding:10px;color:#1b2633;background:#eef1f5}.section-manager [data-manager-back] svg{display:block;width:24px;height:24px}.section-manager [data-manager-back]:active{background:#e2e7ed;transform:scale(.96)}
++
++html.section-manager-open,html.section-manager-open body{overflow:hidden!important;overscroll-behavior:none}
++@media(max-width:600px){.section-manager header{padding-top:calc(16px + env(safe-area-inset-top))}}
