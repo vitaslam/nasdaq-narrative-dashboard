@@ -167,4 +167,9 @@
   const sources=q('.source-content');if(sources){const p=document.createElement('p');p.className='fineprint';p.innerHTML='小折线：指数与 VIX 使用已保存的日频行情；CNN 使用已核验的日频读数及早期留存归档，BofA 为报告发布日读数；缺失日期不补造。CTA 缺少可核验序列时留空。';sources.append(p);
     const links=[...new Set(['CNN','BofA'].flatMap(k=>merged(k).map(p=>p.source_url)).filter(Boolean))];const list=document.createElement('div');list.className='scan-source-list';links.forEach((url,i)=>{if(!/^https:\/\//.test(url))return;const a=document.createElement('a');a.href=url;a.target='_blank';a.rel='noopener';a.textContent='情绪历史来源 '+(i+1)+' ↗';list.append(a)});sources.append(list);
   }
+  const compactBody=q('.week-live-banner .compact-info-body');
+  if(compactBody)for(const el of document.querySelectorAll('.importance-legend,.direction-legend,.pulse-heading > .pulse-caption'))compactBody.append(el);
+  const moodKey=q('.sentiment-title')?.previousElementSibling;if(moodKey)moodKey.textContent='市场情绪';
+  const moodReason=q('.sentiment-reason');if(moodReason)moodReason.innerHTML=moodReason.innerHTML.replace(/^相对周一悲观基准[，,；;]\s*/,'');
+  const pulseCaption=q('.pulse-heading > span > .pulse-caption');if(pulseCaption)pulseCaption.remove();
 })();

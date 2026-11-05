@@ -323,3 +323,19 @@
  .mood-week-history .mood-week-boundary{margin:6px 0;font-size:12px;line-height:1.5}
  .mood-week-foot{font-size:10px;line-height:1.6;margin:10px 4px 0}
 }
+
+/* Compact provenance: one scan line, full evidence on demand. */
+.compact-info{font-size:11px;line-height:1.6;color:#758299;margin-top:10px;position:relative;z-index:2}
+.compact-info summary{cursor:pointer;width:fit-content;list-style:none;border-radius:5px;padding:3px 0;min-height:24px}
+.compact-info summary::after{content:' ⌄';margin-left:3px}.compact-info[open] summary::after{content:' ⌃'}
+.compact-info summary:hover,.compact-info summary:focus-visible{color:#425c86}.compact-info summary::-webkit-details-marker{display:none}
+.compact-info-body{padding:10px 12px;background:#fff;border:1px solid #e3e8ef;border-radius:8px;margin-top:5px;box-shadow:0 5px 16px #2535500a;color:#657189;overflow-wrap:anywhere}
+.compact-info-body p,.compact-info-body .sub,.compact-info-body .metric-secondary,.compact-info-body .importance-legend{margin:4px 0!important;text-align:left;font-size:11px!important;line-height:1.7!important}
+.compact-info-body .risk-source{position:static;margin:0;display:block}.week-live-banner .compact-info{margin:0;text-align:right}.week-live-banner .compact-info summary{margin-left:auto}.week-live-banner .compact-info-body{max-width:440px;text-align:left}
+.week-live-banner{padding-top:15px;padding-bottom:15px}.week-live-banner .update-policy{gap:4px}.main .metric .compact-info{max-width:100%;clear:both}.main .metric{min-height:220px}.main .pulse-foot{font-size:11px}.risk-column .compact-info{margin-top:12px}
+@media(max-width:600px){.compact-info summary{min-height:32px;padding:6px 0}.week-live-banner .compact-info-body{max-width:none}.week-live-banner .compact-info{text-align:left}.week-live-banner .compact-info summary{margin-left:0}.main .market-overview .metric{min-height:210px}.compact-info-body{padding:9px;font-size:12px}}
+
+.main details.compact-info{border:0;background:transparent;box-shadow:none;padding:0;border-radius:0}
+.main details.compact-info>summary{font-weight:400;background:transparent;padding:2px 0;display:block;width:fit-content}
+.main .metric>.key+.compact-info{margin:0 0 5px}.main .compact-info-body .direction-legend{display:block;text-align:left;margin:6px 0}.main .compact-info-body .direction-legend span{display:block}
+.main .compact-info[open]{position:relative;z-index:5}.main .compact-info[open]>.compact-info-body{position:absolute;top:100%;left:0;min-width:230px;max-width:min(360px,80vw);z-index:10}.main .week-live-banner .compact-info[open]>.compact-info-body{left:auto;right:0;width:340px}
