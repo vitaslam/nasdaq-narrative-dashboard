@@ -59,7 +59,8 @@ try {
     console.warn('::warning::Retaining the previously validated Muse batch '+museFeed.batch_id+'.');
   }catch{}
 }
-const assetVersion=rendererHash.slice(0,12);
+const enhancementVersion='premarket-manager-v1';
+const assetVersion=createHash('sha256').update(rendererHash+enhancementVersion).digest('hex').slice(0,12);
 const layoutChanged=previous?.renderer_sha256!==rendererHash||previous?.shell_override_sha256!==shellOverrideHash||previous?.asset_version!==assetVersion;
 const unchanged=previous?.data_revision===data.revision&&previous?.muse_feed_sha256===museHash&&previous?.premarket_sha256===premarketHash&&!layoutChanged;
 if(process.argv.includes('--skip-unchanged')&&unchanged){console.log('Export, approved renderer and Muse feed unchanged; no render or deploy needed.');process.exit(0)}
@@ -128,7 +129,20 @@ for(const week of index.weeks){
  html=html.replace(/((?:src|href)=["']\.\.\/[\w.-]+\.(?:js|css))(?=["'])/g,'$1?v='+assetVersion);
  await write('weeks/'+week.date+'.html',html);
 }
-for(const asset of assets){const r=await response(asset);let value;if(asset.endsWith('.js')){value=await r.text();if(asset==='/shared-calendar.js')value=value.replace('fetch(`/api/calendar?from=${start}&to=${end}`','fetch(`../api/calendar.json`')}else value=Buffer.from(await r.arrayBuffer());await write(asset.slice(1),value)}
+for(const asset of assets){const r=await response(asset);let value;if(asset.endsWith('.js')){value=await r.text();if(asset==='/shared-calendar.js')value=value.replace('fetch(`/api/calendar?from=${start}&to=${end}`','fetch(`../api/calendar.json`');
+ if(asset==='/dashboard-enhancements.js'){
+  const before="    ['dimensions','五维状态'";
+  const after="    ['premarket','盘前逻辑',['#premarket-logic'],'premarket'],\n"+before;
+  if(!value.includes(before))throw Error('Section manager list changed; premarket integration requires review');
+  value=value.replace(before,after);
+  const iconAnchor="    dimensions:navSvg(";
+  if(!value.includes(iconAnchor))throw Error('Section manager icons changed; premarket integration requires review');
+  value=value.replace(iconAnchor,"    premarket:navSvg('<circle cx=\"14\" cy=\"11\" r=\"4\"/><path d=\"M3 21h22 M14 2v3 M4 13l3 2 M24 13l-3 2\"/>'),\n"+iconAnchor);
+  const preference="const normalize=value=>({order:[...new Set([...(Array.isArray(value?.order)?value.order:[]),...defaultOrder])].filter(key=>defaultOrder.includes(key)),hidden:[...new Set(Array.isArray(value?.hidden)?value.hidden:[])].filter(key=>defaultOrder.includes(key))});";
+  const normalized="const normalize=value=>{const order=[...new Set([...(Array.isArray(value?.order)?value.order:[]),...defaultOrder])].filter(key=>defaultOrder.includes(key));if(defaultOrder.includes('premarket')&&!value?.order?.includes('premarket')){const old=order.indexOf('premarket');if(old>=0)order.splice(old,1);order.splice(Math.max(0,order.indexOf('overview')+1),0,'premarket')}return {order,hidden:[...new Set(Array.isArray(value?.hidden)?value.hidden:[])].filter(key=>defaultOrder.includes(key))}};";
+  if(!value.includes(preference))throw Error('Section manager preference logic changed; migration requires review');
+  value=value.replace(preference,normalized);
+ }}else value=Buffer.from(await r.arrayBuffer());await write(asset.slice(1),value)}
 const builtAt=new Date().toISOString();
 const release={schema_version:1,data_revision:data.revision,release_revision:releaseRevision,active_week:data.active_week,content_updated_at:data.weeks[data.active_week].updated_at,built_at:builtAt,renderer_release:'2026-11-04-v46-three-hour-change-dots',renderer_sha256:rendererHash,asset_version:assetVersion,shell_override_sha256:shellOverrideHash,muse_feed_batch:museFeed?.batch_id||null,muse_feed_sha256:museHash,muse_merge:museStats,premarket_sha256:premarketHash};
 await write('release.json',JSON.stringify(release,null,2));
