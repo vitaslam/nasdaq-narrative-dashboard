@@ -1,5 +1,64 @@
 {
   "schema_version": 1,
   "timezone": "Asia/Shanghai",
-  "days": {}
+  "days": {
+    "2026-11-05": {
+      "updated_at": "2026-11-05T14:17:56Z",
+      "bull": [
+        {
+          "title": "大科技延续昨日反弹",
+          "detail": "亚马逊、Meta、Alphabet 盘前维持涨势；若权重股继续承接，可缓冲半导体弱势。",
+          "source_urls": [
+            "https://za.investing.com/news/stock-market-news/sp-500-futures-steady-after-midterm-rally-nasdaq-lags-on-chip-weakness-4553536"
+          ]
+        },
+        {
+          "title": "成本压力数据有所缓和",
+          "detail": "BLS 三季度单位劳动力成本初值下降 0.7%；是否带动收益率回落仍待盘中验证。",
+          "source_urls": [
+            "https://www.bls.gov/news.release/archives/prod2_11052026.htm"
+          ]
+        }
+      ],
+      "bear": [
+        {
+          "title": "半导体与 AI 基建盘前继续承压",
+          "detail": "纳指100期货盘前落后于标普；高通财报后下跌，芯片及数据中心链同步走弱。",
+          "source_urls": [
+            "https://za.investing.com/news/stock-market-news/sp-500-futures-steady-after-midterm-rally-nasdaq-lags-on-chip-weakness-4553536"
+          ]
+        },
+        {
+          "title": "油价反弹压制降息交易",
+          "detail": "Brent 期货在前一日急跌后反弹，通胀和利率预期可能重新扰动高估值科技股。",
+          "source_urls": [
+            "https://za.investing.com/news/stock-market-news/sp-500-futures-steady-after-midterm-rally-nasdaq-lags-on-chip-weakness-4553536"
+          ]
+        }
+      ],
+      "risks": [
+        {
+          "title": "芯片跌势向纳指权重扩散",
+          "detail": "重点看高通及半导体卖压是否传至 NVDA 与云服务权重股；盘前弱势尚不能等同收盘趋势。",
+          "source_urls": [
+            "https://za.investing.com/news/stock-market-news/sp-500-futures-steady-after-midterm-rally-nasdaq-lags-on-chip-weakness-4553536"
+          ]
+        },
+        {
+          "title": "油价与美债收益率同向上行",
+          "detail": "若能源反弹叠加收益率抬升，指数反弹的估值支撑会减弱；分别观察实际盘中报价。",
+          "source_urls": [
+            "https://za.investing.com/news/stock-market-news/sp-500-futures-steady-after-midterm-rally-nasdaq-lags-on-chip-weakness-4553536"
+          ]
+        },
+        {
+          "title": "非农公布前仓位收缩",
+          "detail": "10 月就业报告定于美东 11/06 08:30 发布；临近收盘关注隔夜事件风险引起的减仓。",
+          "source_urls": [
+            "https://www.bls.gov/schedule/news_release/empsit.htm"
+          ]
+        }
+      ]
+    }
+  }
 }
