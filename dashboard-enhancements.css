@@ -132,6 +132,7 @@
 :is(#narrative,.x-frequent-section) .x-view-badge.bull{background:#e6f5ec;color:#19633d}
 :is(#narrative,.x-frequent-section) .x-view-badge.bear{background:#fff0ed;color:#a44036}
 :is(#narrative,.x-frequent-section) .x-trend-card p{margin:0 0 10px;color:#17243b;font-size:13px;line-height:1.7}
+:is(#narrative,.x-frequent-section) .x-trend-card[data-trend-id^="view-"] p{white-space:pre-line}
 :is(#narrative,.x-frequent-section) .x-trend-evidence{font-size:11px;line-height:1.7;color:#66738a}
 :is(#narrative,.x-frequent-section) .x-trend-evidence a{color:#52649b;text-decoration:underline;text-underline-offset:2px}
 :is(#narrative,.x-frequent-section) .x-trend-caveat{display:block;margin-top:8px;color:#7a6870;font-size:11px;line-height:1.5}
