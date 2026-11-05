@@ -1,0 +1,32 @@
+--- a/dashboard-enhancements.js
++++ b/dashboard-enhancements.js
+@@ -311,9 +311,9 @@
+   .replace(/(\d{2})\/(\d{2})\s*(\d{2}):(\d{2})\s*(?:美东(?:时间)?|ET)/g,(_,m,d,h,t)=>eastern(m,d,h,t))
+-  .replace(/北京(?:时间)?/g,'')
++  .replace(/(\d{2}:\d{2})\s*北京(?:时间)?/g,'$1')
+   .replace(/(\d{2}:\d{2}):\d{2}/g,'$1')
+-  .replace(/(夜盘|盘前|盘中|盘后|收盘|更新)\s*[·：:]?\s*(\d{2}\/\d{2}(?:\s+\d{2}:\d{2})?)/g,'$2 $1')
+-  .replace(/(\d{2}\/\d{2}(?:\s+\d{2}:\d{2})?)\s*·\s*(夜盘|盘前|盘中|盘后|收盘|更新)/g,'$1 $2')
++  .replace(/^(夜盘|盘前|盘中|盘后)\s*[·：:]?\s*(\d{2}\/\d{2}(?:\s+\d{2}:\d{2})?)/,'$2 $1')
++  .replace(/(\d{2}\/\d{2}(?:\s+\d{2}:\d{2})?)\s*·\s*(夜盘|盘前|盘中|盘后)/g,'$1 $2')
+   .replace(/(\d{2}\/\d{2})\s*(\d{2}:\d{2})/g,'$1 $2');
+  const compactStamp=value=>{const text=formatDisplayTime(value),date=text.match(/\d{2}\/\d{2}(?:\s+\d{2}:\d{2})?/),session=text.match(/夜盘|盘前|盘中|盘后|收盘/);return date?[date[0],session?.[0]].filter(Boolean).join(' '):''};
+- const sourceSelectors='.fineprint,.weight-method,.importance-legend,.direction-legend,.event-weight-note,.pulse-foot,.risk-source,.quote-reference,.x-trend-evidence,.x-trend-caveat,.calendar-detail-links,.calendar-evidence,.calendar-progress-source,.event-detail-sources,.mood-day-sources,.mood-week-foot,.fed-hike-reading small,a.mobile-source-only';
++ const sourceSelectors='.fineprint,.weight-method,.importance-legend,.direction-legend,.event-weight-note,.pulse-foot,.risk-source,#calendar>.note,.x-trend-evidence,.x-trend-caveat,.calendar-detail-links,.calendar-evidence,.calendar-progress-source,.event-detail-sources,.mood-day-sources,.mood-week-foot,.fed-hike-reading small,a.mobile-source-only';
+  const matches=(root,selector)=>[...(root.nodeType===1&&root.matches(selector)?[root]:[]),...root.querySelectorAll?.(selector)||[]];
+@@ -332,6 +332,6 @@
+    const stamp=compactStamp(node.textContent);addStamp(node,stamp);
+-   let host=node.closest('.metric,.risk-column,.chain-card,.x-trend-card,.x-topic-card,.calendar-detail,.calendar-event,.section,.managed-section')||document.querySelector('main');
++   let host=node.closest('.metric,.risk-column,.chain-card,.x-trend-card,.x-topic-card,.calendar-detail,.calendar-event,.mood-week-history,.section,.managed-section')||document.querySelector('main');
+    if(!host)continue;
+    if(host.closest('button,a'))host=host.closest('.managed-section')||document.querySelector('main');
+-   let detail=host.querySelector(':scope > details.provenance-fold');
++   let detail=host.querySelector(':scope > details.compact-info');
+    if(!detail){detail=document.createElement('details');detail.className='compact-info provenance-fold';detail.dataset.sourceUnified='true';detail.innerHTML='<summary>来源与口径</summary><div class="compact-info-body"></div>';detail.addEventListener('click',event=>event.stopPropagation());host.append(detail)}
+--- a/shared-calendar.js
++++ b/shared-calendar.js
+@@ -25,3 +25,3 @@
+  }).join('');
+- root.innerHTML=`<div class="section-head"><div><h2>事件日历</h2><p class="section-sub">所有周页面共用 · 所选叙事周起两周 · 北京时间，盘前／盘后另标</p></div><div class="calendar-navigation"><button type="button" data-calendar-nav="-14" aria-label="前两周">‹</button><span class="calendar-range" aria-live="polite"></span><button type="button" data-calendar-nav="14" aria-label="后两周">›</button><button type="button" data-calendar-today>回到本周</button></div></div><div class="review-calendar" id="events" aria-live="polite"></div><div class="note">事件落地后补充结果与市场反应；历史未录入日期留空。市值超过 5000 亿美元的公司财报高亮；其他事件以 3 星高亮。</div>`;
++ root.innerHTML=`<div class="section-head"><div><h2>事件日历</h2><p class="section-sub">北京时间</p></div><div class="calendar-navigation"><button type="button" data-calendar-nav="-14" aria-label="前两周">‹</button><span class="calendar-range" aria-live="polite"></span><button type="button" data-calendar-nav="14" aria-label="后两周">›</button><button type="button" data-calendar-today>回到本周</button></div></div><div class="review-calendar" id="events" aria-live="polite"></div><div class="note">事件落地后补充结果与市场反应；历史未录入日期留空。市值超过 5000 亿美元的公司财报高亮；其他事件以 3 星高亮。</div>`;
+  function compactEarnings(e, released){
