@@ -1,7 +1,7 @@
 {
   "holder": "GPT",
   "token": "gpt-mobile-header-stability-2026-11-05T06:17:15.109Z",
-  "purpose": "Fix mobile header show/hide layout jumps; renderer v58",
+  "purpose": "Mobile mood full-page; calendar presentation, ongoing weekly progress and concise source/time UI (renderer v60)",
   "acquired_at": "2026-11-05T06:17:15.109Z",
-  "expires_at": "2026-11-05T07:02:15.109Z"
+  "expires_at": "2026-11-05T07:37:45.462Z"
 }
