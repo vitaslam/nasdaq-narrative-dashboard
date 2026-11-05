@@ -459,3 +459,5 @@ html.section-manager-open,html.section-manager-open body{overflow:hidden!importa
 @media(max-width:600px){.mobile-agenda-returns{display:grid;gap:3px;margin-top:5px;font-size:10px;line-height:1.5;color:#65748a;font-variant-numeric:tabular-nums}.mobile-agenda-returns span{display:block}.mobile-agenda-copy{min-width:0}.mobile-agenda-copy p{margin-bottom:0}}
 
 @media(max-width:600px){.mobile-agenda-returns{grid-column:2/-1;grid-row:2;margin-top:0}.mobile-agenda-time{grid-column:3;grid-row:1}.mobile-agenda-event{row-gap:4px}}
+
+@media(max-width:600px){.x-translation-status{display:none!important}}
