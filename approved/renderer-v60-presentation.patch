@@ -1,0 +1,291 @@
+--- a/runtime.js
++++ b/runtime.js
+@@ -4,3 +4,4 @@
+  /* Keep the reading viewport fixed; only the header participates in the animation. */
+- .history-panel{position:fixed;inset:0;height:auto;transition:none}
++ .history-panel{position:fixed;inset:0;width:100%;height:100dvh;margin:0;padding:0;transition:none}
++ .history-panel>.history-frame{position:absolute;inset:0;width:100%;height:100%}
+  html.mobile-header-hidden .history-header{transform:translateY(-100%);pointer-events:none}
+@@ -9,3 +10,3 @@
+ </style></head>`).replace('</body>',`<script>(()=>{const header=document.querySelector('.history-header');if(!header)return;const measure=()=>{const h=header.getBoundingClientRect().height;if(h>0)document.documentElement.style.setProperty('--mobile-header-height',h+'px')};new ResizeObserver(measure).observe(header);measure();})();<\/script></body>`);
+-ASSETS.shell=ASSETS.shell.replace('</head>','<style>@media(max-width:600px){html.section-manager-open .history-header{display:none!important;visibility:hidden;transform:none!important;transition:none!important}html.section-manager-open body{grid-template-rows:minmax(0,1fr)}html.section-manager-open .history-panel{grid-row:1}}</style></head>');
++ASSETS.shell=ASSETS.shell.replace('</head>','<style>@media(max-width:600px){html.mood-history-open .history-header,html.section-manager-open .history-header{display:none!important;visibility:hidden;transform:none!important;transition:none!important}html.section-manager-open body{grid-template-rows:minmax(0,1fr)}html.section-manager-open .history-panel{grid-row:1}}</style></head>');
+ 
+@@ -351,3 +352,21 @@
+ }
+-function mergeCalendar(state,items,w){identified(items);for(const e of items){only(e,['id','iso_date','date','time','event','watch','expectation','kind','source','status','result','result_emoji','business_highlight','earnings_metrics','guidance','market_reaction','reaction_emoji','reaction_session','reaction_phases','narrative_impact','result_source','consensus_source','guidance_source','reaction_source','observed_at','occurred_at','ongoing','week','importance','emphasis','market_tracking']);if(e.business_highlight!==undefined)ok(typeof e.business_highlight==='string'&&e.business_highlight.trim()&&e.business_highlight.length<=72,'Business highlight needs a short sentence');for(const mark of ['result_emoji','reaction_emoji'])if(e[mark])ok(typeof e[mark]==='string'&&e[mark].length<=8,'Emoji marker must be a single concise symbol');if(e.importance)importanceRating(e.importance);if(e.emphasis)ok(Array.isArray(e.emphasis)&&e.emphasis.every(x=>typeof x==='string'&&x.length<=180),'Invalid calendar emphasis');if(e.earnings_metrics){ok(Array.isArray(e.earnings_metrics)&&e.earnings_metrics.length<=16,'At most 16 earnings comparison rows');for(const row of e.earnings_metrics){only(row,['label','expected','actual','note']);ok(row.label&&row.expected&&row.actual,'Earnings metrics need a label and comparable values')}}if(e.reaction_phases){ok(Array.isArray(e.reaction_phases)&&e.reaction_phases.length<=4,'At most four priced sessions');for(const phase of e.reaction_phases){only(phase,['session','value','at','source_url']);ok(phase.session&&phase.value&&phase.at&&url(phase.source_url),'Reaction phase needs session, timestamp and evidence')}}const old=state.calendar.find(x=>x.id===e.id),next={...old,...e};validateCalendarTracking(state,e,old,w);ok(next.ongoing||next.week===0||iso(next.iso_date),'Calendar item needs iso_date');ok(url(next.source),'Calendar item needs official/source URL');ok(['scheduled','released','occurred','cancelled','postponed'].includes(next.status),'Invalid calendar status');if(next.status==='released'||next.status==='occurred'){ok(next.result&&url(next.result_source),'An occurred event requires result and evidence URL');ok(next.iso_date<=today(),'Cannot mark future event as occurred');}if(next.market_reaction)ok(url(next.reaction_source)&&next.reaction_session,'Market reaction needs source and session');if(next.consensus_source)ok(url(next.consensus_source),'Consensus needs source');if(next.guidance_source)ok(url(next.guidance_source),'Guidance needs source');}upsert(state.calendar,items)}
++function validateCalendarProgress(event,old,w){
++ if(event.weekly_progress===undefined)return;
++ ok(event.ongoing||old?.ongoing||event.week===0||old?.week===0,'Weekly progress is only for ongoing observations');
++ const rows=event.weekly_progress;ok(Array.isArray(rows)&&rows.length<=1000,'Use a bounded weekly progress history');identified(rows);
++ const saved=new Map((old?.weekly_progress||[]).map(row=>[row.id,row]));
++ for(const row of rows){
++  only(row,['id','week_start','at','summary','description','market','next_watch','source_urls']);
++  if(saved.has(row.id)){ok(JSON.stringify(row)===JSON.stringify(saved.get(row.id)),'Existing progress is immutable; append a new development');saved.delete(row.id);continue}
++  ok(w?.status==='active'&&row.week_start===w.start,'Append progress only to the active week');
++  ok(typeof row.at==='string'&&(iso(row.at)||/T.*(?:Z|[+-]\d{2}:\d{2})$/.test(row.at))&&Number.isFinite(Date.parse(row.at)),'Use an actual dated observation');
++  const day=iso(row.at)?row.at:new Intl.DateTimeFormat('en-CA',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date(row.at));
++  ok(day>=w.start&&day<=add(w.end,2)&&Date.parse(row.at)<=Date.now(),'Progress must belong to its week and not the future');
++  for(const [key,max]of [['summary',80],['description',600]])ok(typeof row[key]==='string'&&row[key].trim()&&row[key].length<=max,'Progress needs a concise summary and description');
++  for(const key of ['market','next_watch'])if(row[key]!==undefined)ok(typeof row[key]==='string'&&row[key].length<=400,'Keep progress context concise');
++  ok(Array.isArray(row.source_urls)&&row.source_urls.length>0&&row.source_urls.length<=6&&row.source_urls.every(url),'Progress needs evidence');
++ }
++ ok(saved.size===0,'Preserve progress from this week and archived weeks');
++}
++function mergeCalendar(state,items,w){identified(items);for(const e of items){only(e,['id','iso_date','date','time','event','watch','expectation','kind','source','status','result','result_emoji','business_highlight','earnings_metrics','guidance','market_reaction','reaction_emoji','reaction_session','reaction_phases','narrative_impact','result_source','consensus_source','guidance_source','reaction_source','observed_at','occurred_at','ongoing','week','importance','emphasis','market_tracking','weekly_progress']);if(e.business_highlight!==undefined)ok(typeof e.business_highlight==='string'&&e.business_highlight.trim()&&e.business_highlight.length<=72,'Business highlight needs a short sentence');for(const mark of ['result_emoji','reaction_emoji'])if(e[mark])ok(typeof e[mark]==='string'&&e[mark].length<=8,'Emoji marker must be a single concise symbol');if(e.importance)importanceRating(e.importance);if(e.emphasis)ok(Array.isArray(e.emphasis)&&e.emphasis.every(x=>typeof x==='string'&&x.length<=180),'Invalid calendar emphasis');if(e.earnings_metrics){ok(Array.isArray(e.earnings_metrics)&&e.earnings_metrics.length<=16,'At most 16 earnings comparison rows');for(const row of e.earnings_metrics){only(row,['label','expected','actual','note']);ok(row.label&&row.expected&&row.actual,'Earnings metrics need a label and comparable values')}}if(e.reaction_phases){ok(Array.isArray(e.reaction_phases)&&e.reaction_phases.length<=4,'At most four priced sessions');for(const phase of e.reaction_phases){only(phase,['session','value','at','source_url']);ok(phase.session&&phase.value&&phase.at&&url(phase.source_url),'Reaction phase needs session, timestamp and evidence')}}const old=state.calendar.find(x=>x.id===e.id),next={...old,...e};validateCalendarTracking(state,e,old,w);validateCalendarProgress(e,old,w);ok(next.ongoing||next.week===0||iso(next.iso_date),'Calendar item needs iso_date');ok(url(next.source),'Calendar item needs official/source URL');ok(['scheduled','released','occurred','cancelled','postponed'].includes(next.status),'Invalid calendar status');if(next.status==='released'||next.status==='occurred'){ok(next.result&&url(next.result_source),'An occurred event requires result and evidence URL');ok(next.iso_date<=today(),'Cannot mark future event as occurred');}if(next.market_reaction)ok(url(next.reaction_source)&&next.reaction_session,'Market reaction needs source and session');if(next.consensus_source)ok(url(next.consensus_source),'Consensus needs source');if(next.guidance_source)ok(url(next.guidance_source),'Guidance needs source');}upsert(state.calendar,items)}
+ function daily(state,args){only(args,['week_id','expected_revision','run_id','patch']);const w=state.weeks[args.week_id];ok(w?.status==='active','Archived weeks are immutable');const before=markerValues(w,state.calendar);const p=args.patch;only(p,['title','summary','headline','hero_note','stance','market_mood','importance','signals','dimensions','event_drivers','event_details','market','questions_upsert','answers_append','x_topics_upsert','calendar_upsert','sources_add','presentation_updates','note']);
+--- a/dashboard-enhancements.js
++++ b/dashboard-enhancements.js
+@@ -44,3 +44,3 @@
+     });
+-    panel.innerHTML=`<div class="mood-week-heading"><strong>交易日情绪</strong><button class="mood-mobile-close" type="button" aria-label="关闭交易日情绪">×</button><span>${currentWeek?'本周与上周':M.start.slice(5).replace('-','/')+'–'+M.end.slice(5).replace('-','/')}</span></div><ol>${entries.join('')}</ol><p class="mood-week-foot">标为「收盘回溯」的日期依据同期收盘与已知事件整理。</p>`;
++    panel.innerHTML=`<div class="mood-week-heading"><button class="mood-mobile-close" type="button" aria-label="返回页面"><svg viewBox="0 0 28 28" aria-hidden="true"><path d="m17 6-8 8 8 8"/></svg></button><strong id="mood-history-title">交易日情绪</strong><span>${currentWeek?'本周与上周':M.start.slice(5).replace('-','/')+'–'+M.end.slice(5).replace('-','/')}</span></div><ol>${entries.join('')}</ol><p class="mood-week-foot">标为「收盘回溯」的日期依据同期收盘与已知事件整理。</p>`;
+     const list=panel.querySelector('ol');
+@@ -60,4 +60,19 @@
+     tile.setAttribute('aria-label','市场情绪，点击查看'+scope+'交易日情绪和 QQQ 收盘');
+-    let lastPointer;
++    const moodMobile=matchMedia('(max-width:600px)');
++    let shellDoc=document;try{if(parent!==window&&parent.location.origin===location.origin)shellDoc=parent.document}catch{}
++    const back=panel.querySelector('.mood-mobile-close');
++    let lastPointer,returnY=0,mainWasInert=false,mobileMode=false;
++    function setMoodMode(open){
++      const active=open&&moodMobile.matches,main=q('main');
++      if(active&&!mobileMode){returnY=window.scrollY;mainWasInert=main?.inert||false;if(main)main.inert=true}
++      if(!active&&mobileMode&&main)main.inert=mainWasInert;
++      mobileMode=active;
++      document.documentElement.classList.toggle('mood-history-open',active);
++      shellDoc.documentElement.classList.toggle('mood-history-open',active);
++      panel.setAttribute('role',active?'dialog':'region');
++      panel.setAttribute('aria-labelledby','mood-history-title');
++      if(active)panel.setAttribute('aria-modal','true');else panel.removeAttribute('aria-modal');
++    }
+     function place(){
++      if(moodMobile.matches)return;
+       const rect=tile.getBoundingClientRect();
+@@ -74,4 +89,7 @@
+     }
+-    function show(){panel.hidden=false;list.scrollTop=0;tile.setAttribute('aria-expanded','true');fitFive();place()}
+-    function hide(){panel.hidden=true;tile.setAttribute('aria-expanded','false')}
++    function show(){panel.hidden=false;list.scrollTop=0;tile.setAttribute('aria-expanded','true');setMoodMode(true);fitFive();place();if(mobileMode){back.focus({preventScroll:true});if(!matchMedia('(prefers-reduced-motion:reduce)').matches)panel.animate([{opacity:0,transform:'translateY(12px)'},{opacity:1,transform:'translateY(0)'}],{duration:200,easing:'ease-out'})}}
++    function hide(){if(panel.hidden)return;const wasMobile=mobileMode;panel.hidden=true;setMoodMode(false);tile.setAttribute('aria-expanded','false');if(wasMobile){window.scrollTo({top:returnY,behavior:'instant'});tile.focus({preventScroll:true})}}
++    panel.addEventListener('keydown',event=>{if(!mobileMode||event.key!=='Tab')return;const focusable=[...panel.querySelectorAll('button,a[href]')].filter(node=>node.getClientRects().length);const first=focusable[0],last=focusable.at(-1);if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus()}else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus()}});
++    moodMobile.addEventListener('change',()=>{if(!panel.hidden){setMoodMode(true);fitFive();place()}});
++    window.addEventListener('pagehide',()=>setMoodMode(false));
+     panel.querySelector('.mood-mobile-close').addEventListener('click',hide);
+@@ -208,2 +226,9 @@
+   if(shellHeader){
++    // A Home Screen app can restore an older shell while loading fresh inner assets.
++    // Normalize that shell before reserving the header, so the space is never counted twice.
++    if(!prefDoc.getElementById('mobile-shell-geometry')){
++      const style=prefDoc.createElement('style');style.id='mobile-shell-geometry';
++      style.textContent='@media(max-width:600px){body{display:block}.history-panel{position:fixed!important;inset:0!important;width:100%;height:100dvh!important;margin:0!important;padding:0!important;transition:none!important}.history-panel>.history-frame{position:absolute;inset:0;width:100%;height:100%!important}.history-header{position:fixed;top:0;left:0;right:0}html.mood-history-open .history-header,html.section-manager-open .history-header{display:none!important}}';
++      prefDoc.head.append(style);
++    }
+     document.documentElement.classList.add('mobile-shell-content');
+@@ -229,3 +254,3 @@
+   const setHeaderHidden=hidden=>{if(!mobile.matches||prefDoc===document)return;const root=prefDoc.documentElement;if(root.classList.contains('mobile-header-hidden')===hidden)return;root.classList.toggle('mobile-header-hidden',hidden);prefDoc.querySelector('.history-header')?.toggleAttribute('inert',hidden);headerChangeUntil=performance.now()+260};
+-  const updateHeader=()=>{const y=Math.max(0,Math.min(window.scrollY,Math.max(0,document.documentElement.scrollHeight-innerHeight))),delta=y-lastHeaderY;lastHeaderY=y;if(!mobile.matches||navScrolling||expanded||document.documentElement.classList.contains('section-manager-open'))return;if(y<=8){headerTravel=0;setHeaderHidden(false);return}if(performance.now()<headerChangeUntil||Math.abs(delta)<.5)return;const direction=Math.sign(delta);headerTravel=direction===headerDirection?headerTravel+Math.abs(delta):Math.abs(delta);headerDirection=direction;if(direction>0&&y>80&&headerTravel>=24){setHeaderHidden(true);headerTravel=0}else if(direction<0&&headerTravel>=10){setHeaderHidden(false);headerTravel=0}};
++  const updateHeader=()=>{const y=Math.max(0,Math.min(window.scrollY,Math.max(0,document.documentElement.scrollHeight-innerHeight))),delta=y-lastHeaderY;lastHeaderY=y;if(!mobile.matches||navScrolling||expanded||document.documentElement.matches('.section-manager-open,.mood-history-open'))return;if(y<=8){headerTravel=0;setHeaderHidden(false);return}if(performance.now()<headerChangeUntil||Math.abs(delta)<.5)return;const direction=Math.sign(delta);headerTravel=direction===headerDirection?headerTravel+Math.abs(delta):Math.abs(delta);headerDirection=direction;if(direction>0&&y>80&&headerTravel>=24){setHeaderHidden(true);headerTravel=0}else if(direction<0&&headerTravel>=10){setHeaderHidden(false);headerTravel=0}};
+ 
+@@ -274 +299,52 @@
+ })();
++
++// Shared presentation for both viewport sizes; underlying dates and source links stay intact.
++(() => {
++ const reportYear=(()=>{try{return Number(JSON.parse(document.getElementById('live-week-data')?.textContent||'{}').start?.slice(0,4))||new Date().getFullYear()}catch{return new Date().getFullYear()}})();
++ const beijing=date=>{const parts=Object.fromEntries(new Intl.DateTimeFormat('en-GB',{timeZone:'Asia/Shanghai',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(date).map(p=>[p.type,p.value]));return `${parts.month}/${parts.day} ${parts.hour}:${parts.minute}`};
++ const eastern=(month,day,hour,minute)=>{const wall=Date.UTC(reportYear,Number(month)-1,Number(day),Number(hour),Number(minute));let utc=wall;for(let n=0;n<2;n++){const offset=new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',timeZoneName:'shortOffset'}).formatToParts(new Date(utc)).find(p=>p.type==='timeZoneName').value.match(/GMT([+-]\d+)(?::(\d+))?/);utc=wall-(Number(offset?.[1]||0)*60+Math.sign(Number(offset?.[1]||0))*Number(offset?.[2]||0))*60000}return beijing(new Date(utc))};
++ const formatDisplayTime=value=>String(value??'')
++  .replace(/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?::\d{2}(?:\.\d+)?)?(?:Z|[+-]\d{2}:\d{2})/g,s=>Number.isFinite(Date.parse(s))?beijing(new Date(s)):s)
++  .replace(/\d{2}\/\d{2}\s+\d{2}:\d{2}\s*(?:美东|ET)\s*[\/／]\s*(\d{2}\/\d{2}\s+\d{2}:\d{2})\s*北京(?:时间)?/g,'$1')
++  .replace(/\b\d{4}[-/](\d{2})[-/](\d{2})\b/g,'$1/$2')
++  .replace(/(\d{1,2})月(\d{1,2})日/g,(_,m,d)=>m.padStart(2,'0')+'/'+d.padStart(2,'0'))
++  .replace(/(\d{2})\/(\d{2})\s*(\d{2}):(\d{2})\s*(?:美东(?:时间)?|ET)/g,(_,m,d,h,t)=>eastern(m,d,h,t))
++  .replace(/北京(?:时间)?/g,'')
++  .replace(/(\d{2}:\d{2}):\d{2}/g,'$1')
++  .replace(/(夜盘|盘前|盘中|盘后|收盘|更新)\s*[·：:]?\s*(\d{2}\/\d{2}(?:\s+\d{2}:\d{2})?)/g,'$2 $1')
++  .replace(/(\d{2}\/\d{2}(?:\s+\d{2}:\d{2})?)\s*·\s*(夜盘|盘前|盘中|盘后|收盘|更新)/g,'$1 $2')
++  .replace(/(\d{2}\/\d{2})\s*(\d{2}:\d{2})/g,'$1 $2');
++ const compactStamp=value=>{const text=formatDisplayTime(value),date=text.match(/\d{2}\/\d{2}(?:\s+\d{2}:\d{2})?/),session=text.match(/夜盘|盘前|盘中|盘后|收盘/);return date?[date[0],session?.[0]].filter(Boolean).join(' '):''};
++ const sourceSelectors='.fineprint,.weight-method,.importance-legend,.direction-legend,.event-weight-note,.pulse-foot,.risk-source,.quote-reference,.x-trend-evidence,.x-trend-caveat,.calendar-detail-links,.calendar-evidence,.calendar-progress-source,.event-detail-sources,.mood-day-sources,.mood-week-foot,.fed-hike-reading small,a.mobile-source-only';
++ const matches=(root,selector)=>[...(root.nodeType===1&&root.matches(selector)?[root]:[]),...root.querySelectorAll?.(selector)||[]];
++ const addStamp=(node,text)=>{if(!text)return;let stamp=node.previousElementSibling;if(!stamp?.matches('.mobile-info-stamp,.observation-stamp')){stamp=document.createElement('span');node.before(stamp)}stamp.classList.add('observation-stamp');stamp.textContent=text;return stamp};
++ function unifyDisclosure(detail){
++  if(detail.dataset.sourceUnified)return;detail.dataset.sourceUnified='true';
++  const summary=detail.querySelector(':scope > summary');if(!summary)return;
++  if(!detail.closest('.week-live-banner')){const source=detail.querySelector('.sub,.risk-source,.quote-reference')?.textContent||summary.textContent;addStamp(detail,compactStamp(source))}
++  detail.classList.add('compact-info');detail.querySelector(':scope > .source-content')?.classList.add('compact-info-body');summary.textContent='来源与口径';detail.removeAttribute('open');detail.addEventListener('click',event=>event.stopPropagation());
++ }
++ function foldSources(root){
++  for(const detail of matches(root,'details.compact-info,details.source-disclosure'))unifyDisclosure(detail);
++  for(const node of matches(root,sourceSelectors)){
++   if(!node.isConnected||node.closest('details.compact-info,details.source-disclosure')||node.dataset.sourceFolded)continue;
++   node.dataset.sourceFolded='true';
++   const stamp=compactStamp(node.textContent);addStamp(node,stamp);
++   let host=node.closest('.metric,.risk-column,.chain-card,.x-trend-card,.x-topic-card,.calendar-detail,.calendar-event,.section,.managed-section')||document.querySelector('main');
++   if(!host)continue;
++   if(host.closest('button,a'))host=host.closest('.managed-section')||document.querySelector('main');
++   let detail=host.querySelector(':scope > details.provenance-fold');
++   if(!detail){detail=document.createElement('details');detail.className='compact-info provenance-fold';detail.dataset.sourceUnified='true';detail.innerHTML='<summary>来源与口径</summary><div class="compact-info-body"></div>';detail.addEventListener('click',event=>event.stopPropagation());host.append(detail)}
++   detail.lastElementChild.append(node);
++  }
++ }
++ function formatNodes(root){
++  const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);let node;
++  while((node=walker.nextNode())){if(node.parentElement?.closest('script,style,code,pre,textarea,svg'))continue;const text=formatDisplayTime(node.nodeValue);if(text!==node.nodeValue)node.nodeValue=text}
++ }
++ function refresh(root=document.body){if(!root?.isConnected)return;formatNodes(root);foldSources(root)}
++ window.DashboardPresentation={formatDisplayTime,compactStamp,refresh};
++ refresh();
++ const queued=new Set();let pending=false;
++ new MutationObserver(records=>{for(const record of records){if(record.type==='characterData')queued.add(record.target.parentElement);else for(const node of record.addedNodes)if(node.nodeType===1)queued.add(node)}if(!pending&&queued.size){pending=true;requestAnimationFrame(()=>{pending=false;const nodes=[...queued];queued.clear();for(const node of nodes)refresh(node)})}}).observe(document.body,{subtree:true,childList:true,characterData:true});
++})();
+--- a/dashboard-enhancements.css
++++ b/dashboard-enhancements.css
+@@ -475,4 +475,4 @@
+  #calendar .is-today .mobile-agenda-day-count{color:#b54b5c}
+- #calendar .mobile-agenda-day-toggle svg{width:18px;height:18px;flex-shrink:0;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transition:transform .16s ease}
+- #calendar .mobile-agenda-day-toggle[aria-expanded=false] svg{transform:rotate(-90deg)}
++ #calendar .mobile-agenda-day-toggle>svg{width:18px;height:18px;flex-shrink:0;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transition:transform .16s ease}
++ #calendar .mobile-agenda-day-toggle[aria-expanded=false]>svg{transform:rotate(-90deg)}
+  #calendar .mobile-agenda-day-events[hidden]{display:none!important}
+@@ -480,3 +480,3 @@
+ }
+-@media(prefers-reduced-motion:reduce){#calendar .mobile-agenda-day-toggle svg{transition:none}}
++@media(prefers-reduced-motion:reduce){#calendar .mobile-agenda-day-toggle>svg{transition:none}}
+ 
+@@ -491 +491,45 @@
+ }
++
++.observation-stamp{display:block;margin:5px 0;font-size:11px;line-height:1.5;color:#8794a8;font-variant-numeric:tabular-nums}
++.mobile-info-stamp.observation-stamp{display:block}
++.main .compact-info summary,.main .source-disclosure summary{font-size:11px;color:#8190a5}
++.main .compact-info-body{max-height:60vh;overflow:auto;overscroll-behavior:contain}
++.main .provenance-fold{clear:both;margin-top:8px}
++.main .compact-info-body .observation-stamp{display:none}
++.calendar-progress-list{display:grid;gap:14px;margin:0;padding:0;list-style:none}
++.calendar-progress-list li{border-bottom:1px solid #e5e9ef;padding-bottom:12px}
++.calendar-progress-list li:last-child{border-bottom:0;padding-bottom:0}
++.calendar-progress-list time{display:block;font-size:11px;color:#8391a5;margin-bottom:5px}
++.calendar-progress-list h4{font-size:14px;line-height:1.5;margin:0 0 5px;color:#243348}
++.calendar-progress-list p{font-size:12px;line-height:1.75;margin:5px 0;color:#62738b}
++@media(max-width:600px){
++ .observation-stamp{font-size:10px}
++ #calendar .mobile-agenda-day-toggle time{flex:0 0 auto}
++ #calendar .mobile-agenda-day-icons{display:flex;gap:3px;min-width:0;max-width:89px;overflow:hidden}
++ #calendar .mobile-agenda-day-icons .mobile-agenda-logo{width:20px;height:20px;flex:0 0 20px;border-radius:5px;padding:2px}
++ #calendar .mobile-agenda-day-icons :is(img,svg){width:16px;height:16px}
++ #calendar .mobile-agenda-day-icons .agency-wordmark{font-size:7px}
++ #calendar .mobile-agenda-day-count{margin-left:auto}
++}
++
++/* Dedicated mobile reading page, without changing the dashboard's scroll position. */
++@media(max-width:600px){
++ html.mood-history-open,html.mood-history-open body{overflow:hidden!important;overscroll-behavior:none}
++ html.mood-history-open .mobile-section-nav,html.mood-history-open .mobile-section-backdrop{display:none!important}
++ .mood-week-history{position:fixed;inset:0!important;width:100%!important;height:100dvh;max-height:none!important;margin:0;padding:0;border:0;border-radius:0;box-shadow:none;background:#f7f8fc;z-index:600}
++ .mood-week-history[hidden]{display:none!important}
++ .mood-week-heading{display:grid;grid-template-columns:44px minmax(0,1fr);grid-template-rows:auto auto;column-gap:12px;row-gap:3px;flex:none;padding:calc(16px + env(safe-area-inset-top)) 20px 16px;background:#fff;border-bottom:1px solid #e3e7ee}
++ .mood-week-heading strong{grid-column:2;grid-row:1;font-size:19px;color:#202b39;line-height:1.45}
++ .mood-week-heading>span{grid-column:2;grid-row:2;font-size:11px;line-height:1.5;color:#8a96a6}
++ .mood-mobile-close{grid-column:1;grid-row:1/3;display:grid;place-items:center;align-self:center;margin:0;width:44px;height:44px;padding:10px;border-radius:50%;background:#f2f4f7;color:#1c2937}
++ .mood-mobile-close svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2.1;stroke-linecap:round;stroke-linejoin:round}
++ .mood-mobile-close:focus-visible{outline:2px solid #667fa1;outline-offset:3px}
++ .mood-week-history>ol{flex:1;min-height:0;max-height:none!important;margin:0;padding:16px 16px calc(24px + env(safe-area-inset-bottom));overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin}
++ .mood-week-history .provenance-fold{display:none!important}
++ #calendar .mobile-agenda-day-toggle{min-height:68px;padding:12px 2px;gap:10px}
++ #calendar .mobile-agenda-day-toggle time{display:flex;flex-direction:column;gap:4px;min-width:64px}
++ #calendar .mobile-agenda-day-toggle time strong{font-size:16px;font-weight:650;line-height:1.4}
++ #calendar .mobile-agenda-day-toggle time small{font-size:11px;font-weight:400;line-height:1.4;color:#8a96a6;font-variant-numeric:tabular-nums}
++ #calendar .is-today .mobile-agenda-day-toggle time small{color:inherit;opacity:.7}
++ #calendar .mobile-agenda-week-gap{margin:28px 0 8px;padding:0 2px;font-size:12px;line-height:1.5;font-weight:600;color:#8a96a6;letter-spacing:.04em}
++}
+--- a/shared-calendar.js
++++ b/shared-calendar.js
+@@ -45,2 +45,7 @@
+  }
++ const isOngoing=e=>!!e.ongoing||e.week===0;
++ const ongoingRows=e=>(e.weekly_progress||[]).filter(row=>row.week_start===start).sort((a,b)=>String(b.at).localeCompare(String(a.at)));
++ const progressTime=row=>window.DashboardPresentation?.formatDisplayTime(row.at)||row.at;
++ const ongoingSummary=e=>ongoingRows(e)[0]?.summary||'本周暂无新进展记录';
++ const progressTimeline=e=>{const rows=ongoingRows(e);return rows.length?`<ol class="calendar-progress-list">${rows.map(row=>`<li><time>${esc(progressTime(row))}</time><h4>${esc(row.summary)}</h4><p>${esc(row.description)}</p>${row.market?`<p><b>市场表现</b> ${esc(row.market)}</p>`:''}${row.next_watch?`<p><b>后续观察</b> ${esc(row.next_watch)}</p>`:''}<div class="calendar-progress-source mobile-source-only">${row.source_urls.map((url,i)=>link(url,'来源 '+(i+1))).join(' · ')}</div></li>`).join('')}</ol>`:'<p class="mobile-agenda-empty">本周暂无新进展记录。</p>'};
+  function event(e){
+@@ -49,14 +54,29 @@
+   const kind=earnings?'earnings':/政策|选举/.test(e.kind)?'policy':'macro';
+-  const status=({released:'数据已公布',occurred:'已发生',cancelled:'已取消',postponed:'已延期'})[e.status]||'待发生';
++  const status=isOngoing(e)?'持续跟踪':({released:'数据已公布',occurred:'已发生',cancelled:'已取消',postponed:'已延期'})[e.status]||'待发生';
+   const title=earnings?`<span class="earnings-glance-emoji" aria-label="${released?'当季业绩表现':'财报状态'}">${esc(e.result_emoji||(released?'📊':e.status==='scheduled'?'⏳':'📅'))}</span> ${esc(e.event)} <span class="earnings-glance-open" aria-hidden="true">›</span>`:link(e.source,e.event);
+-  const body=earnings?compactEarnings(e,released):`<p>${P.emphasize(e.watch||'',e.emphasis||[])}</p>${e.result?`<p class="calendar-result"><b>${esc(e.result_emoji||'📊')} 结果</b> ${esc(e.result)}</p>`:''}${e.market_reaction?`<p class="calendar-reaction"><b>${esc(e.reaction_emoji||'📈')} ${esc(e.reaction_session||'当日市场')}</b> ${esc(e.market_reaction)}</p>`:e.status==='released'||e.status==='occurred'?'<p class="calendar-reaction">市场反应待收盘核验</p>':''}${e.result_source?`<div class="calendar-evidence">${link(e.result_source,'结果来源')}${e.reaction_source?' · '+link(e.reaction_source,'行情来源'):''}</div>`:''}`;
+-  return `<article class="calendar-event${isHigh(e)?' priority-high':''} ${kind}" data-calendar-event-id="${esc(e.id)}" role="button" tabindex="0" aria-expanded="false">${dots('calendar:'+e.id)}<div class="calendar-event-top"><span>${esc(e.kind||'事件')}</span><span class="calendar-status ${released?'done':''}">${status}</span></div>${P.stars(P.calendarImportance(e))}<h3>${title}</h3><div class="calendar-time">${esc(e.time||'时间待核验')}</div>${body}</article>`;
++  const body=isOngoing(e)?`<p class="ongoing-summary">${esc(ongoingSummary(e))}</p>`:earnings?compactEarnings(e,released):`<p>${P.emphasize(e.watch||'',e.emphasis||[])}</p>${e.result?`<p class="calendar-result"><b>${esc(e.result_emoji||'📊')} 结果</b> ${esc(e.result)}</p>`:''}${e.market_reaction?`<p class="calendar-reaction"><b>${esc(e.reaction_emoji||'📈')} ${esc(e.reaction_session||'当日市场')}</b> ${esc(e.market_reaction)}</p>`:e.status==='released'||e.status==='occurred'?'<p class="calendar-reaction">市场反应待收盘核验</p>':''}${e.result_source?`<div class="calendar-evidence">${link(e.result_source,'结果来源')}${e.reaction_source?' · '+link(e.reaction_source,'行情来源'):''}</div>`:''}`;
++  return `<article class="calendar-event${isHigh(e)?' priority-high':''} ${kind}" data-calendar-event-id="${esc(e.id)}" role="button" tabindex="0" aria-expanded="false">${dots('calendar:'+e.id)}<div class="calendar-event-top"><span>${esc(e.kind||'事件')}</span><span class="calendar-status ${released?'done':''}">${status}</span></div>${P.stars(P.calendarImportance(e))}<h3>${title}</h3><div class="calendar-time">${esc(isOngoing(e)?(ongoingRows(e)[0]?progressTime(ongoingRows(e)[0]):''):e.time||'时间待核验')}</div>${body}</article>`;
+  }
+  const detailRow=(label,value,pending=false)=>`<div class="calendar-detail-row"><b>${esc(label)}</b><p class="${pending?'is-pending':''}">${esc(value)}</p></div>`;
+- function closeDetail(){root.querySelector('[data-calendar-detail]')?.remove();if(selectedCard){selectedCard.setAttribute('aria-expanded','false');selectedCard.classList.remove('is-selected');selectedCard=null}}
++ const calendarAnimations=new WeakMap();
++ function animateCalendar(element,open,done=()=>{}){
++  const height=element.hidden?0:element.getBoundingClientRect().height;
++  calendarAnimations.get(element)?.cancel();element.hidden=false;
++  const finish=()=>{element.hidden=!open;element.style.overflow='';calendarAnimations.delete(element);done()};
++  if(matchMedia('(prefers-reduced-motion:reduce)').matches){finish();return}
++  const target=open?element.getBoundingClientRect().height:0;element.style.overflow='hidden';
++  const animation=element.animate([{height:height+'px',opacity:open&&height===0?0:1},{height:target+'px',opacity:open?1:0}],{duration:220,easing:'cubic-bezier(.2,.8,.2,1)',fill:'forwards'});
++  calendarAnimations.set(element,animation);
++  animation.onfinish=()=>{if(calendarAnimations.get(element)!==animation)return;finish();animation.cancel()};
++ }
++ function closeDetail(animated=false){const detail=root.querySelector('[data-calendar-detail]');if(detail){if(animated)animateCalendar(detail,false,()=>detail.remove());else{calendarAnimations.get(detail)?.cancel();detail.remove()}}if(selectedCard){selectedCard.setAttribute('aria-expanded','false');selectedCard.classList.remove('is-selected');selectedCard=null}}
+  function showDetail(card){
+   const e=eventsById.get(card.dataset.calendarEventId);if(!e)return;
+-  if(selectedCard===card){closeDetail();return}closeDetail();
++  if(selectedCard===card){closeDetail(true);return}closeDetail();
+   const mobileDay=card.closest('.mobile-agenda-day'),grid=mobileDay||(card.closest('.calendar-week')||root.querySelector('.calendar-week'))?.querySelector('.calendar-grid');if(!grid)return;
+   selectedCard=card;card.setAttribute('aria-expanded','true');card.classList.add('is-selected');
++  if(isOngoing(e)){
++   grid.insertAdjacentHTML('beforeend',`<aside class="calendar-detail" data-calendar-detail aria-label="${esc(e.event)}本周进展"><div class="calendar-detail-head"><span>${esc(md(start))} 起 · 持续跟踪</span><button type="button" data-calendar-close aria-label="关闭事件详情">×</button></div><h3>${esc(e.event)}</h3><div class="calendar-detail-body">${progressTimeline(e)}</div></aside>`);
++   const detail=grid.querySelector('[data-calendar-detail]');if(mobileDay)card.after(detail);window.DashboardPresentation?.refresh(detail);detail.hidden=true;animateCalendar(detail,true);return;
++  }
+   const occurred=['released','occurred'].includes(e.status);
+@@ -68,3 +88,3 @@
+   grid.insertAdjacentHTML('beforeend',`<aside class="calendar-detail" data-calendar-detail aria-label="${esc(e.event)}事件详情">${dots('calendar:'+e.id)}<div class="calendar-detail-head"><span>${esc(md(e.iso_date||card.closest('.calendar-day')?.dataset.date||''))} · ${esc(e.kind||'事件')} · ${esc(e.status==='occurred'||e.status==='released'?'已发生':'待发生')}</span><button type="button" data-calendar-close aria-label="关闭事件详情">×</button></div><h3>${esc(e.event)}</h3><p class="calendar-detail-time">${esc(e.time||'时间待核验')}</p><div class="calendar-detail-body">${detailRow('预期／关注',e.expectation||e.watch||'待补充',!(e.expectation||e.watch))}${comparisons}${detailRow((e.result_emoji||'📊')+' 实际结果',actual,!e.result)}${e.guidance?detailRow('下季指引',e.guidance):''}${detailRow((e.reaction_emoji||'📈')+' 分时段市场反应',reaction,!e.market_reaction)}${phases}${trackingRows(e).length?detailRow('发布后市场表现',trackingRows(e).join('；')):''}${detailRow('对叙事的影响',impact,!e.narrative_impact)}</div><div class="calendar-detail-links">${link(e.source,'事件来源')}${e.consensus_source?' · '+link(e.consensus_source,'预期来源'):''}${e.result_source?' · '+link(e.result_source,'结果来源'):''}${e.guidance_source?' · '+link(e.guidance_source,'指引来源'):''}${e.reaction_source?' · '+link(e.reaction_source,'行情来源'):''}</div></aside>`);
+-  if(mobileDay){const detail=grid.querySelector('[data-calendar-detail]');card.after(detail)}
++  if(mobileDay){const detail=grid.querySelector('[data-calendar-detail]');card.after(detail)}const opened=grid.querySelector('[data-calendar-detail]')||card.nextElementSibling;if(opened){window.DashboardPresentation?.refresh(opened);opened.hidden=true;animateCalendar(opened,true)}
+  }
+@@ -78,3 +98,3 @@
+  function closeReaction(e,earnings){const phase=[...(e.reaction_phases||[])].reverse().find(p=>/常规收盘/.test(p.session)&&!/财报前/.test(p.session));if(phase){const pct=percentage(phase.value);if(pct)return '收盘 '+pct}if(!/常规收盘/.test(e.reaction_session||''))return '';const text=String(e.market_reaction||'').split(/[。；;]/)[0];if(earnings){const pct=percentage(text);return pct?'收盘 '+pct:''}const qqq=text.match(/QQQ[^；。%]*?([+−-]\d+(?:\.\d+)?%)/);return qqq?'QQQ '+qqq[1]:''}
+- function agendaSummary(e){const earnings=/财报|earnings/i.test(e.kind||'');if(e.status==='cancelled')return '已取消';if(e.status==='postponed')return '已延期';if(!['released','occurred'].includes(e.status)){const values=earnings?coreEarnings(e).map((m,i)=>m&&comparable(m.expected)?(i?'EPS ':'营收 ')+m.expected:null).filter(Boolean):[];const expected=values.length?values.join(' / '):(e.expectation&&e.expectation.length<=28&&/\d/.test(e.expectation)?e.expectation:'');return '未公布'+(expected?' · 预期 '+expected:'')}
++ function agendaSummary(e){if(isOngoing(e))return ongoingSummary(e);const earnings=/财报|earnings/i.test(e.kind||'');if(e.status==='cancelled')return '已取消';if(e.status==='postponed')return '已延期';if(!['released','occurred'].includes(e.status)){const values=earnings?coreEarnings(e).map((m,i)=>m&&comparable(m.expected)?(i?'EPS ':'营收 ')+m.expected:null).filter(Boolean):[];const expected=values.length?values.join(' / '):(e.expectation&&e.expectation.length<=28&&/\d/.test(e.expectation)?e.expectation:'');return '未公布'+(expected?' · 预期 '+expected:'')}
+   let result='';if(earnings)result=earningsVerdict(e);else if(/ISM/.test(e.event)){const value=String(e.result||'').match(/PMI\s*([\d.]+)/i);result=value?'PMI '+value[1]:compactSentence(e.result)}else if(/JOLTS/.test(e.event)){const value=String(e.result||'').match(/职位空缺\s*([\d.]+万)/);result=value?'职位空缺 '+value[1]:compactSentence(e.result)}else if(/选举/.test(e.event)&&/民主党.*参众两院/.test(e.result||''))result='民主党掌控两院';else result=compactSentence(e.result);
+@@ -84,3 +104,3 @@
+  const agendaReturns=e=>{const rows=trackingRows(e);return rows.length?`<div class="mobile-agenda-returns">${rows.map(row=>`<span>${esc(row)}</span>`).join('')}</div>`:''};
+- function agendaTime(e){const text=String(e.time||'时间待定').replace(/北京(?:时间)?/g,'').replace(/[（(][^）)]*(?:美东|ET)[^）)]*[）)]/g,'').trim();const session=text.match(/美股(盘前|盘后|盘中)/)?.[1],date=text.match(/\d{2}\/\d{2}/)?.[0],clock=text.match(/\d{1,2}:\d{2}/)?.[0],period=/清晨/.test(text)?'清晨':'';if(session)return `<time class="mobile-agenda-time"><strong>${esc(session)}</strong>${date||clock||period?`<small>${esc([date,clock||period].filter(Boolean).join(' '))}</small>`:''}${/电话会/.test(text)?'<small>电话会</small>':''}</time>`;if(clock)return `<time class="mobile-agenda-time"><strong>${esc(clock)}</strong></time>`;return `<time class="mobile-agenda-time is-note">${esc(['released','occurred'].includes(e.status)&&/结果.*公布/.test(text)?'':text)}</time>`}
++ function agendaTime(e){if(isOngoing(e)){const latest=ongoingRows(e)[0];return latest?`<time class="mobile-agenda-time is-note">${esc(progressTime(latest))}</time>`:''}const text=String(e.time||'时间待定').replace(/北京(?:时间)?/g,'').replace(/[（(][^）)]*(?:美东|ET)[^）)]*[）)]/g,'').trim();const session=text.match(/美股(盘前|盘后|盘中)/)?.[1],date=text.match(/\d{2}\/\d{2}/)?.[0],clock=text.match(/\d{1,2}:\d{2}/)?.[0],period=/清晨/.test(text)?'清晨':'';if(session)return `<time class="mobile-agenda-time"><strong>${esc(session)}</strong>${date||clock||period?`<small>${esc([date,clock||period].filter(Boolean).join(' '))}</small>`:''}${/电话会/.test(text)?'<small>电话会</small>':''}</time>`;if(clock)return `<time class="mobile-agenda-time"><strong>${esc(clock)}</strong></time>`;return `<time class="mobile-agenda-time is-note">${esc(['released','occurred'].includes(e.status)&&/结果.*公布/.test(text)?'':text)}</time>`}
+  const eventSymbol=body=>`<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${body}</svg>`;
+@@ -94,7 +114,8 @@
+  function agenda(data){
+-  let out='<div class="mobile-calendar-agenda" aria-label="按日期排列的事件日程">',days=0;
++  let out='<div class="mobile-calendar-agenda" aria-label="按日期排列的事件日程">',days=0,nextWeekStarted=false;
+   for(let n=0;n<14;n++){
+    const date=add(start,n),items=data.events.filter(e=>e.iso_date===date);if(!items.length&&date!==bjToday)continue;days++;
+-   const day=new Date(date+'T12:00:00Z'),label=Number(date.slice(5,7))+'月'+Number(date.slice(8,10))+'日 · 星期'+['日','一','二','三','四','五','六'][day.getUTCDay()],collapsed=collapsedDays.has(date),id='agenda-day-'+date;
+-   out+=`<section class="mobile-agenda-day${date===bjToday?' is-today':''}${date<bjToday?' is-past':''}" data-date="${date}"><header><h3><button type="button" class="mobile-agenda-day-toggle" data-calendar-day-toggle="${date}" aria-expanded="${!collapsed}" aria-controls="${id}"><time datetime="${date}">${label}</time><span class="mobile-agenda-day-count">${date===bjToday?'今天 · ':''}${items.length} 项</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button></h3></header><div id="${id}" class="mobile-agenda-day-events"${collapsed?' hidden':''}>${items.map(agendaEvent).join('')||'<p class="mobile-agenda-empty">今天暂无已录入事件</p>'}</div></section>`;
++   if(n>=7&&!nextWeekStarted){out+='<div class="mobile-agenda-week-gap">下周</div>';nextWeekStarted=true}
++   const day=new Date(date+'T12:00:00Z'),label='星期'+['日','一','二','三','四','五','六'][day.getUTCDay()],collapsed=collapsedDays.has(date),id='agenda-day-'+date;
++   out+=`<section class="mobile-agenda-day${date===bjToday?' is-today':''}${date<bjToday?' is-past':''}" data-date="${date}"><header><h3><button type="button" class="mobile-agenda-day-toggle" data-calendar-day-toggle="${date}" aria-expanded="${!collapsed}" aria-controls="${id}"><time datetime="${date}"><strong>${label}</strong><small>${md(date)}</small></time><span class="mobile-agenda-day-icons" aria-hidden="true">${items.slice(0,4).map(agendaLogo).join('')}</span><span class="mobile-agenda-day-count">${date===bjToday?'今天 · ':''}${items.length} 项</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button></h3></header><div id="${id}" class="mobile-agenda-day-events"${collapsed?' hidden':''}>${items.map(agendaEvent).join('')||'<p class="mobile-agenda-empty">今天暂无已录入事件</p>'}</div></section>`;
+   }
+@@ -108,3 +129,3 @@
+  let out='';for(let w=0;w<2;w++){out+=`<section class="calendar-week"><div class="calendar-week-title"><b>第${w?'二':'一'}周</b><span>${md(add(start,w*7))} — ${md(add(start,w*7+6))}</span></div><div class="calendar-grid">`;for(let n=0;n<7;n++){const date=add(start,w*7+n),items=data.events.filter(e=>e.iso_date===date);out+=`<div class="calendar-day ${n>4?'weekend':''} ${date===bjToday?'is-today':''}" data-date="${date}"><header><time datetime="${date}">${md(date)}</time><span>${date===bjToday?'今天':(['周一','周二','周三','周四','周五','周六','周日'][n])}</span></header>${items.map(event).join('')||'<p class="calendar-empty">暂未录入事件</p>'}</div>`}out+='</div></section>'}if(data.ongoing?.length)out+='<div class="calendar-ongoing"><b>持续观察</b><div>'+data.ongoing.map(event).join('')+'</div></div>';root.querySelector('#events').innerHTML=out+agenda(data);root.querySelector('#events').removeAttribute('aria-busy');}
+- root.addEventListener('click',ev=>{const toggle=ev.target.closest('[data-calendar-day-toggle]');if(toggle){const date=toggle.dataset.calendarDayToggle,day=toggle.closest('.mobile-agenda-day'),body=day.querySelector('.mobile-agenda-day-events'),collapse=toggle.getAttribute('aria-expanded')==='true';if(collapse&&selectedCard&&day.contains(selectedCard))closeDetail();body.hidden=collapse;toggle.setAttribute('aria-expanded',String(!collapse));if(collapse)collapsedDays.add(date);else collapsedDays.delete(date);saveCollapsedDays();return}if(ev.target.closest('[data-calendar-close]')){closeDetail();return}const card=ev.target.closest('[data-calendar-event-id]');if(card&&!ev.target.closest('a'))showDetail(card)});
++ root.addEventListener('click',ev=>{const toggle=ev.target.closest('[data-calendar-day-toggle]');if(toggle){const date=toggle.dataset.calendarDayToggle,day=toggle.closest('.mobile-agenda-day'),body=day.querySelector('.mobile-agenda-day-events'),collapse=toggle.getAttribute('aria-expanded')==='true';if(collapse&&selectedCard&&day.contains(selectedCard))closeDetail();animateCalendar(body,!collapse);toggle.setAttribute('aria-expanded',String(!collapse));if(collapse)collapsedDays.add(date);else collapsedDays.delete(date);saveCollapsedDays();return}if(ev.target.closest('[data-calendar-close]')){closeDetail(true);return}const card=ev.target.closest('[data-calendar-event-id]');if(card&&!ev.target.closest('a'))showDetail(card)});
+  root.addEventListener('keydown',ev=>{if(ev.key==='Escape'){closeDetail();return}const card=ev.target.closest('[data-calendar-event-id]');if(card&&ev.target===card&&['Enter',' '].includes(ev.key)){ev.preventDefault();showDetail(card)}});
+--- a/UPDATER.md
++++ b/UPDATER.md
+@@ -143 +143,3 @@
+ 旧版未标basis的数据是普通日涨跌/自然周涨跌，不能直接改标签复用；仅在进行周核验实际发布时点、发布前基准和首次收盘后一次迁移到event_release。已归档旧数据保持原样。
++## 2026-11-05 持续观察的周内进展
++对 ongoing:true 或 week:0 的日历主题（例如中东供给/油价/美债）按本周实际发生的变化维护 weekly_progress，不套用未公布、待发生、已落地状态，也不编造完成百分比。每条进展 {id,week_start,at,summary,description,market?,next_watch?,source_urls}：at 用真实观察日期或带时区时间戳；summary 为一句简短变化，description 交代发生了什么，market 只写已核验的相关市场表现，next_watch 写后续验证条件；source_urls 为证据链接。只在有新进展时追加，保留已有条目及历史周；发布时提交完整 weekly_progress 数组。当前周页面只展示当前 week_start 的进展，最新在前；历史页只展示当周记录。周结束后不能追写旧周，新周另起 week_start。先读 update_context 或 read_week，核验原记录再追加，禁止把发布时间代替事件发生时间。
+--- a/DAILY_UPDATE.md
++++ b/DAILY_UPDATE.md
+@@ -107 +107,3 @@
+ 旧版未标basis的数据是普通日涨跌/自然周涨跌，不能直接改标签复用；仅在进行周核验实际发布时点、发布前基准和首次收盘后一次迁移到event_release。已归档旧数据保持原样。
++## 2026-11-05 持续观察的周内进展
++对 ongoing:true 或 week:0 的日历主题（例如中东供给/油价/美债）按本周实际发生的变化维护 weekly_progress，不套用未公布、待发生、已落地状态，也不编造完成百分比。每条进展 {id,week_start,at,summary,description,market?,next_watch?,source_urls}：at 用真实观察日期或带时区时间戳；summary 为一句简短变化，description 交代发生了什么，market 只写已核验的相关市场表现，next_watch 写后续验证条件；source_urls 为证据链接。只在有新进展时追加，保留已有条目及历史周；发布时提交完整 weekly_progress 数组。当前周页面只展示当前 week_start 的进展，最新在前；历史页只展示当周记录。周结束后不能追写旧周，新周另起 week_start。先读 update_context 或 read_week，核验原记录再追加，禁止把发布时间代替事件发生时间。
