@@ -4,6 +4,7 @@ on:
     branches: [main]
     paths:
       - 'data-revision.json'
+      - 'premarket-logic.json'
       - 'muse-feed.json'
       - 'approved/**'
       - 'scripts/**'
