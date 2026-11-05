@@ -303,3 +303,23 @@
 .quote-future{position:relative;z-index:1;padding-right:6px}
 .risk-source{line-height:1.5;overflow-wrap:anywhere}
 @media(min-width:801px){.main .market-overview .metric:has(.quote-future){padding-bottom:100px}.metric:has(.quote-future) .sparkline{bottom:20px}.metric:has(.quote-future) .quote-future{max-width:100%}}
+
+/* Mobile reading uses natural card heights instead of fitting five cards. */
+.mood-mobile-close{display:none}
+@media(max-width:600px){
+ .mood-week-history{width:calc(100% - 24px);max-height:calc(100dvh - 24px);padding:14px 10px 12px;border-radius:16px;--mood-card-x:14px}
+ .mood-week-heading{align-items:center;flex-wrap:wrap;padding:0 4px 12px;line-height:1.4;gap:6px}
+ .mood-week-heading strong{font-size:17px}.mood-week-heading>span{order:1;flex-basis:100%;font-size:11px}
+ .mood-mobile-close{display:block;margin-left:auto;border:0;border-radius:50%;width:30px;height:30px;background:#e9e7f1;color:#5d5673;font-size:22px;line-height:1;cursor:pointer}
+ .mood-week-history ol{gap:12px;scrollbar-gutter:auto;padding:0 2px}
+ .mood-week-history li{zoom:1!important;border-radius:12px;margin:0}
+ .mood-week-history a[data-week-start]{padding:14px 14px 8px}
+ .mood-week-top{line-height:1.5;gap:8px;flex-wrap:wrap}.mood-week-top time{font-size:12px}.mood-week-top>span{font-size:11px}
+ .mood-week-main{margin-top:10px;gap:8px;line-height:1.4}.mood-week-main strong{font-size:17px}.mood-week-emoji{font-size:25px}
+ .mood-day-driver{display:block;margin-top:12px;line-height:1.6}.mood-day-driver small{display:block;margin-bottom:3px;font-size:10px}.mood-day-driver b{font-size:13px;font-weight:600}
+ .mood-week-history li p{font-size:13px;line-height:1.75;margin:9px 0 0;word-break:normal;overflow-wrap:break-word}
+ .mood-week-close{margin-top:12px;padding:9px 10px;line-height:1.5;flex-wrap:wrap;gap:3px 8px}.mood-week-close span{font-size:11px}.mood-week-close b{font-size:16px;margin-left:auto}.mood-week-close small{font-size:11px}
+ .mood-day-sources{padding:0 14px 12px;gap:14px;line-height:1.6;flex-wrap:wrap}.mood-day-sources a{font-size:11px;padding:3px 0}
+ .mood-week-history .mood-week-boundary{margin:6px 0;font-size:12px;line-height:1.5}
+ .mood-week-foot{font-size:10px;line-height:1.6;margin:10px 4px 0}
+}

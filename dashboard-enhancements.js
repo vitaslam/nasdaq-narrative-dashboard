@@ -42,7 +42,7 @@
       const vol=Number.isFinite(row.vix_close)?'VIX '+num(row.vix_close)+' · ':'';
       return `${boundary}<li class="mood-tone-${moodTone(label)}"><a href="${href}" data-week-start="${escape(targetWeek)}"><div class="mood-week-top"><time datetime="${escape(row.date)}">${escape(range)}</time><span>${vol}${row.kind==='recorded'?'当日记录':'收盘回溯'}</span></div><div class="mood-week-main"><span class="mood-week-emoji" role="img" aria-label="${escape(label)}">${escape(row.emoji||'📝')}</span><strong>${escape(label)}</strong></div>${why}${row.reason?`<p>${escape(row.reason)}</p>`:''}<div class="mood-week-close"><span>QQQ · ${escape(date)} 收盘</span><b>${close} <small>${change}</small></b></div></a>${sources}</li>`;
     });
-    panel.innerHTML=`<div class="mood-week-heading"><strong>交易日情绪</strong><span>${currentWeek?'本周与上周':M.start.slice(5).replace('-','/')+'–'+M.end.slice(5).replace('-','/')}</span></div><ol>${entries.join('')}</ol><p class="mood-week-foot">标为「收盘回溯」的日期依据同期收盘与已知事件整理。</p>`;
+    panel.innerHTML=`<div class="mood-week-heading"><strong>交易日情绪</strong><button class="mood-mobile-close" type="button" aria-label="关闭交易日情绪">×</button><span>${currentWeek?'本周与上周':M.start.slice(5).replace('-','/')+'–'+M.end.slice(5).replace('-','/')}</span></div><ol>${entries.join('')}</ol><p class="mood-week-foot">标为「收盘回溯」的日期依据同期收盘与已知事件整理。</p>`;
     const list=panel.querySelector('ol');
     const cards=[...list.querySelectorAll('li:not(.mood-week-boundary)')];
     const lastVisible=cards[Math.min(5,cards.length)-1];
@@ -50,6 +50,7 @@
     function fitFive(){
       panel.style.setProperty('--mood-tile-width',tile.getBoundingClientRect().width+'px');
       list.style.maxHeight='none';
+      if(matchMedia('(max-width:600px)').matches)return;
       // Week labels take space in the list but do not count as trading days.
       const height=lastVisible.getBoundingClientRect().bottom-list.getBoundingClientRect().top+list.scrollTop;
       list.style.maxHeight=Math.ceil(height)+'px';
@@ -73,6 +74,7 @@
     }
     function show(){panel.hidden=false;list.scrollTop=0;tile.setAttribute('aria-expanded','true');fitFive();place()}
     function hide(){panel.hidden=true;tile.setAttribute('aria-expanded','false')}
+    panel.querySelector('.mood-mobile-close').addEventListener('click',hide);
     tile.addEventListener('click',e=>{lastPointer=Number.isFinite(e.clientX)&&e.clientX?{x:e.clientX,y:e.clientY}:null;panel.hidden?show():hide()});
     tile.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();lastPointer=null;panel.hidden?show():hide()}});
     panel.addEventListener('click',e=>{const link=e.target.closest('a[data-week-start]');if(!link||parent===window)return;e.preventDefault();parent.postMessage({type:'nasdaq:select-week',date:link.dataset.weekStart},location.origin);hide()});
