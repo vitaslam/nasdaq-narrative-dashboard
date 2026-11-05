@@ -1,7 +1,7 @@
 {
-  "holder": null,
-  "token": null,
-  "purpose": null,
-  "acquired_at": null,
-  "expires_at": null
+  "holder": "GPT",
+  "token": "GPT-1793888671852-4w056ij6ef4",
+  "purpose": "将盘前逻辑加入板块管理",
+  "acquired_at": "2026-11-05T14:24:31.852Z",
+  "expires_at": "2026-11-05T15:09:31.852Z"
 }
