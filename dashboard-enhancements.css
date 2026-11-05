@@ -126,6 +126,11 @@
 :is(#narrative,.x-frequent-section) .x-trend-top{display:flex;justify-content:space-between;gap:10px;align-items:baseline;color:#896b23;font-size:11px}
 :is(#narrative,.x-frequent-section) .x-trend-top time{color:#758093}
 :is(#narrative,.x-frequent-section) .x-trend-card h3{margin:10px 0 8px;font-size:17px;color:#17243b}
+:is(#narrative,.x-frequent-section) .x-trend-count{display:inline-block;margin-left:8px;padding:2px 7px;border-radius:999px;background:#eee9dc;color:#4d4560;font-size:11px;font-weight:700;vertical-align:middle;white-space:nowrap}
+:is(#narrative,.x-frequent-section) .x-view-badges{display:flex;flex-wrap:wrap;gap:5px;margin:5px 0 7px}
+:is(#narrative,.x-frequent-section) .x-view-badge{display:inline-block;border-radius:999px;padding:2px 7px;font-size:11px;font-weight:750;line-height:1.5;background:#f0edff;color:#4a3d81}
+:is(#narrative,.x-frequent-section) .x-view-badge.bull{background:#e6f5ec;color:#19633d}
+:is(#narrative,.x-frequent-section) .x-view-badge.bear{background:#fff0ed;color:#a44036}
 :is(#narrative,.x-frequent-section) .x-trend-card p{margin:0 0 10px;color:#17243b;font-size:13px;line-height:1.7}
 :is(#narrative,.x-frequent-section) .x-trend-evidence{font-size:11px;line-height:1.7;color:#66738a}
 :is(#narrative,.x-frequent-section) .x-trend-evidence a{color:#52649b;text-decoration:underline;text-underline-offset:2px}
