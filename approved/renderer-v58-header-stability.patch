@@ -1,0 +1,76 @@
+--- a/runtime.js
++++ b/runtime.js
+@@ -1,9 +1,9 @@
+ ASSETS.shell=ASSETS.shell.replace('</head>',`<style>
+ @media(max-width:600px){
+  body{display:block}.history-header{position:fixed;top:0;left:0;right:0;padding-top:env(safe-area-inset-top);z-index:5;transform:translateY(0);transition:transform .22s cubic-bezier(.2,.8,.2,1);will-change:transform}
+- .history-panel{position:fixed;top:var(--mobile-header-height,116px);right:0;bottom:0;left:0;height:auto;transition:top .22s cubic-bezier(.2,.8,.2,1)}
+- html.mobile-header-hidden .history-header{transform:translateY(-100%);pointer-events:none}html.mobile-header-hidden .history-panel,html.section-manager-open .history-panel{top:0}
+- html.section-manager-open .history-panel{transition:none}
++ /* Keep the reading viewport fixed; only the header participates in the animation. */
++ .history-panel{position:fixed;inset:0;height:auto;transition:none}
++ html.mobile-header-hidden .history-header{transform:translateY(-100%);pointer-events:none}
+ }
+ @media(prefers-reduced-motion:reduce){.history-header,.history-panel{transition:none!important}}
+ </style></head>`).replace('</body>',`<script>(()=>{const header=document.querySelector('.history-header');if(!header)return;const measure=()=>{const h=header.getBoundingClientRect().height;if(h>0)document.documentElement.style.setProperty('--mobile-header-height',h+'px')};new ResizeObserver(measure).observe(header);measure();})();<\/script></body>`);
+--- a/dashboard-enhancements.js
++++ b/dashboard-enhancements.js
+@@ -202,6 +202,16 @@
+   main.prepend(sectionRoot);
+   const prefKey='nasdaq_dashboard_layout_v1',defaultOrder=allShortcuts.map(item=>item.key);
+   let prefDoc=document;try{if(parent!==window&&parent.location.origin===location.origin)prefDoc=parent.document}catch{}
++  // Reserve the header's initial space inside the scrolling document, never in the iframe viewport.
++  // This space scrolls away naturally and stays unchanged when the header hides or reappears.
++  const shellHeader=prefDoc!==document&&prefDoc.querySelector('.history-header');
++  if(shellHeader){
++    document.documentElement.classList.add('mobile-shell-content');
++    let headerInset='';
++    const syncHeaderInset=()=>{const height=shellHeader.getBoundingClientRect().height;if(height<=0)return;const value=height+'px';if(value!==headerInset){headerInset=value;document.documentElement.style.setProperty('--mobile-header-height',value)}};
++    const headerObserver=new ResizeObserver(syncHeaderInset);headerObserver.observe(shellHeader);syncHeaderInset();
++    window.addEventListener('pagehide',()=>headerObserver.disconnect(),{once:true});
++  }
+   const normalize=value=>({order:[...new Set([...(Array.isArray(value?.order)?value.order:[]),...defaultOrder])].filter(key=>defaultOrder.includes(key)),hidden:[...new Set(Array.isArray(value?.hidden)?value.hidden:[])].filter(key=>defaultOrder.includes(key))});
+   const readPreference=()=>{try{const value=prefDoc.cookie.split('; ').find(row=>row.startsWith(prefKey+'='));return normalize(value?JSON.parse(decodeURIComponent(value.slice(prefKey.length+1))):null)}catch{return normalize(null)}};
+   let preference=readPreference(),shortcuts=[],links=[],expanded=false,currentIndex=0,navScrolling=false;
+@@ -229,8 +239,11 @@
+   nav.addEventListener('keydown',event=>{if(event.key==='Escape'){event.preventDefault();setOpen(false,true)}else if(expanded&&['ArrowUp','ArrowDown','Home','End'].includes(event.key)){event.preventDefault();const i=links.indexOf(document.activeElement);links[event.key==='Home'?0:event.key==='End'?links.length-1:(i+(event.key==='ArrowUp'?-1:1)+links.length)%links.length]?.focus()}});
+   let cancelNavScroll=()=>{};
+   function scrollToSection(target){
+-    cancelNavScroll();const start=window.scrollY,end=Math.max(0,Math.min(start+target.getBoundingClientRect().top-14,document.documentElement.scrollHeight-innerHeight));
+-    setHeaderHidden(end>start&&end>80);
++    cancelNavScroll();const start=window.scrollY,targetY=start+target.getBoundingClientRect().top-14;
++    const hideHeader=targetY>start&&targetY>80;
++    const inset=mobile.matches&&shellHeader&&!hideHeader?(parseFloat(document.documentElement.style.getPropertyValue('--mobile-header-height'))||0):0;
++    const end=Math.max(0,Math.min(targetY-inset,document.documentElement.scrollHeight-innerHeight));
++    setHeaderHidden(hideHeader);
+     if(matchMedia('(prefers-reduced-motion:reduce)').matches){window.scrollTo({top:end,behavior:'instant'});return}
+     navScrolling=true;const began=performance.now();let frame=0;const events=['wheel','touchstart','pointerdown','keydown'];
+     const stop=()=>{navScrolling=false;lastHeaderY=Math.max(0,window.scrollY);headerTravel=0;cancelAnimationFrame(frame);events.forEach(type=>window.removeEventListener(type,stop));cancelNavScroll=()=>{}};
+--- a/dashboard-enhancements.css
++++ b/dashboard-enhancements.css
+@@ -423,7 +423,10 @@
+ .section-manager [data-manager-back]{display:grid;place-items:center;width:44px;height:44px;padding:10px;color:#1b2633;background:#eef1f5}.section-manager [data-manager-back] svg{display:block;width:24px;height:24px}.section-manager [data-manager-back]:active{background:#e2e7ed;transform:scale(.96)}
+ 
+ html.section-manager-open,html.section-manager-open body{overflow:hidden!important;overscroll-behavior:none}
+-@media(max-width:600px){.section-manager header{padding-top:calc(16px + env(safe-area-inset-top))}}
++@media(max-width:600px){
++ html.mobile-shell-content body{padding-top:var(--mobile-header-height,116px)}
++ .section-manager header{padding-top:calc(16px + env(safe-area-inset-top))}
++}
+ 
+ /* Shared center inset keeps the round menu away from rounded screen corners. */
+ @media(max-width:600px){
+@@ -461,3 +464,13 @@
+ @media(max-width:600px){.mobile-agenda-returns{grid-column:2/-1;grid-row:2;margin-top:0}.mobile-agenda-time{grid-column:3;grid-row:1}.mobile-agenda-event{row-gap:4px}}
+ 
+ @media(max-width:600px){.x-translation-status{display:none!important}}
++
++/* Keep long event names clear of their weights on narrow cards. */
++@media(max-width:600px){
++ #toggle-event-drivers .event-weight-row{min-width:0;grid-template-columns:minmax(0,1fr) auto;align-items:start;gap:6px 8px}
++ #toggle-event-drivers .event-row-title{grid-column:1/-1;grid-row:1;min-width:0;overflow-wrap:anywhere}
++ #toggle-event-drivers .event-row-rating{grid-column:1;grid-row:2;align-self:center;margin:0}
++ #toggle-event-drivers .event-weight-row>strong{grid-column:2;grid-row:2;align-self:center;justify-self:end;white-space:nowrap}
++ #toggle-event-drivers .event-row-meta{grid-row:3;min-width:0;overflow-wrap:anywhere}
++ #toggle-event-drivers .event-weight-row>i{grid-row:4}
++}
