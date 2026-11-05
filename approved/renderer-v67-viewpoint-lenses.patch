@@ -1,0 +1,161 @@
+diff --git a/DAILY_UPDATE.md b/DAILY_UPDATE.md
+index ad97381..056d65e 100644
+--- a/DAILY_UPDATE.md
++++ b/DAILY_UPDATE.md
+@@ -1,3 +1,7 @@
++# 2026-11-06 趋势捕捉邮件协作（覆盖旧的 Muse 独立维护分工）
++
++Muse 只用 Gmail 交付原帖与趋势候选。GPT 在每档邮件验收时核验原帖及可核对事实，参与趋势选题、结论、证据、受益标签与周末定稿；可结合独立发现补充符合本周窗口的原帖。写入入口为仓库累计 `muse-feed.json` 的 `weekly_trends`，必须先按 `PUBLISH_LOCK.json` 取得并验证自己的锁。每张趋势至少两位不同作者的独立合格原帖，沿用稳定趋势 ID；最多保留 12 个证据 ID，满额时择优替换。只在实质变化时更新 `asof` 和 feed 批次，不因重复检查打点。趋势黄点由 feed 合并管线管理，GPT 不提交本站 `x_trends_upsert` 或手工 `trend:*`；归档周不追改。周末 `final` 由 GPT 核验最后完整收盘和周内证据后写入。原帖无法直连时标明邮件核验及独立佐证范围，不把未核实的 X 观点写成公司事实。
++
+ ## X 按日展示（2026-11-04）
+ 
+ X 高频作者卡按北京时间原帖发布日期和小写账号分组，跨日不得合并；日期倒序，同日内 @labubu_trader 有帖才排该日首位，其余按最新发帖时间排序。不创建空作者卡，不长期置顶。
+@@ -107,3 +111,7 @@ market_tracking结构：{week_start,basis:"event_release",release_date:"实际
+ 旧版未标basis的数据是普通日涨跌/自然周涨跌，不能直接改标签复用；仅在进行周核验实际发布时点、发布前基准和首次收盘后一次迁移到event_release。已归档旧数据保持原样。
+ ## 2026-11-05 持续观察的周内进展
+ 对 ongoing:true 或 week:0 的日历主题（例如中东供给/油价/美债）按本周实际发生的变化维护 weekly_progress，不套用未公布、待发生、已落地状态，也不编造完成百分比。每条进展 {id,week_start,at,summary,description,market?,next_watch?,source_urls}：at 用真实观察日期或带时区时间戳；summary 为一句简短变化，description 交代发生了什么，market 只写已核验的相关市场表现，next_watch 写后续验证条件；source_urls 为证据链接。只在有新进展时追加，保留已有条目及历史周；发布时提交完整 weekly_progress 数组。当前周页面只展示当前 week_start 的进展，最新在前；历史页只展示当周记录。周结束后不能追写旧周，新周另起 week_start。先读 update_context 或 read_week，核验原记录再追加，禁止把发布时间代替事件发生时间。
++# X 观点标签与四张预留趋势（2026-11-06）
++
++所有新旧展示帖逐条判断：明确或略有倾向时写 `stance: bull|bear` 与具体 `stance_subject`，有入场时机依据时写 `entry_side: left|right`。同一帖子可同时有方向与左右侧；纯概率和无方向快讯省略字段，卡面不显示待判。四张观点卡 `view-bull`、`view-bear`、`view-left`、`view-right` 始终预留，依据标签动态统计本周可见帖，摘要说明当前观点及验证条件。常规事件趋势仍需两位作者独立原帖。卡片标题显示贴数，点击仅高亮相关帖，下方不重复显示计数。
++
+diff --git a/UPDATER.md b/UPDATER.md
+index 4da70ec..d987fb9 100644
+--- a/UPDATER.md
++++ b/UPDATER.md
+@@ -1,3 +1,7 @@
++# 2026-11-06 趋势捕捉邮件协作（覆盖旧的 Muse 独立维护分工）
++
++Muse 只用 Gmail 交付原帖与趋势候选。GPT 在每档邮件验收时核验原帖及可核对事实，参与趋势选题、结论、证据、受益标签与周末定稿；可结合独立发现补充符合本周窗口的原帖。写入入口为仓库累计 `muse-feed.json` 的 `weekly_trends`，必须先按 `PUBLISH_LOCK.json` 取得并验证自己的锁。每张趋势至少两位不同作者的独立合格原帖，沿用稳定趋势 ID；最多保留 12 个证据 ID，满额时择优替换。只在实质变化时更新 `asof` 和 feed 批次，不因重复检查打点。趋势黄点由 feed 合并管线管理，GPT 不提交本站 `x_trends_upsert` 或手工 `trend:*`；归档周不追改。周末 `final` 由 GPT 核验最后完整收盘和周内证据后写入。原帖无法直连时标明邮件核验及独立佐证范围，不把未核实的 X 观点写成公司事实。
++
+ ## X 按日展示（2026-11-04）
+ 
+ X 高频作者卡按北京时间原帖发布日期和小写账号分组，跨日不得合并；日期倒序，同日内 @labubu_trader 有帖才排该日首位，其余按最新发帖时间排序。不创建空作者卡，不长期置顶。
+@@ -65,6 +69,8 @@ GPT 每轮主动核查整个顶部 Dashboard，只有 CTA 继续由 Muse 独立
+ 
+ 每次 `dashboard_apply_daily_update` 比较前后显示内容，将实际变化累计到 `change_markers.GPT`，每个键单独记录 `key_times`；不足三小时的旧点保留，到期点在下一次 GPT 更新清理。无实质变化不重置该键时间，Muse 点保持原样；趋势卡只显示 Muse 的 `trend:<id>` 黄点。不要直接编辑 `change_markers.Muse`。只有进行中的周显示本周与上周，组间留白并居中标“上周交易日”。归档浮层只显示所选周实际开市的交易日，休市日跳过。旧日情绪缺记录时按同期收盘数据补为“回溯判断”，写明交易日、星期与出处，不伪造当时的实时观测。
+ 
++盘中情绪可写入 `market_mood.current`，标记 `observation_phase:"intraday"`，`asof` 使用美东常规时段真实报价时间，`attribution.session:"regular"`，并写明「盘中、收盘待核」。顶部当前情绪即时展示；盘中记录保留在审计历史，但不进入仅含完整收盘日的逐日情绪浮层。收盘后用同日 `observation_phase:"regular_close"` 和收盘证据更新。`attribution.driver` 最多 280 字，超长会得到明确长度错误；来源须能核对量价或事件。
++
+ 每个收盘日的 `market_mood.current.reason` 用一至两句解释一个主要驱动和价格传导。在 `attribution` 填 `{kind:"event"|"quant",driver,source_urls,known_by?,session?,event_at?}`。可选 FOMC、重大财报、地缘消息或油债关口。区分美东盘前、盘中、前一晚盘后，油价写明 WTI/Brent 及盘中/结算，收益率写明期限和点位。事件类型的 `known_by` 必填，表示消息最晚已公开的美东日期。可用 `event_at` 填带时区的实际时间，`session:"after_close"` 仅可用于之后的交易日。若无明确单一事件，选择 `quant` 并用跳空与盘中幅度、相对等权表现或相对前20日均量及成交区间解释。证据使用公开原始公告、当时行情或当日收盘报道。展示保留 QQQ 收盘涨跌、VIX 观察值和依据链接。
+ 
+ X 高频顶部的「趋势捕捉」由 Muse 独立维护。Muse 在累计 feed 的 `weekly_trends` 中选题、更新原帖依据和受益标签，周末核验后自行标为 `final`。GPT 日更只读趋势，周归档照存已发布的状态。趋势黄点由 Muse 按实际变化累计，满三小时后在下一次 Muse 更新清理。标签可包含潜在利好标的、行业或大盘，须由原帖和推理支持，条件未满足时写“潜在”并说明不确定性。归档周不追认后见之明。趋势总数不设上限；所有已核验趋势按 `asof` 从新到旧排列，最新放左边，同一时间保留原有顺序。只有内容或证据实质更新时才推进该趋势的 `asof`，不要为每批抓取统一刷新时间。趋势卡保持单行，每页最多四张；不足四张及末页按实际张数等分整行。超过四张才显示左右翻页，首尾停止、不循环，所有趋势都可翻到，不截断累计数据。
+@@ -94,7 +100,7 @@ GPT 迭代与数据源 https://nasdaq-narrative-tracker-vj.thatvitaslam.chatgpt.
+ - market:{bars:{NDX:[{date,c,o,h,l,v?,source_url}],QQQ:[...],SPX:[...]},sentiment,asof_metrics,volatility,facts,source_urls}。只追加/核对本周已发生交易日 OHLC，date 为交易所交易日期。系统保留完整均线历史，自动计算20/50/100/200日简单均线和ATR。不要传 weekly_plan。sentiment 可按键更新 VIX/VXN/CNN/BofA/UST10Y/UST30Y/Brent/FedHike/VXFutures；每项保留 value（期货为 vx1/vx2）、asof、source_url，期货另含 front_expiry/second_expiry。CTA 日常不由 GPT 写入；CTA 格仅展示带 data_kind=sell_trigger 的标普卖出线，另附 institution、model、scope（写清现货/期货合约）、source_kind、label、summary、confidence_note、report_date、unit、digits。不同模型和合约不可直接互换；数值须有当期可追溯机构报告或明确标示的可靠转述，不能称实际成交。facts 更新沿用读取结果结构，保持观测日期与发布日期区别。
+ - dimensions：全五项 earnings/macro/trend/valuation/position，每项 {id,weight,state,tone,status?,as_of,metric?:{value,unit},comparison?,detail_blocks?:[{title,text,source_url}]}。weight 是最近1–2周市场关注的分析估计，合计100，和事件权重单独计算。prior_weight 是上周固定值，不修改。变化0显示—，非0单▲/▼，绝对变动≥10个百分点双▲▲/▼▼。均线偏离周变化用同逻辑，≥2个百分点双箭头；方向不是简单“高于均线就向上”。tone 为 improve/worsen/mixed/pending。详情最多两块，文本简洁，保留数据图表含义与来源。
+ - event_drivers:[{id?,name,weight,status,scheduled_at?,occurred_at?,time_label,source_url}]：最多4项本周重点催化，包含已发生和未发生事件；这组权重合计100，与五维占比独立，是本周叙事关注度的分析估计，不是事件发生概率。status=scheduled/occurred，界面逐项显示未落地/已落地，不设整卡的待落地标签。scheduled需本周预计日期；occurred需本周真实发生时间和证据。time_label使用简短北京时间/盘前盘后。谈判进展落地不等于协议达成，不可提前标后者。事件发生时更新同一项，维持总和100。event_details:[{title,text,metrics?:[{label,value}],source_url}] 最多两卡，合并简洁说明、已知结果与下一验证点。
+-- market_mood:{baselines?,current,conclusion?}：每项{date,asof?,label,emoji,reason,source_urls,baseline_date?,emphasis?}。首次建立 baselines.previous_close，date 为上周五（休市用上周最后实际收盘日），依据完整收盘证据判断情绪。周一 current.baseline_date 必须指向 previous_close.date，结合周末消息和已发生的周一新消息比较；不能与周一本身比较。另保存 baselines.week_open（周一真实观测），周二起可选建立 baselines.early_week（周二真实观测）。周二至周五 current.baseline_date 指向周一或周二；注明基准状态→当前状态及一句话归因。基准一经保存不重写；current 使用实际时间戳，历史自动保留。周五完整收盘后 conclusion 标明全周延续或由何转何及一句归因。休市以最后实际交易日核验，不提前下周末结论。emoji 随状态变化，不把分析判断写成客观指数。
++- market_mood:{baselines?,current,conclusion?}：每项{date,asof?,label,emoji,reason,source_urls,baseline_date?,emphasis?,observation_phase?}。盘中 current 标记 `observation_phase:"intraday"`；完整收盘可标 `"regular_close"`，未标的旧记录沿用原逻辑。首次建立 baselines.previous_close，date 为上周五（休市用上周最后实际收盘日），依据完整收盘证据判断情绪。周一 current.baseline_date 必须指向 previous_close.date，结合周末消息和已发生的周一新消息比较；不能与周一本身比较。另保存 baselines.week_open（周一真实观测），周二起可选建立 baselines.early_week（周二真实观测）。周二至周五 current.baseline_date 指向周一或周二；注明基准状态→当前状态及一句话归因。基准一经保存不重写；current 使用实际时间戳，历史自动保留。周五完整收盘后 conclusion 标明全周延续或由何转何及一句归因。休市以最后实际交易日核验，不提前下周末结论。emoji 随状态变化，不把分析判断写成客观指数。
+ - importance:{metrics:{指标id:{score,reason}},dimensions:{维度id:{score,reason}},events:{事件id:{score,reason}},questions:{问题id:{score,reason}},answers:{记录id:{score,reason,emphasis?}}}。score 为0.5–3，半星步进，reason为本周重要性依据。五维和右侧验证卡3星以彩色底白字强调，普通卡白底；左侧事件和问题列表不填色，只保留星级。按当周变化幅度、市场相关性和是否改变验证条件评估，不照用户圈选，不按百分比换算。calendar_upsert 各项加 importance:{score,reason}，所有事件都有星级；关键财报、CPI、非农、FOMC优先考虑3星。
+ - 强调短语：market_mood.current.emphasis 为短语数组；answers 的 importance.emphasis 可按 evidence/reaction/impact/next_check 字段列短语；日历 emphasis 为 watch 文本中短语；X viewpoint/impact 可带 emphasis。只强调原文真实关键判断，不添加结论。正文纯黑Regular400，关键数据和信息Bold700，彩色重点卡对应反白。
+ - market.sentiment_history:{CNN:[{date,value,source_url,frequency,source_kind?,observation_date?}],BofA:[...],VIX:[...],VXN:[...],CTA:[...]}：给顶部迷你折线补充带日期的真实观测，系统按日期合并并保留历史，不传整套虚构日频值。指数和NDX/200日偏离自动从已保存日线计算；每张图截止所选周行情日期，向前两个月，无横纵坐标，hover显示实际日期和读数。CNN优先最新官方读数，官方不可取才用注明日期的可核验归档；BofA按报告发布日期（有明确观测截止日则一并保留），不插值制造每日读数；来源存在冲突时采用一致口径并注明。VIX/VXN日线每天追加；CTA必须附institution与model，无法核实保持空值。只补历史曲线，不修改归档周结论。
+@@ -143,3 +149,7 @@ market_tracking结构：{week_start,basis:"event_release",release_date:"实际
+ 旧版未标basis的数据是普通日涨跌/自然周涨跌，不能直接改标签复用；仅在进行周核验实际发布时点、发布前基准和首次收盘后一次迁移到event_release。已归档旧数据保持原样。
+ ## 2026-11-05 持续观察的周内进展
+ 对 ongoing:true 或 week:0 的日历主题（例如中东供给/油价/美债）按本周实际发生的变化维护 weekly_progress，不套用未公布、待发生、已落地状态，也不编造完成百分比。每条进展 {id,week_start,at,summary,description,market?,next_watch?,source_urls}：at 用真实观察日期或带时区时间戳；summary 为一句简短变化，description 交代发生了什么，market 只写已核验的相关市场表现，next_watch 写后续验证条件；source_urls 为证据链接。只在有新进展时追加，保留已有条目及历史周；发布时提交完整 weekly_progress 数组。当前周页面只展示当前 week_start 的进展，最新在前；历史页只展示当周记录。周结束后不能追写旧周，新周另起 week_start。先读 update_context 或 read_week，核验原记录再追加，禁止把发布时间代替事件发生时间。
++# X 观点标签与四张预留趋势（2026-11-06）
++
++每条展示帖按原帖或已核对的标的影响标 `stance: bull|bear`、具体 `stance_subject`，只在原帖涉及抄底、等待确认等入场条件时标 `entry_side: left|right`。轻微倾向也标；没有依据就省略字段，不显示待判。四张 `view-bull`、`view-bear`、`view-left`、`view-right` 观点卡常驻且动态汇总当前可见帖，贴数放在标题旁，点击后不另起计数行。
++
+diff --git a/dashboard-enhancements.css b/dashboard-enhancements.css
+index 0a90263..82e5bce 100644
+--- a/dashboard-enhancements.css
++++ b/dashboard-enhancements.css
+@@ -126,6 +126,11 @@
+ :is(#narrative,.x-frequent-section) .x-trend-top{display:flex;justify-content:space-between;gap:10px;align-items:baseline;color:#896b23;font-size:11px}
+ :is(#narrative,.x-frequent-section) .x-trend-top time{color:#758093}
+ :is(#narrative,.x-frequent-section) .x-trend-card h3{margin:10px 0 8px;font-size:17px;color:#17243b}
++:is(#narrative,.x-frequent-section) .x-trend-count{display:inline-block;margin-left:8px;padding:2px 7px;border-radius:999px;background:#eee9dc;color:#4d4560;font-size:11px;font-weight:700;vertical-align:middle;white-space:nowrap}
++:is(#narrative,.x-frequent-section) .x-view-badges{display:flex;flex-wrap:wrap;gap:5px;margin:5px 0 7px}
++:is(#narrative,.x-frequent-section) .x-view-badge{display:inline-block;border-radius:999px;padding:2px 7px;font-size:11px;font-weight:750;line-height:1.5;background:#f0edff;color:#4a3d81}
++:is(#narrative,.x-frequent-section) .x-view-badge.bull{background:#e6f5ec;color:#19633d}
++:is(#narrative,.x-frequent-section) .x-view-badge.bear{background:#fff0ed;color:#a44036}
+ :is(#narrative,.x-frequent-section) .x-trend-card p{margin:0 0 10px;color:#17243b;font-size:13px;line-height:1.7}
+ :is(#narrative,.x-frequent-section) .x-trend-evidence{font-size:11px;line-height:1.7;color:#66738a}
+ :is(#narrative,.x-frequent-section) .x-trend-evidence a{color:#52649b;text-decoration:underline;text-underline-offset:2px}
+diff --git a/live-week.js b/live-week.js
+index cac24b9..432ff80 100644
+--- a/live-week.js
++++ b/live-week.js
+@@ -131,7 +131,7 @@
+  const topics=[...(W.x_topics||[])];
+  const positive=p=>[...new Set((p.impact||[]).filter(i=>i.direction?.includes('利好')).flatMap(i=>i.targets.split(/\s*[/、,，]\s*/)).map(s=>s.trim()).filter(Boolean))].join(' / ');
+  const heatLabel=p=>p.views!=null?`${heat(p.views)} 浏览`:p.reposts!=null?`${heat(p.reposts)} 转发`:p.replies!=null?`${heat(p.replies)} 评论`:'热度待核验';
+- const body=p=>{const complete=p.translation_scope==='full'&&p.translation_zh?.trim(),postOnly=p.translation_scope==='post_only'&&p.translation_zh?.trim(),copy=complete||postOnly?p.translation_zh:p.viewpoint||p.translation_zh||'原帖文字待核对',long=copy.length>180,targets=positive(p);const status=complete?'':`<small class="x-translation-status">${postOnly?'仅原帖正文已逐句译出；所引长帖未收录':'原帖全文未核实 · 保留既有记录'}</small>`;return `<time class="x-post-time" datetime="${esc(p.published_at||'')}">${bj(p.published_at)} 北京</time><p class="x-translation${long?' is-collapsed':''}">${esc(copy)}</p>${long?'<button class="x-expand-post" type="button" aria-expanded="false">展开全文</button>':''}${status}<div class="x-simple-foot">${targets?`<span>利好标的：<b>${esc(targets)}</b></span>`:''}<span class="x-single-heat">${heatLabel(p)}</span></div>`};
++ const body=p=>{const complete=p.translation_scope==='full'&&p.translation_zh?.trim(),postOnly=p.translation_scope==='post_only'&&p.translation_zh?.trim(),copy=complete||postOnly?p.translation_zh:p.viewpoint||p.translation_zh||'原帖文字待核对',long=copy.length>180,targets=positive(p);const status=complete?'':`<small class="x-translation-status">${postOnly?'仅原帖正文已逐句译出；所引长帖未收录':'原帖全文未核实 · 保留既有记录'}</small>`;const badges=[p.stance==='bull'?`<span class="x-view-badge bull">看多${p.stance_subject?` · ${esc(p.stance_subject)}`:''}</span>`:p.stance==='bear'?`<span class="x-view-badge bear">看空${p.stance_subject?` · ${esc(p.stance_subject)}`:''}</span>`:'',p.entry_side==='left'?'<span class="x-view-badge entry">左侧观点</span>':p.entry_side==='right'?'<span class="x-view-badge entry">右侧观点</span>':''].filter(Boolean).join('');return `<time class="x-post-time" datetime="${esc(p.published_at||'')}">${bj(p.published_at)} 北京</time>${badges?`<div class="x-view-badges">${badges}</div>`:''}<p class="x-translation${long?' is-collapsed':''}">${esc(copy)}</p>${long?'<button class="x-expand-post" type="button" aria-expanded="false">展开全文</button>':''}${status}<div class="x-simple-foot">${targets?`<span>利好标的：<b>${esc(targets)}</b></span>`:''}<span class="x-single-heat">${heatLabel(p)}</span></div>`};
+  const hotPosts=topics.flatMap(t=>(t.posts||[]).filter(hot).map(p=>({...p,topic_title:t.title}))).sort((a,b)=>latest(b)-latest(a));
+  const frequentPosts=topics.flatMap(t=>(t.posts||[]).filter(p=>!hot(p)).map(p=>({...p,topic_title:t.title}))).sort((a,b)=>latest(b)-latest(a));
+  // Group by the same Beijing calendar date shown on each post; never by observation time.
+@@ -163,13 +163,14 @@
+  const trendTime=t=>Date.parse(t.asof)||0;
+  const trends=[...(W.x_trends||[])].sort((a,b)=>trendTime(b)-trendTime(a));
+  const trendCards=trends.map(t=>{
+-  const evidence=[...new Set(t.evidence_post_ids||[])].map(id=>allPosts.get(id)).filter(Boolean);
++  const lens={'view-bull':p=>p.stance==='bull','view-bear':p=>p.stance==='bear','view-left':p=>p.entry_side==='left','view-right':p=>p.entry_side==='right'}[t.id];
++  const evidence=lens?[...allPosts.values()].filter(lens):[...new Set(t.evidence_post_ids||[])].map(id=>allPosts.get(id)).filter(Boolean);
+   const authors=new Set(evidence.map(p=>String(p.author).toLowerCase()));
+-  if(evidence.length<2||authors.size<2)return '';
++  if(!lens&&(evidence.length<2||authors.size<2))return '';
+   trendEvidence.set(String(t.id),new Set(evidence.map(p=>String(p.id))));
+-  const sources=evidence.map(p=>`<a href="${esc(p.source_url)}" target="_blank" rel="noopener">${esc(p.author)}</a>`).join(' · ');
++  const sources=(lens?evidence.slice(0,4):evidence).map(p=>`<a href="${esc(p.source_url)}" target="_blank" rel="noopener">${esc(p.author)}</a>`).join(' · ');
+   const tags=(t.benefit_tags||[]).map(tag=>`<span>${esc(tag)}</span>`).join('');
+-  return `<article class="card x-trend-card" data-trend-id="${esc(t.id)}"><div class="x-trend-top"><span>本周趋势 · ${t.status==='final'?'已固化':'追踪中'}</span><time datetime="${esc(t.asof||'')}">${bj(t.asof)} 北京</time></div><h3><button type="button" class="x-trend-select" aria-pressed="false" aria-controls="x-frequent-posts x-hot-posts">${esc(t.title)}</button></h3><p>${esc(t.summary)}</p><div class="x-trend-evidence">依据：${sources}</div>${t.caveat?`<small class="x-trend-caveat">${esc(t.caveat)}</small>`:''}<div class="x-trend-tags">${tags}</div></article>`;
++  return `<article class="card x-trend-card" data-trend-id="${esc(t.id)}"><div class="x-trend-top"><span>本周趋势 · ${t.status==='final'?'已固化':t.status==='reserved'?'观点追踪':'追踪中'}</span><time datetime="${esc(t.asof||'')}">${bj(t.asof)} 北京</time></div><h3><button type="button" class="x-trend-select" aria-pressed="false" aria-controls="x-frequent-posts x-hot-posts">${esc(t.title)}</button><span class="x-trend-count">${evidence.length} 帖</span></h3><p>${esc(t.summary)}</p>${sources?`<div class="x-trend-evidence">依据：${sources}${lens&&evidence.length>4?' 等':''}</div>`:''}${t.caveat?`<small class="x-trend-caveat">${esc(t.caveat)}</small>`:''}<div class="x-trend-tags">${tags}</div></article>`;
+  }).filter(Boolean).join('');
+  hotStream.id='x-hot-posts';
+  frequent.innerHTML=`<div class="section-head"><div><h2 id="x-frequent-title">𝕏 高频板块</h2><p class="section-sub">过去 24 小时 · 更早帖子可展开</p></div></div>${trendCards?`<div class="x-trend-heading"><b>趋势捕捉</b><span>点击趋势，高亮相关帖</span><nav class="x-trend-pages" aria-label="趋势翻页" hidden><span aria-live="polite"></span><button type="button" data-trend-prev aria-label="上一页趋势">‹</button><button type="button" data-trend-next aria-label="下一页趋势">›</button></nav></div><div class="x-trend-grid">${trendCards}</div><div class="x-trend-selection" hidden><span aria-live="polite"></span><button type="button" data-jump-to-related>定位首帖 ↓</button></div>`:''}<div class="x-frequent-grid" id="x-frequent-posts">${frequentAuthorCards||'<article class="card live-empty">本周暂无高频帖子。</article>'}</div>`;
+@@ -194,7 +195,7 @@
+     if(related){matched++;if(hotStream.contains(node))above++}
+    }
+    selection.hidden=!id;
+-   selection.querySelector('span').textContent=id?`已高亮 ${matched} 条相关帖${above?`，其中 ${above} 条在上方高热度区`:''}`:'';
++   selection.querySelector('span').textContent='';
+   }
+   const grid=frequent.querySelector('.x-trend-grid'),nav=frequent.querySelector('.x-trend-pages');
+   const previous=nav.querySelector('[data-trend-prev]'),next=nav.querySelector('[data-trend-next]');
+diff --git a/runtime.js b/runtime.js
+index 1a37fac..200909c 100644
+--- a/runtime.js
++++ b/runtime.js
+@@ -147,6 +147,7 @@ function weeklyXTopics(topics,start,carryOnly=false){
+ function weeklyXTrends(trends,topics){
+  const posts=new Map(topics.flatMap(topic=>topic.posts.map(post=>[post.id,post])));
+  return (trends||[]).filter(trend=>{
++  if(['view-bull','view-bear','view-left','view-right'].includes(trend.id))return true;
+   const evidence=[...new Set(trend.evidence_post_ids||[])].map(id=>posts.get(id)).filter(Boolean);
+   return evidence.length>=2&&new Set(evidence.map(post=>String(post.author).toLowerCase())).size>=2;
+  });
+@@ -167,7 +168,8 @@ function mergeImportance(w,ratings){
+ }
+ function validateMoodAttribution(a,day){
+  only(a,['kind','driver','source_urls','known_by','event_at','session']);
+- ok(['event','quant'].includes(a.kind)&&typeof a.driver==='string'&&a.driver.trim()&&a.driver.length<=70,'Name one documented catalyst or a quantitative driver');
++ ok(['event','quant'].includes(a.kind)&&typeof a.driver==='string'&&a.driver.trim(),'Name one documented catalyst or a quantitative driver');
++ ok(a.driver.length<=280,'Mood attribution driver must be at most 280 characters');
+  ok(Array.isArray(a.source_urls)&&a.source_urls.length>0&&a.source_urls.length<=3&&a.source_urls.every(url),'Daily attribution needs a retrievable source');
+  if(a.kind!=='event')return;
+  ok(iso(day)&&iso(a.known_by)&&a.known_by<=day,'Catalyst must have been public by the session close');
+@@ -181,12 +183,12 @@ function validateMoodAttribution(a,day){
+ }
+ function mergeMood(w,m){
+  only(m,['anchor','baselines','current','conclusion']);
+- const valid=x=>{only(x,['date','asof','label','emoji','reason','source_urls','baseline_date','emphasis','attribution']);if(x.attribution)validateMoodAttribution(x.attribution,x.date);ok(typeof x.label==='string'&&x.label.length<=60&&typeof x.reason==='string'&&x.reason.length<=280,'Keep mood state and attribution concise');ok(typeof x.emoji==='string'&&x.emoji.length<=32,'Mood needs an emoji');ok(Array.isArray(x.source_urls)&&x.source_urls.length>0&&x.source_urls.every(url),'Mood attribution needs evidence');if(x.date)ok(iso(x.date)&&x.date<=observationToday(),'Mood date cannot be in the future');if(x.emphasis)ok(Array.isArray(x.emphasis)&&x.emphasis.every(t=>typeof t==='string'&&t.length<=180),'Invalid mood emphasis');};
++ const valid=x=>{only(x,['date','asof','label','emoji','reason','source_urls','baseline_date','emphasis','attribution','observation_phase']);if(x.attribution)validateMoodAttribution(x.attribution,x.date);ok(typeof x.label==='string'&&x.label.length<=60&&typeof x.reason==='string'&&x.reason.length<=280,'Keep mood state and attribution concise');ok(typeof x.emoji==='string'&&x.emoji.length<=32,'Mood needs an emoji');ok(Array.isArray(x.source_urls)&&x.source_urls.length>0&&x.source_urls.every(url),'Mood attribution needs evidence');if(x.date)ok(iso(x.date)&&x.date<=observationToday(),'Mood date cannot be in the future');if(x.observation_phase)ok(['intraday','regular_close'].includes(x.observation_phase),'Invalid mood observation phase');if(x.emphasis)ok(Array.isArray(x.emphasis)&&x.emphasis.every(t=>typeof t==='string'&&t.length<=180),'Invalid mood emphasis');};
+  w.market_mood??={history:[]};w.market_mood.history??=[];
+  // Retain the original observation for audit; comparisons use explicit dated baselines.
+  if(m.anchor){valid(m.anchor);ok(m.anchor.date===w.start,'Mood anchor must be Monday of this week');ok(!w.market_mood.anchor||JSON.stringify(m.anchor)===JSON.stringify(w.market_mood.anchor),'Monday mood anchor is immutable');w.market_mood.anchor=clone(m.anchor)}
+  if(m.baselines){only(m.baselines,['previous_close','week_open','early_week']);w.market_mood.baselines??={};for(const [key,b]of Object.entries(m.baselines)){valid(b);const expected=key==='previous_close'?w.snapshot.bars.NDX.filter(x=>x.date<w.start).at(-1)?.date:key==='week_open'?w.start:add(w.start,1);ok(b.date===expected,'Mood baseline must match the prior available close, Monday or Tuesday');const old=w.market_mood.baselines[key];ok(!old||JSON.stringify(old)===JSON.stringify(b),'Saved mood baselines are immutable');w.market_mood.baselines[key]=clone(b)}}
+- if(m.current){valid(m.current);ok(m.current.asof&&new Date(m.current.asof)<=new Date(),'Mood observation cannot be in the future');const day=m.current.date||m.current.asof.slice(0,10),base=Object.values(w.market_mood.baselines||{}).find(b=>b.date===m.current.baseline_date);ok(iso(day)&&day>=w.start&&day<=w.end,'Mood observation must be in this week');ok(base,'Select a saved mood baseline');ok(day===w.start?base.date<w.start:(base.date===w.start||base.date===add(w.start,1))&&base.date<=day,'Monday compares with prior close; Tuesday–Friday compares with Monday or Tuesday');w.market_mood.current=clone(m.current);const key=m.current.asof;w.market_mood.history=w.market_mood.history.filter(x=>x.asof!==key);w.market_mood.history.push(clone(m.current))}
++ if(m.current){valid(m.current);ok(m.current.asof&&Number.isFinite(Date.parse(m.current.asof))&&new Date(m.current.asof)<=new Date(),'Mood observation cannot be in the future');const day=m.current.date||m.current.asof.slice(0,10),base=Object.values(w.market_mood.baselines||{}).find(b=>b.date===m.current.baseline_date);ok(iso(day)&&day>=w.start&&day<=w.end,'Mood observation must be in this week');ok(base,'Select a saved mood baseline');ok(day===w.start?base.date<w.start:(base.date===w.start||base.date===add(w.start,1))&&base.date<=day,'Monday compares with prior close; Tuesday–Friday compares with Monday or Tuesday');if(m.current.observation_phase==='intraday'){const at=new Date(m.current.asof),etDay=new Intl.DateTimeFormat('en-CA',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).format(at),etTime=new Intl.DateTimeFormat('en-GB',{timeZone:'America/New_York',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).format(at);ok(etDay===day&&etTime>='09:30'&&etTime<'16:00','Intraday mood needs an actual regular-session quote timestamp');ok(m.current.attribution?.kind&&m.current.attribution.session==='regular','Intraday mood needs a sourced regular-session driver');if(m.current.attribution.event_at)ok(Date.parse(m.current.attribution.event_at)<=at.getTime(),'Intraday catalyst must precede the mood observation')}w.market_mood.current=clone(m.current);const key=m.current.asof;w.market_mood.history=w.market_mood.history.filter(x=>x.asof!==key);w.market_mood.history.push(clone(m.current))}
+  if(m.conclusion){valid(m.conclusion);ok((today()>w.end||(today()===w.end&&Number(new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',hour:'2-digit',hour12:false}).format(new Date()))>=16))&&w.price_cutoff>=w.start,'Week conclusion requires the final available close after Friday');w.market_mood.conclusion=clone(m.conclusion)}
+ }
+ async function read(env){
+@@ -250,7 +252,7 @@ function recentMoodDays(w,state){
+   if(!existing||(row.close_source&&/\/chart(?:\?|$)/.test(existing.source_url||'')))bars.set(date,{...existing,date,c:row.qqq_close,source_url:row.close_source});
+  }
+  const ordered=[...bars.values()].sort((a,b)=>a.date.localeCompare(b.date));
+- const savedByDate=new Map(Object.values(state.weeks||{}).flatMap(week=>week.market_mood?.history||[]).map(m=>[m.date,m]));
++ const savedByDate=new Map(Object.values(state.weeks||{}).flatMap(week=>week.market_mood?.history||[]).filter(m=>m.observation_phase!=='intraday').map(m=>[m.date,m]));
+  const weekIds=new Map(ASSETS.legacy.map(item=>[add(item.date,-4),item.date]));
+  for(const week of Object.values(state.weeks||{}))weekIds.set(week.start,week.id);
+  const vol=w.snapshot?.volatility||{},vix=new Map((vol.dates||[]).map((date,i)=>[date,vol.vix?.[i]]));

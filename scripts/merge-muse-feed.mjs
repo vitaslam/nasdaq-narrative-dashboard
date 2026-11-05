@@ -72,8 +72,9 @@ export function mergeMuseFeed(exportData, feed, {now = new Date().toISOString()}
     const trends = new Map(week.x_trends.map(trend => [trend.id, trend]));
     const posts = new Map(week.x_topics.flatMap(topic => (topic.posts || []).map(post => [post.id, post])));
     for (const trend of feed.weekly_trends) {
+      const lens = ['view-bull','view-bear','view-left','view-right'].includes(trend.id);
       const evidence = [...new Set(trend.evidence_post_ids)].map(id => posts.get(id)).filter(Boolean);
-      if (evidence.length < 2 || new Set(evidence.map(post => post.author.toLowerCase())).size < 2) {
+      if (!lens && (evidence.length < 2 || new Set(evidence.map(post => post.author.toLowerCase())).size < 2)) {
         warnings.push(`Muse trend ${trend.id}: needs two available posts by different authors; skipped`);
         continue;
       }
@@ -83,6 +84,7 @@ export function mergeMuseFeed(exportData, feed, {now = new Date().toISOString()}
   }
   const availablePosts = new Map(week.x_topics.flatMap(topic => topic.posts.map(post => [post.id, post])));
   week.x_trends = (week.x_trends || []).filter(trend => {
+    if (['view-bull','view-bear','view-left','view-right'].includes(trend.id)) return true;
     const evidence = [...new Set(trend.evidence_post_ids || [])].map(id => availablePosts.get(id)).filter(Boolean);
     return evidence.length >= 2 && new Set(evidence.map(post => String(post.author).toLowerCase())).size >= 2;
   });

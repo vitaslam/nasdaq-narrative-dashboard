@@ -24,7 +24,7 @@ for (const topic of feed.x_topics_upsert) {
   topicIds.add(topic.id);
   if (!topic.title?.trim() || !topic.summary?.trim() || !Array.isArray(topic.posts) || !topic.posts.length) fail('topic needs a title, summary, and posts');
   for (const post of topic.posts) {
-    keys(post, ['id','author','published_at','quote','viewpoint','translation_zh','translation_scope','translation_source_url','views','reposts','replies','observed_at','source_url','metrics_source','verification','avatar_url','avatar_source','impact','context'], 'post');
+    keys(post, ['id','author','published_at','quote','viewpoint','translation_zh','translation_scope','translation_source_url','views','reposts','replies','observed_at','source_url','metrics_source','verification','avatar_url','avatar_source','impact','context','stance','stance_subject','entry_side'], 'post');
     if (!/^[a-z0-9][a-z0-9-]{1,99}$/.test(post.id || '') || postIds.has(post.id)) fail('invalid or duplicate post id');
     postIds.add(post.id);
     if (!/^@[A-Za-z0-9_]{1,15}$/.test(post.author || '') || !timestamp(post.published_at) || !timestamp(post.observed_at)) fail('invalid X author or timestamp');
@@ -36,6 +36,9 @@ for (const topic of feed.x_topics_upsert) {
     for (const key of ['views','reposts','replies']) if (post[key] !== null && post[key] !== undefined && (!Number.isInteger(post[key]) || post[key] < 0)) fail(`${key} must be nonnegative integer or null`);
     if (post.avatar_url != null && !url(post.avatar_url) && !/^\/assets\/avatars\/[a-z0-9_-]+\.jpg$/.test(post.avatar_url)) fail('avatar URL invalid');
     if (post.avatar_url && !url(post.avatar_source)) fail('avatar needs verification source');
+    if (post.stance != null && (!['bull','bear'].includes(post.stance) || !post.stance_subject?.trim() || post.stance_subject.length > 80)) fail('stance needs a specific subject and bull/bear direction');
+    if (post.stance_subject != null && post.stance == null) fail('stance_subject requires stance');
+    if (post.entry_side != null && !['left','right'].includes(post.entry_side)) fail('entry_side must be left or right');
     if (!Array.isArray(post.impact) || post.impact.length > 4) fail('impact must have at most four entries');
     for (const item of post.impact) {
       keys(item, ['targets','direction','reason'], 'impact');
@@ -50,8 +53,9 @@ if (feed.weekly_trends != null) {
     keys(trend, ['id','title','summary','status','asof','evidence_post_ids','caveat','benefit_tags'], 'weekly_trend');
     if (!/^[a-z0-9][a-z0-9-]{1,79}$/.test(trend.id || '') || trendIds.has(trend.id)) fail('invalid or duplicate weekly trend id');
     trendIds.add(trend.id);
-    if (!trend.title?.trim() || !trend.summary?.trim() || !['tracking','final'].includes(trend.status) || !timestamp(trend.asof)) fail('trend needs dated title, summary and status');
-    if (!Array.isArray(trend.evidence_post_ids) || new Set(trend.evidence_post_ids).size < 2 || trend.evidence_post_ids.length > 12) fail('trend needs at least two distinct post IDs');
+    const lens = ['view-bull','view-bear','view-left','view-right'].includes(trend.id);
+    if (!trend.title?.trim() || !trend.summary?.trim() || !(lens ? ['reserved','tracking','final'] : ['tracking','final']).includes(trend.status) || !timestamp(trend.asof)) fail('trend needs dated title, summary and status');
+    if (!Array.isArray(trend.evidence_post_ids) || (!lens && new Set(trend.evidence_post_ids).size < 2) || trend.evidence_post_ids.length > (lens ? 200 : 12)) fail('trend evidence IDs invalid');
     if (!Array.isArray(trend.benefit_tags) || trend.benefit_tags.length > 6 || !trend.benefit_tags.every(tag => typeof tag === 'string' && tag.trim() && tag.length <= 45)) fail('trend benefit tags invalid');
     if (trend.caveat != null && (typeof trend.caveat !== 'string' || trend.caveat.length > 300)) fail('trend caveat too long');
   }

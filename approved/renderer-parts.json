@@ -118,6 +118,10 @@
     {
       "file": "renderer-v66-mobile-audit.patch",
       "renderer_sha256": "a9cd958f72ef6ca3290a969824ed8bf0910b34c9c5a30dbdffc9efaaeb393493"
+    },
+    {
+      "file": "renderer-v67-viewpoint-lenses.patch",
+      "renderer_sha256": "66a6083cf859db131e78ebebbd1c6d5071656a11260ee57c24d3d25fdd57e7d2"
     }
   ]
 }
