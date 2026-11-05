@@ -1,7 +1,7 @@
 {
-  "holder": "GPT",
-  "token": "gpt-2026-11-05T17:48:16.702Z-wip84603e2f",
-  "purpose": "查收 Muse 邮件并更新盘中情绪",
-  "acquired_at": "2026-11-05T17:48:16.702Z",
-  "expires_at": "2026-11-05T18:33:16.702Z"
+  "holder": null,
+  "token": null,
+  "purpose": null,
+  "acquired_at": null,
+  "expires_at": null
 }
