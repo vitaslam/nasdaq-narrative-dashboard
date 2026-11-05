@@ -1,0 +1,20 @@
+--- a/live-week.js
++++ b/live-week.js
+@@ -172,7 +172,7 @@
+   return `<article class="card x-trend-card" data-trend-id="${esc(t.id)}"><div class="x-trend-top"><span>本周趋势 · ${t.status==='final'?'已固化':'追踪中'}</span><time datetime="${esc(t.asof||'')}">${bj(t.asof)} 北京</time></div><h3><button type="button" class="x-trend-select" aria-pressed="false" aria-controls="x-frequent-posts x-hot-posts">${esc(t.title)}</button></h3><p>${esc(t.summary)}</p><div class="x-trend-evidence">依据：${sources}</div>${t.caveat?`<small class="x-trend-caveat">${esc(t.caveat)}</small>`:''}<div class="x-trend-tags">${tags}</div></article>`;
+  }).filter(Boolean).join('');
+  hotStream.id='x-hot-posts';
+- frequent.innerHTML=`<div class="section-head"><div><h2 id="x-frequent-title">𝕏 高频板块</h2><p class="section-sub">过去 32 小时 · 更早帖子可展开</p></div></div>${trendCards?`<div class="x-trend-heading"><b>趋势捕捉</b><span>点击趋势，高亮相关帖</span><nav class="x-trend-pages" aria-label="趋势翻页" hidden><span aria-live="polite"></span><button type="button" data-trend-prev aria-label="上一页趋势">‹</button><button type="button" data-trend-next aria-label="下一页趋势">›</button></nav></div><div class="x-trend-grid">${trendCards}</div><div class="x-trend-selection" hidden><span aria-live="polite"></span><button type="button" data-jump-to-related>定位首帖 ↓</button></div>`:''}<div class="x-frequent-grid" id="x-frequent-posts">${frequentAuthorCards||'<article class="card live-empty">本周暂无高频帖子。</article>'}</div>`;
++ frequent.innerHTML=`<div class="section-head"><div><h2 id="x-frequent-title">𝕏 高频板块</h2><p class="section-sub">过去 24 小时 · 更早帖子可展开</p></div></div>${trendCards?`<div class="x-trend-heading"><b>趋势捕捉</b><span>点击趋势，高亮相关帖</span><nav class="x-trend-pages" aria-label="趋势翻页" hidden><span aria-live="polite"></span><button type="button" data-trend-prev aria-label="上一页趋势">‹</button><button type="button" data-trend-next aria-label="下一页趋势">›</button></nav></div><div class="x-trend-grid">${trendCards}</div><div class="x-trend-selection" hidden><span aria-live="polite"></span><button type="button" data-jump-to-related>定位首帖 ↓</button></div>`:''}<div class="x-frequent-grid" id="x-frequent-posts">${frequentAuthorCards||'<article class="card live-empty">本周暂无高频帖子。</article>'}</div>`;
+  q('#narrative').append(frequent);
+  if(trendCards){
+   const trendNodes=[...frequent.querySelectorAll('[data-trend-id]')];
+@@ -229,7 +229,7 @@
+  }
+ 
+  const stream=frequent.querySelector('.x-frequent-grid'),authorCards=[...stream.querySelectorAll('.x-author-card')];
+- const recentCutoff=(W.status==='archived'||W.historical_review?Math.max(...frequentPosts.map(latest),0):Date.now())-32*60*60*1000;
++ const recentCutoff=(W.status==='archived'||W.historical_review?Math.max(...frequentPosts.map(latest),0):Date.now())-24*60*60*1000;
+  const olderCards=[];
+  for(const card of [...authorCards]){
+   const oldPosts=[...card.querySelectorAll('.x-simple-post')].filter(node=>latest(allPosts.get(node.dataset.postId)||{})<recentCutoff);
