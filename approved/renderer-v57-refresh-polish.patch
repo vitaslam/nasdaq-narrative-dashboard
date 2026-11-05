@@ -1,0 +1,19 @@
+--- a/runtime.js
++++ b/runtime.js
+@@ -65,7 +65,7 @@
+   await new Promise((resolve,reject)=>{const started=Date.now();const check=()=>{if(token!==requestToken||els.frame!==oldFrame){resolve();return}if(Date.now()-started>12000){reject(Error('Refresh timed out'));return}setTimeout(check,60)};check()});
+  }catch(error){
+   if(token===requestToken){if(pendingFrame){if(pendingFrame.dataset.blobURL)URL.revokeObjectURL(pendingFrame.dataset.blobURL);pendingFrame.remove();pendingFrame=null}els.panel.removeAttribute('aria-busy');const toast=document.getElementById('history-toast');toast.textContent='刷新暂未完成，请重试';toast.hidden=false;setTimeout(()=>toast.hidden=true,2600)}
+- }finally{clearTimeout(timeout);refreshInFlight=false;oldFrame.contentWindow?.postMessage({type:'dashboard-refresh-finished'},location.origin)}
++ }finally{clearTimeout(timeout);refreshInFlight=false;oldFrame.contentWindow?.postMessage({type:'dashboard-refresh-finished'},location.origin);window.postMessage({type:'dashboard-refresh-finished'},location.origin)}
+ }
+ window.addEventListener('message',e=>{if(e.origin===location.origin&&e.source===els.frame.contentWindow&&e.data?.type==='dashboard-pull-refresh')refreshCurrentWeek()});
+ </script>`;
+--- a/dashboard-enhancements.css
++++ b/dashboard-enhancements.css
+@@ -459,3 +459,5 @@
+ @media(max-width:600px){.mobile-agenda-returns{display:grid;gap:3px;margin-top:5px;font-size:10px;line-height:1.5;color:#65748a;font-variant-numeric:tabular-nums}.mobile-agenda-returns span{display:block}.mobile-agenda-copy{min-width:0}.mobile-agenda-copy p{margin-bottom:0}}
+ 
+ @media(max-width:600px){.mobile-agenda-returns{grid-column:2/-1;grid-row:2;margin-top:0}.mobile-agenda-time{grid-column:3;grid-row:1}.mobile-agenda-event{row-gap:4px}}
++
++@media(max-width:600px){.x-translation-status{display:none!important}}
