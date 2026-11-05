@@ -60,7 +60,8 @@ try {
   }catch{}
 }
 const enhancementVersion='premarket-manager-v1';
-const assetVersion=createHash('sha256').update(rendererHash+enhancementVersion).digest('hex').slice(0,12);
+const premarketRendererHash=createHash('sha256').update(await fs.readFile(path.join(root,'scripts/premarket-section.mjs'))).digest('hex');
+const assetVersion=createHash('sha256').update(rendererHash+enhancementVersion+premarketRendererHash).digest('hex').slice(0,12);
 const layoutChanged=previous?.renderer_sha256!==rendererHash||previous?.shell_override_sha256!==shellOverrideHash||previous?.asset_version!==assetVersion;
 const unchanged=previous?.data_revision===data.revision&&previous?.muse_feed_sha256===museHash&&previous?.premarket_sha256===premarketHash&&!layoutChanged;
 if(process.argv.includes('--skip-unchanged')&&unchanged){console.log('Export, approved renderer and Muse feed unchanged; no render or deploy needed.');process.exit(0)}
