@@ -579,17 +579,58 @@ html.section-manager-open,html.section-manager-open body{overflow:hidden!importa
 .calendar-event .calendar-forecast,.calendar-event .earnings-glance-brief{margin:8px 0 0;color:#53647b;font-size:12px;line-height:1.55;font-variant-numeric:tabular-nums}
 @media(max-width:600px){#calendar .mobile-agenda-copy p{font-variant-numeric:tabular-nums}}
 @media(min-width:601px){
- .week-live-banner .update-policy{display:flex;flex-direction:column;align-items:flex-end;min-width:300px}
- .week-live-banner .banner-actions{display:flex;align-items:center;justify-content:flex-end;gap:9px;margin-bottom:3px}
- .week-live-banner .banner-actions .banner-week-controls{margin:0}
- .week-live-banner .section-manager-entry{display:inline-flex;align-items:center;gap:6px;min-height:30px;padding:4px 10px;border:1px solid #d5e2df;border-radius:7px;background:#fff;color:#4d6d64;font-size:11px;line-height:1.3;font-weight:600;white-space:nowrap}
- .week-live-banner .section-manager-entry:hover{background:#e5f1ec}
- .week-live-banner .section-manager-entry svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
- .week-live-banner .section-manager-entry:focus-visible,.desktop-back-to-top:focus-visible{outline:2px solid #5c8376;outline-offset:3px}
- .desktop-back-to-top{position:fixed;right:max(26px,calc((100vw - 1728px)/2 + 20px));bottom:28px;z-index:420;display:grid;place-items:center;width:48px;height:48px;padding:10px;border:1px solid #dbe5e2;border-radius:50%;background:#ffffffed;color:#35594f;box-shadow:0 8px 26px #1e393022;backdrop-filter:blur(12px);cursor:pointer;opacity:0;visibility:hidden;transform:translateY(10px);pointer-events:none;transition:opacity .2s ease,transform .2s ease,visibility .2s}
- .desktop-back-to-top.is-visible{opacity:1;visibility:visible;transform:translateY(0);pointer-events:auto}
- .desktop-back-to-top:hover{background:#eaf3ef;transform:translateY(-2px)}
- .desktop-back-to-top svg{width:23px;height:23px;fill:none;stroke:currentColor;stroke-width:1.8}
+ .mobile-section-nav.desktop-open{display:flex;position:fixed;right:max(18px,calc((100vw - 1488px)/2 - 78px));top:50%;bottom:auto;left:auto;z-index:450;transform:translateY(-50%);flex-direction:column;align-items:center;gap:12px;width:50px;pointer-events:none}
+ .mobile-section-nav.desktop-open button{font:inherit;cursor:pointer;pointer-events:auto;color:#212832;-webkit-tap-highlight-color:transparent}
+ .mobile-section-nav.desktop-open .mobile-section-list{display:flex;flex-direction:column;align-items:center;gap:8px;max-height:calc(100dvh - 190px);overflow-y:auto;overflow-x:hidden;padding:5px 3px;scrollbar-width:none;pointer-events:auto}
+ .mobile-section-nav.desktop-open .mobile-section-list::-webkit-scrollbar{display:none}
+ .mobile-section-nav.desktop-open .mobile-section-link{position:relative;display:grid;place-items:center;flex:0 0 46px;width:46px;height:46px;padding:0;border:0;background:transparent}
+ .mobile-section-nav.desktop-open .mobile-section-icon,.mobile-section-nav.desktop-open .mobile-section-toggle{display:grid;place-items:center;width:46px;height:46px;border:1px solid #e5e9ec;border-radius:50%;background:#ffffffed;box-shadow:0 5px 17px #1c2a3620;backdrop-filter:blur(12px);box-sizing:border-box}
+ .mobile-section-nav.desktop-open .mobile-section-icon svg{width:24px;height:24px}
+ .mobile-section-nav.desktop-open .mobile-section-link[aria-current="location"] .mobile-section-icon{background:#1c2429;border-color:#1c2429;color:#fff}
+ .mobile-section-nav.desktop-open .mobile-section-label{display:none;position:absolute;right:55px;top:50%;transform:translateY(-50%);padding:7px 10px;border-radius:8px;background:#1c2429;color:#fff;box-shadow:0 4px 14px #17212e2b;font-size:12px;font-weight:600;white-space:nowrap;pointer-events:none}
+ .mobile-section-nav.desktop-open .mobile-section-link:is(:hover,:focus-visible) .mobile-section-label{display:block}
+ .mobile-section-nav.desktop-open .mobile-section-stepper{display:flex;flex-direction:column;width:50px;padding:4px;border:1px solid #e8ebee;border-radius:27px;background:#ffffffed;box-shadow:0 5px 20px #1c2a3620;pointer-events:auto}
+ .mobile-section-nav.desktop-open .mobile-section-stepper button{width:40px;height:38px;border:0;background:transparent;display:grid;place-items:center;padding:8px}
+ .mobile-section-nav.desktop-open .mobile-section-stepper button+button{border-top:1px solid #dfe4e8}
+ .mobile-section-nav.desktop-open .mobile-section-stepper svg{width:23px;height:23px;fill:none;stroke:currentColor;stroke-width:2}
+ .mobile-section-nav.desktop-open .mobile-section-stepper button:disabled{opacity:.3;cursor:default}
+ .mobile-section-nav.desktop-open .mobile-section-toggle{padding:10px}
+ .mobile-section-nav.desktop-open .mobile-section-toggle svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8}
+ .mobile-section-nav.desktop-open .mobile-section-toggle:hover,.mobile-section-nav.desktop-open .mobile-section-link:hover .mobile-section-icon{background:#ecf2f0}
+ .mobile-section-nav.desktop-open .mobile-section-link[aria-current="location"]:hover .mobile-section-icon{background:#1c2429;color:#fff}
+ .mobile-section-nav.desktop-open button:focus-visible{outline:2px solid #5c8376;outline-offset:3px}
 }
-@media(max-width:600px){.week-live-banner .section-manager-entry,.desktop-back-to-top{display:none!important}}
-@media(prefers-reduced-motion:reduce){.desktop-back-to-top{transition:none}}
+@media(max-width:600px){
+ #calendar .mobile-agenda-day-icons{max-width:128px;gap:4px}
+ #calendar .mobile-agenda-day-icons .mobile-agenda-logo{width:40px;height:40px;flex:0 0 40px;margin:0;padding:5px;border-radius:10px}
+ #calendar .mobile-agenda-day-icons :is(svg,img){width:29px;height:29px}
+ #calendar .mobile-agenda-day-icons .agency-wordmark{font-size:11px}
+ #calendar .mobile-agenda-day-icons .brand-monogram{font-size:12px}
+ #calendar .mobile-agenda-event{grid-template-columns:44px minmax(0,1fr) 72px;gap:9px}
+ #calendar .mobile-agenda-event>.mobile-agenda-logo{width:44px;height:44px;align-self:center;border-radius:11px}
+ #calendar .mobile-agenda-event>.mobile-agenda-logo :is(svg,img){width:33px;height:33px}
+ #calendar .mobile-agenda-event .brand-monogram{font-size:15px}
+ #calendar .mobile-agenda-single{position:relative;display:grid;grid-template-columns:62px 44px minmax(0,1fr) 55px;align-items:center;gap:8px;width:100%;min-height:88px;padding:12px 2px;border:0;background:transparent;color:inherit;text-align:left;font:inherit;cursor:pointer}
+ #calendar .mobile-agenda-single .mobile-agenda-date{display:flex;flex-direction:column;gap:4px;min-width:0;line-height:1.4}
+ #calendar .mobile-agenda-single .mobile-agenda-date strong{font-size:16px;font-weight:650}
+ #calendar .mobile-agenda-single .mobile-agenda-date small{font-size:11px;font-weight:400;color:#8a96a6;font-variant-numeric:tabular-nums}
+ #calendar .mobile-agenda-single>.mobile-agenda-logo{width:44px;height:44px;margin:0;align-self:center;border-radius:11px}
+ #calendar .mobile-agenda-single>.mobile-agenda-logo :is(svg,img){width:33px;height:33px}
+ #calendar .mobile-agenda-single .brand-monogram{font-size:15px}
+ #calendar .mobile-agenda-single-copy{display:grid;gap:3px;min-width:0}
+ #calendar .mobile-agenda-single-copy strong{font-size:13px;line-height:1.4;font-weight:650;color:#253244;overflow-wrap:anywhere}
+ #calendar .mobile-agenda-single-copy small{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;color:#7b8795;font-size:10px;line-height:1.5;overflow-wrap:anywhere}
+ #calendar .mobile-agenda-single>.mobile-agenda-time{grid-column:4;grid-row:1;display:flex;flex-direction:column;align-items:flex-end;min-width:0;text-align:right;font-size:11px;line-height:1.4;color:#69798d;font-variant-numeric:tabular-nums}
+ #calendar .mobile-agenda-single>.mobile-agenda-time strong{font-size:11px}
+ #calendar .mobile-agenda-single>.mobile-agenda-time small{font-size:9px}
+ #calendar .mobile-agenda-single .update-dot{right:0;top:5px}
+ #calendar .mobile-agenda-single.is-selected{background:#eef2f8;border-radius:9px}
+ #calendar .mobile-agenda-single:focus-visible{outline:2px solid #667fa1;outline-offset:2px;border-radius:9px}
+}
+@media(max-width:370px){
+ #calendar .mobile-agenda-day-icons{max-width:84px}
+ #calendar .mobile-agenda-day-icons .mobile-agenda-logo:nth-child(n+3){display:none}
+ #calendar .mobile-agenda-single{grid-template-columns:55px 40px minmax(0,1fr) 49px;gap:6px}
+ #calendar .mobile-agenda-single>.mobile-agenda-logo{width:40px;height:40px}
+ #calendar .mobile-agenda-single>.mobile-agenda-logo :is(svg,img){width:29px;height:29px}
+}
