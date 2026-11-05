@@ -134,6 +134,10 @@
     {
       "file": "renderer-v70-trend-synthesis.patch",
       "renderer_sha256": "7d866c0103984c7dd15ecb29331974a5c6fc69624d692c3bf98ab771200bd0f1"
+    },
+    {
+      "file": "renderer-v71-weekday-fold-beta.patch",
+      "renderer_sha256": "f63e950d61974800c5e54f4cf50ceb141eddc60e85789b1b82aa6aecb0b861cf"
     }
   ]
 }

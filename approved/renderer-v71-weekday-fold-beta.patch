@@ -1,0 +1,151 @@
+diff --git a/DAILY_UPDATE.md b/DAILY_UPDATE.md
+index 53d8a18..b8a9400 100644
+--- a/DAILY_UPDATE.md
++++ b/DAILY_UPDATE.md
+@@ -113,5 +113,11 @@ market_tracking结构：{week_start,basis:"event_release",release_date:"实际
+ 对 ongoing:true 或 week:0 的日历主题（例如中东供给/油价/美债）按本周实际发生的变化维护 weekly_progress，不套用未公布、待发生、已落地状态，也不编造完成百分比。每条进展 {id,week_start,at,summary,description,market?,next_watch?,source_urls}：at 用真实观察日期或带时区时间戳；summary 为一句简短变化，description 交代发生了什么，market 只写已核验的相关市场表现，next_watch 写后续验证条件；source_urls 为证据链接。只在有新进展时追加，保留已有条目及历史周；发布时提交完整 weekly_progress 数组。当前周页面只展示当前 week_start 的进展，最新在前；历史页只展示当周记录。周结束后不能追写旧周，新周另起 week_start。先读 update_context 或 read_week，核验原记录再追加，禁止把发布时间代替事件发生时间。
+ # X 观点标签与四张预留趋势（2026-11-06）
+ 
++所有趋势卡概述超过“存储短缺”卡字数才默认折叠羽化，按钮独立展开/收起；小字标的斜杠两侧留空格，不修改原文。
++
++盘前逻辑 Beta 首次及旧偏好迁移默认隐藏，读者在板块管理打开并保存后记住选择；切周保持，恢复默认则重新隐藏。数据更新流程不受个人显隐影响。
++
++看多/看空卡片的小字逐项显示本周 Mon/Tue/Wed/Thu/Fri 贴数，按原帖 `published_at` 转北京时间日期及稳定 post ID 去重统计；标题总数仍包括上周承接帖和周末帖，日数合计允许小于标题总数。其他趋势卡不显示每日计数。
++
+ 所有新旧展示帖逐条判断：任何可解读的多空意图，包括潜在、条件性或未证实观点都写 `stance: bull|bear` 与具体 `stance_subject`，有入场时机依据时写 `entry_side: left|right`。同一帖子可同时有方向与左右侧；只在无法解读出具体标的多空角度时省略多空字段；预测市场事件概率不自动等于作者的投资观点，卡面不显示待判。四张观点卡 `view-bull`、`view-bear`、`view-left`、`view-right` 始终预留，依据标签动态统计本周可见帖。摘要按整周已归类帖子分主线概述具体标的、观点依据、条件、反例与先后演化；不要只举少数热帖，左右侧则只归纳有入场时机证据的帖子。常规事件趋势仍需两位作者独立原帖，按 `asof` 新到旧；四张观点卡固定排在所有事件趋势之后，依次看多、看空、左侧、右侧，不因自身 `asof` 提前。卡片标题显示贴数，点击仅高亮相关帖，下方不重复显示计数。
+ 
+diff --git a/UPDATER.md b/UPDATER.md
+index 9f6e936..0d6676c 100644
+--- a/UPDATER.md
++++ b/UPDATER.md
+@@ -151,5 +151,11 @@ market_tracking结构：{week_start,basis:"event_release",release_date:"实际
+ 对 ongoing:true 或 week:0 的日历主题（例如中东供给/油价/美债）按本周实际发生的变化维护 weekly_progress，不套用未公布、待发生、已落地状态，也不编造完成百分比。每条进展 {id,week_start,at,summary,description,market?,next_watch?,source_urls}：at 用真实观察日期或带时区时间戳；summary 为一句简短变化，description 交代发生了什么，market 只写已核验的相关市场表现，next_watch 写后续验证条件；source_urls 为证据链接。只在有新进展时追加，保留已有条目及历史周；发布时提交完整 weekly_progress 数组。当前周页面只展示当前 week_start 的进展，最新在前；历史页只展示当周记录。周结束后不能追写旧周，新周另起 week_start。先读 update_context 或 read_week，核验原记录再追加，禁止把发布时间代替事件发生时间。
+ # X 观点标签与四张预留趋势（2026-11-06）
+ 
++所有趋势卡概述超过“存储短缺”卡字数才默认折叠并渐隐，独立按钮展开/收起，不误触趋势筛帖；小字标的标签中股票代码的斜杠两边留空格，原帖不改。
++
++盘前逻辑 Beta 对所有浏览器默认隐藏，板块管理中显式打开并保存后持久显示；关闭/恢复默认依保存偏好生效。旧布局 Cookie 无显式 opt-in 时迁移为隐藏，不覆盖其他板块的顺序与显隐。
++
++看多与看空卡片在标题总数下，以小字列本周 Mon/Tue/Wed/Thu/Fri 原帖数。用 `published_at` 转北京时间的原帖日期和稳定 post ID 去重；标题总数还包括合格承接帖及周末帖，因此五日之和可能较小。历史周用原周日期计算，不能以抓取时间或热度快照归日。
++
+ 每条展示帖按原帖或已核对的标的影响标 `stance: bull|bear`、具体 `stance_subject`，只在原帖涉及抄底、等待确认等入场条件时标 `entry_side: left|right`。任何可解读的多空意图，包括潜在、条件性或未证实的观点都标记并计入对应趋势；保留来源与未证实边界，只有无法解读具体标的方向时才省略，不显示待判。四张 `view-bull`、`view-bear`、`view-left`、`view-right` 观点卡常驻且动态汇总当前可见帖，贴数放在标题旁，点击后不另起计数行。概述须综合整周已归类帖，按主要产业、公司和跨资产分段列出具体标的、观点依据、条件、反例及时间演化；不要用少数热帖代替几十条帖子的归纳。区分已披露业绩、传闻和条件交易，不将转载当独立证据；左右侧仅用确有时机表达的帖。事件趋势按 `asof` 新到旧；四张观点卡始终排在全部事件趋势之后，固定次序看多、看空、左侧、右侧，不因更新时间挤到前页。
+ 
+diff --git a/dashboard-enhancements.css b/dashboard-enhancements.css
+index 948a783..424790d 100644
+--- a/dashboard-enhancements.css
++++ b/dashboard-enhancements.css
+@@ -127,12 +127,17 @@
+ :is(#narrative,.x-frequent-section) .x-trend-top time{color:#758093}
+ :is(#narrative,.x-frequent-section) .x-trend-card h3{margin:10px 0 8px;font-size:17px;color:#17243b}
+ :is(#narrative,.x-frequent-section) .x-trend-count{display:inline-block;margin-left:8px;padding:2px 7px;border-radius:999px;background:#eee9dc;color:#4d4560;font-size:11px;font-weight:700;vertical-align:middle;white-space:nowrap}
++:is(#narrative,.x-frequent-section) .x-trend-weekdays{display:flex;flex-wrap:wrap;align-items:center;gap:4px 10px;margin:0 0 9px;color:#64718a;font-size:10px;line-height:1.5}
++:is(#narrative,.x-frequent-section) .x-trend-weekdays b{font-size:10px;font-weight:650;color:#35445e;white-space:nowrap}
+ :is(#narrative,.x-frequent-section) .x-view-badges{display:flex;flex-wrap:wrap;gap:5px;margin:5px 0 7px}
+ :is(#narrative,.x-frequent-section) .x-view-badge{display:inline-block;border-radius:999px;padding:2px 7px;font-size:11px;font-weight:750;line-height:1.5;background:#f0edff;color:#4a3d81}
+ :is(#narrative,.x-frequent-section) .x-view-badge.bull{background:#e6f5ec;color:#19633d}
+ :is(#narrative,.x-frequent-section) .x-view-badge.bear{background:#fff0ed;color:#a44036}
+ :is(#narrative,.x-frequent-section) .x-trend-card p{margin:0 0 10px;color:#17243b;font-size:13px;line-height:1.7}
+ :is(#narrative,.x-frequent-section) .x-trend-card[data-trend-id^="view-"] p{white-space:pre-line}
++:is(#narrative,.x-frequent-section) .x-trend-summary p.is-collapsed{max-height:178px;overflow:hidden;mask-image:linear-gradient(to bottom,#000 0%,#000 67%,transparent 100%);-webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 67%,transparent 100%)}
++:is(#narrative,.x-frequent-section) .x-trend-expand{display:block;margin:-2px 0 11px;padding:4px 0;border:0;background:none;color:#5365a0;font-family:inherit;font-size:11px;font-weight:600;line-height:1.5;cursor:pointer}
++:is(#narrative,.x-frequent-section) .x-trend-expand:focus-visible{outline:2px solid #5365a0;outline-offset:2px;border-radius:3px}
+ :is(#narrative,.x-frequent-section) .x-trend-evidence{font-size:11px;line-height:1.7;color:#66738a}
+ :is(#narrative,.x-frequent-section) .x-trend-evidence a{color:#52649b;text-decoration:underline;text-underline-offset:2px}
+ :is(#narrative,.x-frequent-section) .x-trend-caveat{display:block;margin-top:8px;color:#7a6870;font-size:11px;line-height:1.5}
+@@ -398,6 +403,7 @@
+ @media(max-width:600px){.main .market-overview .sentiment-tile{grid-column:1/-1;min-height:0;padding:18px}.main .sentiment-reason{font-size:13px;line-height:1.75}.main .sentiment-anchor{font-size:11px}}
+ 
+ .managed-section[hidden],.managed-empty[hidden]{display:none!important}.managed-section{min-width:0}.managed-section+.managed-section{margin-top:26px}.managed-section>.section:first-child,.managed-section>.x-frequent-section:first-child{margin-top:0}.managed-empty{padding:32px 20px;background:#fff;border-radius:12px;color:#6c7888;text-align:center}
++.section-manager .section-beta{border-radius:5px;padding:2px 5px;background:#edf1ff;color:#5262a1;font-size:10px;font-weight:700;line-height:1.4;white-space:nowrap}
+ .section-manager{width:min(560px,100%);max-width:100%;max-height:90dvh;padding:0;border:0;border-radius:20px;background:#f6f7fa;color:#17212e;box-shadow:0 20px 70px #16233440}.section-manager::backdrop{background:#16233455;backdrop-filter:blur(5px)}.section-manager[open]{display:flex;flex-direction:column}.section-manager header{display:flex;align-items:center;gap:12px;padding:20px;border-bottom:1px solid #e1e5eb;background:#fff}.section-manager h2{font-size:20px;line-height:1.4;margin:0}.section-manager header p{font-size:12px;color:#7b8795;margin:4px 0 0}.section-manager button{font:inherit;cursor:pointer;touch-action:manipulation}.section-manager [data-manager-back]{width:40px;height:40px;border:0;border-radius:50%;background:#f2f4f7;font-size:28px;flex-shrink:0}.section-manager [data-manager-reset]{margin-left:auto;border:0;background:none;color:#65788e;font-size:12px;padding:10px 0;white-space:nowrap}.section-manager-list{padding:16px;display:flex;flex-direction:column;gap:10px;overflow:auto;overscroll-behavior:contain;min-height:0}.section-manager-row{display:flex;align-items:center;gap:10px;padding:14px 12px;border-radius:14px;background:white;border:1px solid #e6e9ee;flex-shrink:0}.section-manager-icon{display:flex;align-items:center;justify-content:center;width:32px;flex-shrink:0;color:#171a1e}.section-manager-icon svg{width:25px;height:25px}.section-manager-row b{font-size:14px;font-weight:600;white-space:nowrap}.section-order{display:flex;gap:4px;margin-left:auto}.section-order button{border:0;border-radius:8px;background:#f3f5f8;color:#52657d;width:34px;height:40px;font-size:20px}.section-order button:disabled{opacity:.25;cursor:default}.section-switch{flex-shrink:0;width:44px;height:28px;border:0;border-radius:16px;padding:3px;background:#cbd1d9}.section-switch span{display:block;width:22px;height:22px;border-radius:50%;background:white;box-shadow:0 1px 3px #0002;transition:transform .15s}.section-switch[aria-checked=true]{background:#263a35}.section-switch[aria-checked=true] span{transform:translateX(16px)}.section-manager footer{padding:12px 20px 20px;border-top:1px solid #e1e5eb;background:white}.section-manager-status{color:#7a8796;font-size:12px;margin:0 0 10px;line-height:1.5}.section-manager [data-manager-save]{display:block;width:100%;border:0;background:#1a242d;color:white;border-radius:12px;padding:13px;font-size:15px;font-weight:600}.section-manager-entry{border:0;background:transparent;color:#6a7990;padding:8px;cursor:pointer;font:inherit}.section-manager button:focus-visible{outline:2px solid #627eaa;outline-offset:2px}
+ @media(max-width:600px){.section-manager{position:fixed;inset:0;width:100%;height:100%;height:100dvh;max-height:none;max-width:none;margin:0;border-radius:0}.section-manager header{padding:16px 14px}.section-manager-list{flex:1;padding:14px 12px}.section-manager footer{padding:12px 16px calc(16px + env(safe-area-inset-bottom))}.section-manager-row{gap:8px;padding:13px 10px}.section-manager-row b{font-size:13px}.section-manager-icon{width:27px}.managed-section+.managed-section{margin-top:24px}}
+ @media(max-width:360px){.section-order{gap:0}.section-order button{width:28px}.section-manager-row{gap:7px}.section-manager-list{padding:12px 8px}.section-manager-row b{font-size:12px}}
+diff --git a/dashboard-enhancements.js b/dashboard-enhancements.js
+index aff1c76..dea98b5 100644
+--- a/dashboard-enhancements.js
++++ b/dashboard-enhancements.js
+@@ -237,7 +237,7 @@
+     const headerObserver=new ResizeObserver(syncHeaderInset);headerObserver.observe(shellHeader);syncHeaderInset();
+     window.addEventListener('pagehide',()=>headerObserver.disconnect(),{once:true});
+   }
+-  const normalize=value=>({order:[...new Set([...(Array.isArray(value?.order)?value.order:[]),...defaultOrder])].filter(key=>defaultOrder.includes(key)),hidden:[...new Set(Array.isArray(value?.hidden)?value.hidden:[])].filter(key=>defaultOrder.includes(key))});
++  const normalize=value=>{const order=[...new Set([...(Array.isArray(value?.order)?value.order:[]),...defaultOrder])].filter(key=>defaultOrder.includes(key)),hidden=[...new Set(Array.isArray(value?.hidden)?value.hidden:[])].filter(key=>defaultOrder.includes(key)),premarketOptedIn=value?.premarket_opted_in===true;if(defaultOrder.includes('premarket')){if(!value?.order?.includes('premarket')){const old=order.indexOf('premarket');if(old>=0)order.splice(old,1);order.splice(Math.max(0,order.indexOf('overview')+1),0,'premarket')}if(!premarketOptedIn&&!hidden.includes('premarket'))hidden.push('premarket')}return {order,hidden,premarket_opted_in:premarketOptedIn}};
+   const readPreference=()=>{try{const value=prefDoc.cookie.split('; ').find(row=>row.startsWith(prefKey+'='));return normalize(value?JSON.parse(decodeURIComponent(value.slice(prefKey.length+1))):null)}catch{return normalize(null)}};
+   let preference=readPreference(),shortcuts=[],links=[],expanded=false,currentIndex=0,navScrolling=false;
+   const nav=document.createElement('nav');nav.className='mobile-section-nav';nav.setAttribute('aria-label','板块快捷导航');
+@@ -287,14 +287,14 @@
+   manager.innerHTML='<header><button type="button" data-manager-back aria-label="返回页面">‹</button><div><h2 id="section-manager-title">板块管理</h2><p>选择显示内容，调整阅读顺序</p></div><button type="button" data-manager-reset>恢复默认</button></header><div class="section-manager-list"></div><footer><p role="status" class="section-manager-status">保存到此浏览器，下次打开自动沿用。</p><button type="button" data-manager-save>保存并返回</button></footer>';
+   manager.querySelector('[data-manager-back]').innerHTML=navSvg('<path d="m17 6-8 8 8 8" stroke-linecap="round"/>');
+   document.body.append(manager);let draft=normalize(preference),returnFocus=null;
+-  const renderManager=()=>{manager.querySelector('.section-manager-list').innerHTML=draft.order.map((key,index)=>{const item=allShortcuts.find(item=>item.key===key);return `<div class="section-manager-row" data-manage-key="${key}"><span class="section-manager-icon">${navIcons[item.icon]}</span><b>${item.label}</b><div class="section-order"><button type="button" data-move="-1" aria-label="上移${item.label}" ${index===0?'disabled':''}>↑</button><button type="button" data-move="1" aria-label="下移${item.label}" ${index===draft.order.length-1?'disabled':''}>↓</button></div><button type="button" class="section-switch" role="switch" aria-label="显示${item.label}" aria-checked="${!draft.hidden.includes(key)}"><span></span></button></div>`}).join('')};
++  const renderManager=()=>{manager.querySelector('.section-manager-list').innerHTML=draft.order.map((key,index)=>{const item=allShortcuts.find(item=>item.key===key);return `<div class="section-manager-row" data-manage-key="${key}"><span class="section-manager-icon">${navIcons[item.icon]}</span><b>${item.label}</b>${key==='premarket'?'<small class="section-beta">Beta</small>':''}<div class="section-order"><button type="button" data-move="-1" aria-label="上移${item.label}" ${index===0?'disabled':''}>↑</button><button type="button" data-move="1" aria-label="下移${item.label}" ${index===draft.order.length-1?'disabled':''}>↓</button></div><button type="button" class="section-switch" role="switch" aria-label="显示${item.label}" aria-checked="${!draft.hidden.includes(key)}"><span></span></button></div>`}).join('')};
+   const setManagerMode=open=>{cancelNavScroll();setHeaderHidden(false);document.documentElement.classList.toggle('section-manager-open',open);prefDoc.documentElement.classList.toggle('section-manager-open',open)};
+   window.addEventListener('pagehide',()=>{setManagerMode(false);prefDoc.documentElement.classList.remove('mobile-header-hidden');prefDoc.querySelector('.history-header')?.removeAttribute('inert')});
+   function openManager(){returnFocus=document.activeElement;setOpen(false);draft=normalize(preference);renderManager();manager.querySelector('.section-manager-status').textContent='保存到此浏览器，下次打开自动沿用。';setManagerMode(true);manager.showModal();manager.querySelector('[data-manager-back]').focus({preventScroll:true})}
+   manager.querySelector('[data-manager-back]').addEventListener('click',()=>manager.close());
+   manager.addEventListener('close',()=>{setManagerMode(false);(returnFocus?.isConnected&&returnFocus.offsetParent?returnFocus:toggle).focus({preventScroll:true})});
+   manager.querySelector('[data-manager-reset]').addEventListener('click',()=>{draft=normalize(null);renderManager();manager.querySelector('.section-manager-status').textContent='已恢复默认，保存后生效。'});
+-  manager.querySelector('.section-manager-list').addEventListener('click',event=>{const row=event.target.closest('[data-manage-key]');if(!row)return;const key=row.dataset.manageKey;if(event.target.closest('.section-switch')){draft.hidden=draft.hidden.includes(key)?draft.hidden.filter(k=>k!==key):[...draft.hidden,key];const button=row.querySelector('.section-switch');button.setAttribute('aria-checked',String(!draft.hidden.includes(key)))}else{const button=event.target.closest('[data-move]');if(!button)return;const i=draft.order.indexOf(key),j=i+Number(button.dataset.move);if(j<0||j>=draft.order.length)return;const positions=new Map([...manager.querySelectorAll('.section-manager-row')].map(row=>[row.dataset.manageKey,row.getBoundingClientRect().top]));[draft.order[i],draft.order[j]]=[draft.order[j],draft.order[i]];renderManager();if(!matchMedia('(prefers-reduced-motion:reduce)').matches)for(const row of manager.querySelectorAll('.section-manager-row')){const offset=positions.get(row.dataset.manageKey)-row.getBoundingClientRect().top;if(offset)row.animate([{transform:'translateY('+offset+'px)'},{transform:'translateY(0)'}],{duration:240,easing:'cubic-bezier(.2,.8,.2,1)'})}manager.querySelector(`[data-manage-key="${key}"] [data-move="${button.dataset.move}"]:not(:disabled)`)?.focus({preventScroll:true})}});
++  manager.querySelector('.section-manager-list').addEventListener('click',event=>{const row=event.target.closest('[data-manage-key]');if(!row)return;const key=row.dataset.manageKey;if(event.target.closest('.section-switch')){draft.hidden=draft.hidden.includes(key)?draft.hidden.filter(k=>k!==key):[...draft.hidden,key];if(key==='premarket')draft.premarket_opted_in=true;const button=row.querySelector('.section-switch');button.setAttribute('aria-checked',String(!draft.hidden.includes(key)))}else{const button=event.target.closest('[data-move]');if(!button)return;const i=draft.order.indexOf(key),j=i+Number(button.dataset.move);if(j<0||j>=draft.order.length)return;const positions=new Map([...manager.querySelectorAll('.section-manager-row')].map(row=>[row.dataset.manageKey,row.getBoundingClientRect().top]));[draft.order[i],draft.order[j]]=[draft.order[j],draft.order[i]];renderManager();if(!matchMedia('(prefers-reduced-motion:reduce)').matches)for(const row of manager.querySelectorAll('.section-manager-row')){const offset=positions.get(row.dataset.manageKey)-row.getBoundingClientRect().top;if(offset)row.animate([{transform:'translateY('+offset+'px)'},{transform:'translateY(0)'}],{duration:240,easing:'cubic-bezier(.2,.8,.2,1)'})}manager.querySelector(`[data-manage-key="${key}"] [data-move="${button.dataset.move}"]:not(:disabled)`)?.focus({preventScroll:true})}});
+   manager.querySelector('[data-manager-save]').addEventListener('click',()=>{const value=normalize(draft);try{prefDoc.cookie=prefKey+'='+encodeURIComponent(JSON.stringify(value))+'; Max-Age=31536000; Path=/; SameSite=Lax'+(location.protocol==='https:'?'; Secure':'');const saved=readPreference();if(JSON.stringify(saved)!==JSON.stringify(value))throw Error('cookie unavailable');preference=value;applyPreference();manager.close();window.scrollTo({top:0,behavior:'instant'})}catch{manager.querySelector('.section-manager-status').textContent='浏览器未允许保存 Cookie，请允许后再试；设置尚未保存。'}});
+   applyPreference();setOpen(false);
+   if(parent===window){try{const saved=sessionStorage.getItem('dashboard-refresh-position'),notice=sessionStorage.getItem('dashboard-refresh-notice');if(saved!==null){sessionStorage.removeItem('dashboard-refresh-position');addEventListener('load',()=>{requestAnimationFrame(()=>window.scrollTo({top:Number(saved)||0,behavior:'instant'}))},{once:true})}if(notice==='1'){sessionStorage.removeItem('dashboard-refresh-notice');const toast=document.createElement('div');toast.className='mobile-refresh-toast';toast.role='status';toast.textContent='已更新';document.body.append(toast);requestAnimationFrame(()=>toast.classList.add('is-visible'));setTimeout(()=>toast.remove(),2500)}}catch{}}
+diff --git a/live-week.js b/live-week.js
+index 8eecc4e..2c38f5a 100644
+--- a/live-week.js
++++ b/live-week.js
+@@ -2,6 +2,7 @@
+ (() => {
+  const W=JSON.parse(document.getElementById('live-week-data').textContent), S=JSON.parse(document.getElementById('report-data').textContent);
+  const q=s=>document.querySelector(s), all=s=>[...document.querySelectorAll(s)], esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
++ const spacedLabel=s=>String(s??'').replace(/\s*\/\s*/g,' / ');
+  const link=(url,label)=>/^https:\/\//.test(url||'')?`<a href="${esc(url)}" target="_blank" rel="noopener">${esc(label)} ↗</a>`:esc(label);
+  const num=(n,d=2)=>Number.isFinite(Number(n))&&n!==null?Number(n).toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d}):'—';
+  const sign=(n,d=2)=>n===null?'—':(n>0?'+':'')+num(n,d), md=d=>String(d||'').slice(5,10).replace('-','/');
+@@ -131,7 +132,7 @@
+  const topics=[...(W.x_topics||[])];
+  const positive=p=>[...new Set((p.impact||[]).filter(i=>i.direction?.includes('利好')).flatMap(i=>i.targets.split(/\s*[/、,，]\s*/)).map(s=>s.trim()).filter(Boolean))].join(' / ');
+  const heatLabel=p=>p.views!=null?`${heat(p.views)} 浏览`:p.reposts!=null?`${heat(p.reposts)} 转发`:p.replies!=null?`${heat(p.replies)} 评论`:'热度待核验';
+- const body=p=>{const complete=p.translation_scope==='full'&&p.translation_zh?.trim(),postOnly=p.translation_scope==='post_only'&&p.translation_zh?.trim(),copy=complete||postOnly?p.translation_zh:p.viewpoint||p.translation_zh||'原帖文字待核对',long=copy.length>180,targets=positive(p);const status=complete?'':`<small class="x-translation-status">${postOnly?'仅原帖正文已逐句译出；所引长帖未收录':'原帖全文未核实 · 保留既有记录'}</small>`;const badges=[p.stance==='bull'?`<span class="x-view-badge bull">看多${p.stance_subject?` · ${esc(p.stance_subject)}`:''}</span>`:p.stance==='bear'?`<span class="x-view-badge bear">看空${p.stance_subject?` · ${esc(p.stance_subject)}`:''}</span>`:'',p.entry_side==='left'?'<span class="x-view-badge entry">左侧观点</span>':p.entry_side==='right'?'<span class="x-view-badge entry">右侧观点</span>':''].filter(Boolean).join('');return `<time class="x-post-time" datetime="${esc(p.published_at||'')}">${bj(p.published_at)} 北京</time>${badges?`<div class="x-view-badges">${badges}</div>`:''}<p class="x-translation${long?' is-collapsed':''}">${esc(copy)}</p>${long?'<button class="x-expand-post" type="button" aria-expanded="false">展开全文</button>':''}${status}<div class="x-simple-foot">${targets?`<span>利好标的：<b>${esc(targets)}</b></span>`:''}<span class="x-single-heat">${heatLabel(p)}</span></div>`};
++ const body=p=>{const complete=p.translation_scope==='full'&&p.translation_zh?.trim(),postOnly=p.translation_scope==='post_only'&&p.translation_zh?.trim(),copy=complete||postOnly?p.translation_zh:p.viewpoint||p.translation_zh||'原帖文字待核对',long=copy.length>180,targets=positive(p);const status=complete?'':`<small class="x-translation-status">${postOnly?'仅原帖正文已逐句译出；所引长帖未收录':'原帖全文未核实 · 保留既有记录'}</small>`;const badges=[p.stance==='bull'?`<span class="x-view-badge bull">看多${p.stance_subject?` · ${esc(spacedLabel(p.stance_subject))}`:''}</span>`:p.stance==='bear'?`<span class="x-view-badge bear">看空${p.stance_subject?` · ${esc(spacedLabel(p.stance_subject))}`:''}</span>`:'',p.entry_side==='left'?'<span class="x-view-badge entry">左侧观点</span>':p.entry_side==='right'?'<span class="x-view-badge entry">右侧观点</span>':''].filter(Boolean).join('');return `<time class="x-post-time" datetime="${esc(p.published_at||'')}">${bj(p.published_at)} 北京</time>${badges?`<div class="x-view-badges">${badges}</div>`:''}<p class="x-translation${long?' is-collapsed':''}">${esc(copy)}</p>${long?'<button class="x-expand-post" type="button" aria-expanded="false">展开全文</button>':''}${status}<div class="x-simple-foot">${targets?`<span>利好标的：<b>${esc(targets)}</b></span>`:''}<span class="x-single-heat">${heatLabel(p)}</span></div>`};
+  const hotPosts=topics.flatMap(t=>(t.posts||[]).filter(hot).map(p=>({...p,topic_title:t.title}))).sort((a,b)=>latest(b)-latest(a));
+  const frequentPosts=topics.flatMap(t=>(t.posts||[]).filter(p=>!hot(p)).map(p=>({...p,topic_title:t.title}))).sort((a,b)=>latest(b)-latest(a));
+  // Group by the same Beijing calendar date shown on each post; never by observation time.
+@@ -162,11 +163,14 @@
+  const trendEvidence=new Map();
+  const trendTime=t=>Date.parse(t.asof)||0;
+  const lensOrder={'view-bull':0,'view-bear':1,'view-left':2,'view-right':3};
++ const weekdayDates=Array.from({length:5},(_,i)=>new Date(Date.parse(W.start+'T00:00:00Z')+i*86400000).toISOString().slice(0,10));
++ const weekdayLabels=['Mon','Tue','Wed','Thu','Fri'];
+  const trends=[...(W.x_trends||[])].sort((a,b)=>{
+   const aLens=Object.hasOwn(lensOrder,a.id),bLens=Object.hasOwn(lensOrder,b.id);
+   if(aLens!==bLens)return aLens?1:-1;
+   return aLens?lensOrder[a.id]-lensOrder[b.id]:trendTime(b)-trendTime(a);
+  });
++ const foldLimit=String(trends.find(t=>t.id==='memory-shortage-2027')?.summary||'').length||294;
+  const trendCards=trends.map(t=>{
+   const lens={'view-bull':p=>p.stance==='bull','view-bear':p=>p.stance==='bear','view-left':p=>p.entry_side==='left','view-right':p=>p.entry_side==='right'}[t.id];
+   const evidence=lens?[...allPosts.values()].filter(lens):[...new Set(t.evidence_post_ids||[])].map(id=>allPosts.get(id)).filter(Boolean);
+@@ -174,8 +178,11 @@
+   if(!lens&&(evidence.length<2||authors.size<2))return '';
+   trendEvidence.set(String(t.id),new Set(evidence.map(p=>String(p.id))));
+   const sources=(lens?evidence.slice(0,4):evidence).map(p=>`<a href="${esc(p.source_url)}" target="_blank" rel="noopener">${esc(p.author)}</a>`).join(' · ');
+-  const tags=(t.benefit_tags||[]).map(tag=>`<span>${esc(tag)}</span>`).join('');
+-  return `<article class="card x-trend-card" data-trend-id="${esc(t.id)}"><div class="x-trend-top"><span>本周趋势 · ${t.status==='final'?'已固化':t.status==='reserved'?'观点追踪':'追踪中'}</span><time datetime="${esc(t.asof||'')}">${bj(t.asof)} 北京</time></div><h3><button type="button" class="x-trend-select" aria-pressed="false" aria-controls="x-frequent-posts x-hot-posts">${esc(t.title)}</button><span class="x-trend-count">${evidence.length} 帖</span></h3><p>${esc(t.summary)}</p>${sources?`<div class="x-trend-evidence">依据：${sources}${lens&&evidence.length>4?' 等':''}</div>`:''}${t.caveat?`<small class="x-trend-caveat">${esc(t.caveat)}</small>`:''}<div class="x-trend-tags">${tags}</div></article>`;
++  const tags=(t.benefit_tags||[]).map(tag=>`<span>${esc(spacedLabel(tag))}</span>`).join('');
++  const weekdayCounts=(t.id==='view-bull'||t.id==='view-bear')?`<div class="x-trend-weekdays" aria-label="本周北京时间原帖日期，周一至周五贴数"><span>本周原帖 · 北京时间</span>${weekdayDates.map((day,i)=>`<b title="${day}">${weekdayLabels[i]} ${evidence.filter(p=>postDay(p)===day).length}</b>`).join('')}</div>`:'';
++  const foldable=String(t.summary||'').length>foldLimit;
++  const summary=foldable?`<div class="x-trend-summary"><p class="is-collapsed" id="summary-${esc(t.id)}">${esc(t.summary)}</p><button type="button" class="x-trend-expand" aria-expanded="false" aria-controls="summary-${esc(t.id)}">展开全文</button></div>`:`<p>${esc(t.summary)}</p>`;
++  return `<article class="card x-trend-card" data-trend-id="${esc(t.id)}"><div class="x-trend-top"><span>本周趋势 · ${t.status==='final'?'已固化':t.status==='reserved'?'观点追踪':'追踪中'}</span><time datetime="${esc(t.asof||'')}">${bj(t.asof)} 北京</time></div><h3><button type="button" class="x-trend-select" aria-pressed="false" aria-controls="x-frequent-posts x-hot-posts">${esc(t.title)}</button><span class="x-trend-count">${evidence.length} 帖</span></h3>${weekdayCounts}${summary}${sources?`<div class="x-trend-evidence">依据：${sources}${lens&&evidence.length>4?' 等':''}</div>`:''}${t.caveat?`<small class="x-trend-caveat">${esc(t.caveat)}</small>`:''}<div class="x-trend-tags">${tags}</div></article>`;
+  }).filter(Boolean).join('');
+  hotStream.id='x-hot-posts';
+  frequent.innerHTML=`<div class="section-head"><div><h2 id="x-frequent-title">𝕏 高频板块</h2><p class="section-sub">过去 24 小时 · 更早帖子可展开</p></div></div>${trendCards?`<div class="x-trend-heading"><b>趋势捕捉</b><span>点击趋势，高亮相关帖</span><nav class="x-trend-pages" aria-label="趋势翻页" hidden><span aria-live="polite"></span><button type="button" data-trend-prev aria-label="上一页趋势">‹</button><button type="button" data-trend-next aria-label="下一页趋势">›</button></nav></div><div class="x-trend-grid">${trendCards}</div><div class="x-trend-selection" hidden><span aria-live="polite"></span><button type="button" data-jump-to-related>定位首帖 ↓</button></div>`:''}<div class="x-frequent-grid" id="x-frequent-posts">${frequentAuthorCards||'<article class="card live-empty">本周暂无高频帖子。</article>'}</div>`;
+@@ -229,6 +236,8 @@
+ 
+   frequent.addEventListener('click',ev=>{
+    if(ev.target.closest('a'))return;
++   const expand=ev.target.closest('.x-trend-expand');
++   if(expand){const summary=expand.closest('.x-trend-summary')?.querySelector('p');if(!summary)return;const open=summary.classList.toggle('is-collapsed')===false;expand.setAttribute('aria-expanded',String(open));expand.textContent=open?'收起':'展开全文';return}
+    if(ev.target.closest('[data-jump-to-related]')){
+     setFrequentExpanded(true);arrangeStream();
+     const matches=postNodes.filter(node=>node.classList.contains('is-trend-match'));
