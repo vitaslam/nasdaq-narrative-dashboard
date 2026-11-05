@@ -58,6 +58,10 @@
     {
       "file": "renderer-v51-alignment.patch",
       "renderer_sha256": "331a0315cb819a1f4a0ae02e59b4024eb79c41b563c04551baf3abec352edc89"
+    },
+    {
+      "file": "renderer-v52-compact.patch",
+      "renderer_sha256": "7019fdd00893d2efe12ac024bf3be58b8f88b8336972ed6e5f059f18dcc59507"
     }
   ]
 }
