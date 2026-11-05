@@ -82,12 +82,8 @@ export function mergeMuseFeed(exportData, feed, {now = new Date().toISOString()}
     }
     week.x_trends = [...trends.values()];
   }
-  const availablePosts = new Map(week.x_topics.flatMap(topic => topic.posts.map(post => [post.id, post])));
-  week.x_trends = (week.x_trends || []).filter(trend => {
-    if (['view-bull','view-bear','view-left','view-right'].includes(trend.id)) return true;
-    const evidence = [...new Set(trend.evidence_post_ids || [])].map(id => availablePosts.get(id)).filter(Boolean);
-    return evidence.length >= 2 && new Set(evidence.map(post => String(post.author).toLowerCase())).size >= 2;
-  });
+  // Existing weekly trends are an evolution record. Reject unsupported incoming
+  // cards above, but never prune an already published card on a later batch.
 
   const snap = week.snapshot;
   snap.quotes??={};

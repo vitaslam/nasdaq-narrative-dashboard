@@ -1,0 +1,40 @@
+diff --git a/DAILY_UPDATE.md b/DAILY_UPDATE.md
+index 056d65e..db2b628 100644
+--- a/DAILY_UPDATE.md
++++ b/DAILY_UPDATE.md
+@@ -113,5 +113,5 @@ market_tracking结构：{week_start,basis:"event_release",release_date:"实际
+ 对 ongoing:true 或 week:0 的日历主题（例如中东供给/油价/美债）按本周实际发生的变化维护 weekly_progress，不套用未公布、待发生、已落地状态，也不编造完成百分比。每条进展 {id,week_start,at,summary,description,market?,next_watch?,source_urls}：at 用真实观察日期或带时区时间戳；summary 为一句简短变化，description 交代发生了什么，market 只写已核验的相关市场表现，next_watch 写后续验证条件；source_urls 为证据链接。只在有新进展时追加，保留已有条目及历史周；发布时提交完整 weekly_progress 数组。当前周页面只展示当前 week_start 的进展，最新在前；历史页只展示当周记录。周结束后不能追写旧周，新周另起 week_start。先读 update_context 或 read_week，核验原记录再追加，禁止把发布时间代替事件发生时间。
+ # X 观点标签与四张预留趋势（2026-11-06）
+ 
+-所有新旧展示帖逐条判断：明确或略有倾向时写 `stance: bull|bear` 与具体 `stance_subject`，有入场时机依据时写 `entry_side: left|right`。同一帖子可同时有方向与左右侧；纯概率和无方向快讯省略字段，卡面不显示待判。四张观点卡 `view-bull`、`view-bear`、`view-left`、`view-right` 始终预留，依据标签动态统计本周可见帖，摘要说明当前观点及验证条件。常规事件趋势仍需两位作者独立原帖。卡片标题显示贴数，点击仅高亮相关帖，下方不重复显示计数。
++所有新旧展示帖逐条判断：明确或略有倾向时写 `stance: bull|bear` 与具体 `stance_subject`，有入场时机依据时写 `entry_side: left|right`。同一帖子可同时有方向与左右侧；纯概率和无方向快讯省略字段，卡面不显示待判。四张观点卡 `view-bull`、`view-bear`、`view-left`、`view-right` 始终预留，依据标签动态统计本周可见帖，摘要说明当前观点及验证条件。常规事件趋势仍需两位作者独立原帖，按 `asof` 新到旧；四张观点卡固定排在所有事件趋势之后，依次看多、看空、左侧、右侧，不因自身 `asof` 提前。卡片标题显示贴数，点击仅高亮相关帖，下方不重复显示计数。
+ 
+diff --git a/UPDATER.md b/UPDATER.md
+index d987fb9..e3f6773 100644
+--- a/UPDATER.md
++++ b/UPDATER.md
+@@ -151,5 +151,5 @@ market_tracking结构：{week_start,basis:"event_release",release_date:"实际
+ 对 ongoing:true 或 week:0 的日历主题（例如中东供给/油价/美债）按本周实际发生的变化维护 weekly_progress，不套用未公布、待发生、已落地状态，也不编造完成百分比。每条进展 {id,week_start,at,summary,description,market?,next_watch?,source_urls}：at 用真实观察日期或带时区时间戳；summary 为一句简短变化，description 交代发生了什么，market 只写已核验的相关市场表现，next_watch 写后续验证条件；source_urls 为证据链接。只在有新进展时追加，保留已有条目及历史周；发布时提交完整 weekly_progress 数组。当前周页面只展示当前 week_start 的进展，最新在前；历史页只展示当周记录。周结束后不能追写旧周，新周另起 week_start。先读 update_context 或 read_week，核验原记录再追加，禁止把发布时间代替事件发生时间。
+ # X 观点标签与四张预留趋势（2026-11-06）
+ 
+-每条展示帖按原帖或已核对的标的影响标 `stance: bull|bear`、具体 `stance_subject`，只在原帖涉及抄底、等待确认等入场条件时标 `entry_side: left|right`。轻微倾向也标；没有依据就省略字段，不显示待判。四张 `view-bull`、`view-bear`、`view-left`、`view-right` 观点卡常驻且动态汇总当前可见帖，贴数放在标题旁，点击后不另起计数行。
++每条展示帖按原帖或已核对的标的影响标 `stance: bull|bear`、具体 `stance_subject`，只在原帖涉及抄底、等待确认等入场条件时标 `entry_side: left|right`。轻微倾向也标；没有依据就省略字段，不显示待判。四张 `view-bull`、`view-bear`、`view-left`、`view-right` 观点卡常驻且动态汇总当前可见帖，贴数放在标题旁，点击后不另起计数行。事件趋势按 `asof` 新到旧；四张观点卡始终排在全部事件趋势之后，固定次序看多、看空、左侧、右侧，不因更新时间挤到前页。
+ 
+diff --git a/live-week.js b/live-week.js
+index 432ff80..8eecc4e 100644
+--- a/live-week.js
++++ b/live-week.js
+@@ -161,7 +161,12 @@
+  const allPosts=new Map(topics.flatMap(t=>(t.posts||[]).map(p=>[p.id,p])));
+  const trendEvidence=new Map();
+  const trendTime=t=>Date.parse(t.asof)||0;
+- const trends=[...(W.x_trends||[])].sort((a,b)=>trendTime(b)-trendTime(a));
++ const lensOrder={'view-bull':0,'view-bear':1,'view-left':2,'view-right':3};
++ const trends=[...(W.x_trends||[])].sort((a,b)=>{
++  const aLens=Object.hasOwn(lensOrder,a.id),bLens=Object.hasOwn(lensOrder,b.id);
++  if(aLens!==bLens)return aLens?1:-1;
++  return aLens?lensOrder[a.id]-lensOrder[b.id]:trendTime(b)-trendTime(a);
++ });
+  const trendCards=trends.map(t=>{
+   const lens={'view-bull':p=>p.stance==='bull','view-bear':p=>p.stance==='bear','view-left':p=>p.entry_side==='left','view-right':p=>p.entry_side==='right'}[t.id];
+   const evidence=lens?[...allPosts.values()].filter(lens):[...new Set(t.evidence_post_ids||[])].map(id=>allPosts.get(id)).filter(Boolean);

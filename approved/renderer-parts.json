@@ -122,6 +122,10 @@
     {
       "file": "renderer-v67-viewpoint-lenses.patch",
       "renderer_sha256": "66a6083cf859db131e78ebebbd1c6d5071656a11260ee57c24d3d25fdd57e7d2"
+    },
+    {
+      "file": "renderer-v68-viewpoint-last.patch",
+      "renderer_sha256": "6eb7a5c73460aa9e30667beef906d4b00e67a46b937e18b94c847e28ce583514"
     }
   ]
 }

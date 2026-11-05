@@ -6,6 +6,7 @@ import {createHash} from 'node:crypto';
 import {execFileSync} from 'node:child_process';
 import {applyRendererUpdate} from './apply-renderer-update.mjs';
 import {mergeMuseFeed} from './merge-muse-feed.mjs';
+import {preserveWeekX} from './preserve-week-x.mjs';
 import {advanceChangeMarkers} from './change-markers.mjs';
 import {renderPremarketSection,premarketCSS} from './premarket-section.mjs';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
@@ -39,6 +40,7 @@ try{premarketData=JSON.parse(await fs.readFile(path.join(root,'premarket-logic.j
 if(premarketData.schema_version!==1||!premarketData.days||typeof premarketData.days!=='object')throw Error('Invalid premarket logic data');
 const premarketHash=createHash('sha256').update(JSON.stringify(premarketData)).digest('hex');
 let priorPublished;try{priorPublished=JSON.parse(await fs.readFile(path.join(root,'api/export.json'),'utf8'))}catch{}
+preserveWeekX(data,priorPublished);
 let museFeed=null, museHash=null, museStats=null, museBytes=null;
 try {
   const bytes=await fs.readFile(path.join(root,'muse-feed.json'));
