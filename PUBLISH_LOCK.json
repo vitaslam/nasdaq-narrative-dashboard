@@ -1,7 +1,7 @@
 {
-  "holder": null,
-  "token": null,
-  "purpose": null,
-  "acquired_at": null,
-  "expires_at": null
+  "holder": "GPT",
+  "token": "codex-24h-1793853644458",
+  "purpose": "Default X frequent to 24 hours",
+  "acquired_at": "2026-11-05T04:40:44.458Z",
+  "expires_at": "2026-11-05T05:25:44.458Z"
 }
