@@ -1,22 +1,22 @@
 {
   "schema_version": 1,
   "data_revision": 36,
-  "release_revision": 87,
+  "release_revision": 88,
   "active_week": "2026-11-02",
-  "content_updated_at": "2026-11-05T02:06:37.836Z",
-  "built_at": "2026-11-05T02:06:38.138Z",
+  "content_updated_at": "2026-11-05T02:29:09.761Z",
+  "built_at": "2026-11-05T02:29:10.100Z",
   "renderer_release": "2026-11-04-v46-three-hour-change-dots",
   "renderer_sha256": "772dba5d58bfbc88fc008b70c105728f6f6ae2b0cfba61155afe2566b136b07d",
   "asset_version": "772dba5d58bf",
   "shell_override_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-  "muse_feed_batch": "muse:2026-11-05:08",
-  "muse_feed_sha256": "ece5bec5c04d6aaa8a91b34f7aac729452178a50fcc7e1c0eea4a93d7a9e750f",
+  "muse_feed_batch": "muse:2026-11-05:10",
+  "muse_feed_sha256": "4e4b1bf113af21cdb93ccc7c1c4e264471edfd678228afba69c57fc14a40443f",
   "muse_merge": {
-    "topics": 102,
-    "posts": 141,
+    "topics": 104,
+    "posts": 144,
     "rejected_posts": 0,
     "bars": 0,
-    "volatility_dates": 2,
+    "volatility_dates": 3,
     "changed": true
   }
 }
