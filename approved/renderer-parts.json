@@ -74,6 +74,10 @@
     {
       "file": "renderer-v55-back-icon.patch",
       "renderer_sha256": "3efd6ffb44df18f6df629fea39c189ca63a8d925ab83e502d651104469aae427"
+    },
+    {
+      "file": "renderer-v56-mobile-controls.patch",
+      "renderer_sha256": "4b5fe8aa7b029e1ad6c24b72800bb45acb06e440d7c95465f0a1b96332f01701"
     }
   ]
 }
