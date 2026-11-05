@@ -95,3 +95,10 @@ GPT 每轮主动核查上述全部范围，实际写入限于新增证据、叙�
 CNN、BofA 由 GPT 每轮主动核查并更新；CTA 卖出触发点仍由 Muse 经 `market_indicators.CTA` 独立提交。无新报告保留真实日期，不能补造。Muse 可补充更新日期的行情，但不覆盖 GPT 同日核验值。字段与冲突规则见 `MAINTENANCE.md`。
 
 
+
+
+## 2026-11-05 日历当日／周内市场跟踪
+进行周的每轮更新，核验已发生日历事件对应标的的最新完整交易日收盘，并通过 calendar_upsert[].market_tracking 更新。公司财报对应公司股票；宏观数据优先 NDX 与 UST10Y；油价/地缘事件按相关性使用 Brent（同一 EIA 现货序列，或同一明确期货合约结算）。这里只是同期市场表现，不能把涨跌写成事件已证实的因果影响。
+结构：{week_start:"YYYY-MM-DD",frozen:false,instruments:[{symbol,label,unit:"percent"|"bp",price_basis:"cash"|"treasury_yield"|"eia_spot"|"futures_settlement",contract?:"具体合约",asof_date,close,previous_date,previous_close,base_date,base_close,source_url,baseline_source_url}]}。每条记录独立保留真实行情日期与来源；最多3个相关标的，通常公司1个、宏观1–2个。
+当日=最新完整收盘÷前一交易日收盘−1；周内=最新完整收盘÷上周最后一个交易日收盘−1。10Y使用收益率百分点差×100，以bp显示。周基准一旦写入不得变更。不得混用盘后/盘前报价、不同油价合约或现金/期货；这些仍单独记 reaction_phases。无可靠新收盘时保留原观察日期，不能只更新时间戳。未公布事件只显示简短共识，不提前写收盘跟踪。
+卡面分别显示简短结果（双Beat/PMI数值等）、有日期的当日及周内表现，不再把首次财报后反应当最新行情。周六 dashboard_finalize_week 自动冻结本周 market_tracking；归档后不得覆盖，下一周事件另建记录。本功能纳入既有北京时间10:00/16:00/22:00更新流程。
