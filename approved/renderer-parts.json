@@ -90,6 +90,10 @@
     {
       "file": "renderer-v59-event-returns.patch",
       "renderer_sha256": "01ae0ff0d5847876a9181722308c5251b28b9a6d33bc049a3351d6eb96bf53ef"
+    },
+    {
+      "file": "renderer-v60-presentation.patch",
+      "renderer_sha256": "a55e33e3da5a6ff83d9d7572f160fa2e3d926549d3fdc0a569a7806ccd255c6a"
     }
   ]
 }
