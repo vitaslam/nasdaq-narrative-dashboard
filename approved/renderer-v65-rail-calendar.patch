@@ -1,0 +1,82 @@
+--- a/dashboard-enhancements.js
++++ b/dashboard-enhancements.js
+@@ -246,4 +246,3 @@
+   const manageIcon=navSvg('<path d="M5 7h18 M5 14h18 M5 21h18"/><rect x="9" y="4" width="5" height="6" rx="1" fill="white"/><rect x="17" y="11" width="5" height="6" rx="1" fill="white"/><rect x="6" y="18" width="5" height="6" rx="1" fill="white"/>');
+-  const refreshIcon=navSvg('<path d="M23 12a9 9 0 1 0 2 7 M23 5v7h-7" stroke-linecap="round" stroke-linejoin="round"/>');
+-  const topIcon=navSvg('<path d="m7 17 7-7 7 7 M14 10v12 M6 5h16" stroke-linecap="round" stroke-linejoin="round"/>');
++  const refreshIcon='<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 7"/><path d="M3 3v4h4"/><path d="M3 13a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 17"/><path d="M17 17h4v4"/></svg>';
+   nav.innerHTML=`<div class="mobile-section-list" id="mobile-section-links" hidden></div><div class="mobile-section-stepper" aria-label="相邻板块"><button type="button" data-section-step="-1" aria-label="上一个板块">${navSvg('<path d="m7 17 7-7 7 7" stroke-linecap="round"/>')}</button><button type="button" data-section-step="1" aria-label="下一个板块">${navSvg('<path d="m7 11 7 7 7-7" stroke-linecap="round"/>')}</button></div><button type="button" class="mobile-section-toggle" aria-label="打开板块导航" aria-controls="mobile-section-links" aria-expanded="false">${dots}</button>`;
+@@ -253,3 +252,3 @@
+   const empty=document.createElement('div');empty.className='managed-empty';empty.textContent='当前板块已全部隐藏，可在「板块管理」中重新打开。';sectionRoot.after(empty);
+-  const updateCurrent=()=>{currentIndex=0;const threshold=mobile.matches?Math.min(160,innerHeight*.25):Math.min(220,innerHeight*.32);for(let i=0;i<shortcuts.length;i++)if(shortcuts[i].target.getBoundingClientRect().top<=threshold)currentIndex=i;const current=shortcuts[currentIndex];links.forEach(button=>{if(button.dataset.sectionKey===current?.key)button.setAttribute('aria-current','location');else button.removeAttribute('aria-current')});previousStep.disabled=currentIndex<=0;nextStep.disabled=!shortcuts.length||currentIndex>=shortcuts.length-1;previousStep.title=shortcuts[currentIndex-1]?'上一个板块：'+shortcuts[currentIndex-1].label:'已到第一个板块';nextStep.title=shortcuts[currentIndex+1]?'下一个板块：'+shortcuts[currentIndex+1].label:'已到最后一个板块'};
++  const updateCurrent=()=>{currentIndex=0;const threshold=mobile.matches?Math.min(160,innerHeight*.25):Math.min(220,innerHeight*.32);for(let i=0;i<shortcuts.length;i++)if(shortcuts[i].target.getBoundingClientRect().top<=threshold)currentIndex=i;const current=shortcuts[currentIndex];links.forEach(button=>{const isCurrent=button.dataset.sectionKey===current?.key||(!mobile.matches&&button.dataset.sectionKey?.startsWith('x-')&&current?.key.startsWith('x-'));if(isCurrent)button.setAttribute('aria-current','location');else button.removeAttribute('aria-current')});previousStep.disabled=currentIndex<=0;nextStep.disabled=!shortcuts.length||currentIndex>=shortcuts.length-1;previousStep.title=shortcuts[currentIndex-1]?'上一个板块：'+shortcuts[currentIndex-1].label:'已到第一个板块';nextStep.title=shortcuts[currentIndex+1]?'下一个板块：'+shortcuts[currentIndex+1].label:'已到最后一个板块'};
+   let lastHeaderY=Math.max(0,window.scrollY),headerTravel=0,headerDirection=0,headerChangeUntil=0;
+@@ -259,7 +258,8 @@
+   const applyPreference=()=>{preference=normalize(preference);shortcuts=[];for(const key of preference.order){const item=allShortcuts.find(item=>item.key===key);sectionRoot.append(item.target);item.target.hidden=preference.hidden.includes(key);if(!item.target.hidden)shortcuts.push(item)}empty.hidden=shortcuts.length>0;
+-    list.innerHTML=shortcuts.map(item=>`<button type="button" class="mobile-section-link" data-section-key="${item.key}" aria-label="前往${item.label}" title="${item.label}"><span class="mobile-section-icon">${navIcons[item.icon]}</span><span class="mobile-section-label">${item.label}</span></button>`).join('')+`<button type="button" class="mobile-section-link" data-refresh-page aria-label="刷新当前页面"><span class="mobile-section-icon">${refreshIcon}</span><span class="mobile-section-label">刷新页面</span></button><button type="button" class="mobile-section-link" data-manage-sections aria-label="板块管理"><span class="mobile-section-icon">${manageIcon}</span><span class="mobile-section-label">板块管理</span></button>`;
++    const navItems=mobile.matches?shortcuts:shortcuts.filter((item,index)=>item.icon!=='x'||shortcuts.findIndex(other=>other.icon==='x')===index);
++    list.innerHTML=navItems.map(item=>`<button type="button" class="mobile-section-link" data-section-key="${item.key}" aria-label="前往${!mobile.matches&&item.icon==='x'?'X 板块':item.label}" title="${!mobile.matches&&item.icon==='x'?'X 板块':item.label}"><span class="mobile-section-icon">${navIcons[item.icon]}</span><span class="mobile-section-label">${!mobile.matches&&item.icon==='x'?'X 板块':item.label}</span></button>`).join('')+(mobile.matches?`<button type="button" class="mobile-section-link" data-refresh-page aria-label="刷新当前页面"><span class="mobile-section-icon">${refreshIcon}</span><span class="mobile-section-label">刷新页面</span></button>`:'')+`<button type="button" class="mobile-section-link" data-manage-sections aria-label="板块管理"><span class="mobile-section-icon">${manageIcon}</span><span class="mobile-section-label">板块管理</span></button>`;
+     links=[...list.querySelectorAll('button')];updateCurrent();window.dispatchEvent(new Event('resize'));
+   };
+-  const setOpen=(open,restore=false)=>{if(!mobile.matches){expanded=false;list.hidden=false;stepper.hidden=false;backdrop.hidden=true;nav.classList.remove('is-open');nav.classList.add('desktop-open');toggle.removeAttribute('aria-expanded');toggle.removeAttribute('aria-controls');toggle.setAttribute('aria-label','返回顶部');toggle.title='返回顶部';toggle.innerHTML=topIcon;if(restore)toggle.focus({preventScroll:true});return}nav.classList.remove('desktop-open');expanded=open;list.hidden=!open;stepper.hidden=open;backdrop.hidden=!open;nav.classList.toggle('is-open',open);toggle.setAttribute('aria-controls','mobile-section-links');toggle.setAttribute('aria-expanded',String(open));toggle.setAttribute('aria-label',open?'收起板块导航':'打开板块导航');toggle.removeAttribute('title');toggle.innerHTML=open?closeIcon:dots;if(restore)toggle.focus({preventScroll:true});};
+-  toggle.addEventListener('click',event=>{if(!mobile.matches){window.scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'instant':'smooth'});return}setOpen(!expanded);if(expanded&&event.detail===0)links[0]?.focus()});
++  const setOpen=(open,restore=false)=>{if(!mobile.matches){expanded=false;list.hidden=false;stepper.hidden=true;toggle.hidden=true;backdrop.hidden=true;nav.classList.remove('is-open');nav.classList.add('desktop-open');return}toggle.hidden=false;nav.classList.remove('desktop-open');expanded=open;list.hidden=!open;stepper.hidden=open;backdrop.hidden=!open;nav.classList.toggle('is-open',open);toggle.setAttribute('aria-controls','mobile-section-links');toggle.setAttribute('aria-expanded',String(open));toggle.setAttribute('aria-label',open?'收起板块导航':'打开板块导航');toggle.removeAttribute('title');toggle.innerHTML=open?closeIcon:dots;if(restore)toggle.focus({preventScroll:true});};
++  toggle.addEventListener('click',event=>{if(!mobile.matches)return;setOpen(!expanded);if(expanded&&event.detail===0)links[0]?.focus()});
+   backdrop.addEventListener('click',()=>setOpen(false,true));
+--- a/dashboard-enhancements.css
++++ b/dashboard-enhancements.css
+@@ -581,8 +581,8 @@
+ @media(min-width:601px){
+- .mobile-section-nav.desktop-open{display:flex;position:fixed;right:max(18px,calc((100vw - 1488px)/2 - 78px));top:50%;bottom:auto;left:auto;z-index:450;transform:translateY(-50%);flex-direction:column;align-items:center;gap:12px;width:50px;pointer-events:none}
+- .mobile-section-nav.desktop-open button{font:inherit;cursor:pointer;pointer-events:auto;color:#212832;-webkit-tap-highlight-color:transparent}
+- .mobile-section-nav.desktop-open .mobile-section-list{display:flex;flex-direction:column;align-items:center;gap:8px;max-height:calc(100dvh - 190px);overflow-y:auto;overflow-x:hidden;padding:5px 3px;scrollbar-width:none;pointer-events:auto}
++ .mobile-section-nav.desktop-open{display:flex;position:fixed;right:max(18px,calc((100vw - 1488px)/2 - 78px));top:50%;bottom:auto;left:auto;z-index:450;transform:translateY(-50%);flex-direction:column;align-items:center;width:50px;pointer-events:none}
++ .mobile-section-nav.desktop-open button{font:inherit;cursor:pointer;pointer-events:auto;-webkit-tap-highlight-color:transparent}
++ .mobile-section-nav.desktop-open .mobile-section-list{display:flex;flex-direction:column;align-items:center;gap:16px;max-height:calc(100dvh - 48px);overflow-y:auto;overflow-x:hidden;padding:4px 2px;scrollbar-width:none;pointer-events:auto}
+  .mobile-section-nav.desktop-open .mobile-section-list::-webkit-scrollbar{display:none}
+  .mobile-section-nav.desktop-open .mobile-section-link{position:relative;display:grid;place-items:center;flex:0 0 46px;width:46px;height:46px;padding:0;border:0;background:transparent}
+- .mobile-section-nav.desktop-open .mobile-section-icon,.mobile-section-nav.desktop-open .mobile-section-toggle{display:grid;place-items:center;width:46px;height:46px;border:1px solid #e5e9ec;border-radius:50%;background:#ffffffed;box-shadow:0 5px 17px #1c2a3620;backdrop-filter:blur(12px);box-sizing:border-box}
++ .mobile-section-nav.desktop-open .mobile-section-icon{display:grid;place-items:center;width:46px;height:46px;border:1px solid #edf0f3;border-radius:50%;background:#fff;box-shadow:none;backdrop-filter:none;box-sizing:border-box;color:#a5afbb}
+  .mobile-section-nav.desktop-open .mobile-section-icon svg{width:24px;height:24px}
+@@ -591,10 +591,4 @@
+  .mobile-section-nav.desktop-open .mobile-section-link:is(:hover,:focus-visible) .mobile-section-label{display:block}
+- .mobile-section-nav.desktop-open .mobile-section-stepper{display:flex;flex-direction:column;width:50px;padding:4px;border:1px solid #e8ebee;border-radius:27px;background:#ffffffed;box-shadow:0 5px 20px #1c2a3620;pointer-events:auto}
+- .mobile-section-nav.desktop-open .mobile-section-stepper button{width:40px;height:38px;border:0;background:transparent;display:grid;place-items:center;padding:8px}
+- .mobile-section-nav.desktop-open .mobile-section-stepper button+button{border-top:1px solid #dfe4e8}
+- .mobile-section-nav.desktop-open .mobile-section-stepper svg{width:23px;height:23px;fill:none;stroke:currentColor;stroke-width:2}
+- .mobile-section-nav.desktop-open .mobile-section-stepper button:disabled{opacity:.3;cursor:default}
+- .mobile-section-nav.desktop-open .mobile-section-toggle{padding:10px}
+- .mobile-section-nav.desktop-open .mobile-section-toggle svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8}
+- .mobile-section-nav.desktop-open .mobile-section-toggle:hover,.mobile-section-nav.desktop-open .mobile-section-link:hover .mobile-section-icon{background:#ecf2f0}
++ .mobile-section-nav.desktop-open .mobile-section-stepper,.mobile-section-nav.desktop-open .mobile-section-toggle{display:none!important}
++ .mobile-section-nav.desktop-open .mobile-section-link:hover .mobile-section-icon{background:#f5f7f8;color:#53616e;border-color:#e5e9ec}
+  .mobile-section-nav.desktop-open .mobile-section-link[aria-current="location"]:hover .mobile-section-icon{background:#1c2429;color:#fff}
+@@ -612,3 +606,3 @@
+  #calendar .mobile-agenda-event .brand-monogram{font-size:15px}
+- #calendar .mobile-agenda-single{position:relative;display:grid;grid-template-columns:62px 44px minmax(0,1fr) 55px;align-items:center;gap:8px;width:100%;min-height:88px;padding:12px 2px;border:0;background:transparent;color:inherit;text-align:left;font:inherit;cursor:pointer}
++ #calendar .mobile-agenda-single{position:relative;display:grid;grid-template-columns:58px 44px minmax(0,1fr) 72px;align-items:center;gap:8px;width:100%;min-height:88px;padding:12px 30px 12px 2px;border:0;background:transparent;color:inherit;text-align:left;font:inherit;cursor:pointer}
+  #calendar .mobile-agenda-single .mobile-agenda-date{display:flex;flex-direction:column;gap:4px;min-width:0;line-height:1.4}
+@@ -620,2 +614,5 @@
+  #calendar .mobile-agenda-single-copy{display:grid;gap:3px;min-width:0}
++ #calendar .mobile-agenda-single-title{min-width:0;line-height:1.45}
++ #calendar .mobile-agenda-single-title .importance-rating{display:inline-flex;vertical-align:baseline;margin-left:5px;gap:1px;color:#7967a0;white-space:nowrap}
++ #calendar .mobile-agenda-single-title .importance-star{width:10px;height:10px}
+  #calendar .mobile-agenda-single-copy strong{font-size:13px;line-height:1.4;font-weight:650;color:#253244;overflow-wrap:anywhere}
+@@ -623,2 +620,5 @@
+  #calendar .mobile-agenda-single>.mobile-agenda-time{grid-column:4;grid-row:1;display:flex;flex-direction:column;align-items:flex-end;min-width:0;text-align:right;font-size:11px;line-height:1.4;color:#69798d;font-variant-numeric:tabular-nums}
++ #calendar .mobile-agenda-event{padding-right:30px}
++ #calendar .mobile-agenda-event>.mobile-agenda-time{width:72px;text-align:right}
++ #calendar .mobile-agenda-day-toggle>svg{margin-left:2px}
+  #calendar .mobile-agenda-single>.mobile-agenda-time strong{font-size:11px}
+@@ -632,3 +632,3 @@
+  #calendar .mobile-agenda-day-icons .mobile-agenda-logo:nth-child(n+3){display:none}
+- #calendar .mobile-agenda-single{grid-template-columns:55px 40px minmax(0,1fr) 49px;gap:6px}
++ #calendar .mobile-agenda-single{grid-template-columns:55px 40px minmax(0,1fr) 62px;gap:6px}
+  #calendar .mobile-agenda-single>.mobile-agenda-logo{width:40px;height:40px}
+--- a/shared-calendar.js
++++ b/shared-calendar.js
+@@ -129,3 +129,3 @@
+    const day=new Date(date+'T12:00:00Z'),label='星期'+['日','一','二','三','四','五','六'][day.getUTCDay()],collapsed=collapsedDays.has(date),id='agenda-day-'+date;
+-   if(items.length===1){const e=items[0],summary=agendaSummary(e);out+=`<section class="mobile-agenda-day is-single${date===bjToday?' is-today':''}${date<bjToday?' is-past':''}" data-date="${date}"><header><h3><button type="button" class="mobile-agenda-single" data-calendar-event-id="${esc(e.id)}" aria-expanded="false" aria-label="${esc(label+' '+md(date)+'，'+e.event+'，'+(e.time||'时间待定')+'，'+summary)}">${dots('calendar:'+e.id)}<time datetime="${date}" class="mobile-agenda-date"><strong>${label}</strong><small>${md(date)}</small></time>${agendaLogo(e)}<span class="mobile-agenda-single-copy"><strong>${esc(e.event)}</strong><small>${esc(summary)}</small></span>${agendaTime(e)}</button></h3></header></section>`;continue}
++   if(items.length===1){const e=items[0],summary=agendaSummary(e);out+=`<section class="mobile-agenda-day is-single${date===bjToday?' is-today':''}${date<bjToday?' is-past':''}" data-date="${date}"><header><h3><button type="button" class="mobile-agenda-single" data-calendar-event-id="${esc(e.id)}" aria-expanded="false" aria-label="${esc(label+' '+md(date)+'，'+e.event+'，'+(e.time||'时间待定')+'，'+summary)}">${dots('calendar:'+e.id)}<time datetime="${date}" class="mobile-agenda-date"><strong>${label}</strong><small>${md(date)}</small></time>${agendaLogo(e)}<span class="mobile-agenda-single-copy"><span class="mobile-agenda-single-title"><strong>${esc(e.event)}</strong>${P.stars(P.calendarImportance(e))}</span><small>${esc(summary)}</small></span>${agendaTime(e)}</button></h3></header></section>`;continue}
+    out+=`<section class="mobile-agenda-day${date===bjToday?' is-today':''}${date<bjToday?' is-past':''}" data-date="${date}"><header><h3><button type="button" class="mobile-agenda-day-toggle" data-calendar-day-toggle="${date}" aria-expanded="${!collapsed}" aria-controls="${id}"><time datetime="${date}"><strong>${label}</strong><small>${md(date)}</small></time><span class="mobile-agenda-day-icons" aria-hidden="true">${items.slice(0,3).map(agendaLogo).join('')}</span><span class="mobile-agenda-day-count">${date===bjToday?'今天 · ':''}${items.length} 项</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button></h3></header><div id="${id}" class="mobile-agenda-day-events"${collapsed?' hidden':''}>${items.map(agendaEvent).join('')||'<p class="mobile-agenda-empty">今天暂无已录入事件</p>'}</div></section>`;
