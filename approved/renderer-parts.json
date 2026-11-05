@@ -46,6 +46,10 @@
     {
       "file": "renderer-v48-daily-authors.patch",
       "renderer_sha256": "772dba5d58bfbc88fc008b70c105728f6f6ae2b0cfba61155afe2566b136b07d"
+    },
+    {
+      "file": "renderer-v49-two-days.patch",
+      "renderer_sha256": "f4d2cc96187a80962f376561958aa9e959aca5cc301b5a53592afc4c1dd135d9"
     }
   ]
 }
