@@ -1,5 +1,10 @@
 # 2026-11-05 最新执行时段与盘前逻辑（优先于文内旧时段）
 
+## 2026-11-06 盘中情绪写入（接口 v78）
+
+`market_mood.current` 可以写盘中观察：填写美东交易日期、真实常规时段报价 `asof`、`observation_phase:"intraday"`、周一/周二已存 `baseline_date`、情绪/emoji/简述、来源，以及 `attribution:{kind:"quant"|"event",driver,source_urls,session:"regular"}`。`driver` 最多 280 字，超限会明确报长度错误。量化归因注明价格、比较基准、量能及报价时间，已发生事件才写事件归因；不要把抓取时间当报价时间。盘中情绪显示在顶部当前卡，历史留痕，不混入只含完整收盘交易日的逐日卡。收盘后再以 `observation_phase:"regular_close"` 和完整收盘数据更新同日；旧记录未标 phase 继续按原逻辑处理。行情报价仍经 `market.quotes` 独立写入，日线和周基准不因盘中观察改写。
+
+
 GPT 页面写入北京时间每日 09:15、12:45、16:15、19:45、23:15，对应 Muse 09:00、12:30、16:00、19:30、23:00 的 Gmail 增量邮件，收到后 15 分钟验收。09:15 和 19:45 独立核查并更新全页；12:45 仅合并 Muse 邮件并独立更新「盘前逻辑」；16:15、23:15 仅合并 Muse 邮件。19:45 全页轮同时再次更新盘前逻辑。邮件未到则下档补收，按任务编号和 Gmail message ID 去重。旧的 10:00/16:00/22:00 三轮要求以及 Muse 直接写 GitHub feed 的安排不再作为 GPT 自动任务执行要求。
 
 「盘前逻辑」位于 Dashboard 行情读数与「事件驱动与五维状态」之间，正式页由仓库根 `premarket-logic.json` 供给，按美东交易日保留 `days[YYYY-MM-DD]`。每条有 `updated_at`（真实 ISO 时刻，页面格式化为北京时间）、`bull`、`bear`、`risks`；数组中每项为 `{title,detail,source_urls}`。多头、空头依重要性排序；盘中风险列 2–3 项并排序。事实、判断和未验证条件分清；来源须支撑对应说法。无新事实不改更新时间，不伪造旧时段更新。`premarket-logic.json` 的变更由现有 Pages 工作流发布；不改生成产物 HTML。空白新周标注尚未更新。
