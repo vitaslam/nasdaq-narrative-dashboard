@@ -110,6 +110,10 @@
     {
       "file": "renderer-v64-navigation-calendar.patch",
       "renderer_sha256": "c9e11b01403ae594efd44f381933d0dfefda0709ed6f7cbc8fa349707026ab94"
+    },
+    {
+      "file": "renderer-v65-rail-calendar.patch",
+      "renderer_sha256": "6315e95992b4284b9b7daa62cd57ef952d67390e896a1511cfd4c3762d2ee8ac"
     }
   ]
 }
