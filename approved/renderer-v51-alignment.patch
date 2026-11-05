@@ -1,0 +1,27 @@
+--- a/runtime.js
++++ b/runtime.js
+@@ -2,6 +2,24 @@
+ const brandIconURL=faviconTag.match(/href="([^"]+)"/)[1];
+ ASSETS.images['/assets/brand-icon-hd-v50.png']={type:'image/png',base64:brandIconURL.split(',')[1]};
+ const appTitle='<meta name="apple-mobile-web-app-title" content="美股叙事跟踪">';
++ASSETS.shell=ASSETS.shell.replace('</head>','<style>.history-wrap{max-width:1440px}</style></head>').replace('</body>',`<script>
++(()=>{
++ const wrap=document.querySelector('.history-wrap');
++ function alignHeader(){
++  const frame=document.querySelector('#history-frame');
++  try{
++   const main=frame?.contentDocument?.querySelector('.main');if(!wrap||!main)return;
++   const rect=main.getBoundingClientRect(),frameRect=frame.getBoundingClientRect(),style=frame.contentWindow.getComputedStyle(main);
++   wrap.style.maxWidth='none';wrap.style.width=rect.width+'px';wrap.style.marginLeft=(frameRect.left+rect.left)+'px';wrap.style.marginRight='0';wrap.style.paddingLeft=style.paddingLeft;wrap.style.paddingRight=style.paddingRight;
++  }catch{}
++ }
++ window.addEventListener('resize',()=>requestAnimationFrame(alignHeader));
++ document.addEventListener('load',event=>{if(event.target.tagName==='IFRAME')requestAnimationFrame(alignHeader)},true);
++ new MutationObserver(()=>requestAnimationFrame(alignHeader)).observe(document.body,{childList:true,subtree:true});
++ requestAnimationFrame(alignHeader);
++})();
++</script></body>`);
++
+ for(const key of ["shell","template"]){
+  const iconPath=key==='shell'?'./assets/brand-icon-hd-v50.png':'/assets/brand-icon-hd-v50.png';
+  ASSETS[key]=ASSETS[key].replace('</head>',faviconTag+appTitle+'<link rel="apple-touch-icon" sizes="1320x1320" href="'+iconPath+'"></head>');
