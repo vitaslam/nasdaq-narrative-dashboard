@@ -355,10 +355,19 @@
  .mobile-section-nav button:focus-visible{outline:2px solid #596e8d;outline-offset:4px;border-radius:26px}.mobile-section-toggle:active,.mobile-section-link:active .mobile-section-icon{transform:scale(.94)}
  .mobile-section-backdrop:not([hidden]){display:block;position:fixed;inset:0;background:#f7f8fc24;z-index:440;touch-action:none}
  .mobile-section-target{scroll-margin-top:14px}.mobile-section-target:focus{outline:none}
- .mobile-section-nav.is-open .mobile-section-list{animation:mobile-section-enter .18s ease-out}
- @keyframes mobile-section-enter{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+ .mobile-section-nav.is-open .mobile-section-list{animation:mobile-section-enter .28s cubic-bezier(.2,.75,.2,1) both;transform-origin:bottom right}
+ .mobile-section-nav.is-open .mobile-section-link{animation:mobile-section-item .26s cubic-bezier(.2,.8,.2,1) both}
+ .mobile-section-nav.is-open .mobile-section-link:nth-last-child(1){animation-delay:20ms}
+ .mobile-section-nav.is-open .mobile-section-link:nth-last-child(2){animation-delay:40ms}
+ .mobile-section-nav.is-open .mobile-section-link:nth-last-child(3){animation-delay:60ms}
+ .mobile-section-nav.is-open .mobile-section-link:nth-last-child(4){animation-delay:80ms}
+ .mobile-section-nav.is-open .mobile-section-link:nth-last-child(n+5){animation-delay:100ms}
+ .mobile-section-toggle{transition:transform .2s cubic-bezier(.2,.8,.2,1),background .2s ease}
+ .mobile-section-nav.is-open .mobile-section-toggle{transform:rotate(90deg);background:#fff}
+ @keyframes mobile-section-enter{from{opacity:0;transform:translateY(14px) scale(.94)}to{opacity:1;transform:translateY(0) scale(1)}}
+ @keyframes mobile-section-item{from{opacity:0;transform:translateY(10px) scale(.9)}to{opacity:1;transform:translateY(0) scale(1)}}
 }
-@media(prefers-reduced-motion:reduce){.mobile-section-nav.is-open .mobile-section-list{animation:none}}
+@media(prefers-reduced-motion:reduce){.mobile-section-nav.is-open .mobile-section-list,.mobile-section-nav.is-open .mobile-section-link{animation:none}.mobile-section-toggle{transition:none}}
 
 /* Mobile QA: full-width trend pages, legible summaries and contained source popovers. */
 @media(max-width:600px){
@@ -378,7 +387,6 @@
  .main .market-overview .risk-tile{grid-column:1/-1}.main .risk-columns{gap:20px}.main .risk-column{min-width:0}
  .main .compact-info[open]>.compact-info-body,.main .week-live-banner .compact-info[open]>.compact-info-body{position:fixed;left:16px;right:16px;top:auto;bottom:84px;width:auto;min-width:0;max-width:none;max-height:55vh;overflow:auto;overscroll-behavior:contain;text-align:left;box-shadow:0 8px 35px #1a293630}
  .main .compact-info-body .sub,.main .compact-info-body .metric-secondary{max-width:none;font-size:12px!important}
- .mobile-section-nav .mobile-section-list{animation:none!important}
 }
 
 @media(max-width:600px){.main .market-overview .sentiment-tile{grid-column:1/-1;min-height:0;padding:18px}.main .sentiment-reason{font-size:13px;line-height:1.75}.main .sentiment-anchor{font-size:11px}}
@@ -533,3 +541,40 @@ html.section-manager-open,html.section-manager-open body{overflow:hidden!importa
  #calendar .is-today .mobile-agenda-day-toggle time small{color:inherit;opacity:.7}
  #calendar .mobile-agenda-week-gap{margin:28px 0 8px;padding:0 2px;font-size:12px;line-height:1.5;font-weight:600;color:#8a96a6;letter-spacing:.04em}
 }
+@media(max-width:600px){
+ #calendar .mobile-agenda-day-toggle{min-height:76px;gap:8px}
+ #calendar .mobile-agenda-day-toggle time{flex:0 0 58px;min-width:58px}
+ #calendar .mobile-agenda-day-icons{display:flex;align-items:center;gap:4px;min-width:0;max-width:132px;overflow:hidden}
+ #calendar .mobile-agenda-day-icons .mobile-agenda-logo{width:30px;height:30px;flex:0 0 30px;margin:0;padding:4px;border:1px solid #e8ecf1;border-radius:9px}
+ #calendar .mobile-agenda-day-icons :is(svg,img){width:21px;height:21px}
+ #calendar .mobile-agenda-day-icons .agency-wordmark{font-size:9px}
+ #calendar .mobile-agenda-day-icons .brand-monogram{font-size:10px}
+ #calendar .mobile-agenda-logo.is-brand{border:1px solid #e8ecf1;color:#263246}
+ #calendar .mobile-agenda-logo.is-brand svg{display:block;fill:currentColor}
+ #calendar .mobile-agenda-logo.brand-apple{color:#1c232c}
+ #calendar .mobile-agenda-logo.brand-amd{color:#111827}
+ #calendar .mobile-agenda-logo.brand-datadog{color:#632ba9}
+ #calendar .mobile-agenda-logo.brand-palantir{color:#202c3a}
+ #calendar .mobile-agenda-logo.brand-meta{color:#0866ff}
+ #calendar .mobile-agenda-logo.brand-alphabet{color:#4285f4}
+ #calendar .mobile-agenda-logo.brand-tesla{color:#e82127}
+ #calendar .mobile-agenda-logo.brand-coreweave{color:#303e6f}
+ #calendar .mobile-agenda-logo.brand-nebius{color:#18191c}
+ #calendar .mobile-agenda-logo.brand-arista{color:#276287}
+ #calendar .mobile-agenda-logo.brand-asml{color:#0055a5}
+ #calendar .mobile-agenda-logo.brand-amazon{color:#202631}
+ #calendar .mobile-agenda-logo .brand-monogram{font:800 12px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;letter-spacing:-.06em}
+ #calendar .mobile-agenda-event{grid-template-columns:38px minmax(0,1fr) 75px;gap:9px}
+ #calendar .mobile-agenda-event>.mobile-agenda-logo{width:38px;height:38px;margin-top:0;border-radius:10px}
+ #calendar .mobile-agenda-event>.mobile-agenda-logo :is(svg,img){width:29px;height:29px}
+ #calendar .mobile-agenda-event .brand-monogram{font-size:14px}
+}
+@media(max-width:370px){
+ #calendar .mobile-agenda-day-icons{max-width:98px}
+ #calendar .mobile-agenda-day-icons .mobile-agenda-logo:nth-child(n+4){display:none}
+ #calendar .mobile-agenda-day-toggle{gap:6px}
+}
+.mobile-refresh-toast{position:fixed;z-index:9999;top:calc(env(safe-area-inset-top,0px) + 12px);left:50%;transform:translate(-50%,-8px);opacity:0;pointer-events:none;padding:10px 17px;border-radius:22px;background:#263c35;color:white;box-shadow:0 8px 28px #172b2940;font:600 13px/1.3 system-ui;white-space:nowrap;transition:opacity .22s ease,transform .22s ease}
+.mobile-refresh-toast.is-visible{opacity:1;transform:translate(-50%,0)}
+.calendar-event .calendar-forecast,.calendar-event .earnings-glance-brief{margin:8px 0 0;color:#53647b;font-size:12px;line-height:1.55;font-variant-numeric:tabular-nums}
+@media(max-width:600px){#calendar .mobile-agenda-copy p{font-variant-numeric:tabular-nums}}
