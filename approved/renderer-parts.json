@@ -62,6 +62,10 @@
     {
       "file": "renderer-v52-compact.patch",
       "renderer_sha256": "7019fdd00893d2efe12ac024bf3be58b8f88b8336972ed6e5f059f18dcc59507"
+    },
+    {
+      "file": "renderer-v53-24hours.patch",
+      "renderer_sha256": "a3b6e96ed7730844429b0a5dcbfb174daa03aea57d646e17f623dd7188e63a4c"
     }
   ]
 }
