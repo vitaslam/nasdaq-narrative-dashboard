@@ -98,6 +98,10 @@
     {
       "file": "renderer-v61-time-labels.patch",
       "renderer_sha256": "eea392d5a22160c2ad1eeb20fdb78f4ec6da370bba315bcde55986ba3fc54227"
+    },
+    {
+      "file": "renderer-v62-earnings-icons.patch",
+      "renderer_sha256": "f9f067d12dfb7d8403f611f4e9c92db21e5b60e9c7b0e48ed46fe06b89fd5331"
     }
   ]
 }
