@@ -1,0 +1,34 @@
+diff --git a/DAILY_UPDATE.md b/DAILY_UPDATE.md
+index 62be5d1..53d8a18 100644
+--- a/DAILY_UPDATE.md
++++ b/DAILY_UPDATE.md
+@@ -113,5 +113,5 @@ market_tracking结构：{week_start,basis:"event_release",release_date:"实际
+ 对 ongoing:true 或 week:0 的日历主题（例如中东供给/油价/美债）按本周实际发生的变化维护 weekly_progress，不套用未公布、待发生、已落地状态，也不编造完成百分比。每条进展 {id,week_start,at,summary,description,market?,next_watch?,source_urls}：at 用真实观察日期或带时区时间戳；summary 为一句简短变化，description 交代发生了什么，market 只写已核验的相关市场表现，next_watch 写后续验证条件；source_urls 为证据链接。只在有新进展时追加，保留已有条目及历史周；发布时提交完整 weekly_progress 数组。当前周页面只展示当前 week_start 的进展，最新在前；历史页只展示当周记录。周结束后不能追写旧周，新周另起 week_start。先读 update_context 或 read_week，核验原记录再追加，禁止把发布时间代替事件发生时间。
+ # X 观点标签与四张预留趋势（2026-11-06）
+ 
+-所有新旧展示帖逐条判断：任何可解读的多空意图，包括潜在、条件性或未证实观点都写 `stance: bull|bear` 与具体 `stance_subject`，有入场时机依据时写 `entry_side: left|right`。同一帖子可同时有方向与左右侧；只在无法解读出具体标的多空角度时省略多空字段；预测市场事件概率不自动等于作者的投资观点，卡面不显示待判。四张观点卡 `view-bull`、`view-bear`、`view-left`、`view-right` 始终预留，依据标签动态统计本周可见帖，摘要说明当前观点及验证条件。常规事件趋势仍需两位作者独立原帖，按 `asof` 新到旧；四张观点卡固定排在所有事件趋势之后，依次看多、看空、左侧、右侧，不因自身 `asof` 提前。卡片标题显示贴数，点击仅高亮相关帖，下方不重复显示计数。
++所有新旧展示帖逐条判断：任何可解读的多空意图，包括潜在、条件性或未证实观点都写 `stance: bull|bear` 与具体 `stance_subject`，有入场时机依据时写 `entry_side: left|right`。同一帖子可同时有方向与左右侧；只在无法解读出具体标的多空角度时省略多空字段；预测市场事件概率不自动等于作者的投资观点，卡面不显示待判。四张观点卡 `view-bull`、`view-bear`、`view-left`、`view-right` 始终预留，依据标签动态统计本周可见帖。摘要按整周已归类帖子分主线概述具体标的、观点依据、条件、反例与先后演化；不要只举少数热帖，左右侧则只归纳有入场时机证据的帖子。常规事件趋势仍需两位作者独立原帖，按 `asof` 新到旧；四张观点卡固定排在所有事件趋势之后，依次看多、看空、左侧、右侧，不因自身 `asof` 提前。卡片标题显示贴数，点击仅高亮相关帖，下方不重复显示计数。
+ 
+diff --git a/UPDATER.md b/UPDATER.md
+index 4a8af5b..9f6e936 100644
+--- a/UPDATER.md
++++ b/UPDATER.md
+@@ -151,5 +151,5 @@ market_tracking结构：{week_start,basis:"event_release",release_date:"实际
+ 对 ongoing:true 或 week:0 的日历主题（例如中东供给/油价/美债）按本周实际发生的变化维护 weekly_progress，不套用未公布、待发生、已落地状态，也不编造完成百分比。每条进展 {id,week_start,at,summary,description,market?,next_watch?,source_urls}：at 用真实观察日期或带时区时间戳；summary 为一句简短变化，description 交代发生了什么，market 只写已核验的相关市场表现，next_watch 写后续验证条件；source_urls 为证据链接。只在有新进展时追加，保留已有条目及历史周；发布时提交完整 weekly_progress 数组。当前周页面只展示当前 week_start 的进展，最新在前；历史页只展示当周记录。周结束后不能追写旧周，新周另起 week_start。先读 update_context 或 read_week，核验原记录再追加，禁止把发布时间代替事件发生时间。
+ # X 观点标签与四张预留趋势（2026-11-06）
+ 
+-每条展示帖按原帖或已核对的标的影响标 `stance: bull|bear`、具体 `stance_subject`，只在原帖涉及抄底、等待确认等入场条件时标 `entry_side: left|right`。任何可解读的多空意图，包括潜在、条件性或未证实的观点都标记并计入对应趋势；保留来源与未证实边界，只有无法解读具体标的方向时才省略，不显示待判。四张 `view-bull`、`view-bear`、`view-left`、`view-right` 观点卡常驻且动态汇总当前可见帖，贴数放在标题旁，点击后不另起计数行。事件趋势按 `asof` 新到旧；四张观点卡始终排在全部事件趋势之后，固定次序看多、看空、左侧、右侧，不因更新时间挤到前页。
++每条展示帖按原帖或已核对的标的影响标 `stance: bull|bear`、具体 `stance_subject`，只在原帖涉及抄底、等待确认等入场条件时标 `entry_side: left|right`。任何可解读的多空意图，包括潜在、条件性或未证实的观点都标记并计入对应趋势；保留来源与未证实边界，只有无法解读具体标的方向时才省略，不显示待判。四张 `view-bull`、`view-bear`、`view-left`、`view-right` 观点卡常驻且动态汇总当前可见帖，贴数放在标题旁，点击后不另起计数行。概述须综合整周已归类帖，按主要产业、公司和跨资产分段列出具体标的、观点依据、条件、反例及时间演化；不要用少数热帖代替几十条帖子的归纳。区分已披露业绩、传闻和条件交易，不将转载当独立证据；左右侧仅用确有时机表达的帖。事件趋势按 `asof` 新到旧；四张观点卡始终排在全部事件趋势之后，固定次序看多、看空、左侧、右侧，不因更新时间挤到前页。
+ 
+diff --git a/dashboard-enhancements.css b/dashboard-enhancements.css
+index 82e5bce..948a783 100644
+--- a/dashboard-enhancements.css
++++ b/dashboard-enhancements.css
+@@ -132,6 +132,7 @@
+ :is(#narrative,.x-frequent-section) .x-view-badge.bull{background:#e6f5ec;color:#19633d}
+ :is(#narrative,.x-frequent-section) .x-view-badge.bear{background:#fff0ed;color:#a44036}
+ :is(#narrative,.x-frequent-section) .x-trend-card p{margin:0 0 10px;color:#17243b;font-size:13px;line-height:1.7}
++:is(#narrative,.x-frequent-section) .x-trend-card[data-trend-id^="view-"] p{white-space:pre-line}
+ :is(#narrative,.x-frequent-section) .x-trend-evidence{font-size:11px;line-height:1.7;color:#66738a}
+ :is(#narrative,.x-frequent-section) .x-trend-evidence a{color:#52649b;text-decoration:underline;text-underline-offset:2px}
+ :is(#narrative,.x-frequent-section) .x-trend-caveat{display:block;margin-top:8px;color:#7a6870;font-size:11px;line-height:1.5}

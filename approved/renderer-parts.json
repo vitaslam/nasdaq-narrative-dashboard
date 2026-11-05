@@ -130,6 +130,10 @@
     {
       "file": "renderer-v69-potential-views.patch",
       "renderer_sha256": "a71941364600bc38bf81707a6ee82398bffe4edcd308a9c082ed6762dba782ed"
+    },
+    {
+      "file": "renderer-v70-trend-synthesis.patch",
+      "renderer_sha256": "7d866c0103984c7dd15ecb29331974a5c6fc69624d692c3bf98ab771200bd0f1"
     }
   ]
 }
