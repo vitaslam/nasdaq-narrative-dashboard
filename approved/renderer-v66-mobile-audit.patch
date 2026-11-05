@@ -1,0 +1,109 @@
+--- a/live-week.js
++++ b/live-week.js
+@@ -249,2 +249,14 @@
+  }
++ // On phones, retain the first three posts in each author card and fade the rest.
++ for(const [index,card] of authorCards.entries()){
++  const posts=[...card.querySelectorAll('.x-simple-post')];if(posts.length<=3)continue;
++  const overflow=document.createElement('div');overflow.className='x-author-overflow is-folded';overflow.id='x-author-overflow-'+index;
++  posts.slice(3).forEach(post=>overflow.append(post));
++  const button=document.createElement('button');button.type='button';button.className='x-author-fold';button.setAttribute('aria-controls',overflow.id);button.setAttribute('aria-expanded','false');button.textContent=`展开其余 ${posts.length-3} 条 ↓`;
++  card.append(overflow,button);
++  const mobile=window.matchMedia('(max-width:600px)');
++  const syncFold=()=>{const hidden=mobile.matches&&overflow.classList.contains('is-folded');overflow.inert=hidden;overflow.setAttribute('aria-hidden',String(hidden))};
++  button.addEventListener('click',()=>{const expanded=button.getAttribute('aria-expanded')!=='true';overflow.classList.toggle('is-folded',!expanded);button.setAttribute('aria-expanded',String(expanded));button.textContent=expanded?'收起帖子 ↑':`展开其余 ${posts.length-3} 条 ↓`;syncFold();if(!expanded)button.scrollIntoView({block:'nearest'})});
++  mobile.addEventListener('change',syncFold);syncFold();
++ }
+  let frequentExpanded=false;
+--- a/dashboard-enhancements.css
++++ b/dashboard-enhancements.css
+@@ -632,5 +632,51 @@
+  #calendar .mobile-agenda-day-icons .mobile-agenda-logo:nth-child(n+3){display:none}
+- #calendar .mobile-agenda-single{grid-template-columns:55px 40px minmax(0,1fr) 62px;gap:6px}
++ #calendar .mobile-agenda-single{grid-template-columns:55px 40px minmax(0,1fr);grid-template-rows:auto auto;column-gap:6px;row-gap:4px;padding-right:16px}
++ #calendar .mobile-agenda-single .mobile-agenda-date{grid-column:1;grid-row:1/-1}
+  #calendar .mobile-agenda-single>.mobile-agenda-logo{width:40px;height:40px}
+  #calendar .mobile-agenda-single>.mobile-agenda-logo :is(svg,img){width:29px;height:29px}
++ #calendar .mobile-agenda-single>.mobile-agenda-logo{grid-column:2;grid-row:1/-1}
++ #calendar .mobile-agenda-single-copy{grid-column:3;grid-row:1}
++ #calendar .mobile-agenda-single>.mobile-agenda-time{grid-column:3;grid-row:2;flex-direction:row;align-items:center;justify-content:flex-end;gap:4px;text-align:right}
++ #calendar .mobile-agenda-single>.mobile-agenda-time>*{white-space:nowrap}
++}
++@media(max-width:600px){
++ #calendar .section-head{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:8px;margin-bottom:10px}
++ #calendar .section-head>div:first-child{min-width:0}
++ #calendar .section-head h2{font-size:18px;white-space:nowrap}
++ #calendar .calendar-navigation{justify-content:flex-end;flex-wrap:nowrap;gap:4px;width:auto;min-width:0;margin:0}
++ #calendar .calendar-navigation .calendar-range{flex:0 1 auto;min-width:0;font-size:11px;white-space:nowrap}
++ #calendar .calendar-navigation button{flex:none;min-width:30px;width:30px;min-height:32px;height:32px;padding:0}
++ #calendar .calendar-navigation [data-calendar-today]{flex:none;width:auto;min-width:0;min-height:32px;margin:0;padding:4px 6px;font-size:10px;white-space:nowrap}
++ #calendar .mobile-agenda-next-week{margin-top:28px}
++ #calendar .mobile-agenda-week-gap{display:flex;align-items:center;gap:8px;width:100%;min-height:52px;margin:0;padding:8px 2px;border:0;border-bottom:1px solid #dfe4eb;background:transparent;text-align:left;font-family:inherit;font-size:13px;font-weight:600;line-height:1.5;color:#68788d;cursor:pointer}
++ #calendar .mobile-agenda-week-gap>span:first-child{font-size:14px;color:#33445b}
++ #calendar .mobile-agenda-week-count{margin-left:auto;font-size:11px;font-weight:500;color:#8a96a6}
++ #calendar .mobile-agenda-week-gap svg{width:18px;height:18px;margin-left:2px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transition:transform .2s ease}
++ #calendar .mobile-agenda-week-gap[aria-expanded=false] svg{transform:rotate(-90deg)}
++ #calendar .mobile-agenda-next-days[hidden]{display:none!important}
++ #calendar .mobile-agenda-next-days>.mobile-agenda-day:first-child{margin-top:8px}
++}
++@media(max-width:370px){
++ #calendar .section-head{gap:4px}
++ #calendar .section-head h2{font-size:16px}
++ #calendar .calendar-navigation{gap:3px}
++ #calendar .calendar-navigation .calendar-range{font-size:10px}
++ #calendar .calendar-navigation [data-calendar-today]{padding-inline:4px;font-size:9px}
++}
++@media(prefers-reduced-motion:reduce){#calendar .mobile-agenda-week-gap svg{transition:none}}
++:is(#narrative,.x-frequent-section) .x-author-overflow{display:contents}
++:is(#narrative,.x-frequent-section) .x-author-fold{display:none}
++@media(max-width:600px){
++ #toggle-event-drivers .event-weight-list{grid-template-columns:1fr;gap:0}
++ #toggle-event-drivers .event-weight-row{margin:0;padding:11px 0;border-bottom:1px solid #e5e9ef}
++ #toggle-event-drivers .event-weight-row:last-child{border-bottom:0}
++ #toggle-event-drivers .event-row-title{grid-column:1;grid-row:1;font-size:13px;line-height:1.5}
++ #toggle-event-drivers .event-weight-row>strong{grid-column:2;grid-row:1;align-self:start;font-size:15px}
++ #toggle-event-drivers .event-row-rating{grid-column:1/-1;grid-row:2}
++ #toggle-event-drivers .event-row-meta{grid-column:1/-1;grid-row:3}
++ :is(#narrative,.x-frequent-section) .x-author-overflow{display:block}
++ :is(#narrative,.x-frequent-section) .x-translation{overflow-wrap:anywhere;word-break:break-word}
++ :is(#narrative,.x-frequent-section) .x-author-overflow.is-folded{max-height:86px;overflow:hidden;mask-image:linear-gradient(to bottom,#000 0%,#000 25%,transparent 100%);-webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 25%,transparent 100%);pointer-events:none}
++ :is(#narrative,.x-frequent-section) .x-author-fold{display:block;width:100%;margin:4px 0 0;padding:12px 0 2px;border:0;border-top:1px solid #e5eaf1;background:none;color:#5365a0;text-align:center;font-family:inherit;font-size:12px;font-weight:600;line-height:1.5;cursor:pointer}
++ :is(#narrative,.x-frequent-section) .x-author-fold:focus-visible{outline:2px solid #5365a0;outline-offset:2px;border-radius:4px}
+ }
+--- a/shared-calendar.js
++++ b/shared-calendar.js
+@@ -116,3 +116,3 @@
+  const brandWord=(key,word)=>`<span class="mobile-agenda-logo is-brand brand-${key.toLowerCase()}" aria-hidden="true"><b class="brand-monogram">${word}</b></span>`;
+- function agendaLogo(e){const name=String(e.event||''),company=Object.keys(agendaLogos).find(key=>key!=='BLS'&&name.toLowerCase().includes(key.toLowerCase()));let key=company;if(!key&&/bls\.gov/.test(e.source||''))key='BLS';if(/Microsoft|微软/i.test(name))return `<span class="mobile-agenda-logo is-brand brand-microsoft" aria-hidden="true"><svg viewBox="0 0 24 24"><path fill="#f25022" d="M1 1h10v10H1z"/><path fill="#7fba00" d="M13 1h10v10H13z"/><path fill="#00a4ef" d="M1 13h10v10H1z"/><path fill="#ffb900" d="M13 13h10v10H13z"/></svg></span>`;if(/Meta/i.test(name))key='Meta';if(/Alphabet|Google/i.test(name))key='Alphabet';if(key){const vectorKey={"Apple":"apple","AMD":"amd","Datadog":"datadog","Palantir":"palantir","Meta":"meta","Alphabet":"google","Tesla":"tesla"}[key];if(vectorKey)return brandIcon(key,brandVectorPaths[vectorKey]);return brandWord(key,({CoreWeave:'CW',Nebius:'N',Arista:'AN',ASML:'ASML',Amazon:'a',BLS:'BLS'})[key]||key.slice(0,3))}let symbol;if(/ISM/.test(name))symbol='<b class="agency-wordmark">ISM</b>';else if(/选举/.test(name))symbol=eventSymbol('<path d="m12 4 10 5-5 9-10-5Z M9 11l2 4 4-1 M5 18l-2 5v6h26v-6l-3-5 M3 23h26 M11 20h10"/>');else if(/地缘|油价|中东/.test(name))symbol=eventSymbol('<circle cx="16" cy="16" r="12"/><path d="M4 16h24 M16 4c-7 6-7 18 0 24 M16 4c7 6 7 18 0 24 M7 9h18 M7 23h18"/>');else symbol=eventSymbol('<path d="m3 11 13-7 13 7H3Z M5 27h22 M3 30h26 M7 14v10 M13 14v10 M19 14v10 M25 14v10"/>');return `<span class="mobile-agenda-logo is-agency" aria-hidden="true">${symbol}</span>`}
++ function agendaLogo(e){const name=String(e.event||''),company=Object.keys(agendaLogos).find(key=>key!=='BLS'&&name.toLowerCase().includes(key.toLowerCase()));let key=company;if(!key&&/bls\.gov/.test(e.source||''))key='BLS';if(/Microsoft|微软/i.test(name))return `<span class="mobile-agenda-logo is-brand brand-microsoft" aria-hidden="true"><svg viewBox="0 0 24 24"><path fill="#f25022" d="M1 1h10v10H1z"/><path fill="#7fba00" d="M13 1h10v10H13z"/><path fill="#00a4ef" d="M1 13h10v10H1z"/><path fill="#ffb900" d="M13 13h10v10H13z"/></svg></span>`;if(/Meta/i.test(name))key='Meta';if(/Alphabet|Google/i.test(name))key='Alphabet';if(key){const vectorKey={"Apple":"apple","AMD":"amd","Datadog":"datadog","Palantir":"palantir","Meta":"meta","Alphabet":"google","Tesla":"tesla"}[key];if(vectorKey)return brandIcon(key,brandVectorPaths[vectorKey]);return `<span class="mobile-agenda-logo is-brand brand-${key.toLowerCase()}" aria-hidden="true"><img src="${agendaLogos[key].src}" alt=""></span>`}if(/财报|earnings/i.test(e.kind||'')){const company=name.replace(/(?:FY\d+|Q[1-4]|\d+季度|财报|earnings|[（(].*?[）)])/gi,'').trim().split(/\s+/)[0]||'股票';return brandWord('company',company.slice(0,3).toUpperCase())}let symbol;if(/ISM/.test(name))symbol='<b class="agency-wordmark">ISM</b>';else if(/选举/.test(name))symbol=eventSymbol('<path d="m12 4 10 5-5 9-10-5Z M9 11l2 4 4-1 M5 18l-2 5v6h26v-6l-3-5 M3 23h26 M11 20h10"/>');else if(/地缘|油价|中东/.test(name))symbol=eventSymbol('<circle cx="16" cy="16" r="12"/><path d="M4 16h24 M16 4c-7 6-7 18 0 24 M16 4c7 6 7 18 0 24 M7 9h18 M7 23h18"/>');else symbol=eventSymbol('<path d="m3 11 13-7 13 7H3Z M5 27h22 M3 30h26 M7 14v10 M13 14v10 M19 14v10 M25 14v10"/>');return `<span class="mobile-agenda-logo is-agency" aria-hidden="true">${symbol}</span>`}
+  const agendaEvent=e=>{const earnings=/财报|earnings/i.test(e.kind||''),kind=earnings?'earnings':/政策|选举/.test(e.kind||'')?'policy':'macro';const summary=agendaSummary(e);return `<article class="mobile-agenda-event ${kind}${isHigh(e)?' is-important':''}" data-calendar-event-id="${esc(e.id)}" role="button" tabindex="0" aria-expanded="false" aria-label="${esc(e.event+'，'+(e.time||'时间待定')+'，'+summary)}">${dots('calendar:'+e.id)}${agendaLogo(e)}<div class="mobile-agenda-copy"><div class="mobile-agenda-title"><h3>${esc(e.event)}</h3>${P.stars(P.calendarImportance(e))}</div><p title="${esc(summary)}">${esc(summary)}</p></div>${agendaTime(e)}${agendaReturns(e)}</article>`};
+@@ -123,2 +123,6 @@
+  const saveCollapsedDays=()=>{try{calendarPrefDoc.cookie=collapseKey+'='+encodeURIComponent(JSON.stringify([...collapsedDays].slice(-120)))+'; Max-Age=31536000; Path=/; SameSite=Lax'+(location.protocol==='https:'?'; Secure':'')}catch{}};
++ const nextWeekKey='nasdaq_calendar_expanded_next_weeks_v1';
++ const readExpandedNextWeeks=()=>{try{const value=calendarPrefDoc.cookie.split('; ').find(row=>row.startsWith(nextWeekKey+'='));const weeks=value?JSON.parse(decodeURIComponent(value.slice(nextWeekKey.length+1))):[];return new Set(Array.isArray(weeks)?weeks.filter(date=>/^\d{4}-\d{2}-\d{2}$/.test(date)).slice(-52):[])}catch{return new Set()}};
++ const expandedNextWeeks=readExpandedNextWeeks();
++ const saveExpandedNextWeeks=()=>{try{calendarPrefDoc.cookie=nextWeekKey+'='+encodeURIComponent(JSON.stringify([...expandedNextWeeks].slice(-52)))+'; Max-Age=31536000; Path=/; SameSite=Lax'+(location.protocol==='https:'?'; Secure':'')}catch{}};
+  function agenda(data){
+@@ -127,3 +131,3 @@
+    const date=add(start,n),items=data.events.filter(e=>e.iso_date===date);if(!items.length&&date!==bjToday)continue;days++;
+-   if(n>=7&&!nextWeekStarted){out+='<div class="mobile-agenda-week-gap">下周</div>';nextWeekStarted=true}
++   if(n>=7&&!nextWeekStarted){const nextStart=add(start,7),count=data.events.filter(e=>e.iso_date>=nextStart&&e.iso_date<=add(start,13)).length,expanded=expandedNextWeeks.has(nextStart);out+=`<section class="mobile-agenda-next-week"><button type="button" class="mobile-agenda-week-gap" data-calendar-next-week-toggle="${nextStart}" aria-expanded="${expanded}" aria-controls="agenda-next-${nextStart}"><span>下周</span><span class="mobile-agenda-week-count">${count} 项</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button><div id="agenda-next-${nextStart}" class="mobile-agenda-next-days"${expanded?'':' hidden'}>`;nextWeekStarted=true}
+    const day=new Date(date+'T12:00:00Z'),label='星期'+['日','一','二','三','四','五','六'][day.getUTCDay()],collapsed=collapsedDays.has(date),id='agenda-day-'+date;
+@@ -132,2 +136,3 @@
+   }
++  if(nextWeekStarted)out+='</div></section>';
+   if(!days)out+='<p class="mobile-agenda-empty">这两周暂无已录入事件</p>';
+@@ -136,3 +141,4 @@
+  }
+- async function render(){const token=++seq,end=add(start,13);closeDetail();root.querySelector('.calendar-range').textContent=start.slice(0,4)+' · '+md(start)+' — '+md(end);root.querySelector('#events').setAttribute('aria-busy','true');let data;
++ const updateRange=()=>{const end=add(start,13);root.querySelector('.calendar-range').textContent=matchMedia('(max-width:600px)').matches?md(start)+'–'+md(end):start.slice(0,4)+' · '+md(start)+' — '+md(end)};
++ async function render(){const token=++seq,end=add(start,13);closeDetail();updateRange();root.querySelector('#events').setAttribute('aria-busy','true');let data;
+  try{const r=await fetch(`/api/calendar?from=${start}&to=${end}`,{cache:'no-store'});if(!r.ok)throw Error();data=await r.json();}catch{if(token!==seq)return;root.querySelector('#events').innerHTML='<p class="calendar-empty">日历暂时无法读取，请稍后重试。</p>';return}if(token!==seq)return;changeMarkers=data.change_markers||{};
+@@ -140,5 +146,5 @@
+  let out='';for(let w=0;w<2;w++){out+=`<section class="calendar-week"><div class="calendar-week-title"><b>第${w?'二':'一'}周</b><span>${md(add(start,w*7))} — ${md(add(start,w*7+6))}</span></div><div class="calendar-grid">`;for(let n=0;n<7;n++){const date=add(start,w*7+n),items=data.events.filter(e=>e.iso_date===date);out+=`<div class="calendar-day ${n>4?'weekend':''} ${date===bjToday?'is-today':''}" data-date="${date}"><header><time datetime="${date}">${md(date)}</time><span>${date===bjToday?'今天':(['周一','周二','周三','周四','周五','周六','周日'][n])}</span></header>${items.map(event).join('')||'<p class="calendar-empty">暂未录入事件</p>'}</div>`}out+='</div></section>'}if(data.ongoing?.length)out+='<div class="calendar-ongoing"><b>持续观察</b><div>'+data.ongoing.map(event).join('')+'</div></div>';root.querySelector('#events').innerHTML=out+agenda(data);root.querySelector('#events').removeAttribute('aria-busy');}
+- root.addEventListener('click',ev=>{const toggle=ev.target.closest('[data-calendar-day-toggle]');if(toggle){const date=toggle.dataset.calendarDayToggle,day=toggle.closest('.mobile-agenda-day'),body=day.querySelector('.mobile-agenda-day-events'),collapse=toggle.getAttribute('aria-expanded')==='true';if(collapse&&selectedCard&&day.contains(selectedCard))closeDetail();animateCalendar(body,!collapse);toggle.setAttribute('aria-expanded',String(!collapse));if(collapse)collapsedDays.add(date);else collapsedDays.delete(date);saveCollapsedDays();return}if(ev.target.closest('[data-calendar-close]')){closeDetail(true);return}const card=ev.target.closest('[data-calendar-event-id]');if(card&&!ev.target.closest('a'))showDetail(card)});
++ root.addEventListener('click',ev=>{const weekToggle=ev.target.closest('[data-calendar-next-week-toggle]');if(weekToggle){const week=weekToggle.dataset.calendarNextWeekToggle,body=root.querySelector('#agenda-next-'+week),collapse=weekToggle.getAttribute('aria-expanded')==='true';if(collapse&&selectedCard&&body.contains(selectedCard))closeDetail();animateCalendar(body,!collapse);weekToggle.setAttribute('aria-expanded',String(!collapse));if(collapse)expandedNextWeeks.delete(week);else expandedNextWeeks.add(week);saveExpandedNextWeeks();return}const toggle=ev.target.closest('[data-calendar-day-toggle]');if(toggle){const date=toggle.dataset.calendarDayToggle,day=toggle.closest('.mobile-agenda-day'),body=day.querySelector('.mobile-agenda-day-events'),collapse=toggle.getAttribute('aria-expanded')==='true';if(collapse&&selectedCard&&day.contains(selectedCard))closeDetail();animateCalendar(body,!collapse);toggle.setAttribute('aria-expanded',String(!collapse));if(collapse)collapsedDays.add(date);else collapsedDays.delete(date);saveCollapsedDays();return}if(ev.target.closest('[data-calendar-close]')){closeDetail(true);return}const card=ev.target.closest('[data-calendar-event-id]');if(card&&!ev.target.closest('a'))showDetail(card)});
+  root.addEventListener('keydown',ev=>{if(ev.key==='Escape'){closeDetail();return}const card=ev.target.closest('[data-calendar-event-id]');if(card&&ev.target===card&&['Enter',' '].includes(ev.key)){ev.preventDefault();showDetail(card)}});
+- root.querySelectorAll('[data-calendar-nav]').forEach(b=>b.addEventListener('click',()=>{start=add(start,Number(b.dataset.calendarNav));render()}));matchMedia('(max-width:600px)').addEventListener('change',closeDetail);root.querySelector('[data-calendar-today]').addEventListener('click',()=>{start=monday;render()});render();
++ root.querySelectorAll('[data-calendar-nav]').forEach(b=>b.addEventListener('click',()=>{start=add(start,Number(b.dataset.calendarNav));render()}));matchMedia('(max-width:600px)').addEventListener('change',()=>{closeDetail();updateRange()});root.querySelector('[data-calendar-today]').addEventListener('click',()=>{start=monday;render()});render();
+ })();
