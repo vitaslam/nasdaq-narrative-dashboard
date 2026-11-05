@@ -1,0 +1,119 @@
+--- a/runtime.js
++++ b/runtime.js
+@@ -323,4 +323,9 @@
+  if(old?.market_tracking?.frozen){ok(JSON.stringify(tracking)===JSON.stringify(old.market_tracking),'Archived calendar returns are frozen');return}
+- only(tracking,['week_start','instruments','frozen']);
++ only(tracking,['week_start','basis','release_date','release_session','instruments','frozen']);
+  ok(w?.status==='active'&&tracking.week_start===w.start,'Track only the active event week');
++ ok(tracking.basis==='event_release','Calendar returns must start from the event release, not the calendar week');
++ ok(iso(tracking.release_date)&&tracking.release_date>=(event.iso_date||old?.iso_date)&&tracking.release_date>=w.start&&tracking.release_date<=w.end&&tracking.release_date<=today(),'Use the actual result release date in the event week');
++ ok(['before_open','during_session','after_close'].includes(tracking.release_session),'Record the actual release session');
++ const priorTracking=old?.market_tracking?.basis==='event_release'?old.market_tracking:null;
++ if(priorTracking)ok(tracking.release_date===priorTracking.release_date&&tracking.release_session===priorTracking.release_session,'The event release anchor is fixed');
+  ok(!tracking.frozen,'Calendar returns are frozen by week finalization');
+@@ -331,3 +336,3 @@
+  for(const row of tracking.instruments){
+-  only(row,['symbol','label','unit','price_basis','contract','asof_date','close','previous_date','previous_close','base_date','base_close','source_url','baseline_source_url']);
++  only(row,['symbol','label','unit','price_basis','contract','asof_date','close','first_date','first_close','base_date','base_close','source_url','first_source_url','baseline_source_url']);
+   ok(typeof row.symbol==='string'&&row.symbol.length<=30&&!symbols.has(row.symbol),'Use distinct instrument symbols');symbols.add(row.symbol);
+@@ -337,7 +342,9 @@
+   ok(row.unit!=='bp'||row.price_basis==='treasury_yield','Yield changes use bp');
+-  for(const key of ['close','previous_close','base_close'])ok(Number.isFinite(row[key])&&row[key]>0,'Use verified positive closing observations');
+-  ok(iso(row.asof_date)&&iso(row.previous_date)&&iso(row.base_date)&&row.base_date<w.start&&row.base_date>=add(w.start,-10)&&row.previous_date>=row.base_date&&row.previous_date<row.asof_date&&row.asof_date>=w.start&&row.asof_date<=w.end&&row.asof_date<=today(),'Use dated closes within the event week and the last pre-week close');
+-  ok(url(row.source_url)&&url(row.baseline_source_url),'Returns require current and baseline evidence');
++  for(const key of ['close','first_close','base_close'])ok(Number.isFinite(row[key])&&row[key]>0,'Use verified positive closing observations');
++  ok(iso(row.asof_date)&&iso(row.first_date)&&iso(row.base_date)&&row.base_date>=add(tracking.release_date,-10)&&row.base_date<=tracking.release_date&&row.base_date<row.first_date&&row.first_date>=tracking.release_date&&row.first_date<=row.asof_date&&row.asof_date<=w.end&&row.asof_date<=today(),'Use a pre-release baseline, first post-release close and latest close within the event week');
++  ok(tracking.release_session==='after_close'?row.first_date>tracking.release_date:row.base_date<tracking.release_date,'Do not use a close from before the release as its reaction');
++  ok(row.first_date!==row.asof_date||row.first_close===row.close,'The first and latest close must agree on the same trading date');
++  ok(url(row.source_url)&&url(row.first_source_url)&&url(row.baseline_source_url),'Returns require first-close, current and baseline evidence');
+   const prior=old?.market_tracking?.instruments.find(x=>x.symbol===row.symbol);
+-  if(prior){ok(row.asof_date>=prior.asof_date,'Calendar close dates cannot go backwards');ok(row.base_date===prior.base_date&&row.base_close===prior.base_close&&row.unit===prior.unit&&row.price_basis===prior.price_basis&&row.contract===prior.contract,'The weekly comparison basis is fixed')}
++  if(prior){ok(row.asof_date>=prior.asof_date,'Calendar close dates cannot go backwards');if(priorTracking)ok(row.base_date===prior.base_date&&row.base_close===prior.base_close&&row.first_date===prior.first_date&&row.first_close===prior.first_close&&row.unit===prior.unit&&row.price_basis===prior.price_basis&&row.contract===prior.contract,'The release baseline and first reaction are fixed')}
+  }
+--- a/dashboard-enhancements.css
++++ b/dashboard-enhancements.css
+@@ -469,2 +469,17 @@
+ @media(max-width:600px){
++ #calendar .mobile-agenda-day>header{padding:0;margin-bottom:2px}
++ #calendar .mobile-agenda-day>header h3{width:100%}
++ #calendar .mobile-agenda-day-toggle{display:flex;align-items:center;gap:10px;width:100%;min-height:48px;padding:8px 2px;border:0;background:transparent;color:inherit;font:inherit;text-align:left;cursor:pointer;touch-action:manipulation}
++ #calendar .mobile-agenda-day-toggle time{flex:1;min-width:0}
++ #calendar .mobile-agenda-day-count{flex-shrink:0;font-size:11px;font-weight:500;color:#8a96a6}
++ #calendar .is-today .mobile-agenda-day-count{color:#b54b5c}
++ #calendar .mobile-agenda-day-toggle svg{width:18px;height:18px;flex-shrink:0;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transition:transform .16s ease}
++ #calendar .mobile-agenda-day-toggle[aria-expanded=false] svg{transform:rotate(-90deg)}
++ #calendar .mobile-agenda-day-events[hidden]{display:none!important}
++ #calendar .mobile-agenda-day-toggle:focus-visible{outline:2px solid #667fa1;outline-offset:2px;border-radius:6px}
++}
++@media(prefers-reduced-motion:reduce){#calendar .mobile-agenda-day-toggle svg{transition:none}}
++
++/* Mobile weights sit beside the stars, below the full-width title. */
++@media(max-width:600px){
+  #toggle-event-drivers .event-weight-row{min-width:0;grid-template-columns:minmax(0,1fr) auto;align-items:start;gap:6px 8px}
+--- a/shared-calendar.js
++++ b/shared-calendar.js
+@@ -67,3 +67,3 @@
+   const phases=(e.reaction_phases||[]).length?`<div class="reaction-phases">${e.reaction_phases.map(p=>`<div><b>${esc(p.session)}</b><span>${esc(p.value)}</span><small><time>${esc(p.at)}</time><span class="mobile-source-only"> · ${link(p.source_url,'来源')}</span></small></div>`).join('')}</div>`:'';
+-  grid.insertAdjacentHTML('beforeend',`<aside class="calendar-detail" data-calendar-detail aria-label="${esc(e.event)}事件详情">${dots('calendar:'+e.id)}<div class="calendar-detail-head"><span>${esc(md(e.iso_date||card.closest('.calendar-day')?.dataset.date||''))} · ${esc(e.kind||'事件')} · ${esc(e.status==='occurred'||e.status==='released'?'已发生':'待发生')}</span><button type="button" data-calendar-close aria-label="关闭事件详情">×</button></div><h3>${esc(e.event)}</h3><p class="calendar-detail-time">${esc(e.time||'时间待核验')}</p><div class="calendar-detail-body">${detailRow('预期／关注',e.expectation||e.watch||'待补充',!(e.expectation||e.watch))}${comparisons}${detailRow((e.result_emoji||'📊')+' 实际结果',actual,!e.result)}${e.guidance?detailRow('下季指引',e.guidance):''}${detailRow((e.reaction_emoji||'📈')+' 分时段市场反应',reaction,!e.market_reaction)}${phases}${trackingRows(e).length?detailRow('本周市场表现',trackingRows(e).join('；')):''}${detailRow('对叙事的影响',impact,!e.narrative_impact)}</div><div class="calendar-detail-links">${link(e.source,'事件来源')}${e.consensus_source?' · '+link(e.consensus_source,'预期来源'):''}${e.result_source?' · '+link(e.result_source,'结果来源'):''}${e.guidance_source?' · '+link(e.guidance_source,'指引来源'):''}${e.reaction_source?' · '+link(e.reaction_source,'行情来源'):''}</div></aside>`);
++  grid.insertAdjacentHTML('beforeend',`<aside class="calendar-detail" data-calendar-detail aria-label="${esc(e.event)}事件详情">${dots('calendar:'+e.id)}<div class="calendar-detail-head"><span>${esc(md(e.iso_date||card.closest('.calendar-day')?.dataset.date||''))} · ${esc(e.kind||'事件')} · ${esc(e.status==='occurred'||e.status==='released'?'已发生':'待发生')}</span><button type="button" data-calendar-close aria-label="关闭事件详情">×</button></div><h3>${esc(e.event)}</h3><p class="calendar-detail-time">${esc(e.time||'时间待核验')}</p><div class="calendar-detail-body">${detailRow('预期／关注',e.expectation||e.watch||'待补充',!(e.expectation||e.watch))}${comparisons}${detailRow((e.result_emoji||'📊')+' 实际结果',actual,!e.result)}${e.guidance?detailRow('下季指引',e.guidance):''}${detailRow((e.reaction_emoji||'📈')+' 分时段市场反应',reaction,!e.market_reaction)}${phases}${trackingRows(e).length?detailRow('发布后市场表现',trackingRows(e).join('；')):''}${detailRow('对叙事的影响',impact,!e.narrative_impact)}</div><div class="calendar-detail-links">${link(e.source,'事件来源')}${e.consensus_source?' · '+link(e.consensus_source,'预期来源'):''}${e.result_source?' · '+link(e.result_source,'结果来源'):''}${e.guidance_source?' · '+link(e.guidance_source,'指引来源'):''}${e.reaction_source?' · '+link(e.reaction_source,'行情来源'):''}</div></aside>`);
+   if(mobileDay){const detail=grid.querySelector('[data-calendar-detail]');card.after(detail)}
+@@ -82,3 +82,3 @@
+  }
+- const trackingRows=e=>{const tracking=e.market_tracking;if(!tracking||!['released','occurred'].includes(e.status))return [];const earnings=/财报|earnings/i.test(e.kind||'');return tracking.instruments.map(row=>{const bp=row.unit==='bp',format=value=>(Math.abs(value)<.005?'':value>0?'+':'−')+Math.abs(value).toFixed(bp?0:2)+(bp?'bp':'%'),daily=bp?(row.close-row.previous_close)*100:(row.close/row.previous_close-1)*100,weekly=bp?(row.close-row.base_close)*100:(row.close/row.base_close-1)*100;return `${row.asof_date.slice(5).replace('-','/')} ${earnings?'':row.label+' '}${bp||row.price_basis==='eia_spot'?'当日':'收盘'} ${format(daily)} · 周内 ${format(weekly)}`})};
++ const trackingRows=e=>{const tracking=e.market_tracking;if(tracking?.basis!=='event_release'||!['released','occurred'].includes(e.status))return [];const earnings=/财报|earnings/i.test(e.kind||'');return tracking.instruments.filter(row=>Number.isFinite(row.first_close)&&Number.isFinite(row.base_close)&&row.base_close>0&&Number.isFinite(row.close)).map(row=>{const bp=row.unit==='bp',format=value=>(Math.abs(value)<.005?'':value>0?'+':'−')+Math.abs(value).toFixed(bp?0:2)+(bp?'bp':'%'),first=bp?(row.first_close-row.base_close)*100:(row.first_close/row.base_close-1)*100,since=bp?(row.close-row.base_close)*100:(row.close/row.base_close-1)*100;return `${earnings?'':row.label+' '}发布当日 ${format(first)} · 发布后周内 ${format(since)}`})};
+  const agendaReturns=e=>{const rows=trackingRows(e);return rows.length?`<div class="mobile-agenda-returns">${rows.map(row=>`<span>${esc(row)}</span>`).join('')}</div>`:''};
+@@ -88,3 +88,18 @@
+  const agendaEvent=e=>{const earnings=/财报|earnings/i.test(e.kind||''),kind=earnings?'earnings':/政策|选举/.test(e.kind||'')?'policy':'macro';const summary=agendaSummary(e);return `<article class="mobile-agenda-event ${kind}${isHigh(e)?' is-important':''}" data-calendar-event-id="${esc(e.id)}" role="button" tabindex="0" aria-expanded="false" aria-label="${esc(e.event+'，'+(e.time||'时间待定')+'，'+summary)}">${dots('calendar:'+e.id)}${agendaLogo(e)}<div class="mobile-agenda-copy"><div class="mobile-agenda-title"><h3>${esc(e.event)}</h3>${P.stars(P.calendarImportance(e))}</div><p title="${esc(summary)}">${esc(summary)}</p></div>${agendaTime(e)}${agendaReturns(e)}</article>`};
+- function agenda(data){let out='<div class="mobile-calendar-agenda" aria-label="按日期排列的事件日程">';let days=0;for(let n=0;n<14;n++){const date=add(start,n),items=data.events.filter(e=>e.iso_date===date);if(!items.length&&date!==bjToday)continue;days++;const day=new Date(date+'T12:00:00Z'),label=Number(date.slice(5,7))+'月'+Number(date.slice(8,10))+'日 · 星期'+['日','一','二','三','四','五','六'][day.getUTCDay()];out+=`<section class="mobile-agenda-day${date===bjToday?' is-today':''}${date<bjToday?' is-past':''}" data-date="${date}"><header><h3><time datetime="${date}">${label}</time></h3>${date===bjToday?'<span>今天</span>':''}</header>${items.map(agendaEvent).join('')||'<p class="mobile-agenda-empty">今天暂无已录入事件</p>'}</section>`}if(!days)out+='<p class="mobile-agenda-empty">这两周暂无已录入事件</p>';if(data.ongoing?.length)out+=`<section class="mobile-agenda-day ongoing"><header><h3>持续观察</h3></header>${data.ongoing.map(agendaEvent).join('')}</section>`;return out+'</div>'}
++ const collapseKey='nasdaq_calendar_collapsed_days_v1';
++ let calendarPrefDoc=document;try{if(parent!==window&&parent.location.origin===location.origin)calendarPrefDoc=parent.document}catch{}
++ const readCollapsedDays=()=>{try{const value=calendarPrefDoc.cookie.split('; ').find(row=>row.startsWith(collapseKey+'='));const dates=value?JSON.parse(decodeURIComponent(value.slice(collapseKey.length+1))):[];return new Set(Array.isArray(dates)?dates.filter(date=>/^\d{4}-\d{2}-\d{2}$/.test(date)).slice(-120):[])}catch{return new Set()}};
++ const collapsedDays=readCollapsedDays();
++ const saveCollapsedDays=()=>{try{calendarPrefDoc.cookie=collapseKey+'='+encodeURIComponent(JSON.stringify([...collapsedDays].slice(-120)))+'; Max-Age=31536000; Path=/; SameSite=Lax'+(location.protocol==='https:'?'; Secure':'')}catch{}};
++ function agenda(data){
++  let out='<div class="mobile-calendar-agenda" aria-label="按日期排列的事件日程">',days=0;
++  for(let n=0;n<14;n++){
++   const date=add(start,n),items=data.events.filter(e=>e.iso_date===date);if(!items.length&&date!==bjToday)continue;days++;
++   const day=new Date(date+'T12:00:00Z'),label=Number(date.slice(5,7))+'月'+Number(date.slice(8,10))+'日 · 星期'+['日','一','二','三','四','五','六'][day.getUTCDay()],collapsed=collapsedDays.has(date),id='agenda-day-'+date;
++   out+=`<section class="mobile-agenda-day${date===bjToday?' is-today':''}${date<bjToday?' is-past':''}" data-date="${date}"><header><h3><button type="button" class="mobile-agenda-day-toggle" data-calendar-day-toggle="${date}" aria-expanded="${!collapsed}" aria-controls="${id}"><time datetime="${date}">${label}</time><span class="mobile-agenda-day-count">${date===bjToday?'今天 · ':''}${items.length} 项</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button></h3></header><div id="${id}" class="mobile-agenda-day-events"${collapsed?' hidden':''}>${items.map(agendaEvent).join('')||'<p class="mobile-agenda-empty">今天暂无已录入事件</p>'}</div></section>`;
++  }
++  if(!days)out+='<p class="mobile-agenda-empty">这两周暂无已录入事件</p>';
++  if(data.ongoing?.length)out+=`<section class="mobile-agenda-day ongoing"><header><h3>持续观察</h3></header>${data.ongoing.map(agendaEvent).join('')}</section>`;
++  return out+'</div>';
++ }
+  async function render(){const token=++seq,end=add(start,13);closeDetail();root.querySelector('.calendar-range').textContent=start.slice(0,4)+' · '+md(start)+' — '+md(end);root.querySelector('#events').setAttribute('aria-busy','true');let data;
+@@ -93,3 +108,3 @@
+  let out='';for(let w=0;w<2;w++){out+=`<section class="calendar-week"><div class="calendar-week-title"><b>第${w?'二':'一'}周</b><span>${md(add(start,w*7))} — ${md(add(start,w*7+6))}</span></div><div class="calendar-grid">`;for(let n=0;n<7;n++){const date=add(start,w*7+n),items=data.events.filter(e=>e.iso_date===date);out+=`<div class="calendar-day ${n>4?'weekend':''} ${date===bjToday?'is-today':''}" data-date="${date}"><header><time datetime="${date}">${md(date)}</time><span>${date===bjToday?'今天':(['周一','周二','周三','周四','周五','周六','周日'][n])}</span></header>${items.map(event).join('')||'<p class="calendar-empty">暂未录入事件</p>'}</div>`}out+='</div></section>'}if(data.ongoing?.length)out+='<div class="calendar-ongoing"><b>持续观察</b><div>'+data.ongoing.map(event).join('')+'</div></div>';root.querySelector('#events').innerHTML=out+agenda(data);root.querySelector('#events').removeAttribute('aria-busy');}
+- root.addEventListener('click',ev=>{if(ev.target.closest('[data-calendar-close]')){closeDetail();return}const card=ev.target.closest('[data-calendar-event-id]');if(card&&!ev.target.closest('a'))showDetail(card)});
++ root.addEventListener('click',ev=>{const toggle=ev.target.closest('[data-calendar-day-toggle]');if(toggle){const date=toggle.dataset.calendarDayToggle,day=toggle.closest('.mobile-agenda-day'),body=day.querySelector('.mobile-agenda-day-events'),collapse=toggle.getAttribute('aria-expanded')==='true';if(collapse&&selectedCard&&day.contains(selectedCard))closeDetail();body.hidden=collapse;toggle.setAttribute('aria-expanded',String(!collapse));if(collapse)collapsedDays.add(date);else collapsedDays.delete(date);saveCollapsedDays();return}if(ev.target.closest('[data-calendar-close]')){closeDetail();return}const card=ev.target.closest('[data-calendar-event-id]');if(card&&!ev.target.closest('a'))showDetail(card)});
+  root.addEventListener('keydown',ev=>{if(ev.key==='Escape'){closeDetail();return}const card=ev.target.closest('[data-calendar-event-id]');if(card&&ev.target===card&&['Enter',' '].includes(ev.key)){ev.preventDefault();showDetail(card)}});
+--- a/UPDATER.md
++++ b/UPDATER.md
+@@ -137,6 +137,7 @@
+ 
+-## 2026-11-05 日历当日／周内市场跟踪
+-进行周的每轮更新，核验已发生日历事件对应标的的最新完整交易日收盘，并通过 calendar_upsert[].market_tracking 更新。公司财报对应公司股票；宏观数据优先 NDX 与 UST10Y；油价/地缘事件按相关性使用 Brent（同一 EIA 现货序列，或同一明确期货合约结算）。这里只是同期市场表现，不能把涨跌写成事件已证实的因果影响。
+-结构：{week_start:"YYYY-MM-DD",frozen:false,instruments:[{symbol,label,unit:"percent"|"bp",price_basis:"cash"|"treasury_yield"|"eia_spot"|"futures_settlement",contract?:"具体合约",asof_date,close,previous_date,previous_close,base_date,base_close,source_url,baseline_source_url}]}。每条记录独立保留真实行情日期与来源；最多3个相关标的，通常公司1个、宏观1–2个。
+-当日=最新完整收盘÷前一交易日收盘−1；周内=最新完整收盘÷上周最后一个交易日收盘−1。10Y使用收益率百分点差×100，以bp显示。周基准一旦写入不得变更。不得混用盘后/盘前报价、不同油价合约或现金/期货；这些仍单独记 reaction_phases。无可靠新收盘时保留原观察日期，不能只更新时间戳。未公布事件只显示简短共识，不提前写收盘跟踪。
+-卡面分别显示简短结果（双Beat/PMI数值等）、有日期的当日及周内表现，不再把首次财报后反应当最新行情。周六 dashboard_finalize_week 自动冻结本周 market_tracking；归档后不得覆盖，下一周事件另建记录。本功能纳入既有北京时间10:00/16:00/22:00更新流程。
++## 2026-11-05 日历发布后市场跟踪
++卡面用且仅用「发布当日」和「发布后周内」，不是普通逐日涨跌，也不是自然周周一至今涨跌。公司财报对应公司股票；宏观数据优先纳指与10Y，油价/地缘事件按相关性选同一口径的Brent。仅描述事件发布后的同期市场反应，不断言涨跌全由单一事件造成。
++market_tracking结构：{week_start,basis:"event_release",release_date:"实际结果发布的美东日期",release_session:"before_open"|"during_session"|"after_close",frozen:false,instruments:[{symbol,label,unit:"percent"|"bp",price_basis:"cash"|"treasury_yield"|"eia_spot"|"futures_settlement",contract?:"具体合约",base_date,base_close,first_date,first_close,asof_date,close,baseline_source_url,first_source_url,source_url}]}。每条事件独立确定发布时点和基准，不共用上周五。最多3个相关标的，通常公司1个、宏观1–2个。
++基准base_close取实际发布前最后一个常规收盘：盘后发布取该日常规收盘；盘前/盘中发布取前一交易日收盘。first_close取发布后首个实际交易日的完整常规收盘，盘后发布须取下一交易日，休市顺延。发布当日=(first_close/base_close−1)×100%；发布后周内=(最新完整close/base_close−1)×100%。10Y均用相对基准的收益率百分点差×100，单位bp。首日反应不是随每日最新涨跌移动；首次收盘与事件基准写入后固定。发布后周内包含首日反应，持续到该周周五收盘；之后冻结。
++进行周的既有10:00/16:00/22:00更新核验最新完整收盘，只更新asof_date/close/source_url及实质事件内容；无新收盘保留真实日期和数值。周六dashboard_finalize_week自动冻结，不能跨周重算，历史归档不可改。未公布事件只显示简短预期；未完成首次收盘时不编造本字段，可在原reaction_phases保留独立盘前/盘后报价。不得混用盘外价、不同油价合约或现货/期货序列。
++旧版未标basis的数据是普通日涨跌/自然周涨跌，不能直接改标签复用；仅在进行周核验实际发布时点、发布前基准和首次收盘后一次迁移到event_release。已归档旧数据保持原样。
+--- a/DAILY_UPDATE.md
++++ b/DAILY_UPDATE.md
+@@ -101,6 +101,7 @@
+ 
+-## 2026-11-05 日历当日／周内市场跟踪
+-进行周的每轮更新，核验已发生日历事件对应标的的最新完整交易日收盘，并通过 calendar_upsert[].market_tracking 更新。公司财报对应公司股票；宏观数据优先 NDX 与 UST10Y；油价/地缘事件按相关性使用 Brent（同一 EIA 现货序列，或同一明确期货合约结算）。这里只是同期市场表现，不能把涨跌写成事件已证实的因果影响。
+-结构：{week_start:"YYYY-MM-DD",frozen:false,instruments:[{symbol,label,unit:"percent"|"bp",price_basis:"cash"|"treasury_yield"|"eia_spot"|"futures_settlement",contract?:"具体合约",asof_date,close,previous_date,previous_close,base_date,base_close,source_url,baseline_source_url}]}。每条记录独立保留真实行情日期与来源；最多3个相关标的，通常公司1个、宏观1–2个。
+-当日=最新完整收盘÷前一交易日收盘−1；周内=最新完整收盘÷上周最后一个交易日收盘−1。10Y使用收益率百分点差×100，以bp显示。周基准一旦写入不得变更。不得混用盘后/盘前报价、不同油价合约或现金/期货；这些仍单独记 reaction_phases。无可靠新收盘时保留原观察日期，不能只更新时间戳。未公布事件只显示简短共识，不提前写收盘跟踪。
+-卡面分别显示简短结果（双Beat/PMI数值等）、有日期的当日及周内表现，不再把首次财报后反应当最新行情。周六 dashboard_finalize_week 自动冻结本周 market_tracking；归档后不得覆盖，下一周事件另建记录。本功能纳入既有北京时间10:00/16:00/22:00更新流程。
++## 2026-11-05 日历发布后市场跟踪
++卡面用且仅用「发布当日」和「发布后周内」，不是普通逐日涨跌，也不是自然周周一至今涨跌。公司财报对应公司股票；宏观数据优先纳指与10Y，油价/地缘事件按相关性选同一口径的Brent。仅描述事件发布后的同期市场反应，不断言涨跌全由单一事件造成。
++market_tracking结构：{week_start,basis:"event_release",release_date:"实际结果发布的美东日期",release_session:"before_open"|"during_session"|"after_close",frozen:false,instruments:[{symbol,label,unit:"percent"|"bp",price_basis:"cash"|"treasury_yield"|"eia_spot"|"futures_settlement",contract?:"具体合约",base_date,base_close,first_date,first_close,asof_date,close,baseline_source_url,first_source_url,source_url}]}。每条事件独立确定发布时点和基准，不共用上周五。最多3个相关标的，通常公司1个、宏观1–2个。
++基准base_close取实际发布前最后一个常规收盘：盘后发布取该日常规收盘；盘前/盘中发布取前一交易日收盘。first_close取发布后首个实际交易日的完整常规收盘，盘后发布须取下一交易日，休市顺延。发布当日=(first_close/base_close−1)×100%；发布后周内=(最新完整close/base_close−1)×100%。10Y均用相对基准的收益率百分点差×100，单位bp。首日反应不是随每日最新涨跌移动；首次收盘与事件基准写入后固定。发布后周内包含首日反应，持续到该周周五收盘；之后冻结。
++进行周的既有10:00/16:00/22:00更新核验最新完整收盘，只更新asof_date/close/source_url及实质事件内容；无新收盘保留真实日期和数值。周六dashboard_finalize_week自动冻结，不能跨周重算，历史归档不可改。未公布事件只显示简短预期；未完成首次收盘时不编造本字段，可在原reaction_phases保留独立盘前/盘后报价。不得混用盘外价、不同油价合约或现货/期货序列。
++旧版未标basis的数据是普通日涨跌/自然周涨跌，不能直接改标签复用；仅在进行周核验实际发布时点、发布前基准和首次收盘后一次迁移到event_release。已归档旧数据保持原样。
