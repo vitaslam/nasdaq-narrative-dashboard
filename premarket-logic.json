@@ -58,7 +58,75 @@
             "https://www.bls.gov/schedule/news_release/empsit.htm"
           ]
         }
-      ]
+      ],
+      "opening_checks": {
+        "20m": {
+          "dominant_logic": "开盘先兑现“AI硬件与大科技一起减仓”，并非云巨头接棒芯片的轮动；大科技盘前的缓冲假设迅速失效。",
+          "observed_at": "2026-11-05T14:50:00Z",
+          "updated_at": "2026-11-05T16:00:29.986Z",
+          "evidence": [
+            "IBKR常规时段10分钟K：QQQ 09:30开 683.12，09:50到 669.62，开盘20分钟约 -1.98%。",
+            "NVDA同口径 196.05→190.96（约 -2.60%）；AMZN 271.43→265.17（约 -2.31%）、META 632.30→614.11（约 -2.88%）。",
+            "高通手机芯片销售不及预期与数据中心扩张担忧是已知催化；开盘同步下跌支持风险从芯片向权重股扩散，但不能由价格独立证明全部卖盘原因。"
+          ],
+          "verdicts": [
+            {
+              "hypothesis": "大科技承接半导体弱势",
+              "result": "invalidated",
+              "reason": "AMZN、META 开盘20分钟同步下跌，没有形成盘前预想的缓冲。"
+            },
+            {
+              "hypothesis": "芯片跌势扩散到纳指权重",
+              "result": "supported",
+              "reason": "NVDA 与 QQQ、AMZN、META 同步走低；因果仍需更多资金流证据。"
+            },
+            {
+              "hypothesis": "油价与收益率同涨放大卖压",
+              "result": "pending",
+              "reason": "尚无同一时刻、同口径的油债报价，不以股跌反推利率冲击。"
+            }
+          ],
+          "watch_next": "观察10:30前权重股是否止跌，以及 QQQ 与 NVDA 是否继续同步创低。",
+          "source_urls": [
+            "https://www.nasdaq.com/market-activity/etf/qqq",
+            "https://www.nasdaq.com/market-activity/stocks/nvda",
+            "https://www.reuters.com/business/sp-500-futures-steady-after-midterm-rally-nasdaq-lags-chip-weakness-2026-11-05/"
+          ]
+        },
+        "60m": {
+          "dominant_logic": "首小时仍是 AI/科技风险同步去仓：硬件领跌，云巨头从盘前上涨转为同跌，纳指缺少权重对冲。",
+          "observed_at": "2026-11-05T15:30:00Z",
+          "updated_at": "2026-11-05T16:00:29.986Z",
+          "evidence": [
+            "IBKR常规时段10分钟K：QQQ 09:30开 683.12，10:30到 659.48，首小时约 -3.46%；20分钟时为 669.62，卖压并未快速逆转。",
+            "NVDA 196.05→186.37（约 -4.94%）；AMZN 271.43→256.20（约 -5.61%）、META 632.30→595.79（约 -5.77%），权重股跌幅从20分钟继续扩大。",
+            "盘前高通手机业务失速和 AI 数据中心项目放缓担忧提供背景；同步弱势表明市场交易范围比单一高通财报更广，具体机构仓位/CTA触发尚未核实。"
+          ],
+          "verdicts": [
+            {
+              "hypothesis": "大科技延续昨日反弹并承接",
+              "result": "invalidated",
+              "reason": "AMZN、META 在盘前上行后首小时均明显回落，未能保护纳指。"
+            },
+            {
+              "hypothesis": "半导体及AI基建弱势向权重扩散",
+              "result": "supported",
+              "reason": "NVDA跌幅扩大，QQQ与两家云权重同步向下；仍不能把所有跌幅归因于单一政策消息。"
+            },
+            {
+              "hypothesis": "油债、CTA是本轮主因",
+              "result": "pending",
+              "reason": "未取得首小时同口径油债报价及机构CTA模型触发证据。"
+            }
+          ],
+          "watch_next": "看其后 QQQ 是否停止创新低、AMZN/META 能否重新跑赢芯片；若继续齐跌，盘前“大科技受益于扩张放缓”假设需进一步下修。",
+          "source_urls": [
+            "https://www.nasdaq.com/market-activity/etf/qqq",
+            "https://www.nasdaq.com/market-activity/stocks/nvda",
+            "https://www.reuters.com/business/sp-500-futures-steady-after-midterm-rally-nasdaq-lags-chip-weakness-2026-11-05/"
+          ]
+        }
+      }
     }
   }
 }
