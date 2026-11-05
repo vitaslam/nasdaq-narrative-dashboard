@@ -114,6 +114,10 @@
     {
       "file": "renderer-v65-rail-calendar.patch",
       "renderer_sha256": "6315e95992b4284b9b7daa62cd57ef952d67390e896a1511cfd4c3762d2ee8ac"
+    },
+    {
+      "file": "renderer-v66-mobile-audit.patch",
+      "renderer_sha256": "a9cd958f72ef6ca3290a969824ed8bf0910b34c9c5a30dbdffc9efaaeb393493"
     }
   ]
 }
