@@ -126,6 +126,10 @@
     {
       "file": "renderer-v68-viewpoint-last.patch",
       "renderer_sha256": "6eb7a5c73460aa9e30667beef906d4b00e67a46b937e18b94c847e28ce583514"
+    },
+    {
+      "file": "renderer-v69-potential-views.patch",
+      "renderer_sha256": "a71941364600bc38bf81707a6ee82398bffe4edcd308a9c082ed6762dba782ed"
     }
   ]
 }
