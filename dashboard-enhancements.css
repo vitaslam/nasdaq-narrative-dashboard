@@ -423,7 +423,10 @@
 .section-manager [data-manager-back]{display:grid;place-items:center;width:44px;height:44px;padding:10px;color:#1b2633;background:#eef1f5}.section-manager [data-manager-back] svg{display:block;width:24px;height:24px}.section-manager [data-manager-back]:active{background:#e2e7ed;transform:scale(.96)}
 
 html.section-manager-open,html.section-manager-open body{overflow:hidden!important;overscroll-behavior:none}
-@media(max-width:600px){.section-manager header{padding-top:calc(16px + env(safe-area-inset-top))}}
+@media(max-width:600px){
+ html.mobile-shell-content body{padding-top:var(--mobile-header-height,116px)}
+ .section-manager header{padding-top:calc(16px + env(safe-area-inset-top))}
+}
 
 /* Shared center inset keeps the round menu away from rounded screen corners. */
 @media(max-width:600px){
@@ -461,3 +464,13 @@ html.section-manager-open,html.section-manager-open body{overflow:hidden!importa
 @media(max-width:600px){.mobile-agenda-returns{grid-column:2/-1;grid-row:2;margin-top:0}.mobile-agenda-time{grid-column:3;grid-row:1}.mobile-agenda-event{row-gap:4px}}
 
 @media(max-width:600px){.x-translation-status{display:none!important}}
+
+/* Keep long event names clear of their weights on narrow cards. */
+@media(max-width:600px){
+ #toggle-event-drivers .event-weight-row{min-width:0;grid-template-columns:minmax(0,1fr) auto;align-items:start;gap:6px 8px}
+ #toggle-event-drivers .event-row-title{grid-column:1/-1;grid-row:1;min-width:0;overflow-wrap:anywhere}
+ #toggle-event-drivers .event-row-rating{grid-column:1;grid-row:2;align-self:center;margin:0}
+ #toggle-event-drivers .event-weight-row>strong{grid-column:2;grid-row:2;align-self:center;justify-self:end;white-space:nowrap}
+ #toggle-event-drivers .event-row-meta{grid-row:3;min-width:0;overflow-wrap:anywhere}
+ #toggle-event-drivers .event-weight-row>i{grid-row:4}
+}

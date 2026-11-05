@@ -202,6 +202,16 @@
   main.prepend(sectionRoot);
   const prefKey='nasdaq_dashboard_layout_v1',defaultOrder=allShortcuts.map(item=>item.key);
   let prefDoc=document;try{if(parent!==window&&parent.location.origin===location.origin)prefDoc=parent.document}catch{}
+  // Reserve the header's initial space inside the scrolling document, never in the iframe viewport.
+  // This space scrolls away naturally and stays unchanged when the header hides or reappears.
+  const shellHeader=prefDoc!==document&&prefDoc.querySelector('.history-header');
+  if(shellHeader){
+    document.documentElement.classList.add('mobile-shell-content');
+    let headerInset='';
+    const syncHeaderInset=()=>{const height=shellHeader.getBoundingClientRect().height;if(height<=0)return;const value=height+'px';if(value!==headerInset){headerInset=value;document.documentElement.style.setProperty('--mobile-header-height',value)}};
+    const headerObserver=new ResizeObserver(syncHeaderInset);headerObserver.observe(shellHeader);syncHeaderInset();
+    window.addEventListener('pagehide',()=>headerObserver.disconnect(),{once:true});
+  }
   const normalize=value=>({order:[...new Set([...(Array.isArray(value?.order)?value.order:[]),...defaultOrder])].filter(key=>defaultOrder.includes(key)),hidden:[...new Set(Array.isArray(value?.hidden)?value.hidden:[])].filter(key=>defaultOrder.includes(key))});
   const readPreference=()=>{try{const value=prefDoc.cookie.split('; ').find(row=>row.startsWith(prefKey+'='));return normalize(value?JSON.parse(decodeURIComponent(value.slice(prefKey.length+1))):null)}catch{return normalize(null)}};
   let preference=readPreference(),shortcuts=[],links=[],expanded=false,currentIndex=0,navScrolling=false;
@@ -229,8 +239,11 @@
   nav.addEventListener('keydown',event=>{if(event.key==='Escape'){event.preventDefault();setOpen(false,true)}else if(expanded&&['ArrowUp','ArrowDown','Home','End'].includes(event.key)){event.preventDefault();const i=links.indexOf(document.activeElement);links[event.key==='Home'?0:event.key==='End'?links.length-1:(i+(event.key==='ArrowUp'?-1:1)+links.length)%links.length]?.focus()}});
   let cancelNavScroll=()=>{};
   function scrollToSection(target){
-    cancelNavScroll();const start=window.scrollY,end=Math.max(0,Math.min(start+target.getBoundingClientRect().top-14,document.documentElement.scrollHeight-innerHeight));
-    setHeaderHidden(end>start&&end>80);
+    cancelNavScroll();const start=window.scrollY,targetY=start+target.getBoundingClientRect().top-14;
+    const hideHeader=targetY>start&&targetY>80;
+    const inset=mobile.matches&&shellHeader&&!hideHeader?(parseFloat(document.documentElement.style.getPropertyValue('--mobile-header-height'))||0):0;
+    const end=Math.max(0,Math.min(targetY-inset,document.documentElement.scrollHeight-innerHeight));
+    setHeaderHidden(hideHeader);
     if(matchMedia('(prefers-reduced-motion:reduce)').matches){window.scrollTo({top:end,behavior:'instant'});return}
     navScrolling=true;const began=performance.now();let frame=0;const events=['wheel','touchstart','pointerdown','keydown'];
     const stop=()=>{navScrolling=false;lastHeaderY=Math.max(0,window.scrollY);headerTravel=0;cancelAnimationFrame(frame);events.forEach(type=>window.removeEventListener(type,stop));cancelNavScroll=()=>{}};
