@@ -1,8 +1,8 @@
 {
  "schema_version": 1,
- "batch_id": "muse:2026-11-05:06",
+ "batch_id": "muse:2026-11-05:08",
  "week_id": "2026-11-02",
- "generated_at": "2026-11-04T22:32:24Z",
+ "generated_at": "2026-11-05T00:31:34Z",
  "x_topics_upsert": [
   {
    "id": "polymarket-32228",
@@ -19,7 +19,7 @@
      "views": null,
      "reposts": null,
      "replies": null,
-     "observed_at": "2026-11-04T22:32:24Z",
+     "observed_at": "2026-11-05T00:31:34Z",
      "source_url": "https://polymarket.com/event/balance-of-power-2026-midterms",
      "metrics_source": "https://gamma-api.polymarket.com/events/32228",
      "verification": "Polymarket 官方 Gamma API 读取该事件双边概率。",
@@ -40,11 +40,11 @@
      "published_at": "2026-11-03T08:21:58Z",
      "quote": null,
      "viewpoint": "YES：99.9% (+0.0%)\nNO：0.1%",
-     "translation_zh": "Polymarket 事件「WTI 11月破$100」最新双边概率：YES 99.9% / NO 0.1%，YES 较上轮快照变化 +0.0pp；该事件累计成交额约 $1,127,521。点击跳转 Polymarket 该事件页。",
+     "translation_zh": "Polymarket 事件「WTI 11月破$100」最新双边概率：YES 99.9% / NO 0.1%，YES 较上轮快照变化 +0.0pp；该事件累计成交额约 $1,133,288。点击跳转 Polymarket 该事件页。",
      "views": null,
      "reposts": null,
      "replies": null,
-     "observed_at": "2026-11-04T22:32:24Z",
+     "observed_at": "2026-11-05T00:31:34Z",
      "source_url": "https://polymarket.com/event/what-price-will-wti-hit-in-november-2026",
      "metrics_source": "https://gamma-api.polymarket.com/events/1250301",
      "verification": "Polymarket 官方 Gamma API 读取该事件双边概率。",
@@ -65,11 +65,11 @@
      "published_at": "2026-11-03T08:21:58Z",
      "quote": null,
      "viewpoint": "YES：78.0% (+0.0%)\nNO：22.0%",
-     "translation_zh": "Polymarket 事件「Fed 12月决议·加息25bp」最新双边概率：YES 78.0% / NO 22.0%，YES 较上轮快照变化 +0.0pp；该事件累计成交额约 $12,862,062。点击跳转 Polymarket 该事件页。",
+     "translation_zh": "Polymarket 事件「Fed 12月决议·加息25bp」最新双边概率：YES 78.0% / NO 22.0%，YES 较上轮快照变化 +0.0pp；该事件累计成交额约 $12,879,387。点击跳转 Polymarket 该事件页。",
      "views": null,
      "reposts": null,
      "replies": null,
-     "observed_at": "2026-11-04T22:32:24Z",
+     "observed_at": "2026-11-05T00:31:34Z",
      "source_url": "https://polymarket.com/event/fed-decision-in-december-20260729232808632",
      "metrics_source": "https://gamma-api.polymarket.com/events/770450",
      "verification": "Polymarket 官方 Gamma API 读取该事件双边概率。",
@@ -89,12 +89,12 @@
      "author": "@PolymarketB",
      "published_at": "2026-11-03T08:21:58Z",
      "quote": null,
-     "viewpoint": "YES：78.0% (+0.0%)\nNO：22.0%",
-     "translation_zh": "Polymarket 事件「2026年再加息」最新双边概率：YES 78.0% / NO 22.0%，YES 较上轮快照变化 +0.0pp；该事件累计成交额约 $1,426,861。点击跳转 Polymarket 该事件页。",
+     "viewpoint": "YES：77.0% (-1.0%)\nNO：23.0%",
+     "translation_zh": "Polymarket 事件「2026年再加息」最新双边概率：YES 77.0% / NO 23.0%，YES 较上轮快照变化 -1.0pp；该事件累计成交额约 $1,427,208。点击跳转 Polymarket 该事件页。",
      "views": null,
      "reposts": null,
      "replies": null,
-     "observed_at": "2026-11-04T22:32:24Z",
+     "observed_at": "2026-11-05T00:31:34Z",
      "source_url": "https://polymarket.com/event/another-fed-rate-hike-in-2026",
      "metrics_source": "https://gamma-api.polymarket.com/events/1034268",
      "verification": "Polymarket 官方 Gamma API 读取该事件双边概率。",
@@ -114,12 +114,12 @@
      "author": "@PolymarketC",
      "published_at": "2026-11-03T08:21:58Z",
      "quote": null,
-     "viewpoint": "YES：91.0% (+0.0%)\nNO：9.0%",
-     "translation_zh": "Polymarket 事件「美也门停火延续至11月底」最新双边概率：YES 91.0% / NO 9.0%，YES 较上轮快照变化 +0.0pp；该事件累计成交额约 $2,619,875。点击跳转 Polymarket 该事件页。",
+     "viewpoint": "YES：92.0% (+1.0%)\nNO：8.0%",
+     "translation_zh": "Polymarket 事件「美也门停火延续至11月底」最新双边概率：YES 92.0% / NO 8.0%，YES 较上轮快照变化 +1.0pp；该事件累计成交额约 $2,619,897。点击跳转 Polymarket 该事件页。",
      "views": null,
      "reposts": null,
      "replies": null,
-     "observed_at": "2026-11-04T22:32:24Z",
+     "observed_at": "2026-11-05T00:31:34Z",
      "source_url": "https://polymarket.com/event/us-yemen-ceasefire-continues-throughptptpt",
      "metrics_source": "https://gamma-api.polymarket.com/events/1053896",
      "verification": "Polymarket 官方 Gamma API 读取该事件双边概率。",
@@ -139,12 +139,12 @@
      "author": "@PolymarketB",
      "published_at": "2026-11-03T08:21:58Z",
      "quote": null,
-     "viewpoint": "YES：88.7% (+0.0%)\nNO：11.3%",
-     "translation_zh": "Polymarket 事件「Anthropic 2026年底前IPO」最新双边概率：YES 88.7% / NO 11.3%，YES 较上轮快照变化 +0.0pp；该事件累计成交额约 $6,396,541。点击跳转 Polymarket 该事件页。",
+     "viewpoint": "YES：89.2% (+0.5%)\nNO：10.8%",
+     "translation_zh": "Polymarket 事件「Anthropic 2026年底前IPO」最新双边概率：YES 89.2% / NO 10.8%，YES 较上轮快照变化 +0.5pp；该事件累计成交额约 $6,397,780。点击跳转 Polymarket 该事件页。",
      "views": null,
      "reposts": null,
      "replies": null,
-     "observed_at": "2026-11-04T22:32:24Z",
+     "observed_at": "2026-11-05T00:31:34Z",
      "source_url": "https://polymarket.com/event/anthropic-ipo-by",
      "metrics_source": "https://gamma-api.polymarket.com/events/549019",
      "verification": "Polymarket 官方 Gamma API 读取该事件双边概率。",
@@ -165,11 +165,11 @@
      "published_at": "2026-11-03T08:21:58Z",
      "quote": null,
      "viewpoint": "YES：5.0% (+0.0%)\nNO：95.0%",
-     "translation_zh": "Polymarket 事件「美国2026年底前衰退」最新双边概率：YES 5.0% / NO 95.0%，YES 较上轮快照变化 +0.0pp；该事件累计成交额约 $2,426,234。点击跳转 Polymarket 该事件页。",
+     "translation_zh": "Polymarket 事件「美国2026年底前衰退」最新双边概率：YES 5.0% / NO 95.0%，YES 较上轮快照变化 +0.0pp；该事件累计成交额约 $2,427,909。点击跳转 Polymarket 该事件页。",
      "views": null,
      "reposts": null,
      "replies": null,
-     "observed_at": "2026-11-04T22:32:24Z",
+     "observed_at": "2026-11-05T00:31:34Z",
      "source_url": "https://polymarket.com/event/us-recession-by-end-of-2026",
      "metrics_source": "https://gamma-api.polymarket.com/events/48802",
      "verification": "Polymarket 官方 Gamma API 读取该事件双边概率。",
@@ -190,11 +190,11 @@
      "published_at": "2026-11-03T08:21:58Z",
      "quote": null,
      "viewpoint": "YES：0.1% (+0.0%)\nNO：99.9%",
-     "translation_zh": "Polymarket 事件「美伊停火延续至11月底」最新双边概率：YES 0.1% / NO 99.9%，YES 较上轮快照变化 +0.0pp；该事件累计成交额约 $39,903,046。点击跳转 Polymarket 该事件页。",
+     "translation_zh": "Polymarket 事件「美伊停火延续至11月底」最新双边概率：YES 0.1% / NO 99.9%，YES 较上轮快照变化 +0.0pp；该事件累计成交额约 $40,206,712。点击跳转 Polymarket 该事件页。",
      "views": null,
      "reposts": null,
      "replies": null,
-     "observed_at": "2026-11-04T22:32:24Z",
+     "observed_at": "2026-11-05T00:31:34Z",
      "source_url": "https://polymarket.com/event/us-iran-ceasefire-continues-throughptptpt",
      "metrics_source": "https://gamma-api.polymarket.com/events/1038648",
      "verification": "Polymarket 官方 Gamma API 读取该事件双边概率。",
@@ -365,7 +365,7 @@
   {
    "id": "anthropic-ipo",
    "title": "Anthropic 上市进程",
-   "summary": "IPO 国际发售安排逐步浮现，估值与时间表待招股文件验证。",
+   "summary": "IPO 国际发售安排逐步浮现，估值与时间表待招股文件验证。；Polymarket 对其成为 2026 年市值最大 IPO 的定价自约 46% 回落至 31.7%。",
    "posts": [
     {
      "id": "2117197031844561129",
@@ -416,6 +416,32 @@
        "targets": "Anthropic / AI 一级市场",
        "direction": "利好",
        "reason": "英国散户发售安排浮现，IPO 国际配售范围再扩大；最终估值与挂牌时间待招股文件确认。"
+      }
+     ]
+    },
+    {
+     "id": "2118124542451445837",
+     "author": "@unusual_whales",
+     "published_at": "2026-11-04T23:33:38Z",
+     "quote": "Polymarket traders now see a 31.7% chance Anthropic will be the largest IPO of 2026 by market cap.",
+     "viewpoint": "Polymarket 交易员预计 Anthropic 成为 2026 年市值最大 IPO 的概率降至 31.7%，一周前约 46%，该市场成交额超 740 万美元。",
+     "translation_zh": "Polymarket 交易员目前认为，Anthropic 成为 2026 年市值最大 IPO 的概率为 31.7%。这较一周前的约 46% 下降，概率在近几日大幅下跌后略有回升。该市场的成交额已超过 740 万美元。",
+     "translation_scope": "full",
+     "translation_source_url": "https://x.com/unusual_whales/status/2118124542451445837",
+     "views": 62911,
+     "reposts": 8,
+     "replies": 34,
+     "observed_at": "2026-11-05T00:31:34Z",
+     "source_url": "https://x.com/unusual_whales/status/2118124542451445837",
+     "metrics_source": "https://x.com/unusual_whales/status/2118124542451445837",
+     "verification": "X 精华监控 08 轮报告，FxTwitter 核原文。",
+     "avatar_url": "https://pbs.twimg.com/profile_images/1714107328134516736/dLZGJPm7_400x400.png",
+     "avatar_source": "https://x.com/unusual_whales",
+     "impact": [
+      {
+       "targets": "Anthropic IPO",
+       "direction": "关注",
+       "reason": "最大 IPO 概率一周内从约 46% 回落至 31.7%，市场对 IPO 规模预期降温。"
       }
      ]
     }
@@ -4089,6 +4115,204 @@
      ]
     }
    ]
+  },
+  {
+   "id": "apple-ai-budget-cuts",
+   "title": "苹果削减内部 AI 预算，工程师每日上限降至 200 美元",
+   "summary": "据报苹果削减内部 AI 预算，工程师每日 AI 使用上限从 300 美元降至 200 美元，微软与麦肯锡亦有限制。",
+   "posts": [
+    {
+     "id": "2118110289556091280",
+     "author": "@unusual_whales",
+     "published_at": "2026-11-04T22:37:00Z",
+     "quote": "Apple, $AAPL, has cut internal AI budgets to rein in spending, per Bloomberg",
+     "viewpoint": "苹果据报削减内部 AI 预算，工程师每日 AI 使用上限从 300 美元降至 200 美元，微软与麦肯锡亦有限制。",
+     "translation_zh": "据彭博报道，苹果 $AAPL 已削减内部 AI 预算以控制开支。部分工程师的每日 AI 使用上限已从 300 美元降至 200 美元。此前微软与麦肯锡也采取了类似举措，在成本不断攀升之际限制员工的 AI 使用。",
+     "translation_scope": "full",
+     "translation_source_url": "https://x.com/unusual_whales/status/2118110289556091280",
+     "views": 94045,
+     "reposts": 39,
+     "replies": 83,
+     "observed_at": "2026-11-05T00:31:34Z",
+     "source_url": "https://x.com/unusual_whales/status/2118110289556091280",
+     "metrics_source": "https://x.com/unusual_whales/status/2118110289556091280",
+     "verification": "X 精华监控 07 轮报告，FxTwitter 核原文。",
+     "avatar_url": "https://pbs.twimg.com/profile_images/1714107328134516736/dLZGJPm7_400x400.png",
+     "avatar_source": "https://x.com/unusual_whales",
+     "impact": [
+      {
+       "targets": "$AAPL / AI 成本",
+       "direction": "关注",
+       "reason": "大厂开始管控内部 AI 支出，成本纪律扩散至 AI 用量。"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "korea-october-exports",
+   "title": "韩国 10 月出口同比激增 94%，芯片出口暴增 259%",
+   "summary": "韩国 10 月出口同比激增 94% 至 1150 亿美元，创历史第二高、1974 年以来最强增速，芯片出口暴增 259% 至 560 亿美元。",
+   "posts": [
+    {
+     "id": "2118113888486986103",
+     "author": "@KobeissiLetter",
+     "published_at": "2026-11-04T22:51:18Z",
+     "quote": "BREAKING: South Korea's exports surged +94% YoY in October, to $115 billion, the 2nd-highest reading on record.",
+     "viewpoint": "韩国 10 月出口同比激增 94% 至 1150 亿美元，创历史第二高、1974 年以来最强增速，芯片出口暴增 259% 至 560 亿美元。",
+     "translation_zh": "突发：韩国 10 月出口同比激增 94%，至 1150 亿美元，为历史第二高读数。这也是自 1974 年 1 月以来最强的同比增速。韩国出口现已连续 5 个月同比增长至少 60%。2026 年前 10 个月，出口总额创纪录地达到 9300 亿美元。半导体引领了上月的激增，同比上涨 259%，至创纪录的 560 亿美元。与此同时，在 AI 服务器强劲需求推动下，电脑销售激增 497%。AI 热潮已使韩国成为出口强国。",
+     "translation_scope": "full",
+     "translation_source_url": "https://x.com/KobeissiLetter/status/2118113888486986103",
+     "views": 81604,
+     "reposts": 44,
+     "replies": 56,
+     "observed_at": "2026-11-05T00:31:34Z",
+     "source_url": "https://x.com/KobeissiLetter/status/2118113888486986103",
+     "metrics_source": "https://x.com/KobeissiLetter/status/2118113888486986103",
+     "verification": "X 精华监控 07 轮报告，FxTwitter 核原文。",
+     "avatar_url": "https://pbs.twimg.com/profile_images/1975243710846640128/fwYCe67Y_400x400.jpg",
+     "avatar_source": "https://x.com/KobeissiLetter",
+     "impact": [
+      {
+       "targets": "韩国出口 / 半导体",
+       "direction": "利好",
+       "reason": "AI 服务器需求推动芯片与电脑出口创纪录，印证 AI 硬件景气。"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "snap-q3-earnings-miss",
+   "title": "Snap 财报不及预期，股价较历史高点跌约 94%",
+   "summary": "Snap 因财报不及预期跌逾 10%，股价现已较历史高点下跌约 94%。",
+   "posts": [
+    {
+     "id": "2118094948884959538",
+     "author": "@KobeissiLetter",
+     "published_at": "2026-11-04T21:36:02Z",
+     "quote": "BREAKING: Snapchat stock, $SNAP, falls over -10% after posting weaker than expected earnings.",
+     "viewpoint": "Snap 因财报不及预期跌逾 10%，较历史高点已跌约 94%。",
+     "translation_zh": "突发：Snapchat 股票 $SNAP 在公布弱于预期的财报后下跌逾 10%。该股现已较历史高点下跌 94%。",
+     "translation_scope": "full",
+     "translation_source_url": "https://x.com/KobeissiLetter/status/2118094948884959538",
+     "views": 140696,
+     "reposts": 49,
+     "replies": 102,
+     "observed_at": "2026-11-05T00:31:34Z",
+     "source_url": "https://x.com/KobeissiLetter/status/2118094948884959538",
+     "metrics_source": "https://x.com/KobeissiLetter/status/2118094948884959538",
+     "verification": "X 精华监控 07 轮报告，FxTwitter 核原文。",
+     "avatar_url": "https://pbs.twimg.com/profile_images/1975243710846640128/fwYCe67Y_400x400.jpg",
+     "avatar_source": "https://x.com/KobeissiLetter",
+     "impact": [
+      {
+       "targets": "$SNAP",
+       "direction": "关注",
+       "reason": "财报不及预期致股价大跌，较历史高点已跌约 94%。"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "texas-aidc-permitting-risk",
+   "title": "labubu：得州 AIDC 许可风险上升，2027 年交付预测暂不变",
+   "summary": "labubu 转发并推荐得州 AIDC 研究：中期选举后得州许可风险上升，2027 年交付预测暂不变，2028 年新项目风险更大。",
+   "posts": [
+    {
+     "id": "2118100750392041686",
+     "author": "@labubu_trader",
+     "published_at": "2026-11-04T21:59:05Z",
+     "quote": "Great read about Texas AIDC building",
+     "viewpoint": "labubu 转发并推荐一篇得州 AIDC 研究：中期选举后得州许可风险上升，2027 年交付预测暂不变，2028 年新项目风险更大。",
+     "translation_zh": "得州 AIDC 建设的好文章。【引用 @FundaAI《研究｜AIDC：中期选举后得州许可风险上升；2027 年交付预测不变》：在 11 月 3 日的中期选举中，民主党赢得了国会两院的控制权。得州是最大的意外：Talarico 赢得美国参议员席位，成为自 1988 年以来首位赢得该席位的民主党人。Hinojosa 击败了寻求第四任期的 Abbott，同时包括副州长、总检察长和审计长在内的多个全州职位也易手。共和党仍有望控制得州参议院。得州众议院的最终构成与审计长竞选结果应以认证计票为准再行更新。数据中心是此次选举的核心议题之一。Hinojosa 承诺，在立法机构出台保障措施之前暂停新建数据中心；要求项目证明不会推高居民电费或水费；禁止开发商与地方政府签署保密协议；并取消数据中心销售税豁免（6.25%，最长 20 年，估计两年财政成本约 32 亿美元）。冻结其实早已开始。8 月 3 日，Abbott 叫停了 ERCOT 大负荷排队（约 474GW 的申请，其中约 90% 为数据中心，超过得州历史峰值负荷的 5 倍），并下令逐个项目审查。ERCOT 随后推迟了新并网流程中的 Batch Zero。9 月 21 日，Abbott 还指示 TCEQ，在 ERCOT 与 TWDB 审计完成之前不得签发任何与数据中心相关的许可，所有州级机构均暂停相关审批。ERCOT 审计预计 12 月初完成，但完成并不意味着自动重启审批。选举前，市场普遍预期 Abbott 会连任，并关注审计完成后冻结何时解除。Hinojosa 的胜利可能意味着冻结持续更久、重启许可的条件更严。不过，她在竞选期间表示并不反对数据中心本身。她的提案主要聚焦于保护家庭水电账单、让社区在选址上有发言权。因此，选举的主要影响可能在于冻结持续多久以及以何种条件恢复审批。在基准情形下，我们暂时维持 2027 年交付预测。支撑这一判断需要更仔细地审查项目许可状态：多少产能已获得关键许可、多少得州产能仍待审批、以及原模型中已反映了多少延迟。如果冻结持续时间超出基准情形假设，或下行情景概率上升，预期交付量也可能被下修。得州新项目在 2028 年面临更大风险：多数可能被推迟，部分需求可能转移到其他州。详细报告：https://fundaai.substack.com/p/researchaidc-texas-permitting-risks】",
+     "translation_scope": "post_only",
+     "translation_source_url": "https://x.com/labubu_trader/status/2118100750392041686",
+     "views": 8210,
+     "reposts": 1,
+     "replies": 2,
+     "observed_at": "2026-11-05T00:31:34Z",
+     "source_url": "https://x.com/labubu_trader/status/2118100750392041686",
+     "metrics_source": "https://x.com/labubu_trader/status/2118100750392041686",
+     "verification": "X 精华监控 07 轮报告，FxTwitter 核原文（含引用帖）。",
+     "avatar_url": "https://pbs.twimg.com/profile_images/1930061717826113536/beBBZQZJ_400x400.jpg",
+     "avatar_source": "https://x.com/labubu_trader",
+     "impact": [
+      {
+       "targets": "得州数据中心 / AI 电力",
+       "direction": "关注",
+       "reason": "许可冻结或延长并附加更严条件，2028 年得州新项目交付风险上升。"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "gpu-rental-prices-surge",
+   "title": "B300 GPU 租赁价自 7 月中旬涨 106%，token 价跌 58%",
+   "summary": "B300 GPU 租赁价自 7 月中旬上涨 106%，B200 涨 66%、H100 涨 17%，同期平均 token 价格下跌 58%。",
+   "posts": [
+    {
+     "id": "2118112342445871410",
+     "author": "@wallstengine",
+     "published_at": "2026-11-04T22:45:09Z",
+     "quote": "B300 GPU rental prices are up 106% since mid-July.",
+     "viewpoint": "B300 GPU 租赁价自 7 月中旬涨 106%，B200 涨 66%、H100 涨 17%，同期平均 token 价格跌 58%。",
+     "translation_zh": "B300 GPU 租赁价格自 7 月中旬以来上涨 106%。B200 租赁价格上涨 66%。H100 租赁价格同期上涨 17%。平均 token 价格自 7 月中旬以来下跌 58%。",
+     "translation_scope": "full",
+     "translation_source_url": "https://x.com/wallstengine/status/2118112342445871410",
+     "views": 16013,
+     "reposts": 18,
+     "replies": 26,
+     "observed_at": "2026-11-05T00:31:34Z",
+     "source_url": "https://x.com/wallstengine/status/2118112342445871410",
+     "metrics_source": "https://x.com/wallstengine/status/2118112342445871410",
+     "verification": "X 精华监控 08 轮报告，FxTwitter 核原文。",
+     "avatar_url": "https://pbs.twimg.com/profile_images/1691846947857178624/oZp5wB4r_400x400.jpg",
+     "avatar_source": "https://x.com/wallstengine",
+     "impact": [
+      {
+       "targets": "GPU 租赁 / AI 算力成本",
+       "direction": "关注",
+       "reason": "高端 GPU 租赁价大涨而 token 价大跌，算力供需与推理成本分化。"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "applovin-q3-growth",
+   "title": "AppLovin 三季度营收增长 55%，自由现金流约占营收 65%",
+   "summary": "AppLovin 三季度营收增长 55%，远超大型数字广告平台 10% 至 20% 中段的增速，自由现金流约占营收 65%。",
+   "posts": [
+    {
+     "id": "2118115679429861621",
+     "author": "@wallstengine",
+     "published_at": "2026-11-04T22:58:25Z",
+     "quote": "$APP says the largest digital ad platforms grew revenue between 10% and the mid-20s this quarter.",
+     "viewpoint": "AppLovin 三季度营收增长 55%，远超大型数字广告平台 10% 至 20% 中段的增速，自由现金流约占营收 65%。",
+     "translation_zh": "$APP 称，本季度最大的数字广告平台营收增速在 10% 至 20% 中段之间。与此同时，AppLovin 增长了 55%。另据 CFO：“我们的轻资产模式将约 65% 的营收转化为了自由现金流。”",
+     "translation_scope": "full",
+     "translation_source_url": "https://x.com/wallstengine/status/2118115679429861621",
+     "views": 14635,
+     "reposts": 9,
+     "replies": 14,
+     "observed_at": "2026-11-05T00:31:34Z",
+     "source_url": "https://x.com/wallstengine/status/2118115679429861621",
+     "metrics_source": "https://x.com/wallstengine/status/2118115679429861621",
+     "verification": "X 精华监控 08 轮报告，FxTwitter 核原文。",
+     "avatar_url": "https://pbs.twimg.com/profile_images/1691846947857178624/oZp5wB4r_400x400.jpg",
+     "avatar_source": "https://x.com/wallstengine",
+     "impact": [
+      {
+       "targets": "$APP",
+       "direction": "利好",
+       "reason": "营收增速远超大型广告平台，轻资产模式自由现金流转化率高。"
+      }
+     ]
+    }
+   ]
   }
  ],
  "market_bars": {
@@ -4274,8 +4498,8 @@
    "id": "ai-power-delivery",
    "title": "AI 电力与并网成为交付约束",
    "status": "tracking",
-   "asof": "2026-11-04T18:32:33Z",
-   "summary": "Altman 称能源是 AI 最大瓶颈；俄亥俄等地以选票限制数据中心，最新至少 29 地批准禁限措施、高盛警告州与地方民主党胜利或使 45% 规划产能面临风险，Crusoe 自建开关设备抢交付，IREN 园区先锁定电网电力，Anthropic 预计 2026 年底算力超 3.5GW、2027 年翻一番；得州数据中心新规条件（自带电力、不涨居民电水费）被认为对大型云服务商比 neocloud 更有利——电力许可与并网速度正成为算力扩张的关键路径。",
+   "asof": "2026-11-05T00:31:34Z",
+   "summary": "Altman 称能源是 AI 最大瓶颈；俄亥俄等地以选票限制数据中心，最新至少 29 地批准禁限措施、高盛警告州与地方民主党胜利或使 45% 规划产能面临风险，Crusoe 自建开关设备抢交付，IREN 园区先锁定电网电力，Anthropic 预计 2026 年底算力超 3.5GW、2027 年翻一番；得州数据中心新规条件（自带电力、不涨居民电水费）被认为对大型云服务商比 neocloud 更有利——电力许可与并网速度正成为算力扩张的关键路径。得州方面：中期选举后许可风险上升，ERCOT 大负荷排队与 TCEQ 许可冻结或延长、条件更严，2027 年交付预测暂不变，2028 年新项目风险更大。",
    "evidence_post_ids": [
     "2117205453373677917",
     "2117434463403622871",
@@ -4285,7 +4509,8 @@
     "zero-power",
     "2117600568638329153",
     "2117852977595912325",
-    "2118022712270664006"
+    "2118022712270664006",
+    "2118100750392041686"
    ],
    "caveat": "许可、备忘录与交期改善不等于收入兑现；供电紧张也可能反过来压制云厂商扩张。",
    "benefit_tags": [
@@ -4298,11 +4523,12 @@
    "id": "corporate-cost-cuts",
    "title": "企业裁员与成本纪律扩散",
    "status": "tracking",
-   "asof": "2026-11-03T06:26:42Z",
-   "summary": "迪士尼拟裁数千人并要求经理年省 20% 成本，Squarespace 裁员 19%——成本纪律从科技业扩散到媒体与软件业。",
+   "asof": "2026-11-05T00:31:34Z",
+   "summary": "迪士尼拟裁数千人并要求经理年省 20% 成本，Squarespace 裁员 19%，苹果亦削减内部 AI 预算、工程师每日 AI 使用上限从 300 美元降至 200 美元——成本纪律从科技业扩散到媒体与软件业，并延伸至 AI 支出管控。",
    "evidence_post_ids": [
     "2117413290657890674",
-    "2117399103302676639"
+    "2117399103302676639",
+    "2118110289556091280"
    ],
    "caveat": "均为媒体报道口径，待公司正式披露确认；裁员利好利润率但可能伤增长。",
    "benefit_tags": [
