@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "batch_id": "gpt-view:2026-11-06:all-posts",
+  "batch_id": "gpt-view:2026-11-06:incl-mild",
   "week_id": "2026-11-02",
-  "generated_at": "2026-11-05T18:23:53Z",
+  "generated_at": "2026-11-05T18:31:39Z",
   "x_topics_upsert": [
     {
       "id": "polymarket-32228",
@@ -297,7 +297,9 @@
           ],
           "translation_zh": "《华盛顿邮报》：SpaceX 正商谈收购 Boost Mobile 或接入其网络。据报道，SpaceX $SPCX 正与 EchoStar $ECHO 商谈，可能收购 Boost Mobile，或达成使用其无线网络的交易，因为马斯克希望推出完整的美国手机服务。此前马斯克曾接触 Verizon $VZ、AT&T $T 和 T-Mobile $TMUS，希望接入它们的网络，但三家都拒绝了该提议。随后他上个月与 EchoStar 董事长 Charlie Ergen 会面，讨论潜在交易。Boost Mobile 是美国现有的低价无线运营商，通过从 AT&T 和 T-Mobile 租用网络接入，向消费者销售手机套餐。收购 Boost 可以让 SpaceX 获得一家成熟的无线业务、现有客户群和全国范围的蜂窝覆盖，无需从零搭建全部地面基础设施。这将为马斯克提供一条进入规模约 2,350 亿美元的美国无线市场的捷径。其思路是把 Starlink 的卫星覆盖与传统蜂窝网络结合——在人口密集的城市里，卫星直连效率较低，传统蜂窝网络仍不可或缺。SpaceX 最近还同意额外收购约 80 亿美元的无线频谱，以支持其移动业务野心。不过，Boost 现有的网络协议未必能自动转让给 SpaceX，这意味着 AT&T 和 T-Mobile 可能仍需批准接入。谈判仍在进行中，尚未达成任何交易。",
           "translation_scope": "full",
-          "translation_source_url": "https://x.com/wallstengine/status/2117200746869371285"
+          "translation_source_url": "https://x.com/wallstengine/status/2117200746869371285",
+          "stance": "bull",
+          "stance_subject": "SPCX 网络扩展"
         },
         {
           "id": "2118156519770620057",
@@ -517,7 +519,9 @@
           ],
           "translation_zh": "铠侠下跌 15%，此前令人失望的展望显示，12 月季度营业利润预计基本持平。管理层将此归因于出货时点而非需求减弱，并预计增长将在 3 月季度再次加速。铠侠表示，其 2027 年全部计划产能已经售罄，2028 年产能也已分配出超过一半。",
           "translation_scope": "full",
-          "translation_source_url": "https://x.com/wallstengine/status/2117198149999902803"
+          "translation_source_url": "https://x.com/wallstengine/status/2117198149999902803",
+          "stance": "bear",
+          "stance_subject": "铠侠近期盈利"
         }
       ]
     },
@@ -739,7 +743,9 @@
               "direction": "分化",
               "reason": "霍尔木兹海峡继续关闭的表态支撑油价风险溢价，但七项条件与谈判进展均未获官方证实。"
             }
-          ]
+          ],
+          "stance": "bull",
+          "stance_subject": "原油风险溢价"
         },
         {
           "id": "2117636462321520859",
@@ -765,7 +771,9 @@
               "direction": "缓和信号",
               "reason": "美方批准提案、等伊朗回应，若成行或缓和冲突预期；但细节未证实。"
             }
-          ]
+          ],
+          "stance": "bear",
+          "stance_subject": "原油风险溢价"
         },
         {
           "id": "2117671258435318068",
@@ -847,7 +855,9 @@
               "direction": "关注",
               "reason": "化武说法与打击计划推升美伊冲突风险溢价；下一验证点为美方是否授权及伊朗回应。"
             }
-          ]
+          ],
+          "stance": "bull",
+          "stance_subject": "原油风险溢价"
         },
         {
           "id": "2117849043137434037",
@@ -873,7 +883,9 @@
               "direction": "关注",
               "reason": "伊朗议长借中期选举结果释放反战信号，与美伊谈判主线相关。"
             }
-          ]
+          ],
+          "stance": "bear",
+          "stance_subject": "原油风险溢价"
         },
         {
           "id": "2118179324050260254",
@@ -1177,7 +1189,9 @@
               "direction": "分化",
               "reason": "长端收益率回落缓和利率压力，但属盘中报价、非财政部收盘曲线；持续性看后续就业与拍卖验证。"
             }
-          ]
+          ],
+          "stance": "bull",
+          "stance_subject": "长债/利率敏感资产"
         }
       ]
     },
@@ -1349,7 +1363,9 @@
               "direction": "关注",
               "reason": "得州数据中心监管条件利好自带电力的大型云服务商，相对利空 neocloud。"
             }
-          ]
+          ],
+          "stance": "bull",
+          "stance_subject": "大型云服务商"
         },
         {
           "id": "2118000818230288575",
@@ -1404,7 +1420,9 @@
               "direction": "关注",
               "reason": "横扫后两股下跌，但 SpaceX 合并几率仍约 75%，股价与合并预期出现背离。"
             }
-          ]
+          ],
+          "stance": "bull",
+          "stance_subject": "TSLA/SPCX 合并预期"
         },
         {
           "id": "2118014118485791120",
@@ -1502,7 +1520,9 @@
           ],
           "translation_zh": "苹果第四财季每股收益 2.10 美元，预期 2.00 美元。第四财季营收 1144.8 亿美元，预期 1134.7 亿美元。第四财季可穿戴设备、家居与配件营收 83.0 亿美元，预期 90 亿美元。第四财季 iPhone 营收 575.8 亿美元，预期 564.9 亿美元。第四财季大中华区营收 175.4 亿美元，预期 187.5 亿美元。第四财季总运营费用 191.9 亿美元，预期 191.9 亿美元。第四财季服务营收 315.7 亿美元，预期 315.8 亿美元。",
           "translation_scope": "full",
-          "translation_source_url": "https://x.com/DeItaone/status/2117369039290843311"
+          "translation_source_url": "https://x.com/DeItaone/status/2117369039290843311",
+          "stance": "bull",
+          "stance_subject": "苹果财报"
         }
       ]
     },
@@ -1918,7 +1938,9 @@
               "direction": "扩张",
               "reason": "信贷扩张印证 AI 基建正由债务融资支撑，关注信贷质量与利率传导；不直接等于利好单一标的。"
             }
-          ]
+          ],
+          "stance": "bull",
+          "stance_subject": "银行 AI 基建信贷"
         }
       ]
     },
@@ -2124,7 +2146,9 @@
               "direction": "分化",
               "reason": "限制指向对华业务敞口收紧，执行口径与客户合同影响待 FT 原文与公司表态核验。"
             }
-          ]
+          ],
+          "stance": "bear",
+          "stance_subject": "英伟达对华云业务"
         }
       ]
     },
@@ -2220,7 +2244,9 @@
               "direction": "分化",
               "reason": "估值压缩与融资约束指向盈利预期风险，但用例未充分释放构成对冲；原文省略号处为原帖自带省略。"
             }
-          ]
+          ],
+          "stance": "bull",
+          "stance_subject": "半导体长期需求"
         }
       ]
     },
@@ -2321,7 +2347,9 @@
               "direction": "分化",
               "reason": "超预期职位空缺显示劳动力需求韧性，降息紧迫性边际减弱，但单月数据非决定性。"
             }
-          ]
+          ],
+          "stance": "bear",
+          "stance_subject": "降息预期"
         }
       ]
     },
@@ -2354,7 +2382,9 @@
               "direction": "分化",
               "reason": "三方和谈代表人选确认，和谈能否推进仍待下周实际进展验证。"
             }
-          ]
+          ],
+          "stance": "bear",
+          "stance_subject": "地缘风险溢价"
         }
       ]
     },
@@ -2387,7 +2417,9 @@
               "direction": "分化",
               "reason": "Claude 用于芯片设计若兑现，或改变芯片设计工作流分工，但原帖未给量化幅度与验证口径。"
             }
-          ]
+          ],
+          "stance": "bull",
+          "stance_subject": "AI 芯片设计工具"
         },
         {
           "id": "2117774796851224855",
@@ -2413,7 +2445,9 @@
               "direction": "分化",
               "reason": "Claude 用于芯片设计若兑现，或改变芯片设计工作流分工；引用报道称 Anthropic 或较老牌厂商更具优势，属单源报道口径。"
             }
-          ]
+          ],
+          "stance": "bull",
+          "stance_subject": "AI 芯片设计工具"
         }
       ]
     },
@@ -2690,7 +2724,9 @@
               "direction": "关注",
               "reason": "跨境突袭升级地区冲突外溢风险；下一验证点为沙特回应与冲突是否扩散。"
             }
-          ]
+          ],
+          "stance": "bull",
+          "stance_subject": "原油风险溢价"
         }
       ]
     },
@@ -3003,7 +3039,9 @@
               "direction": "关注",
               "reason": "央行五年来首次上调外汇存准率，释放缓和人民币升值信号。"
             }
-          ]
+          ],
+          "stance": "bear",
+          "stance_subject": "人民币升值预期"
         }
       ]
     },
@@ -3036,7 +3074,9 @@
               "direction": "关注",
               "reason": "开票夜横扫预期升温之际长端收益率盘后回落，与期货走弱同向。"
             }
-          ]
+          ],
+          "stance": "bull",
+          "stance_subject": "长债/利率敏感资产"
         },
         {
           "id": "2117777668938879115",
@@ -3862,7 +3902,9 @@
               "direction": "关注",
               "reason": "mSAP 板材交期近 6 个月、供应不足高个位数百分比，瓶颈在通过资质清单的板材而非电镀线。"
             }
-          ]
+          ],
+          "stance": "bull",
+          "stance_subject": "光模块 PCB 供需"
         }
       ]
     },
@@ -4000,7 +4042,9 @@
               "direction": "关注",
               "reason": "油价跌破 90 美元关口，延续横扫后的重新定价。"
             }
-          ]
+          ],
+          "stance": "bear",
+          "stance_subject": "原油"
         }
       ]
     },
@@ -4069,7 +4113,9 @@
               "direction": "关注",
               "reason": "称 AAOI 为最脆弱个股、与 CRWV 同类，暂不再做空。"
             }
-          ]
+          ],
+          "stance": "bear",
+          "stance_subject": "AAOI/CRWV 脆弱性"
         }
       ]
     },
@@ -4102,7 +4148,9 @@
               "direction": "关注",
               "reason": "新增绕开海峡的管道计划若落地，可缓解原油运输瓶颈风险（单源标题帖，文章体未核）。"
             }
-          ]
+          ],
+          "stance": "bear",
+          "stance_subject": "原油运输风险溢价"
         }
       ]
     },
@@ -4203,7 +4251,9 @@
               "direction": "关注",
               "reason": "央行购金速度创 2024 年以来最快，购金需求支撑金价叙事，文章体未核。"
             }
-          ]
+          ],
+          "stance": "bull",
+          "stance_subject": "黄金需求"
         }
       ]
     },
@@ -4269,7 +4319,9 @@
               "direction": "关注",
               "reason": "模拟芯片领涨半导体，成因待验证（空头回补、实体 AI 叙事或电车复苏预期）。"
             }
-          ]
+          ],
+          "stance": "bull",
+          "stance_subject": "模拟芯片"
         }
       ]
     },
@@ -4302,7 +4354,9 @@
               "direction": "关注",
               "reason": "定制加速器开始放量、AWS 连接业务爬坡，Meta 交付在即。"
             }
-          ]
+          ],
+          "stance": "bull",
+          "stance_subject": "高通定制 AI 芯片"
         }
       ]
     },
@@ -4510,7 +4564,9 @@
               "direction": "关注",
               "reason": "高端 GPU 租赁价大涨而 token 价大跌，算力供需与推理成本分化。"
             }
-          ]
+          ],
+          "stance": "bull",
+          "stance_subject": "GPU 租赁价格"
         }
       ]
     },
@@ -5138,7 +5194,9 @@
           "verification": "协作方记录称原帖已核对；GPT复核 post ID 对应发布时间。利空 USD/JPY（做空美元/日元）；利好日元避险；利空 AI 股（对冲标的）",
           "avatar_url": "https://pbs.twimg.com/profile_images/2088360110095478784/El9anzXH_400x400.jpg",
           "avatar_source": "https://x.com/DeItaone",
-          "impact": []
+          "impact": [],
+          "stance": "bear",
+          "stance_subject": "美元/日元"
         }
       ]
     },
@@ -5472,7 +5530,9 @@
           "verification": "协作方记录称原帖已核对；GPT复核 post ID 对应发布时间。利好油价与地缘风险溢价；利空美伊缓和预期",
           "avatar_url": "https://pbs.twimg.com/profile_images/72647502/tyler_400x400.jpg",
           "avatar_source": "https://x.com/zerohedge",
-          "impact": []
+          "impact": [],
+          "stance": "bull",
+          "stance_subject": "原油地缘风险"
         }
       ]
     },
@@ -5700,7 +5760,9 @@
           "verification": "协作方记录称原帖已核对；GPT复核 post ID 对应发布时间。利好油价（海峡维持关闭）",
           "avatar_url": "https://pbs.twimg.com/profile_images/2088360110095478784/El9anzXH_400x400.jpg",
           "avatar_source": "https://x.com/DeItaone",
-          "impact": []
+          "impact": [],
+          "stance": "bull",
+          "stance_subject": "原油风险溢价"
         }
       ]
     },
@@ -5727,7 +5789,9 @@
           "verification": "协作方记录称原帖已核对；GPT复核 post ID 对应发布时间。利空油价风险溢价（若现突破）；谈判解决预期升温",
           "avatar_url": "https://pbs.twimg.com/profile_images/2088360110095478784/El9anzXH_400x400.jpg",
           "avatar_source": "https://x.com/DeItaone",
-          "impact": []
+          "impact": [],
+          "stance": "bear",
+          "stance_subject": "原油风险溢价"
         }
       ]
     },
@@ -5783,7 +5847,9 @@
           "verification": "协作方记录称原帖已核对；GPT复核 post ID 对应发布时间。利好美股（利率预期缓和）",
           "avatar_url": "https://pbs.twimg.com/profile_images/2088360110095478784/El9anzXH_400x400.jpg",
           "avatar_source": "https://x.com/DeItaone",
-          "impact": []
+          "impact": [],
+          "stance": "bull",
+          "stance_subject": "美股利率敏感资产"
         }
       ]
     },
@@ -5810,7 +5876,9 @@
           "verification": "协作方记录称原帖已核对；GPT复核 post ID 对应发布时间。利好网络安全板块与 OpenAI 生态情绪",
           "avatar_url": "https://pbs.twimg.com/profile_images/2088360110095478784/El9anzXH_400x400.jpg",
           "avatar_source": "https://x.com/DeItaone",
-          "impact": []
+          "impact": [],
+          "stance": "bull",
+          "stance_subject": "AI 网络安全能力"
         }
       ]
     },
