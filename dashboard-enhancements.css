@@ -473,12 +473,12 @@ html.section-manager-open,html.section-manager-open body{overflow:hidden!importa
  #calendar .mobile-agenda-day-toggle time{flex:1;min-width:0}
  #calendar .mobile-agenda-day-count{flex-shrink:0;font-size:11px;font-weight:500;color:#8a96a6}
  #calendar .is-today .mobile-agenda-day-count{color:#b54b5c}
- #calendar .mobile-agenda-day-toggle svg{width:18px;height:18px;flex-shrink:0;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transition:transform .16s ease}
- #calendar .mobile-agenda-day-toggle[aria-expanded=false] svg{transform:rotate(-90deg)}
+ #calendar .mobile-agenda-day-toggle>svg{width:18px;height:18px;flex-shrink:0;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transition:transform .16s ease}
+ #calendar .mobile-agenda-day-toggle[aria-expanded=false]>svg{transform:rotate(-90deg)}
  #calendar .mobile-agenda-day-events[hidden]{display:none!important}
  #calendar .mobile-agenda-day-toggle:focus-visible{outline:2px solid #667fa1;outline-offset:2px;border-radius:6px}
 }
-@media(prefers-reduced-motion:reduce){#calendar .mobile-agenda-day-toggle svg{transition:none}}
+@media(prefers-reduced-motion:reduce){#calendar .mobile-agenda-day-toggle>svg{transition:none}}
 
 /* Mobile weights sit beside the stars, below the full-width title. */
 @media(max-width:600px){
@@ -488,4 +488,48 @@ html.section-manager-open,html.section-manager-open body{overflow:hidden!importa
  #toggle-event-drivers .event-weight-row>strong{grid-column:2;grid-row:2;align-self:center;justify-self:end;white-space:nowrap}
  #toggle-event-drivers .event-row-meta{grid-row:3;min-width:0;overflow-wrap:anywhere}
  #toggle-event-drivers .event-weight-row>i{grid-row:4}
+}
+
+.observation-stamp{display:block;margin:5px 0;font-size:11px;line-height:1.5;color:#8794a8;font-variant-numeric:tabular-nums}
+.mobile-info-stamp.observation-stamp{display:block}
+.main .compact-info summary,.main .source-disclosure summary{font-size:11px;color:#8190a5}
+.main .compact-info-body{max-height:60vh;overflow:auto;overscroll-behavior:contain}
+.main .provenance-fold{clear:both;margin-top:8px}
+.main .compact-info-body .observation-stamp{display:none}
+.calendar-progress-list{display:grid;gap:14px;margin:0;padding:0;list-style:none}
+.calendar-progress-list li{border-bottom:1px solid #e5e9ef;padding-bottom:12px}
+.calendar-progress-list li:last-child{border-bottom:0;padding-bottom:0}
+.calendar-progress-list time{display:block;font-size:11px;color:#8391a5;margin-bottom:5px}
+.calendar-progress-list h4{font-size:14px;line-height:1.5;margin:0 0 5px;color:#243348}
+.calendar-progress-list p{font-size:12px;line-height:1.75;margin:5px 0;color:#62738b}
+@media(max-width:600px){
+ .observation-stamp{font-size:10px}
+ #calendar .mobile-agenda-day-toggle time{flex:0 0 auto}
+ #calendar .mobile-agenda-day-icons{display:flex;gap:3px;min-width:0;max-width:89px;overflow:hidden}
+ #calendar .mobile-agenda-day-icons .mobile-agenda-logo{width:20px;height:20px;flex:0 0 20px;border-radius:5px;padding:2px}
+ #calendar .mobile-agenda-day-icons :is(img,svg){width:16px;height:16px}
+ #calendar .mobile-agenda-day-icons .agency-wordmark{font-size:7px}
+ #calendar .mobile-agenda-day-count{margin-left:auto}
+}
+
+/* Dedicated mobile reading page, without changing the dashboard's scroll position. */
+@media(max-width:600px){
+ html.mood-history-open,html.mood-history-open body{overflow:hidden!important;overscroll-behavior:none}
+ html.mood-history-open .mobile-section-nav,html.mood-history-open .mobile-section-backdrop{display:none!important}
+ .mood-week-history{position:fixed;inset:0!important;width:100%!important;height:100dvh;max-height:none!important;margin:0;padding:0;border:0;border-radius:0;box-shadow:none;background:#f7f8fc;z-index:600}
+ .mood-week-history[hidden]{display:none!important}
+ .mood-week-heading{display:grid;grid-template-columns:44px minmax(0,1fr);grid-template-rows:auto auto;column-gap:12px;row-gap:3px;flex:none;padding:calc(16px + env(safe-area-inset-top)) 20px 16px;background:#fff;border-bottom:1px solid #e3e7ee}
+ .mood-week-heading strong{grid-column:2;grid-row:1;font-size:19px;color:#202b39;line-height:1.45}
+ .mood-week-heading>span{grid-column:2;grid-row:2;font-size:11px;line-height:1.5;color:#8a96a6}
+ .mood-mobile-close{grid-column:1;grid-row:1/3;display:grid;place-items:center;align-self:center;margin:0;width:44px;height:44px;padding:10px;border-radius:50%;background:#f2f4f7;color:#1c2937}
+ .mood-mobile-close svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2.1;stroke-linecap:round;stroke-linejoin:round}
+ .mood-mobile-close:focus-visible{outline:2px solid #667fa1;outline-offset:3px}
+ .mood-week-history>ol{flex:1;min-height:0;max-height:none!important;margin:0;padding:16px 16px calc(24px + env(safe-area-inset-bottom));overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin}
+ .mood-week-history .provenance-fold{display:none!important}
+ #calendar .mobile-agenda-day-toggle{min-height:68px;padding:12px 2px;gap:10px}
+ #calendar .mobile-agenda-day-toggle time{display:flex;flex-direction:column;gap:4px;min-width:64px}
+ #calendar .mobile-agenda-day-toggle time strong{font-size:16px;font-weight:650;line-height:1.4}
+ #calendar .mobile-agenda-day-toggle time small{font-size:11px;font-weight:400;line-height:1.4;color:#8a96a6;font-variant-numeric:tabular-nums}
+ #calendar .is-today .mobile-agenda-day-toggle time small{color:inherit;opacity:.7}
+ #calendar .mobile-agenda-week-gap{margin:28px 0 8px;padding:0 2px;font-size:12px;line-height:1.5;font-weight:600;color:#8a96a6;letter-spacing:.04em}
 }
