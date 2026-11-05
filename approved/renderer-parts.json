@@ -86,6 +86,10 @@
     {
       "file": "renderer-v58-header-stability.patch",
       "renderer_sha256": "f3e8428ecb7118f90a89ccc0e520ea5da71805acee3fe4d3c0df417955bc0979"
+    },
+    {
+      "file": "renderer-v59-event-returns.patch",
+      "renderer_sha256": "01ae0ff0d5847876a9181722308c5251b28b9a6d33bc049a3351d6eb96bf53ef"
     }
   ]
 }
