@@ -1,7 +1,7 @@
 {
-  "holder": "Muse",
-  "token": "Muse-2026-11-05T0235Z-5717d8fad29108ef",
-  "purpose": "muse-feed batch muse:2026-11-05:10",
-  "acquired_at": "2026-11-05T02:35:00Z",
-  "expires_at": "2026-11-05T03:20:00Z"
+  "holder": null,
+  "token": null,
+  "purpose": null,
+  "acquired_at": null,
+  "expires_at": null
 }
