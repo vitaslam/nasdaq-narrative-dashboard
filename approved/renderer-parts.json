@@ -50,6 +50,10 @@
     {
       "file": "renderer-v49-two-days.patch",
       "renderer_sha256": "f4d2cc96187a80962f376561958aa9e959aca5cc301b5a53592afc4c1dd135d9"
+    },
+    {
+      "file": "renderer-v50-header-touch.patch",
+      "renderer_sha256": "ff337a00803842b91c907d1bfffa9e7e9dd3f1543b93aa721484c71fde96d10e"
     }
   ]
 }
