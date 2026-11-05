@@ -82,6 +82,10 @@
     {
       "file": "renderer-v57-refresh-polish.patch",
       "renderer_sha256": "1281774e3d4d77571317385554c7c931da4cb5485fb292f9024a8c29bf3b82a5"
+    },
+    {
+      "file": "renderer-v58-header-stability.patch",
+      "renderer_sha256": "f3e8428ecb7118f90a89ccc0e520ea5da71805acee3fe4d3c0df417955bc0979"
     }
   ]
 }
