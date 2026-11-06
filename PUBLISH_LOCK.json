@@ -1,7 +1,7 @@
 {
-  "holder": null,
-  "token": null,
-  "purpose": null,
-  "acquired_at": null,
-  "expires_at": null
+  "holder": "GPT",
+  "token": "GPT-1793965831799-0lf4998e",
+  "purpose": "19:45 CNN source correction",
+  "acquired_at": "2026-11-06T11:50:31.799Z",
+  "expires_at": "2026-11-06T12:35:31.799Z"
 }
