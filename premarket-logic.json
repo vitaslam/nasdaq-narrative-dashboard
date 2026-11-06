@@ -179,6 +179,68 @@
           "https://www.reuters.com/business/sp-500-futures-steady-after-midterm-rally-nasdaq-lags-chip-weakness-2026-11-05/"
         ]
       }
+    },
+    "2026-11-06": {
+      "updated_at": "2026-11-06T04:51:31.826Z",
+      "bull": [
+        {
+          "title": "急跌后的技术反抽窗口",
+          "detail": "事实：11/05 科技股急挫、11/06 亚股继续抛售。判断：若美股开盘后 NQ/QQQ 不再创新低且 VIX 回落，拥挤交易平仓后可能先出现回补；@labubu_trader 的 IPO 后反弹帖只是条件观点，不能当成已发生催化。",
+          "source_urls": [
+            "https://www.reuters.com/world/asia-pacific/analysts-investors-react-ai-market-rout-2026-11-06/",
+            "https://x.com/labubu_trader/status/2118530843602031069"
+          ]
+        },
+        {
+          "title": "AI 扩张未被政策定案",
+          "detail": "事实：得州当选州长提出暂停新建数据中心并制定保护规则；正式法规与项目影响尚未落地。判断：若龙头公布的订单/交付不变，市场可能区分存量扩建与新建受阻公司。",
+          "source_urls": [
+            "https://www.reuters.com/world/us/texas-governor-elect-says-state-will-have-laws-shield-citizens-data-centers-2026-11-06/",
+            "https://www.reuters.com/world/asia-pacific/analysts-investors-react-ai-market-rout-2026-11-06/"
+          ]
+        }
+      ],
+      "bear": [
+        {
+          "title": "亚太 AI 链补跌，估值与融资同时受压",
+          "detail": "事实：Reuters 报道首尔开盘跌 8% 后暂停交易、日经跌逾 6%；11/05 美股 AI 抛售已扩散。判断：若美股开盘芯片、存储与新云继续同步走弱，反弹更像减仓窗口。",
+          "source_urls": [
+            "https://www.reuters.com/world/asia-pacific/analysts-investors-react-ai-market-rout-2026-11-06/"
+          ]
+        },
+        {
+          "title": "得州新建数据中心审批风险",
+          "detail": "事实：得州当选州长主张先立保护规则再推进新建。判断：若更多州跟进或融资成本上升，新云、电力与设备订单的交付时间可能被重新定价；目前尚无项目级取消证据。",
+          "source_urls": [
+            "https://www.reuters.com/world/us/texas-governor-elect-says-state-will-have-laws-shield-citizens-data-centers-2026-11-06/",
+            "https://www.reuters.com/world/asia-pacific/analysts-investors-react-ai-market-rout-2026-11-06/"
+          ]
+        }
+      ],
+      "risks": [
+        {
+          "title": "① 21:30 北京时间非农先决定利率交易",
+          "detail": "BLS 定于 11/06 08:30 美东发布 10 月就业报告。工资/就业偏强可能推高收益率并压缩长久期科技估值；偏弱也可能转成增长担忧，不能预设单方向。",
+          "source_urls": [
+            "https://www.bls.gov/schedule/2026/11_sched_list.htm"
+          ]
+        },
+        {
+          "title": "② 开盘 20/60 分钟检验反抽质量",
+          "detail": "观察 QQQ 与半导体相对强弱、VIX 是否回落、上涨是否由少数权重支撑。只有价格与广度共同稳定，才支持止跌假设；若跌破前低则偏空逻辑优先。",
+          "source_urls": [
+            "https://www.reuters.com/world/asia-pacific/analysts-investors-react-ai-market-rout-2026-11-06/"
+          ]
+        },
+        {
+          "title": "③ 下周数据与得州政策细节",
+          "detail": "11/10 CPI 是本周之后的下一项利率催化；得州数据中心限制仍需法律文本和项目进度验证。油价与10Y波动可能放大财报后估值分化。",
+          "source_urls": [
+            "https://www.bls.gov/schedule/2026/11_sched_list.htm",
+            "https://www.reuters.com/world/us/texas-governor-elect-says-state-will-have-laws-shield-citizens-data-centers-2026-11-06/"
+          ]
+        }
+      ]
     }
   }
 }
