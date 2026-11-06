@@ -126,6 +126,58 @@
             "https://www.reuters.com/business/sp-500-futures-steady-after-midterm-rally-nasdaq-lags-chip-weakness-2026-11-05/"
           ]
         }
+      },
+      "closing_check": {
+        "session": "regular_close",
+        "dominant_logic": "11/05 收盘最终交易的是 AI 数据中心扩张与盈利兑现风险的广泛重新定价：芯片及云权重同步下挫，科技股跌幅大于等权指数；收益率下行说明不能把跌势简单归因为利率上冲。",
+        "observed_at": "2026-11-05T21:00:00Z",
+        "updated_at": "2026-11-06T01:20:18.564Z",
+        "evidence": [
+          "QQQ 常规收盘 $647.05，较前收 $691.95 跌 6.49%，并收在当日低点；NDX 26,629.81，跌 6.36%，SPX 7,353.73，跌 4.36%。",
+          "NVDA $181.60（较前收约 −9.26%）、AMD $404.40（−17.26%）、QCOM $156.75（−9.49%）；MSFT $535.93（−3.57%）、AMZN $260.21（−2.19%）、META $605.08（−3.96%）。AI 链卖压并未在首小时后逆转；APP 逆势收涨约 31%，显示业绩分化。",
+          "财政部 10Y 从 11/04 的 4.90% 降至 11/05 的 4.84%，30Y 从 5.28% 降至 5.25%；VIX 常规收盘 28.18，较前值 16.61 上升 69.66%。"
+        ],
+        "verdicts": [
+          {
+            "hypothesis": "盘前：大科技可承接半导体弱势",
+            "result": "invalidated",
+            "reason": "MSFT、AMZN、META 全部收低，QQQ 与 NDX 跌幅大于 SPX，权重未形成缓冲。"
+          },
+          {
+            "hypothesis": "盘前：半导体及 AI 基建弱势可能扩散",
+            "result": "supported",
+            "reason": "NVDA、AMD、QCOM 与云权重同步下跌，QQQ 收在当日低点；但价格同步不证明单一政策消息造成全部跌幅。"
+          },
+          {
+            "hypothesis": "盘前：油价与美债同涨会放大估值压力",
+            "result": "mixed",
+            "reason": "油价期货反弹的方向值得关注，但财政部 10Y/30Y 日值反而下行，利率上冲并非当日卖压的共同收盘证据。"
+          },
+          {
+            "hypothesis": "开盘 20 分钟：大科技缓冲失效",
+            "result": "supported",
+            "reason": "AMZN、META 从开盘同步下行，到收盘仍低于前收。"
+          },
+          {
+            "hypothesis": "开盘 60 分钟：AI/科技共同去仓持续",
+            "result": "supported",
+            "reason": "首小时 QQQ、NVDA、AMZN、META 同跌，最终 QQQ 收于日内低点且相关权重继续承压。"
+          },
+          {
+            "hypothesis": "开盘 20/60 分钟：CTA 或油债是主因",
+            "result": "pending",
+            "reason": "未取得可核对的机构 CTA 实际卖盘与同口径期货油价结算因果证据；不能仅据股价倒推。"
+          }
+        ],
+        "next_day_risk": "11/06 美东 08:30 非农和工资公布前，关注盘后跌势能否延续、VIX 近月期货倒挂与 QQQ 对 200 日均线的回收；就业数据前不把反弹视为确认。",
+        "source_urls": [
+          "https://finance.yahoo.com/quote/QQQ/history/",
+          "https://indexes.nasdaq.com/Index/History/NDX",
+          "https://finance.yahoo.com/quote/%5EGSPC/history/",
+          "https://finance.yahoo.com/quote/%5EVIX/history/",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?field_tdr_date_value_month=202611&type=daily_treasury_yield_curve",
+          "https://www.reuters.com/business/sp-500-futures-steady-after-midterm-rally-nasdaq-lags-chip-weakness-2026-11-05/"
+        ]
       }
     }
   }
