@@ -1,7 +1,7 @@
 {
-  "holder": null,
-  "token": null,
-  "purpose": null,
-  "acquired_at": null,
-  "expires_at": null
+  "holder": "GPT",
+  "token": "GPT-1793966149404-t3ugetga",
+  "purpose": "19:45 feed schema correction",
+  "acquired_at": "2026-11-06T11:55:49.405Z",
+  "expires_at": "2026-11-06T12:40:49.405Z"
 }
