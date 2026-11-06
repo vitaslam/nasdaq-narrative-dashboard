@@ -7296,14 +7296,11 @@
       "caveat": "这些是原帖所述标的与情景的归纳，包含未证实、条件性和后来失效的观点；标签并非统一买入名单，原帖热度和转载次数不构成独立证据。",
       "benefit_tags": [
         "业绩：AMD/ANET/SMCI/PLTR/AVT",
-        "芯片设备：NVDA/AMAT/ASML/LRCX/KLAC",
-        "存储：MU/SNDK/SK海力士",
-        "云电力：CRWV/VRT/IREN/BE/AMZN/GOOGL",
-        "应用通信：MSFT/QCOM/ASTS/APP/U/OPEN",
-        "跨资产：AAPL/TSLA/OSCR/UNH/黄金/油",
-        "测试设备：Advantest/Teradyne",
-        "盘后业绩：NET/FROG/ABNB",
-        "核电直供：AMZN/VST"
+        "设备存储：NVDA/MU/SNDK/ATE",
+        "云电力：CRWV/VRT/IREN/BE",
+        "应用：MSFT/QCOM/APP/ASTS",
+        "跨资产：AAPL/TSLA/黄金/油",
+        "新财报：NET/FROG/ABNB"
       ]
     },
     {
@@ -7315,15 +7312,12 @@
       "evidence_post_ids": [],
       "caveat": "本卡列的是原帖所指的承压标的、对冲与反向油价情景，不是同一做空篮子；传闻、盘中报价和已止损交易保留各自核验边界。",
       "benefit_tags": [
-        "新云许可：CIFR/IREN/CRWV/AAOI/SPCX",
-        "芯片存储：NVDA/INTC/MU/SNDK/WDC/STX",
-        "个股估值：AAPL/MRVL/LITE/SHOP/SNAP/CVS",
-        "政策交易：ORCL/SK海力士/TSLA/PLTR/BE",
-        "指数信用：QQQ/SOXX/NQ/SPX/VIX",
-        "跨资产：Brent/WTI/USDJPY/10Y/KOSPI",
-        "数据中心信用：ORCL/CRWV",
-        "IPO 估值：Anthropic",
-        "亚洲存储：三星/SK海力士"
+        "云许可：CIFR/IREN/CRWV/AAOI",
+        "芯片存储：NVDA/INTC/MU/SNDK",
+        "估值：AAPL/MRVL/SHOP/SNAP",
+        "政策：ORCL/TSLA/PLTR/BE",
+        "指数信用：QQQ/SOXX/SPX/VIX",
+        "跨资产：Brent/WTI/10Y/KOSPI"
       ]
     },
     {
@@ -7336,12 +7330,10 @@
       "caveat": "左侧的触发条件与风险承担因作者而异，已止损交易保留在整周演化记录中；不是当前买入指令。",
       "benefit_tags": [
         "选举抄底：SPCX/TSLA/PLTR/BE",
-        "医疗政策：OSCR/UNH/THC/CNC/NEE",
-        "设备回调：VRT",
-        "存储观察：MU/DRAM/韩存储",
-        "中概反弹：阿里巴巴/腾讯",
-        "对冲：黄金看涨期权",
-        "黄金",
+        "医疗：OSCR/UNH/THC/CNC",
+        "设备存储：VRT/MU/DRAM",
+        "中概：阿里巴巴/腾讯",
+        "黄金与对冲",
         "科技股小仓位 LEAP"
       ]
     },
