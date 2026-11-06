@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "batch_id": "gpt-mail:2026-11-06:1930",
+  "batch_id": "gpt-mail:2026-11-06:2300",
   "week_id": "2026-11-02",
-  "generated_at": "2026-11-06T11:48:53Z",
+  "generated_at": "2026-11-06T15:19:28.035Z",
   "x_topics_upsert": [
     {
       "id": "polymarket-32228",
@@ -7547,6 +7547,147 @@
           "stance_subject": "Anthropic收入预期"
         }
       ]
+    },
+    {
+      "id": "muse-post-2118688153729220836",
+      "title": "Alphabet 入股高通 5.48 亿美元，作者看好 Gemini 端侧机会",
+      "summary": "Alphabet 入股高通 5.48 亿美元，作者看好 Gemini 端侧机会",
+      "posts": [
+        {
+          "id": "2118688153729220836",
+          "author": "@StockSavvyShay",
+          "published_at": "2026-11-06T12:53:13.828Z",
+          "quote": null,
+          "viewpoint": "Alphabet 入股高通 5.48 亿美元，作者看好 Gemini 端侧机会",
+          "translation_zh": "原帖称 Alphabet 斥资 5.48 亿美元入股高通。Reuters 能核实的是其高通持股价值约 5.48 亿美元，不能据此确认买入成本。作者认为，随着 Gemini 扩展至骁龙设备，高通除数据中心外还可能受益于安卓端侧运行；这是作者的应用前景判断。",
+          "translation_scope": "excerpt",
+          "translation_source_url": "https://x.com/StockSavvyShay/status/2118688153729220836",
+          "views": null,
+          "reposts": null,
+          "replies": null,
+          "observed_at": "2026-11-06T15:00:00Z",
+          "source_url": "https://x.com/StockSavvyShay/status/2118688153729220836",
+          "metrics_source": "https://x.com/StockSavvyShay/status/2118688153729220836",
+          "verification": "交接方核对 X 原帖；Reuters 核实 Alphabet 第三季度所持高通股份约值 5.48 亿美元，但报道着重数据中心合作，端侧 Gemini 理由为作者推断。热度无可核读数。",
+          "avatar_url": "https://pbs.twimg.com/profile_images/1878129937737187328/DnEflT4L_400x400.jpg",
+          "avatar_source": "https://x.com/StockSavvyShay",
+          "impact": [],
+          "stance": "bull",
+          "stance_subject": "QCOM 端侧 AI 潜在机会"
+        }
+      ]
+    },
+    {
+      "id": "muse-post-2118685010660397162",
+      "title": "AST SpaceMobile 与 Firefly 签逾 13 亿美元发动机协议",
+      "summary": "AST SpaceMobile 与 Firefly 签逾 13 亿美元发动机协议",
+      "posts": [
+        {
+          "id": "2118685010660397162",
+          "author": "@StockSavvyShay",
+          "published_at": "2026-11-06T12:40:44.462Z",
+          "quote": null,
+          "viewpoint": "AST SpaceMobile 与 Firefly 签逾 13 亿美元发动机协议",
+          "translation_zh": "AST SpaceMobile 与 Firefly 签订逾 13 亿美元协议，为自研重型火箭取得 36 台发动机、知识产权许可及工程支持。作者推测每枚助推器可能使用 9 台 Miranda 发动机、推力约 210 万磅；具体配置仍是推测。AST 希望提高 BlueBird 卫星发射的自主性。",
+          "translation_scope": "excerpt",
+          "translation_source_url": "https://x.com/StockSavvyShay/status/2118685010660397162",
+          "views": null,
+          "reposts": null,
+          "replies": null,
+          "observed_at": "2026-11-06T15:00:00Z",
+          "source_url": "https://x.com/StockSavvyShay/status/2118685010660397162",
+          "metrics_source": "https://x.com/StockSavvyShay/status/2118685010660397162",
+          "verification": "交接方核对 X 原帖；Firefly 官方确认 36 台发动机实际分为 27 台 Miranda 与 9 台 Vira，另有许可和支持；“每枚 9 台 Miranda”仅是作者推测，不是公司公布的配置。热度无可核读数。",
+          "avatar_url": "https://pbs.twimg.com/profile_images/1878129937737187328/DnEflT4L_400x400.jpg",
+          "avatar_source": "https://x.com/StockSavvyShay",
+          "impact": [],
+          "stance": "bull",
+          "stance_subject": "ASTS / FLY 发射能力与发动机订单"
+        }
+      ]
+    },
+    {
+      "id": "muse-post-2118675145489350801",
+      "title": "Vistra 三季度 EBITDA 增逾五成并提高 2026 年指引",
+      "summary": "Vistra 三季度 EBITDA 增逾五成并提高 2026 年指引",
+      "posts": [
+        {
+          "id": "2118675145489350801",
+          "author": "@wallstengine",
+          "published_at": "2026-11-06T12:01:32.422Z",
+          "quote": null,
+          "viewpoint": "Vistra 三季度 EBITDA 增逾五成并提高 2026 年指引",
+          "translation_zh": "Vistra 三季度净利润 11.4 亿美元，持续经营调整后 EBITDA 23.78 亿美元，同比增逾 50%；2026 年该指标指引调整为 71–75 亿美元，2027 年初步指引 77–85 亿美元。公司还完成 Cogentrix 约 5,500 MW 燃气发电资产收购、投运 Pulaski 与 Deer Creek 项目，新增 15 亿美元回购授权。",
+          "translation_scope": "excerpt",
+          "translation_source_url": "https://x.com/wallstengine/status/2118675145489350801",
+          "views": null,
+          "reposts": null,
+          "replies": null,
+          "observed_at": "2026-11-06T15:00:00Z",
+          "source_url": "https://x.com/wallstengine/status/2118675145489350801",
+          "metrics_source": "https://x.com/wallstengine/status/2118675145489350801",
+          "verification": "交接方核对 X 原帖；上述财务、指引与项目由 Vistra 官方财报核实。原帖营收 63.5 亿美元及市场预期 60.2 亿美元未获同口径一手核验，未写入摘译。热度无可核读数。",
+          "avatar_url": "https://pbs.twimg.com/profile_images/1691846947857178624/oZp5wB4r_400x400.jpg",
+          "avatar_source": "https://x.com/wallstengine",
+          "impact": [],
+          "stance": "bull",
+          "stance_subject": "VST 发电资产与盈利指引"
+        }
+      ]
+    },
+    {
+      "id": "muse-post-2118698896855593031",
+      "title": "10 月美国非农新增 16.5 万，失业率 4.1%",
+      "summary": "10 月美国非农新增 16.5 万，失业率 4.1%",
+      "posts": [
+        {
+          "id": "2118698896855593031",
+          "author": "@DeItaone",
+          "published_at": "2026-11-06T13:35:55.189Z",
+          "quote": null,
+          "viewpoint": "10 月美国非农新增 16.5 万，失业率 4.1%",
+          "translation_zh": "美国 10 月非农就业新增 16.5 万，失业率 4.1%；平均时薪环比升 0.4%、同比升 3.1%。8、9 月就业合计上修 8.4 万；因经济原因兼职人数增至 480 万。原帖称新增人数高于其引用的 5.9 万预期，并认为这会使加息概率成为市场焦点。",
+          "translation_scope": "excerpt",
+          "translation_source_url": "https://x.com/DeItaone/status/2118698896855593031",
+          "views": null,
+          "reposts": null,
+          "replies": null,
+          "observed_at": "2026-11-06T15:00:00Z",
+          "source_url": "https://x.com/DeItaone/status/2118698896855593031",
+          "metrics_source": "https://x.com/DeItaone/status/2118698896855593031",
+          "verification": "交接方核对 X 原帖；BLS 核实就业、失业率、工资与兼职数据。5.9 万是原帖所引预期，非 BLS 数据；原帖并无 78% 加息概率数字。热度无可核读数。",
+          "avatar_url": "https://pbs.twimg.com/profile_images/2088360110095478784/El9anzXH_400x400.jpg",
+          "avatar_source": "https://x.com/DeItaone",
+          "impact": []
+        }
+      ]
+    },
+    {
+      "id": "muse-post-2118701057350013145",
+      "title": "Vanda：散户在周四尾盘逆转卖出",
+      "summary": "Vanda：散户在周四尾盘逆转卖出",
+      "posts": [
+        {
+          "id": "2118701057350013145",
+          "author": "@DeItaone",
+          "published_at": "2026-11-06T13:44:30.291Z",
+          "quote": null,
+          "viewpoint": "Vanda：散户在周四尾盘逆转卖出",
+          "translation_zh": "据 Vanda Research，散户在周四大跌尾盘转向买入，当日最终仍净卖出 1.51 亿美元，低于 2020 年恐慌期间 5.02 亿美元的净卖出纪录。原帖称最后 10 分钟净买入超过 1 亿美元。",
+          "translation_scope": "excerpt",
+          "translation_source_url": "https://x.com/DeItaone/status/2118701057350013145",
+          "views": null,
+          "reposts": null,
+          "replies": null,
+          "observed_at": "2026-11-06T15:00:00Z",
+          "source_url": "https://x.com/DeItaone/status/2118701057350013145",
+          "metrics_source": "https://x.com/DeItaone/status/2118701057350013145",
+          "verification": "交接方核对 X 原帖；WSJ 核实 Vanda 的当日净卖出 1.51 亿美元、历史对比 5.02 亿美元及尾盘买入逆转；最后 10 分钟逾 1 亿美元仅为原帖说法，未获独立一手核验。热度无可核读数。",
+          "avatar_url": "https://pbs.twimg.com/profile_images/2088360110095478784/El9anzXH_400x400.jpg",
+          "avatar_source": "https://x.com/DeItaone",
+          "impact": []
+        }
+      ]
     }
   ],
   "market_bars": {
@@ -7744,10 +7885,9 @@
       "id": "ai-power-delivery",
       "title": "AI 电力与并网成为交付约束",
       "status": "tracking",
-      "asof": "2026-11-06T00:53:00Z",
-      "summary": "地方选举后的数据中心许可阻力与电力交付约束同步升温。OpenAI 11/05 承诺未来自有自营园区承担全额电力与接入基础设施成本、公开建设方案并征询社区；CoreWeave（CRWV）官方 10/27 披露在运电力超 1.5GW、已签约约 4.2GW，签约容量不能视为已通电。此前 IREN 向微软（MSFT）交付延误和得州许可讨论提示，项目落地仍取决于社区成本、并网与站点可靠性。 11/05 新证据：OpenAI 内部讨论下调明年产能预期（媒体消息），Meta 高管称新建站点更难；NVDA 接洽既有电信建筑改造是报道中的备选路径。Amazon 官方确认紧邻 Comanche Peak 的园区与直接购电安排。新建审批风险与既有资产扩建机会并存，仍需看项目许可、供电与合同兑现。\n11/06 新进展：得州当选州长公开要求在居民保护法律出台前暂停新建数据中心；这将审批时间风险从选举猜测推进为明确政策主张，但并非已生效法律或项目取消。",
+      "asof": "2026-11-06T15:19:28.035Z",
+      "summary": "地方选举后的数据中心许可阻力与电力交付约束同步升温。OpenAI 11/05 承诺未来自有自营园区承担全额电力与接入基础设施成本、公开建设方案并征询社区；CoreWeave（CRWV）官方 10/27 披露在运电力超 1.5GW、已签约约 4.2GW，签约容量不能视为已通电。此前 IREN 向微软（MSFT）交付延误和得州许可讨论提示，项目落地仍取决于社区成本、并网与站点可靠性。 11/05 新证据：OpenAI 内部讨论下调明年产能预期（媒体消息），Meta 高管称新建站点更难；NVDA 接洽既有电信建筑改造是报道中的备选路径。Amazon 官方确认紧邻 Comanche Peak 的园区与直接购电安排。新建审批风险与既有资产扩建机会并存，仍需看项目许可、供电与合同兑现。\n11/06 新进展：得州当选州长公开要求在居民保护法律出台前暂停新建数据中心；这将审批时间风险从选举猜测推进为明确政策主张，但并非已生效法律或项目取消。\n11/06 VST 官方披露持续经营 EBITDA 同比增逾 50%，Cogentrix 约 5.5GW 燃气资产已完成收购，Pulaski 和 Deer Creek 已投运，Odessa 签 20 年购电协议；供电资产扩张是交付线索，尚不能等同 AI 数据中心需求已兑现。",
       "evidence_post_ids": [
-        "2117852977595912325",
         "2118022712270664006",
         "2118100750392041686",
         "2118133582979813819",
@@ -7758,7 +7898,8 @@
         "2118432411688300640",
         "2118432042774077911",
         "2118477207236657517",
-        "2118507047016620230"
+        "2118507047016620230",
+        "2118675145489350801"
       ],
       "caveat": "OpenAI 承诺仅覆盖其自有自营园区，不代表所有合作站点；CoreWeave 1.5/4.2GW 是 10/27 已公布容量，不是 11/05 新增。有关选举不影响在手订单的 X 说法尚待公司正式确认。",
       "benefit_tags": [
@@ -7811,18 +7952,18 @@
     {
       "id": "view-bull",
       "title": "看多观点",
-      "summary": "① 财报与应用：原帖把 AMD、ANET、SMCI、PLTR、AVT 的业绩/指引和 AAPL、PFE、SHOP 的已披露数据视作多头线索；MSFT/GitHub、QCOM、ASTS、APP、U、OPEN 的新产品、合作或商业模式是潜在收入线索，不能等同已兑现利润。NVDA 模型与芯片需求、Anthropic 融资和算力计划也属有条件的需求预期。\n② 算力、电力与云：CRWV 的在运电力和签约容量是两种进度，VRT 有作者逢低加仓；IREN 西班牙园区许可、Crusoe 开关设备交期、AMZN/GOOGL 等大型云厂商的供电和建设能力，被用来论证订单转化。BE/CRC 的 1GW 合作仍是非约束性备忘录，需看许可、并网、交付与收入。\n③ 存储、设备与零部件：MU、SK 海力士、SNDK 的 DRAM/HBM/NAND 供给和价格、AMAT/ASML/LRCX/TEL/KLAC 的远期设备订单，以及 ADI/TXN/NXPI 模拟芯片、光模块 PCB 交期，构成不同层级的受益假设；MU/SNDK 随后大跌是价格尚未确认的反例。\n④ 选举与跨资产：AAPL/MSFT 曾在选后反弹，SPCX/TSLA/PLTR/BE 的左侧买入次日止损；OSCR/UNH/THC/CNC/NEE、黄金和长债是不同政策与利率情景的押注。Brent/WTI 的多头来自霍尔木兹供应风险及高油价预测，须与同周谈判缓和的油价空头观点并看。\n⑤ 其他分支与验证：DIS 降本、PFE/AMGN 医药、韩电池股和中概科技均有单独线索，并非同一个 AI 多头交易。接下来逐条看公司公告与订单、毛利/自由现金流、实际产能交付、政策落地和完整收盘；重复转述不算独立投票。\n⑥ 11/05 夜间新增：半导体测试设备 Advantest/Teradyne 的供给受限说法、IREN AI 云增速、SONY 上调指引、NET/FROG/ABNB 盘后财报及 AMZN/VST 核电直供分别提供业绩与交付线索；NVDA/APO 利用现有建筑属报道阶段。黄金回调买入与小仓位科技股抄底是作者交易，不能替代底部确认。APP 当日逆势强涨是价格反例，需同公司公告核对。\n⑦ 11/06 亚洲时段新增：能源供应紧张帖支持油价/能源股情景，但库存精确数字尚待 EIA 核对；@labubu_trader 提出 Anthropic IPO 后 NQ 反弹的条件路径，1.2T/1.5T 是作者假设，不是定价事实。亚洲跌势与德州新建限制构成反例，须等非农及美股开盘验证。\n⑧ Anthropic 10 月底年化收入超过 800 亿美元是 WSJ 报道的需求线索；@labubu_trader 仅表示认同引用的追踪图，追踪值与正式财报口径仍需区分。收入增长不能消除 IPO 定价、现金消耗与算力承诺风险。",
+      "summary": "① 财报与应用：原帖把 AMD、ANET、SMCI、PLTR、AVT 的业绩/指引和 AAPL、PFE、SHOP 的已披露数据视作多头线索；MSFT/GitHub、QCOM、ASTS、APP、U、OPEN 的新产品、合作或商业模式是潜在收入线索，不能等同已兑现利润。NVDA 模型与芯片需求、Anthropic 融资和算力计划也属有条件的需求预期。\n② 算力、电力与云：CRWV 的在运电力和签约容量是两种进度，VRT 有作者逢低加仓；IREN 西班牙园区许可、Crusoe 开关设备交期、AMZN/GOOGL 等大型云厂商的供电和建设能力，被用来论证订单转化。BE/CRC 的 1GW 合作仍是非约束性备忘录，需看许可、并网、交付与收入。\n③ 存储、设备与零部件：MU、SK 海力士、SNDK 的 DRAM/HBM/NAND 供给和价格、AMAT/ASML/LRCX/TEL/KLAC 的远期设备订单，以及 ADI/TXN/NXPI 模拟芯片、光模块 PCB 交期，构成不同层级的受益假设；MU/SNDK 随后大跌是价格尚未确认的反例。\n④ 选举与跨资产：AAPL/MSFT 曾在选后反弹，SPCX/TSLA/PLTR/BE 的左侧买入次日止损；OSCR/UNH/THC/CNC/NEE、黄金和长债是不同政策与利率情景的押注。Brent/WTI 的多头来自霍尔木兹供应风险及高油价预测，须与同周谈判缓和的油价空头观点并看。\n⑤ 其他分支与验证：DIS 降本、PFE/AMGN 医药、韩电池股和中概科技均有单独线索，并非同一个 AI 多头交易。接下来逐条看公司公告与订单、毛利/自由现金流、实际产能交付、政策落地和完整收盘；重复转述不算独立投票。\n⑥ 11/05 夜间新增：半导体测试设备 Advantest/Teradyne 的供给受限说法、IREN AI 云增速、SONY 上调指引、NET/FROG/ABNB 盘后财报及 AMZN/VST 核电直供分别提供业绩与交付线索；NVDA/APO 利用现有建筑属报道阶段。黄金回调买入与小仓位科技股抄底是作者交易，不能替代底部确认。APP 当日逆势强涨是价格反例，需同公司公告核对。\n⑦ 11/06 亚洲时段新增：能源供应紧张帖支持油价/能源股情景，但库存精确数字尚待 EIA 核对；@labubu_trader 提出 Anthropic IPO 后 NQ 反弹的条件路径，1.2T/1.5T 是作者假设，不是定价事实。亚洲跌势与德州新建限制构成反例，须等非农及美股开盘验证。\n⑧ Anthropic 10 月底年化收入超过 800 亿美元是 WSJ 报道的需求线索；@labubu_trader 仅表示认同引用的追踪图，追踪值与正式财报口径仍需区分。收入增长不能消除 IPO 定价、现金消耗与算力承诺风险。\n⑨ 11/06 美股盘前与开盘：GOOGL 持有约 5.48 亿美元 QCOM 股份已获报道，Gemini 端侧收益仍是作者推断；ASTS / FLY 逾 13 亿美元发动机协议为公司公告，但火箭配置和交付仍待验证；VST 官方三季度持续经营 EBITDA 同比增逾 50% 并调整指引，仍需看新增电厂与购电协议转为实际现金流。",
       "status": "reserved",
-      "asof": "2026-11-06T06:32:00Z",
+      "asof": "2026-11-06T15:19:28.035Z",
       "evidence_post_ids": [],
       "caveat": "这些是原帖所述标的与情景的归纳，包含未证实、条件性和后来失效的观点；标签并非统一买入名单，原帖热度和转载次数不构成独立证据。",
       "benefit_tags": [
-        "业绩：AMD/ANET/SMCI/PLTR/AVT",
-        "设备存储：NVDA/MU/SNDK/ATE",
-        "云电力：CRWV/VRT/IREN/BE",
-        "应用：MSFT/QCOM/APP/ASTS",
-        "跨资产：AAPL/TSLA/黄金/油",
-        "新财报：NET/FROG/ABNB"
+        "业绩：AMD / ANET / SMCI / PLTR / VST",
+        "设备存储：NVDA / MU / SNDK / ATE",
+        "云电力：CRWV / VRT / IREN / BE",
+        "应用：MSFT / QCOM / APP / ASTS",
+        "跨资产：AAPL / TSLA / 黄金 / 油",
+        "新财报：NET / FROG / ABNB"
       ]
     },
     {
@@ -7906,12 +8047,11 @@
       "id": "ai-selloff-capex-peak",
       "title": "AI 抛售与资本开支见顶风险",
       "status": "tracking",
-      "asof": "2026-11-06T11:48:53Z",
-      "summary": "11/05 AI 与数据中心链遭广泛抛售：QQQ 常规收盘 −6.49%、NDX −6.36%，NVDA、AMD、QCOM 与多家云权重同跌，VIX 收于 28.18；这确认价格层面的风险收缩，不证明资本开支已实际见顶。两位以上作者的独立原帖分别记录 QQQ 失守 200 日均线、纳指收盘与数据中心贷款抛售。OpenAI 调整明年产能尚属内部讨论报道，Meta 高管称新建许可更难；信用融资和客户交付需继续由披露验证。APP 11/05 逆势上涨，显示并非所有 AI 应用都同步失效。\n11/06 亚洲时段：日本、韩国及台湾的 AI 硬件链继续遭抛售，显示美股风险收缩已跨市场传导；部分交易台称有逢低买盘，仍需美股开盘后的价格与广度确认。得州政策与信用融资是风险来源，不能从亚洲跌幅倒推 AI 资本开支已经见顶。\n11/06 新证据：科技对冲基金年内收益回到大致持平，反映去杠杆压力；看跌/看涨比升至 1 是 X 帖所称、尚缺交易所同口径核验。Anthropic 10 月底年化收入据 WSJ 超过 800 亿美元，同时潜在 IPO 募资规模可能低于先前预期或推迟；增长与融资估值须分开判断。\n11/06盘前交叉验证：Reuters据Markit报道软银五年期CDS盘中一度466bp、为四年高位，亚洲AI融资压力可量化；与此同时04:14美东纳指100期货+1.48%、NVDA和其他芯片股盘前反弹。信用压力与跌深回补并行，须待美股开盘广度及完整收盘判断。",
+      "asof": "2026-11-06T15:19:28.035Z",
+      "summary": "11/05 AI 与数据中心链遭广泛抛售：QQQ 常规收盘 −6.49%、NDX −6.36%，NVDA、AMD、QCOM 与多家云权重同跌，VIX 收于 28.18；这确认价格层面的风险收缩，不证明资本开支已实际见顶。两位以上作者的独立原帖分别记录 QQQ 失守 200 日均线、纳指收盘与数据中心贷款抛售。OpenAI 调整明年产能尚属内部讨论报道，Meta 高管称新建许可更难；信用融资和客户交付需继续由披露验证。APP 11/05 逆势上涨，显示并非所有 AI 应用都同步失效。\n11/06 亚洲时段：日本、韩国及台湾的 AI 硬件链继续遭抛售，显示美股风险收缩已跨市场传导；部分交易台称有逢低买盘，仍需美股开盘后的价格与广度确认。得州政策与信用融资是风险来源，不能从亚洲跌幅倒推 AI 资本开支已经见顶。\n11/06 新证据：科技对冲基金年内收益回到大致持平，反映去杠杆压力；看跌/看涨比升至 1 是 X 帖所称、尚缺交易所同口径核验。Anthropic 10 月底年化收入据 WSJ 超过 800 亿美元，同时潜在 IPO 募资规模可能低于先前预期或推迟；增长与融资估值须分开判断。\n11/06盘前交叉验证：Reuters据Markit报道软银五年期CDS盘中一度466bp、为四年高位，亚洲AI融资压力可量化；与此同时04:14美东纳指100期货+1.48%、NVDA和其他芯片股盘前反弹。信用压力与跌深回补并行，须待美股开盘广度及完整收盘判断。\n11/06 Vanda 数据显示，11/05 散户最终净卖出 1.51 亿美元、尾盘买入明显回升，说明抛售中的买盘反击；它是仓位与情绪反例，不能凭此认定周五收盘已完成修复。",
       "evidence_post_ids": [
         "2118427882183708790",
         "2118432411688300640",
-        "2118423603826004076",
         "2118456823011242185",
         "2118481733460930830",
         "2118501382311624848",
@@ -7920,7 +8060,8 @@
         "2118546721315733516",
         "2118559612014121277",
         "2118558190149193907",
-        "2118588727090102402"
+        "2118588727090102402",
+        "2118701057350013145"
       ],
       "caveat": "X观点与媒体转述须分开；Muse新帖称软银CDS为118bp，与Reuters/Markit核验的466bp冲突，未纳入证据。Cybertruck已停产说法也与Reuters所报2027年中逐步停产不符。信用、政策与业绩影响仍需后续收盘验证。",
       "benefit_tags": [
