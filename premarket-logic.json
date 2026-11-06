@@ -181,63 +181,61 @@
       }
     },
     "2026-11-06": {
-      "updated_at": "2026-11-06T04:51:31.826Z",
+      "updated_at": "2026-11-06T11:47:27Z",
       "bull": [
         {
-          "title": "急跌后的技术反抽窗口",
-          "detail": "事实：11/05 科技股急挫、11/06 亚股继续抛售。判断：若美股开盘后 NQ/QQQ 不再创新低且 VIX 回落，拥挤交易平仓后可能先出现回补；@labubu_trader 的 IPO 后反弹帖只是条件观点，不能当成已发生催化。",
+          "title": "① 芯片盘前回补，验证跌深反弹",
+          "detail": "事实：Reuters 11/06 04:14 美东观察纳指100 E-mini +1.48%，NVDA 盘前 +3.6%，AMD/INTC/AVGO/MU 上涨约 5%–8.3%。判断：若开盘后芯片与新云广度维持、VIX 同步回落，11/05 拥挤抛售可能先转为回补；期货与盘前涨幅不是常规收盘修复。",
           "source_urls": [
-            "https://www.reuters.com/world/asia-pacific/analysts-investors-react-ai-market-rout-2026-11-06/",
-            "https://x.com/labubu_trader/status/2118530843602031069"
+            "https://www.reuters.com/business/nasdaq-futures-rise-after-steep-ai-selloff-chip-stocks-stabilize-2026-11-06/"
           ]
         },
         {
-          "title": "AI 扩张未被政策定案",
-          "detail": "事实：得州当选州长提出暂停新建数据中心并制定保护规则；正式法规与项目影响尚未落地。判断：若龙头公布的订单/交付不变，市场可能区分存量扩建与新建受阻公司。",
+          "title": "② 项目风险仍需落到订单",
+          "detail": "事实：Reuters 引述行业人士称，多数预计 2027 年完工的数据中心项目已取得许可并锁定电力、芯片等；新项目政策影响仍不确定。判断：资金可能暂时区分存量交付与新建延期，需项目级订单和融资证据确认。",
           "source_urls": [
-            "https://www.reuters.com/world/us/texas-governor-elect-says-state-will-have-laws-shield-citizens-data-centers-2026-11-06/",
-            "https://www.reuters.com/world/asia-pacific/analysts-investors-react-ai-market-rout-2026-11-06/"
+            "https://www.reuters.com/business/media-telecom/softbank-cds-softbank-cds-2026-11-06/"
           ]
         }
       ],
       "bear": [
         {
-          "title": "亚太 AI 链补跌，估值与融资同时受压",
-          "detail": "事实：Reuters 报道首尔开盘跌 8% 后暂停交易、日经跌逾 6%；11/05 美股 AI 抛售已扩散。判断：若美股开盘芯片、存储与新云继续同步走弱，反弹更像减仓窗口。",
+          "title": "① AI 融资信用风险已可量化",
+          "detail": "事实：Reuters 据 Markit 报软银五年期 CDS 11/06 一度 466bp、为四年高位，软银当日股价跌约 10.8%；AI 相关融资回报期限受审视。判断：若信用利差继续扩张，芯片盘前反弹未必能传到新云、电力与高资本开支链。",
           "source_urls": [
-            "https://www.reuters.com/world/asia-pacific/analysts-investors-react-ai-market-rout-2026-11-06/"
+            "https://www.reuters.com/business/media-telecom/softbank-cds-softbank-cds-2026-11-06/"
           ]
         },
         {
-          "title": "得州新建数据中心审批风险",
-          "detail": "事实：得州当选州长主张先立保护规则再推进新建。判断：若更多州跟进或融资成本上升，新云、电力与设备订单的交付时间可能被重新定价；目前尚无项目级取消证据。",
+          "title": "② 去杠杆可能压住反弹广度",
+          "detail": "事实：Reuters 引 Goldman Sachs 估计科技多空基金 11/05 单日跌逾 4%，年内收益大致归零；机构削减风险与持仓重叠增加。判断：若开盘反弹只集中 NVDA 等权重、其余 AI 链滞后，回补更像仓位调整而非基本面重估。",
           "source_urls": [
-            "https://www.reuters.com/world/us/texas-governor-elect-says-state-will-have-laws-shield-citizens-data-centers-2026-11-06/",
-            "https://www.reuters.com/world/asia-pacific/analysts-investors-react-ai-market-rout-2026-11-06/"
+            "https://www.reuters.com/world/china/tech-selloff-wipes-out-hedge-fund-gains-prompting-risk-cuts-layoffs-2026-11-06/"
           ]
         }
       ],
       "risks": [
         {
-          "title": "① 21:30 北京时间非农先决定利率交易",
-          "detail": "BLS 定于 11/06 08:30 美东发布 10 月就业报告。工资/就业偏强可能推高收益率并压缩长久期科技估值；偏弱也可能转成增长担忧，不能预设单方向。",
+          "title": "① 21:30 非农与工资改变利率路径",
+          "detail": "BLS 定于 11/06 08:30 美东发布 10 月就业报告。数据尚未公布；强就业可能重推收益率，弱就业也可能触发增长担忧。观察实际值、修订和债息同步反应。",
           "source_urls": [
             "https://www.bls.gov/schedule/2026/11_sched_list.htm"
           ]
         },
         {
-          "title": "② 开盘 20/60 分钟检验反抽质量",
-          "detail": "观察 QQQ 与半导体相对强弱、VIX 是否回落、上涨是否由少数权重支撑。只有价格与广度共同稳定，才支持止跌假设；若跌破前低则偏空逻辑优先。",
+          "title": "② 开盘 20/60 分钟检验反抽广度",
+          "detail": "对照 QQQ、芯片、新云和 VIX；若仅少数龙头盘前上涨而其余 AI 链及信用继续恶化，止跌判断应降级。04:14 美东报价只是盘前快照。",
           "source_urls": [
-            "https://www.reuters.com/world/asia-pacific/analysts-investors-react-ai-market-rout-2026-11-06/"
+            "https://www.reuters.com/business/nasdaq-futures-rise-after-steep-ai-selloff-chip-stocks-stabilize-2026-11-06/",
+            "https://www.reuters.com/business/media-telecom/softbank-cds-softbank-cds-2026-11-06/"
           ]
         },
         {
-          "title": "③ 下周数据与得州政策细节",
-          "detail": "11/10 CPI 是本周之后的下一项利率催化；得州数据中心限制仍需法律文本和项目进度验证。油价与10Y波动可能放大财报后估值分化。",
+          "title": "③ 下周 CPI 与项目融资",
+          "detail": "非农后的下一个利率催化是 11/10 CPI；新建数据中心审批及 SoftBank 等融资利差决定本轮反弹是否能扩散。未见项目级取消证据，不提前推定资本开支见顶。",
           "source_urls": [
             "https://www.bls.gov/schedule/2026/11_sched_list.htm",
-            "https://www.reuters.com/world/us/texas-governor-elect-says-state-will-have-laws-shield-citizens-data-centers-2026-11-06/"
+            "https://www.reuters.com/business/media-telecom/softbank-cds-softbank-cds-2026-11-06/"
           ]
         }
       ]
