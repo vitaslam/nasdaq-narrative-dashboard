@@ -7383,7 +7383,7 @@
     {
       "id": "ai-selloff-capex-peak",
       "title": "AI 抛售与资本开支见顶风险",
-      "status": "active",
+      "status": "tracking",
       "asof": "2026-11-05T23:55:00Z",
       "summary": "11/05 AI 与数据中心链遭广泛抛售：QQQ 常规收盘 −6.49%、NDX −6.36%，NVDA、AMD、QCOM 与多家云权重同跌，VIX 收于 28.18；这确认价格层面的风险收缩，不证明资本开支已实际见顶。两位以上作者的独立原帖分别记录 QQQ 失守 200 日均线、纳指收盘与数据中心贷款抛售。OpenAI 调整明年产能尚属内部讨论报道，Meta 高管称新建许可更难；信用融资和客户交付需继续由披露验证。APP 11/05 逆势上涨，显示并非所有 AI 应用都同步失效。",
       "evidence_post_ids": [
