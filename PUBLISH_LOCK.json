@@ -1,7 +1,7 @@
 {
-  "holder": null,
-  "token": null,
-  "purpose": null,
-  "acquired_at": null,
-  "expires_at": null
+  "holder": "GPT",
+  "token": "gpt-2026-11-07T04:09:39.344Z-v2mmge1hdp",
+  "purpose": "November calendar and five-dimension/VIX correction",
+  "acquired_at": "2026-11-07T04:09:39.344Z",
+  "expires_at": "2026-11-07T04:54:39.344Z"
 }
