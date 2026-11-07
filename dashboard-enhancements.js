@@ -206,13 +206,14 @@
     x:'<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="currentColor"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.64 7.584H.47l8.6-9.835L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg>'
   };
   document.querySelectorAll('main .topbar,main header#overview').forEach(node=>node.remove());
+  const retiredHot=document.getElementById('narrative');
+  const keptFrequent=retiredHot?.querySelector('.x-frequent-section');
+  if(keptFrequent)retiredHot.before(keptFrequent);
+  document.querySelectorAll('.pulse-heading,.pulse-grid,#dimension-details,.direction-legend,.importance-legend,#premarket-logic,#narrative').forEach(node=>node.remove());
   const sectionSpecs=[
     ['overview','市场概览',['.week-live-banner','.topbar','#overview','.hero','.market-overview'],'overview'],
-    ['premarket','盘前逻辑',['#premarket-logic'],'premarket'],
-    ['dimensions','五维状态',['.pulse-heading','.pulse-grid','#dimension-details'],'dimensions'],
     ['verification','叙事验证',['#verification'],'verification'],
     ['levels','操作点位',['.dashboard-chart-heading','.daily-trigger-row','.review-market'],'levels'],
-    ['x-hot','X 高热',['#narrative'],'x'],
     ['x-frequent','X 高频',['.x-frequent-section'],'x'],
     ['calendar','事件日历',['#calendar'],'calendar']
   ];
