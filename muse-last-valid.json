@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "batch_id": "gpt-mail:2026-11-06:2300",
+  "batch_id": "gpt-mail:2026-11-07:0900",
   "week_id": "2026-11-02",
-  "generated_at": "2026-11-06T15:19:28.035Z",
+  "generated_at": "2026-11-07T01:20:21.238Z",
   "x_topics_upsert": [
     {
       "id": "polymarket-32228",
@@ -14,15 +14,15 @@
           "author": "@PolymarketA",
           "published_at": "2026-11-03T08:21:58Z",
           "quote": null,
-          "viewpoint": "YES：99.9% (+0.0%)\nNO：0.1%",
-          "translation_zh": "Polymarket 事件「民主党横扫中期选举」最新双边概率：YES 99.9% / NO 0.1%，YES 较上轮快照变化 +0.0pp；该事件累计成交额约 $75,744,796。点击跳转 Polymarket 该事件页。",
+          "viewpoint": "YES：100.0%\nNO：0.0%",
+          "translation_zh": "Polymarket 事件「民主党横扫中期选举」09:10 北京时间快照：YES 100.0% / NO 0.0%；累计成交额约 $75,744,796。成交额不是浏览量。",
           "views": null,
           "reposts": null,
           "replies": null,
-          "observed_at": "2026-11-05T00:31:34Z",
+          "observed_at": "2026-11-07T01:10:00Z",
           "source_url": "https://polymarket.com/event/balance-of-power-2026-midterms",
           "metrics_source": "https://gamma-api.polymarket.com/events/32228",
-          "verification": "Polymarket 官方 Gamma API 读取该事件双边概率。",
+          "verification": "Polymarket 官方 Gamma 快照；公开事件页交叉核对显示近似概率，精确小数保留当时快照口径。成交额不是热度，不计浏览量。",
           "avatar_url": "https://pbs.twimg.com/profile_images/2005664281002491904/bz2ZO_nU_400x400.jpg",
           "avatar_source": "https://x.com/Polymarket",
           "impact": []
@@ -39,15 +39,15 @@
           "author": "@PolymarketA",
           "published_at": "2026-11-03T08:21:58Z",
           "quote": null,
-          "viewpoint": "YES：99.9% (+0.0%)\nNO：0.1%",
-          "translation_zh": "Polymarket 事件「WTI 11月破$100」最新双边概率：YES 99.9% / NO 0.1%，YES 较上轮快照变化 +0.0pp；该事件累计成交额约 $1,169,642。点击跳转 Polymarket 该事件页。",
+          "viewpoint": "YES：100.0%\nNO：0.0%",
+          "translation_zh": "Polymarket 事件「WTI 11月破$100」09:10 北京时间快照：YES 100.0% / NO 0.0%；累计成交额约 $1,450,929。成交额不是浏览量。",
           "views": null,
           "reposts": null,
           "replies": null,
-          "observed_at": "2026-11-05T08:28:17Z",
+          "observed_at": "2026-11-07T01:10:00Z",
           "source_url": "https://polymarket.com/event/what-price-will-wti-hit-in-november-2026",
           "metrics_source": "https://gamma-api.polymarket.com/events/1250301",
-          "verification": "Polymarket 官方 Gamma API 读取该事件双边概率。",
+          "verification": "Polymarket 官方 Gamma 快照；公开事件页交叉核对显示近似概率，精确小数保留当时快照口径。成交额不是热度，不计浏览量。",
           "avatar_url": "https://pbs.twimg.com/profile_images/2005664281002491904/bz2ZO_nU_400x400.jpg",
           "avatar_source": "https://x.com/Polymarket",
           "impact": []
@@ -64,15 +64,15 @@
           "author": "@PolymarketA",
           "published_at": "2026-11-03T08:21:58Z",
           "quote": null,
-          "viewpoint": "YES：78.0% (+0.0%)\nNO：22.0%",
-          "translation_zh": "Polymarket 事件「Fed 12月决议·加息25bp」最新双边概率：YES 78.0% / NO 22.0%，YES 较上轮快照变化 +0.0pp；该事件累计成交额约 $12,974,398。点击跳转 Polymarket 该事件页。",
+          "viewpoint": "YES：76.5%\nNO：23.5%",
+          "translation_zh": "Polymarket 事件「Fed 12月决议·加息25bp」09:10 北京时间快照：YES 76.5% / NO 23.5%；累计成交额约 $16,474,536。成交额不是浏览量。",
           "views": null,
           "reposts": null,
           "replies": null,
-          "observed_at": "2026-11-05T08:28:17Z",
+          "observed_at": "2026-11-07T01:10:00Z",
           "source_url": "https://polymarket.com/event/fed-decision-in-december-20260729232808632",
           "metrics_source": "https://gamma-api.polymarket.com/events/770450",
-          "verification": "Polymarket 官方 Gamma API 读取该事件双边概率。",
+          "verification": "Polymarket 官方 Gamma 快照；公开事件页交叉核对显示近似概率，精确小数保留当时快照口径。成交额不是热度，不计浏览量。",
           "avatar_url": "https://pbs.twimg.com/profile_images/2005664281002491904/bz2ZO_nU_400x400.jpg",
           "avatar_source": "https://x.com/Polymarket",
           "impact": []
@@ -89,15 +89,15 @@
           "author": "@PolymarketB",
           "published_at": "2026-11-03T08:21:58Z",
           "quote": null,
-          "viewpoint": "YES：77.0% (+0.0%)\nNO：23.0%",
-          "translation_zh": "Polymarket 事件「2026年再加息」最新双边概率：YES 77.0% / NO 23.0%，YES 较上轮快照变化 +0.0pp；该事件累计成交额约 $1,428,465。点击跳转 Polymarket 该事件页。",
+          "viewpoint": "YES：76.5%\nNO：23.5%",
+          "translation_zh": "Polymarket 事件「2026年再加息」09:10 北京时间快照：YES 76.5% / NO 23.5%；累计成交额约 $1,574,364。成交额不是浏览量。",
           "views": null,
           "reposts": null,
           "replies": null,
-          "observed_at": "2026-11-05T08:28:17Z",
+          "observed_at": "2026-11-07T01:10:00Z",
           "source_url": "https://polymarket.com/event/another-fed-rate-hike-in-2026",
           "metrics_source": "https://gamma-api.polymarket.com/events/1034268",
-          "verification": "Polymarket 官方 Gamma API 读取该事件双边概率。",
+          "verification": "Polymarket 官方 Gamma 快照；公开事件页交叉核对显示近似概率，精确小数保留当时快照口径。成交额不是热度，不计浏览量。",
           "avatar_url": "https://pbs.twimg.com/profile_images/2005664281002491904/bz2ZO_nU_400x400.jpg",
           "avatar_source": "https://x.com/Polymarket",
           "impact": []
@@ -114,15 +114,15 @@
           "author": "@PolymarketC",
           "published_at": "2026-11-03T08:21:58Z",
           "quote": null,
-          "viewpoint": "YES：93.0% (+1.0%)\nNO：7.0%",
-          "translation_zh": "Polymarket 事件「美也门停火延续至11月底」最新双边概率：YES 93.0% / NO 7.0%，YES 较上轮快照变化 +1.0pp；该事件累计成交额约 $2,621,194。点击跳转 Polymarket 该事件页。",
+          "viewpoint": "YES：90.0%\nNO：10.0%",
+          "translation_zh": "Polymarket 事件「美也门停火延续至11月底」09:10 北京时间快照：YES 90.0% / NO 10.0%；累计成交额约 $2,624,841。成交额不是浏览量。",
           "views": null,
           "reposts": null,
           "replies": null,
-          "observed_at": "2026-11-05T08:28:17Z",
+          "observed_at": "2026-11-07T01:10:00Z",
           "source_url": "https://polymarket.com/event/us-yemen-ceasefire-continues-throughptptpt",
           "metrics_source": "https://gamma-api.polymarket.com/events/1053896",
-          "verification": "Polymarket 官方 Gamma API 读取该事件双边概率。",
+          "verification": "Polymarket 官方 Gamma 快照；公开事件页交叉核对显示近似概率，精确小数保留当时快照口径。成交额不是热度，不计浏览量。",
           "avatar_url": "https://pbs.twimg.com/profile_images/2005664281002491904/bz2ZO_nU_400x400.jpg",
           "avatar_source": "https://x.com/Polymarket",
           "impact": []
@@ -139,15 +139,15 @@
           "author": "@PolymarketB",
           "published_at": "2026-11-03T08:21:58Z",
           "quote": null,
-          "viewpoint": "YES：90.7% (-0.8%)\nNO：9.3%",
-          "translation_zh": "Polymarket 事件「Anthropic 2026年底前IPO」最新双边概率：YES 90.7% / NO 9.3%，YES 较上轮快照变化 -0.8pp；该事件累计成交额约 $6,404,836。点击跳转 Polymarket 该事件页。",
+          "viewpoint": "YES：88.5%\nNO：11.5%",
+          "translation_zh": "Polymarket 事件「Anthropic 2026年底前IPO」09:10 北京时间快照：YES 88.5% / NO 11.5%；累计成交额约 $6,809,465。成交额不是浏览量。",
           "views": null,
           "reposts": null,
           "replies": null,
-          "observed_at": "2026-11-05T08:28:17Z",
+          "observed_at": "2026-11-07T01:10:00Z",
           "source_url": "https://polymarket.com/event/anthropic-ipo-by",
           "metrics_source": "https://gamma-api.polymarket.com/events/549019",
-          "verification": "Polymarket 官方 Gamma API 读取该事件双边概率。",
+          "verification": "Polymarket 官方 Gamma 快照；公开事件页交叉核对显示近似概率，精确小数保留当时快照口径。成交额不是热度，不计浏览量。",
           "avatar_url": "https://pbs.twimg.com/profile_images/2005664281002491904/bz2ZO_nU_400x400.jpg",
           "avatar_source": "https://x.com/Polymarket",
           "impact": []
@@ -164,15 +164,15 @@
           "author": "@PolymarketB",
           "published_at": "2026-11-03T08:21:58Z",
           "quote": null,
-          "viewpoint": "YES：5.0% (+0.0%)\nNO：95.0%",
-          "translation_zh": "Polymarket 事件「美国2026年底前衰退」最新双边概率：YES 5.0% / NO 95.0%，YES 较上轮快照变化 +0.0pp；该事件累计成交额约 $2,431,854。点击跳转 Polymarket 该事件页。",
+          "viewpoint": "YES：4.5%\nNO：95.5%",
+          "translation_zh": "Polymarket 事件「美国2026年底前衰退」09:10 北京时间快照：YES 4.5% / NO 95.5%；累计成交额约 $2,432,590。成交额不是浏览量。",
           "views": null,
           "reposts": null,
           "replies": null,
-          "observed_at": "2026-11-05T08:28:17Z",
+          "observed_at": "2026-11-07T01:10:00Z",
           "source_url": "https://polymarket.com/event/us-recession-by-end-of-2026",
           "metrics_source": "https://gamma-api.polymarket.com/events/48802",
-          "verification": "Polymarket 官方 Gamma API 读取该事件双边概率。",
+          "verification": "Polymarket 官方 Gamma 快照；公开事件页交叉核对显示近似概率，精确小数保留当时快照口径。成交额不是热度，不计浏览量。",
           "avatar_url": "https://pbs.twimg.com/profile_images/2005664281002491904/bz2ZO_nU_400x400.jpg",
           "avatar_source": "https://x.com/Polymarket",
           "impact": []
@@ -189,15 +189,15 @@
           "author": "@PolymarketC",
           "published_at": "2026-11-03T08:21:58Z",
           "quote": null,
-          "viewpoint": "YES：0.1% (+0.0%)\nNO：99.9%",
-          "translation_zh": "Polymarket 事件「美伊停火延续至11月底」最新双边概率：YES 0.1% / NO 99.9%，YES 较上轮快照变化 +0.0pp；该事件累计成交额约 $40,548,415。点击跳转 Polymarket 该事件页。",
+          "viewpoint": "YES：0.0%\nNO：100.0%",
+          "translation_zh": "Polymarket 事件「美伊停火延续至11月底」09:10 北京时间快照：YES 0.0% / NO 100.0%；累计成交额约 $42,032,801。成交额不是浏览量。",
           "views": null,
           "reposts": null,
           "replies": null,
-          "observed_at": "2026-11-05T08:28:17Z",
+          "observed_at": "2026-11-07T01:10:00Z",
           "source_url": "https://polymarket.com/event/us-iran-ceasefire-continues-throughptptpt",
           "metrics_source": "https://gamma-api.polymarket.com/events/1038648",
-          "verification": "Polymarket 官方 Gamma API 读取该事件双边概率。",
+          "verification": "Polymarket 官方 Gamma 快照；公开事件页交叉核对显示近似概率，精确小数保留当时快照口径。成交额不是热度，不计浏览量。",
           "avatar_url": "https://pbs.twimg.com/profile_images/2005664281002491904/bz2ZO_nU_400x400.jpg",
           "avatar_source": "https://x.com/Polymarket",
           "impact": []
@@ -4220,7 +4220,9 @@
               "direction": "关注",
               "reason": "指数极端超卖与成分股广度背离，广度更健康，超卖修复待确认。"
             }
-          ]
+          ],
+          "stance": "bull",
+          "stance_subject": "SPX"
         }
       ]
     },
@@ -7685,7 +7687,1248 @@
           "verification": "交接方核对 X 原帖；WSJ 核实 Vanda 的当日净卖出 1.51 亿美元、历史对比 5.02 亿美元及尾盘买入逆转；最后 10 分钟逾 1 亿美元仅为原帖说法，未获独立一手核验。热度无可核读数。",
           "avatar_url": "https://pbs.twimg.com/profile_images/2088360110095478784/El9anzXH_400x400.jpg",
           "avatar_source": "https://x.com/DeItaone",
+          "impact": [],
+          "stance": "bull",
+          "stance_subject": "SPX / QQQ",
+          "entry_side": "left"
+        }
+      ]
+    },
+    {
+      "id": "muse-post-2118709205821718970",
+      "title": "据 CNBC，白宫国家经济委员会主任凯文·哈塞特表示，美国数据中",
+      "summary": "据 CNBC，白宫国家经济委员会主任凯文·哈塞特表示，美国数据中",
+      "posts": [
+        {
+          "id": "2118709205821718970",
+          "author": "@wallstengine",
+          "published_at": "2026-11-06T14:16:53.038Z",
+          "quote": null,
+          "viewpoint": "据 CNBC，白宫国家经济委员会主任凯文·哈塞特表示，美国数据中",
+          "translation_zh": "据 CNBC，白宫国家经济委员会主任凯文·哈塞特表示，美国数据中心增长仍有很大继续空间，特朗普尊重不想要数据中心的地区。（配图视频画面文字：突发新闻——国家经济委员会哈塞特：美国数据中心增长仍有很大继续空间。）",
+          "translation_scope": "full",
+          "translation_source_url": "https://x.com/wallstengine/status/2118709205821718970",
+          "views": null,
+          "reposts": null,
+          "replies": null,
+          "observed_at": "2026-11-07T01:00:00Z",
+          "source_url": "https://x.com/wallstengine/status/2118709205821718970",
+          "metrics_source": "https://x.com/wallstengine/status/2118709205821718970",
+          "verification": "交接方称逐条打开原帖并核对中译；GPT公开X接口返回403，原文未能独立直连。涉及公司/媒体数据须以另列原始来源为准；热度无可核读数。",
+          "avatar_url": "https://pbs.twimg.com/profile_images/1691846947857178624/oZp5wB4r_400x400.jpg",
+          "avatar_source": "https://x.com/wallstengine",
+          "impact": [
+            {
+              "targets": "AI数据中心",
+              "direction": "潜在利好",
+              "reason": "AI 数据中心板块，中性偏多（白宫层面肯定增长空间，同时承认地方反对）"
+            }
+          ],
+          "stance": "bull",
+          "stance_subject": "AI数据中心"
+        }
+      ]
+    },
+    {
+      "id": "muse-post-2118709546638356543",
+      "title": "英伟达正要求台积电探索生产 3D DRAM，因 AI 内存短缺正",
+      "summary": "英伟达正要求台积电探索生产 3D DRAM，因 AI 内存短缺正",
+      "posts": [
+        {
+          "id": "2118709546638356543",
+          "author": "@StockSavvyShay",
+          "published_at": "2026-11-06T14:18:14.295Z",
+          "quote": null,
+          "viewpoint": "英伟达正要求台积电探索生产 3D DRAM，因 AI 内存短缺正",
+          "translation_zh": "英伟达正要求台积电探索生产 3D DRAM，因 AI 内存短缺正迫使买家将目光投向美光、SK 海力士与三星之外。3D DRAM 距商业化量产仍需数年，解决不了当下的短缺，但可让台积电在下一代内存领域占位。（据 The Information，路透转引；台积电与英伟达均未回应置评请求。）",
+          "translation_scope": "full",
+          "translation_source_url": "https://x.com/StockSavvyShay/status/2118709546638356543",
+          "views": null,
+          "reposts": null,
+          "replies": null,
+          "observed_at": "2026-11-07T01:00:00Z",
+          "source_url": "https://x.com/StockSavvyShay/status/2118709546638356543",
+          "metrics_source": "https://x.com/StockSavvyShay/status/2118709546638356543",
+          "verification": "交接方称逐条打开原帖并核对中译；GPT公开X接口返回403，原文未能独立直连。涉及公司/媒体数据须以另列原始来源为准；热度无可核读数。 相关事实另见 https://www.reuters.com/business/tsmc-considers-making-advanced-memory-chips-information-reports-2026-11-06/；报道并非公司最终确认。",
+          "avatar_url": "https://pbs.twimg.com/profile_images/1878129937737187328/DnEflT4L_400x400.jpg",
+          "avatar_source": "https://x.com/StockSavvyShay",
+          "impact": [
+            {
+              "targets": "TSM",
+              "direction": "潜在利好",
+              "reason": "TSM，中性偏多（切入存储新赛道）；MU / SK 海力士，中性（供给端潜在新进入者）"
+            }
+          ],
+          "stance": "bull",
+          "stance_subject": "TSM"
+        }
+      ]
+    },
+    {
+      "id": "muse-post-2118715806263710056",
+      "title": "据《泰晤士报》称，伊朗人正为美国可能对 Pickaxe Mountain 发…",
+      "summary": "据《泰晤士报》称，伊朗人正为美国可能对 Pickaxe Mountain 发…",
+      "posts": [
+        {
+          "id": "2118715806263710056",
+          "author": "@zerohedge",
+          "published_at": "2026-11-06T14:43:06.706Z",
+          "quote": null,
+          "viewpoint": "据《泰晤士报》称，伊朗人正为美国可能对 Pickaxe Mountain 发…",
+          "translation_zh": "据《泰晤士报》称，伊朗人正为美国可能对 Pickaxe Mountain 发动核打击做准备。（链接卡片：伊朗人在 Pickaxe Mountain 为火灾、怒火与核 fallout 做准备——引自 thetimes.com。注：白宫此前已否认有核打击计划。）",
+          "translation_scope": "full",
+          "translation_source_url": "https://x.com/zerohedge/status/2118715806263710056",
+          "views": null,
+          "reposts": null,
+          "replies": null,
+          "observed_at": "2026-11-07T01:00:00Z",
+          "source_url": "https://x.com/zerohedge/status/2118715806263710056",
+          "metrics_source": "https://x.com/zerohedge/status/2118715806263710056",
+          "verification": "交接方称逐条打开原帖并核对中译；GPT公开X接口返回403，原文未能独立直连。涉及公司/媒体数据须以另列原始来源为准；热度无可核读数。",
+          "avatar_url": "https://pbs.twimg.com/profile_images/72647502/tyler_400x400.jpg",
+          "avatar_source": "https://x.com/zerohedge",
+          "impact": [
+            {
+              "targets": "Brent",
+              "direction": "潜在利好",
+              "reason": "WTI / Brent，中性偏多（地缘风险）"
+            }
+          ],
+          "stance": "bull",
+          "stance_subject": "Brent"
+        }
+      ]
+    },
+    {
+      "id": "muse-post-2118717121354232120",
+      "title": "突发：纳斯达克 100 指数日内涨幅扩大至 +2.4%，芯片股开",
+      "summary": "突发：纳斯达克 100 指数日内涨幅扩大至 +2.4%，芯片股开",
+      "posts": [
+        {
+          "id": "2118717121354232120",
+          "author": "@KobeissiLetter",
+          "published_at": "2026-11-06T14:48:20.248Z",
+          "quote": null,
+          "viewpoint": "突发：纳斯达克 100 指数日内涨幅扩大至 +2.4%，芯片股开",
+          "translation_zh": "突发：纳斯达克 100 指数日内涨幅扩大至 +2.4%，芯片股开盘市值增加近 6000 亿美元。（配图纳指 100 成分股涨跌热力图：英伟达 +6.67%、AMD +11.91%、博通 +4.34%、谷歌 +2.16%、Meta +2.11%、亚马逊 +0.98%、苹果 -1.35%、微软 -1.22%。）",
+          "translation_scope": "full",
+          "translation_source_url": "https://x.com/KobeissiLetter/status/2118717121354232120",
+          "views": null,
+          "reposts": null,
+          "replies": null,
+          "observed_at": "2026-11-07T01:00:00Z",
+          "source_url": "https://x.com/KobeissiLetter/status/2118717121354232120",
+          "metrics_source": "https://x.com/KobeissiLetter/status/2118717121354232120",
+          "verification": "交接方称逐条打开原帖并核对中译；GPT公开X接口返回403，原文未能独立直连。涉及公司/媒体数据须以另列原始来源为准；热度无可核读数。",
+          "avatar_url": "https://pbs.twimg.com/profile_images/1975243710846640128/fwYCe67Y_400x400.jpg",
+          "avatar_source": "https://x.com/KobeissiLetter",
+          "impact": [
+            {
+              "targets": "QQQ / NDX",
+              "direction": "潜在利好",
+              "reason": "QQQ / NDX，利多（开盘反弹扩大）；SOX，利多"
+            }
+          ],
+          "stance": "bull",
+          "stance_subject": "QQQ / NDX"
+        }
+      ]
+    },
+    {
+      "id": "muse-post-2118720500494897489",
+      "title": "密歇根大学 11 月消费者信心初值 51.0，高于预期的 48.",
+      "summary": "密歇根大学 11 月消费者信心初值 51.0，高于预期的 48.",
+      "posts": [
+        {
+          "id": "2118720500494897489",
+          "author": "@zerohedge",
+          "published_at": "2026-11-06T15:01:45.898Z",
+          "quote": null,
+          "viewpoint": "密歇根大学 11 月消费者信心初值 51.0，高于预期的 48.",
+          "translation_zh": "密歇根大学 11 月消费者信心初值 51.0，高于预期的 48.0；现状指数 51.0（预期 47.0），预期指数 50.9（预期 49.0）；1 年通胀预期 4.3%（预期 4.6%），5–10 年通胀预期 3.4%（预期 3.5%）。",
+          "translation_scope": "full",
+          "translation_source_url": "https://x.com/zerohedge/status/2118720500494897489",
+          "views": null,
+          "reposts": null,
+          "replies": null,
+          "observed_at": "2026-11-07T01:00:00Z",
+          "source_url": "https://x.com/zerohedge/status/2118720500494897489",
+          "metrics_source": "https://x.com/zerohedge/status/2118720500494897489",
+          "verification": "交接方称逐条打开原帖并核对中译；GPT公开X接口返回403，原文未能独立直连。涉及公司/媒体数据须以另列原始来源为准；热度无可核读数。",
+          "avatar_url": "https://pbs.twimg.com/profile_images/72647502/tyler_400x400.jpg",
+          "avatar_source": "https://x.com/zerohedge",
+          "impact": [
+            {
+              "targets": "SPX / QQQ",
+              "direction": "潜在利好",
+              "reason": "SPX / QQQ，中性偏多（信心超预期、通胀预期回落）；10Y，中性偏空"
+            }
+          ],
+          "stance": "bull",
+          "stance_subject": "SPX / QQQ"
+        }
+      ]
+    },
+    {
+      "id": "muse-post-2118729368977518626",
+      "title": "美国半导体股波动之剧烈实属罕见：半导体指数 SOX 近 5 个交",
+      "summary": "美国半导体股波动之剧烈实属罕见：半导体指数 SOX 近 5 个交",
+      "posts": [
+        {
+          "id": "2118729368977518626",
+          "author": "@KobeissiLetter",
+          "published_at": "2026-11-06T15:37:00.309Z",
+          "quote": null,
+          "viewpoint": "美国半导体股波动之剧烈实属罕见：半导体指数 SOX 近 5 个交",
+          "translation_zh": "美国半导体股波动之剧烈实属罕见：半导体指数 SOX 近 5 个交易日跌 21.8%，为 2001 年 9 月 21 日互联网泡沫破裂后最大 5 日跌幅，也是历史第三大 5 日跌幅；2008 年与 2020 年均未出现如此大的 5 日回撤。该指数历史上最大 5 日跌幅为 2000 年 4 月 14 日的 -27.1%。仅周四一天，SOX 就跌 12.3%，为 2020 年 3 月 16 日（当时跌 15.9%）以来最大单日跌幅。与此同时，3 倍做多半导体 ETF SOXL 近 5 日跌 60%，较 6 月高点跌 86%。芯片股波动已达互联网泡沫时代水平。（配图：美国半导体指数 5 日变动率，标注 -27.1%、-25.2%、-20.4%、-19.7%、-21.8%，横轴 1994–2026。）",
+          "translation_scope": "full",
+          "translation_source_url": "https://x.com/KobeissiLetter/status/2118729368977518626",
+          "views": null,
+          "reposts": null,
+          "replies": null,
+          "observed_at": "2026-11-07T01:00:00Z",
+          "source_url": "https://x.com/KobeissiLetter/status/2118729368977518626",
+          "metrics_source": "https://x.com/KobeissiLetter/status/2118729368977518626",
+          "verification": "交接方称逐条打开原帖并核对中译；GPT公开X接口返回403，原文未能独立直连。涉及公司/媒体数据须以另列原始来源为准；热度无可核读数。",
+          "avatar_url": "https://pbs.twimg.com/profile_images/1975243710846640128/fwYCe67Y_400x400.jpg",
+          "avatar_source": "https://x.com/KobeissiLetter",
+          "impact": [
+            {
+              "targets": "SOX / SMH",
+              "direction": "潜在利空",
+              "reason": "SOX / SMH，利空（历史级抛售）；VIX，中性偏多"
+            }
+          ],
+          "stance": "bear",
+          "stance_subject": "SOX / SMH"
+        }
+      ]
+    },
+    {
+      "id": "muse-post-2118732388482367554",
+      "title": "突发：据彭博，10 月 AI 支出担忧冲击市场，重仓科技的对冲基",
+      "summary": "突发：据彭博，10 月 AI 支出担忧冲击市场，重仓科技的对冲基",
+      "posts": [
+        {
+          "id": "2118732388482367554",
+          "author": "@unusual_whales",
+          "published_at": "2026-11-06T15:49:00.215Z",
+          "quote": null,
+          "viewpoint": "突发：据彭博，10 月 AI 支出担忧冲击市场，重仓科技的对冲基",
+          "translation_zh": "突发：据彭博，10 月 AI 支出担忧冲击市场，重仓科技的对冲基金遭受重创：Tiger Global 跌 8.5%，全年基本持平；Whale Rock 跌约 8%，2026 年涨幅收窄至约 34%；全仓 AI 的 VARA 跌 33%，但全年仍涨 13%。（同主题另帖：据彭博，专注 AI 的对冲基金 VARA 10 月跌 33%，其投资组合类似 Leopold Aschenbrenner 的《Situational Awareness》思路；该基金 7 月曾暴跌 44%。）",
+          "translation_scope": "full",
+          "translation_source_url": "https://x.com/unusual_whales/status/2118732388482367554",
+          "views": null,
+          "reposts": null,
+          "replies": null,
+          "observed_at": "2026-11-07T01:00:00Z",
+          "source_url": "https://x.com/unusual_whales/status/2118732388482367554",
+          "metrics_source": "https://x.com/unusual_whales/status/2118732388482367554",
+          "verification": "交接方称逐条打开原帖并核对中译；GPT公开X接口返回403，原文未能独立直连。涉及公司/媒体数据须以另列原始来源为准；热度无可核读数。",
+          "avatar_url": "https://pbs.twimg.com/profile_images/1714107328134516736/dLZGJPm7_400x400.png",
+          "avatar_source": "https://x.com/unusual_whales",
+          "impact": [
+            {
+              "targets": "AI板块",
+              "direction": "潜在利空",
+              "reason": "AI 板块，利空（机构抛售压力）；SPX / QQQ，利空"
+            }
+          ],
+          "stance": "bear",
+          "stance_subject": "AI板块"
+        }
+      ]
+    },
+    {
+      "id": "muse-post-2118730354144018916",
+      "title": "一位前 Meta 员工谈他对 Meta 资本部署、自研 ASIC",
+      "summary": "一位前 Meta 员工谈他对 Meta 资本部署、自研 ASIC",
+      "posts": [
+        {
+          "id": "2118730354144018916",
+          "author": "@RihardJarc",
+          "published_at": "2026-11-06T15:40:55.191Z",
+          "quote": null,
+          "viewpoint": "一位前 Meta 员工谈他对 Meta 资本部署、自研 ASIC",
+          "translation_zh": "一位前 Meta 员工谈他对 Meta 资本部署、自研 ASIC 与服务 Muse 成本的看法：1. 该专家称，扎克伯格在 Muse 这类应用场景尚未明确之前就敢于在 Meta 大举部署资本，很有勇气；即便财务团队可能认为他疯了，他认为这实际上是正确的决定。2. 关于 Meta 自研 ASIC（MTIA），专家称第一代芯片饱受差评、从未全面部署；但他预计第二代会好得多，并称 Meta 将成为推理市场的赢家，因为它能以更低成本提供定制模型推理。3. 关于服务 Muse 这类模型的成本，专家称大规模服务这类模型极其昂贵；若 Meta 与微软定价相同，其成本可能更高；但若 Meta 能造出服务模型的定制芯片，成本可大幅降低。来源：见于 @AlphaSenseInc。（注：监控轮次记录该帖配图访谈截图另含 Muse 每用户每月成本约 150–300 美元、MTIA 部署占比仅个位数，本封未逐字复核截图小字，见第六节。）",
+          "translation_scope": "full",
+          "translation_source_url": "https://x.com/RihardJarc/status/2118730354144018916",
+          "views": null,
+          "reposts": null,
+          "replies": null,
+          "observed_at": "2026-11-07T01:00:00Z",
+          "source_url": "https://x.com/RihardJarc/status/2118730354144018916",
+          "metrics_source": "https://x.com/RihardJarc/status/2118730354144018916",
+          "verification": "交接方称逐条打开原帖并核对中译；GPT公开X接口返回403，原文未能独立直连。涉及公司/媒体数据须以另列原始来源为准；热度无可核读数。",
+          "avatar_url": "https://pbs.twimg.com/profile_images/1251462631363403776/r4lpY-WV_400x400.jpg",
+          "avatar_source": "https://x.com/RihardJarc",
+          "impact": [
+            {
+              "targets": "META",
+              "direction": "潜在利好",
+              "reason": "META，中性偏多（推理成本有望靠自研芯片下降）；NVDA，中性（Meta 分散芯片供应逻辑）"
+            }
+          ],
+          "stance": "bull",
+          "stance_subject": "META"
+        }
+      ]
+    },
+    {
+      "id": "muse-post-2118734100328554806",
+      "title": "法国能源部：迄今已从法国战略储备中售出 360 万桶柴油",
+      "summary": "法国能源部：迄今已从法国战略储备中售出 360 万桶柴油",
+      "posts": [
+        {
+          "id": "2118734100328554806",
+          "author": "@DeItaone",
+          "published_at": "2026-11-06T15:55:48.351Z",
+          "quote": null,
+          "viewpoint": "法国能源部：迄今已从法国战略储备中售出 360 万桶柴油",
+          "translation_zh": "法国能源部：迄今已从法国战略储备中售出 360 万桶柴油。",
+          "translation_scope": "full",
+          "translation_source_url": "https://x.com/DeItaone/status/2118734100328554806",
+          "views": null,
+          "reposts": null,
+          "replies": null,
+          "observed_at": "2026-11-07T01:00:00Z",
+          "source_url": "https://x.com/DeItaone/status/2118734100328554806",
+          "metrics_source": "https://x.com/DeItaone/status/2118734100328554806",
+          "verification": "交接方称逐条打开原帖并核对中译；GPT公开X接口返回403，原文未能独立直连。涉及公司/媒体数据须以另列原始来源为准；热度无可核读数。",
+          "avatar_url": "https://pbs.twimg.com/profile_images/2088360110095478784/El9anzXH_400x400.jpg",
+          "avatar_source": "https://x.com/DeItaone",
           "impact": []
+        }
+      ]
+    },
+    {
+      "id": "muse-post-2118736880913260548",
+      "title": "据 The Information，芝商所第二次推迟推出与英伟达",
+      "summary": "据 The Information，芝商所第二次推迟推出与英伟达",
+      "posts": [
+        {
+          "id": "2118736880913260548",
+          "author": "@wallstengine",
+          "published_at": "2026-11-06T16:06:51.294Z",
+          "quote": null,
+          "viewpoint": "据 The Information，芝商所第二次推迟推出与英伟达",
+          "translation_zh": "据 The Information，芝商所第二次推迟推出与英伟达 GPU 租赁价格挂钩的期货产品，任何获批都将推迟到 1 月。",
+          "translation_scope": "full",
+          "translation_source_url": "https://x.com/wallstengine/status/2118736880913260548",
+          "views": null,
+          "reposts": null,
+          "replies": null,
+          "observed_at": "2026-11-07T01:00:00Z",
+          "source_url": "https://x.com/wallstengine/status/2118736880913260548",
+          "metrics_source": "https://x.com/wallstengine/status/2118736880913260548",
+          "verification": "交接方称逐条打开原帖并核对中译；GPT公开X接口返回403，原文未能独立直连。涉及公司/媒体数据须以另列原始来源为准；热度无可核读数。",
+          "avatar_url": "https://pbs.twimg.com/profile_images/1691846947857178624/oZp5wB4r_400x400.jpg",
+          "avatar_source": "https://x.com/wallstengine",
+          "impact": []
+        }
+      ]
+    },
+    {
+      "id": "muse-post-2118741211255341486",
+      "title": "马斯克称，本季度政府收入将占 SpaceX 收入的不到 10%，特斯拉没有任…",
+      "summary": "马斯克称，本季度政府收入将占 SpaceX 收入的不到 10%，特斯拉没有任…",
+      "posts": [
+        {
+          "id": "2118741211255341486",
+          "author": "@wallstengine",
+          "published_at": "2026-11-06T16:24:03.728Z",
+          "quote": null,
+          "viewpoint": "马斯克称，本季度政府收入将占 SpaceX 收入的不到 10%，特斯拉没有任…",
+          "translation_zh": "马斯克称，本季度政府收入将占 SpaceX 收入的不到 10%，特斯拉没有任何政府合同。",
+          "translation_scope": "full",
+          "translation_source_url": "https://x.com/wallstengine/status/2118741211255341486",
+          "views": null,
+          "reposts": null,
+          "replies": null,
+          "observed_at": "2026-11-07T01:00:00Z",
+          "source_url": "https://x.com/wallstengine/status/2118741211255341486",
+          "metrics_source": "https://x.com/wallstengine/status/2118741211255341486",
+          "verification": "交接方称逐条打开原帖并核对中译；GPT公开X接口返回403，原文未能独立直连。涉及公司/媒体数据须以另列原始来源为准；热度无可核读数。",
+          "avatar_url": "https://pbs.twimg.com/profile_images/1691846947857178624/oZp5wB4r_400x400.jpg",
+          "avatar_source": "https://x.com/wallstengine",
+          "impact": [
+            {
+              "targets": "SPCX",
+              "direction": "潜在利好",
+              "reason": "$SPCX，中性偏多（淡化政府依赖）；TSLA，中性"
+            }
+          ],
+          "stance": "bull",
+          "stance_subject": "SPCX"
+        }
+      ]
+    },
+    {
+      "id": "muse-post-2118741448422002779",
+      "title": "美国动量交易正面临历史性平仓：MSCI 美国动量因子 ETF（$",
+      "summary": "美国动量交易正面临历史性平仓：MSCI 美国动量因子 ETF（$",
+      "posts": [
+        {
+          "id": "2118741448422002779",
+          "author": "@KobeissiLetter",
+          "published_at": "2026-11-06T16:25:00.273Z",
+          "quote": null,
+          "viewpoint": "美国动量交易正面临历史性平仓：MSCI 美国动量因子 ETF（$",
+          "translation_zh": "美国动量交易正面临历史性平仓：MSCI 美国动量因子 ETF（$MTUM）周四跌 8.2%，创 2020 年 3 月 16 日以来最大单日跌幅，也是自 2013 年 4 月成立以来第三大单日跌幅。$MTUM 近 5 个交易日跌 16%，至 4 月 7 日以来最低；较 6 月高点跌 27%，已超过 2025 年 2–4 月 -25% 的回撤；此前该基金 2026 年初至 6 月 22 日高点累计上涨 38%。动量交易正经历历史性波动。（同主题另帖，zerohedge：McElligott 认错——约 1650 亿美元\"圣经级\"机械化抛售将 AI 动量推向历史第五大崩盘。）",
+          "translation_scope": "full",
+          "translation_source_url": "https://x.com/KobeissiLetter/status/2118741448422002779",
+          "views": null,
+          "reposts": null,
+          "replies": null,
+          "observed_at": "2026-11-07T01:00:00Z",
+          "source_url": "https://x.com/KobeissiLetter/status/2118741448422002779",
+          "metrics_source": "https://x.com/KobeissiLetter/status/2118741448422002779",
+          "verification": "交接方称逐条打开原帖并核对中译；GPT公开X接口返回403，原文未能独立直连。涉及公司/媒体数据须以另列原始来源为准；热度无可核读数。",
+          "avatar_url": "https://pbs.twimg.com/profile_images/1975243710846640128/fwYCe67Y_400x400.jpg",
+          "avatar_source": "https://x.com/KobeissiLetter",
+          "impact": [
+            {
+              "targets": "MTUM",
+              "direction": "潜在利空",
+              "reason": "MTUM，利空（动量策略历史性平仓）；SPX / QQQ，利空（机械化抛售压力）"
+            }
+          ],
+          "stance": "bear",
+          "stance_subject": "MTUM"
+        }
+      ]
+    },
+    {
+      "id": "muse-post-2118741699853959346",
+      "title": "据 Vanda Research，散户在周四暴跌的最后几分钟抄底",
+      "summary": "据 Vanda Research，散户在周四暴跌的最后几分钟抄底",
+      "posts": [
+        {
+          "id": "2118741699853959346",
+          "author": "@unusual_whales",
+          "published_at": "2026-11-06T16:26:00.219Z",
+          "quote": null,
+          "viewpoint": "据 Vanda Research，散户在周四暴跌的最后几分钟抄底",
+          "translation_zh": "据 Vanda Research，散户在周四暴跌的最后几分钟抄底。收盘前一小时，他们一度有望创下 2020 年疫情恐慌以来最严重的单日抛售；随后在最后 10 分钟买入超 1 亿美元，最终全天净卖出 1.51 亿美元，远低于 2020 年 5.02 亿美元的纪录。",
+          "translation_scope": "full",
+          "translation_source_url": "https://x.com/unusual_whales/status/2118741699853959346",
+          "views": null,
+          "reposts": null,
+          "replies": null,
+          "observed_at": "2026-11-07T01:00:00Z",
+          "source_url": "https://x.com/unusual_whales/status/2118741699853959346",
+          "metrics_source": "https://x.com/unusual_whales/status/2118741699853959346",
+          "verification": "交接方称逐条打开原帖并核对中译；GPT公开X接口返回403，原文未能独立直连。涉及公司/媒体数据须以另列原始来源为准；热度无可核读数。",
+          "avatar_url": "https://pbs.twimg.com/profile_images/1714107328134516736/dLZGJPm7_400x400.png",
+          "avatar_source": "https://x.com/unusual_whales",
+          "impact": [
+            {
+              "targets": "SPX / QQQ",
+              "direction": "潜在利好",
+              "reason": "SPX / QQQ，中性（散户逢低买入意愿仍强）"
+            }
+          ],
+          "stance": "bull",
+          "stance_subject": "SPX / QQQ",
+          "entry_side": "left"
+        }
+      ]
+    },
+    {
+      "id": "muse-post-2118745356347298119",
+      "title": "OpenAI 首席财务官确认正洽谈新一轮融资，估值较 3 月完成",
+      "summary": "OpenAI 首席财务官确认正洽谈新一轮融资，估值较 3 月完成",
+      "posts": [
+        {
+          "id": "2118745356347298119",
+          "author": "@DeItaone",
+          "published_at": "2026-11-06T16:40:31.995Z",
+          "quote": null,
+          "viewpoint": "OpenAI 首席财务官确认正洽谈新一轮融资，估值较 3 月完成",
+          "translation_zh": "OpenAI 首席财务官确认正洽谈新一轮融资，估值较 3 月完成的上轮提升近 50%——CNBC 访谈。",
+          "translation_scope": "full",
+          "translation_source_url": "https://x.com/DeItaone/status/2118745356347298119",
+          "views": null,
+          "reposts": null,
+          "replies": null,
+          "observed_at": "2026-11-07T01:00:00Z",
+          "source_url": "https://x.com/DeItaone/status/2118745356347298119",
+          "metrics_source": "https://x.com/DeItaone/status/2118745356347298119",
+          "verification": "交接方称逐条打开原帖并核对中译；GPT公开X接口返回403，原文未能独立直连。涉及公司/媒体数据须以另列原始来源为准；热度无可核读数。",
+          "avatar_url": "https://pbs.twimg.com/profile_images/2088360110095478784/El9anzXH_400x400.jpg",
+          "avatar_source": "https://x.com/DeItaone",
+          "impact": [
+            {
+              "targets": "AI板块",
+              "direction": "潜在利好",
+              "reason": "OpenAI 未上市；AI 板块，中性偏多（融资需求延续）"
+            }
+          ],
+          "stance": "bull",
+          "stance_subject": "AI板块"
+        }
+      ]
+    },
+    {
+      "id": "muse-post-2118747459317084340",
+      "title": "看到 Anthropic 的年化收入（ARR）从 2025 年 ",
+      "summary": "看到 Anthropic 的年化收入（ARR）从 2025 年 ",
+      "posts": [
+        {
+          "id": "2118747459317084340",
+          "author": "@StockSavvyShay",
+          "published_at": "2026-11-06T16:48:53.382Z",
+          "quote": null,
+          "viewpoint": "看到 Anthropic 的年化收入（ARR）从 2025 年 ",
+          "translation_zh": "看到 Anthropic 的年化收入（ARR）从 2025 年 1 月的约 10 亿美元增长到 2026 年 10 月的 800 亿美元以上、仅 21 个月增长 80 倍，确实令人惊叹。这也是我对它 IPO 如此期待的原因——我很好奇市场愿意为这种 AI 增长付出什么价格。（配图为 Anthropic 2026 财年第三季度财务要点：营收 170 亿美元，同比增长超 12 倍；年化收入 10 万美元以上的客户超 11,900 家，同比增长超 12 倍；自 2025 年第一季度以来算力效率提升超 4 倍；调整后经营利润率 15%；净亏损 233 亿美元——因估值上升，净亏损包含 219 亿美元与可转债、衍生负债及 SAFE 公允价值变动相关的非现金费用；经营利润率 (3)%。另：WSJ 11 月 6 日报道 Anthropic 年化收入 run rate 已超 800 亿美元，S-1 显示第三季度收入 169.6 亿美元，与本帖一致。）",
+          "translation_scope": "full",
+          "translation_source_url": "https://x.com/StockSavvyShay/status/2118747459317084340",
+          "views": null,
+          "reposts": null,
+          "replies": null,
+          "observed_at": "2026-11-07T01:00:00Z",
+          "source_url": "https://x.com/StockSavvyShay/status/2118747459317084340",
+          "metrics_source": "https://x.com/StockSavvyShay/status/2118747459317084340",
+          "verification": "交接方称逐条打开原帖并核对中译；GPT公开X接口返回403，原文未能独立直连。涉及公司/媒体数据须以另列原始来源为准；热度无可核读数。",
+          "avatar_url": "https://pbs.twimg.com/profile_images/1878129937737187328/DnEflT4L_400x400.jpg",
+          "avatar_source": "https://x.com/StockSavvyShay",
+          "impact": [
+            {
+              "targets": "Anthropic",
+              "direction": "潜在利好",
+              "reason": "Anthropic 未上市；AI 板块，中性偏多（头部 AI 公司收入爆发式增长）"
+            }
+          ],
+          "stance": "bull",
+          "stance_subject": "Anthropic"
+        }
+      ]
+    },
+    {
+      "id": "muse-post-2118747991175757988",
+      "title": "特朗普称他\"100%\"支持 AI 超级智能，并承诺与拥抱该技术的",
+      "summary": "特朗普称他\"100%\"支持 AI 超级智能，并承诺与拥抱该技术的",
+      "posts": [
+        {
+          "id": "2118747991175757988",
+          "author": "@unusual_whales",
+          "published_at": "2026-11-06T16:51:00.187Z",
+          "quote": null,
+          "viewpoint": "特朗普称他\"100%\"支持 AI 超级智能，并承诺与拥抱该技术的",
+          "translation_zh": "特朗普称他\"100%\"支持 AI 超级智能，并承诺与拥抱该技术的州合作，称其为\"黄金\"，只有\"愚蠢的领导层\"才会拒绝其经济潜力。",
+          "translation_scope": "full",
+          "translation_source_url": "https://x.com/unusual_whales/status/2118747991175757988",
+          "views": null,
+          "reposts": null,
+          "replies": null,
+          "observed_at": "2026-11-07T01:00:00Z",
+          "source_url": "https://x.com/unusual_whales/status/2118747991175757988",
+          "metrics_source": "https://x.com/unusual_whales/status/2118747991175757988",
+          "verification": "交接方称逐条打开原帖并核对中译；GPT公开X接口返回403，原文未能独立直连。涉及公司/媒体数据须以另列原始来源为准；热度无可核读数。",
+          "avatar_url": "https://pbs.twimg.com/profile_images/1714107328134516736/dLZGJPm7_400x400.png",
+          "avatar_source": "https://x.com/unusual_whales",
+          "impact": [
+            {
+              "targets": "AI板块",
+              "direction": "潜在利好",
+              "reason": "AI 板块，中性偏多（白宫层面安抚估值担忧）；SPX / QQQ，中性偏多"
+            }
+          ],
+          "stance": "bull",
+          "stance_subject": "AI板块"
+        }
+      ]
+    },
+    {
+      "id": "muse-post-2118759939720237133",
+      "title": "微软正逐步终止向甲骨文租用 AI 云算力的协议",
+      "summary": "微软正逐步终止向甲骨文租用 AI 云算力的协议",
+      "posts": [
+        {
+          "id": "2118759939720237133",
+          "author": "@DeItaone",
+          "published_at": "2026-11-06T17:38:28.942Z",
+          "quote": null,
+          "viewpoint": "微软正逐步终止向甲骨文租用 AI 云算力的协议",
+          "translation_zh": "微软正逐步终止向甲骨文租用 AI 云算力的协议。（同主题：KobeissiLetter——突发：微软终止向甲骨文租用 AI 云算力的协议后，甲骨文股价 $ORCL 跌 5%，较历史高点已跌 68%（配图股价 111.70 美元）；zerohedge 引彭博——\"微软高层对 neocloud 供应商的高成本与延迟愈发不满\"；Shay——据报微软正逐步停用从甲骨文租用的旧款英伟达算力，同时复核数十亿美元云交易，但这更像是转向更新 GPU 而非撤出 AI 支出；毕竟微软刚要求 IREN 为前沿模型升级 GB300 网络，而 IREN 以原价两倍重新签约旧款 H100，表明 AI 需求正随 GPU 换代转移。）",
+          "translation_scope": "full",
+          "translation_source_url": "https://x.com/DeItaone/status/2118759939720237133",
+          "views": null,
+          "reposts": null,
+          "replies": null,
+          "observed_at": "2026-11-07T01:00:00Z",
+          "source_url": "https://x.com/DeItaone/status/2118759939720237133",
+          "metrics_source": "https://x.com/DeItaone/status/2118759939720237133",
+          "verification": "交接方称逐条打开原帖并核对中译；GPT公开X接口返回403，原文未能独立直连。涉及公司/媒体数据须以另列原始来源为准；热度无可核读数。 相关事实另见 https://www.reuters.com/business/microsoft-is-winding-down-oracle-deal-rent-ai-cloud-capacity-bloomberg-news-2026-11-06/；报道并非公司最终确认。",
+          "avatar_url": "https://pbs.twimg.com/profile_images/2088360110095478784/El9anzXH_400x400.jpg",
+          "avatar_source": "https://x.com/DeItaone",
+          "impact": [
+            {
+              "targets": "ORCL",
+              "direction": "潜在利空",
+              "reason": "ORCL，利空（失去微软租约、跌 5%）；MSFT，中性偏多（转向更新 GPU、非撤出 AI）；IREN，利多（GB300 升级需求）；NVDA，中性"
+            }
+          ],
+          "stance": "bear",
+          "stance_subject": "ORCL"
+        }
+      ]
+    },
+    {
+      "id": "muse-post-2118770892398334170",
+      "title": "散户对股票的需求异常强劲：截至 11 月 3 日的 22 个连续",
+      "summary": "散户对股票的需求异常强劲：截至 11 月 3 日的 22 个连续",
+      "posts": [
+        {
+          "id": "2118770892398334170",
+          "author": "@KobeissiLetter",
+          "published_at": "2026-11-06T18:22:00.264Z",
+          "quote": null,
+          "viewpoint": "散户对股票的需求异常强劲：截至 11 月 3 日的 22 个连续",
+          "translation_zh": "散户对股票的需求异常强劲：截至 11 月 3 日的 22 个连续交易日，散户净买入美股，为 2021 年 meme 股狂潮以来第三长连买，也是 2017 年以来第六长。期间散户买入约 330 亿美元，为 2017 年以来第五大买入规模，平均每个交易日约 15 亿美元，比过去 12 个月均值高 40%。今年以来散户已买入创纪录的 2510 亿美元，超过 2021 年全年 2410 亿美元的前纪录，较去年同期增长 134%。散户继续逢低买入。（配图来源：Citadel Securities 全球市场情报，截至 2026 年 11 月 3 日。）",
+          "translation_scope": "full",
+          "translation_source_url": "https://x.com/KobeissiLetter/status/2118770892398334170",
+          "views": null,
+          "reposts": null,
+          "replies": null,
+          "observed_at": "2026-11-07T01:00:00Z",
+          "source_url": "https://x.com/KobeissiLetter/status/2118770892398334170",
+          "metrics_source": "https://x.com/KobeissiLetter/status/2118770892398334170",
+          "verification": "交接方称逐条打开原帖并核对中译；GPT公开X接口返回403，原文未能独立直连。涉及公司/媒体数据须以另列原始来源为准；热度无可核读数。",
+          "avatar_url": "https://pbs.twimg.com/profile_images/1975243710846640128/fwYCe67Y_400x400.jpg",
+          "avatar_source": "https://x.com/KobeissiLetter",
+          "impact": [
+            {
+              "targets": "SPX / QQQ",
+              "direction": "潜在利好",
+              "reason": "SPX / QQQ，中性偏多（散户持续净买入创纪录）"
+            }
+          ],
+          "stance": "bull",
+          "stance_subject": "SPX / QQQ"
+        }
+      ]
+    },
+    {
+      "id": "muse-post-2118780314445373842",
+      "title": "突发：据 Cleanview，美国 41% 的待建数据中心产能计",
+      "summary": "突发：据 Cleanview，美国 41% 的待建数据中心产能计",
+      "posts": [
+        {
+          "id": "2118780314445373842",
+          "author": "@unusual_whales",
+          "published_at": "2026-11-06T18:59:26.655Z",
+          "quote": null,
+          "viewpoint": "突发：据 Cleanview，美国 41% 的待建数据中心产能计",
+          "translation_zh": "突发：据 Cleanview，美国 41% 的待建数据中心产能计划建在新当选州长已承诺叫停或暂停此类建设的州。（同主题：得州州长当选人批评数据中心占用本地资源；得州州长当选人称与马斯克的关系必须按得州的条件来。）",
+          "translation_scope": "full",
+          "translation_source_url": "https://x.com/unusual_whales/status/2118780314445373842",
+          "views": null,
+          "reposts": null,
+          "replies": null,
+          "observed_at": "2026-11-07T01:00:00Z",
+          "source_url": "https://x.com/unusual_whales/status/2118780314445373842",
+          "metrics_source": "https://x.com/unusual_whales/status/2118780314445373842",
+          "verification": "交接方称逐条打开原帖并核对中译；GPT公开X接口返回403，原文未能独立直连。涉及公司/媒体数据须以另列原始来源为准；热度无可核读数。",
+          "avatar_url": "https://pbs.twimg.com/profile_images/1714107328134516736/dLZGJPm7_400x400.png",
+          "avatar_source": "https://x.com/unusual_whales",
+          "impact": [
+            {
+              "targets": "AI数据中心",
+              "direction": "潜在利空",
+              "reason": "AI 数据中心板块，利空（政治阻力上升）；电力 / 并网约束主题延续"
+            }
+          ],
+          "stance": "bear",
+          "stance_subject": "AI数据中心"
+        }
+      ]
+    },
+    {
+      "id": "muse-post-2118786256893313075",
+      "title": "听说 Anthropic CEO Dario 在 Fidelit",
+      "summary": "听说 Anthropic CEO Dario 在 Fidelit",
+      "posts": [
+        {
+          "id": "2118786256893313075",
+          "author": "@labubu_trader",
+          "published_at": "2026-11-06T19:23:03.445Z",
+          "quote": null,
+          "viewpoint": "听说 Anthropic CEO Dario 在 Fidelit",
+          "translation_zh": "听说 Anthropic CEO Dario 在 Fidelity 路演上向买方投资者三次真诚地说 \"Thank you\"。IPO 保住了，不过报价偏低。配 \"GRATITUDE.\" 动图。引用帖 @HiCagr：\"ANTHROPIC'S EXPECTED IPO VALUATION HAS FALLEN TO $1.2-$1.2T, PER BLOOMBERG.\"（据彭博，Anthropic 预期 IPO 估值已跌至 1.2–1.2 万亿美元；原文如此，$1.2-$1.2T 疑为笔误，照录。）",
+          "translation_scope": "full",
+          "translation_source_url": "https://x.com/labubu_trader/status/2118786256893313075",
+          "views": null,
+          "reposts": null,
+          "replies": null,
+          "observed_at": "2026-11-07T01:00:00Z",
+          "source_url": "https://x.com/labubu_trader/status/2118786256893313075",
+          "metrics_source": "https://x.com/labubu_trader/status/2118786256893313075",
+          "verification": "交接方称逐条打开原帖并核对中译；GPT公开X接口返回403，原文未能独立直连。涉及公司/媒体数据须以另列原始来源为准；热度无可核读数。 单源/戏谑或未核实细节，不视为公司公告。",
+          "avatar_url": "https://pbs.twimg.com/profile_images/1930061717826113536/beBBZQZJ_400x400.jpg",
+          "avatar_source": "https://x.com/labubu_trader",
+          "impact": []
+        }
+      ]
+    },
+    {
+      "id": "muse-post-2118789898799063171",
+      "title": "马斯克称，SpaceX 可能从 2027 年三季度开始部署与英伟",
+      "summary": "马斯克称，SpaceX 可能从 2027 年三季度开始部署与英伟",
+      "posts": [
+        {
+          "id": "2118789898799063171",
+          "author": "@wallstengine",
+          "published_at": "2026-11-06T19:37:31.743Z",
+          "quote": null,
+          "viewpoint": "马斯克称，SpaceX 可能从 2027 年三季度开始部署与英伟",
+          "translation_zh": "马斯克称，SpaceX 可能从 2027 年三季度开始部署与英伟达联合设计的太空 AI 计算机。\"起步会慢一些，然后可能在 2028 年放量到可观规模，2029 年大规模放量。\"\"一旦每吨入轨成本降下来，太空智能的成本将远低于地面。\"\"太空太阳能多 30%，全天有阳光，没有季节性。\"\"确实需要去太空，因为地面根本没有足够的电力来现实地达到每年那样的规模。\"（视频出自 Baron Capital 第 33 届年度投资大会，主题\"太空数据中心\"。）",
+          "translation_scope": "full",
+          "translation_source_url": "https://x.com/wallstengine/status/2118789898799063171",
+          "views": null,
+          "reposts": null,
+          "replies": null,
+          "observed_at": "2026-11-07T01:00:00Z",
+          "source_url": "https://x.com/wallstengine/status/2118789898799063171",
+          "metrics_source": "https://x.com/wallstengine/status/2118789898799063171",
+          "verification": "交接方称逐条打开原帖并核对中译；GPT公开X接口返回403，原文未能独立直连。涉及公司/媒体数据须以另列原始来源为准；热度无可核读数。",
+          "avatar_url": "https://pbs.twimg.com/profile_images/1691846947857178624/oZp5wB4r_400x400.jpg",
+          "avatar_source": "https://x.com/wallstengine",
+          "impact": [
+            {
+              "targets": "SPCX",
+              "direction": "潜在利好",
+              "reason": "$SPCX，利多（太空 AI 算力新叙事）；NVDA，中性偏多（联合设计太空 AI 计算机）"
+            }
+          ],
+          "stance": "bull",
+          "stance_subject": "SPCX"
+        }
+      ]
+    },
+    {
+      "id": "muse-post-2118793977826832485",
+      "title": "James Talarico 说他喜欢马斯克和 $SPCX，所以",
+      "summary": "James Talarico 说他喜欢马斯克和 $SPCX，所以",
+      "posts": [
+        {
+          "id": "2118793977826832485",
+          "author": "@labubu_trader",
+          "published_at": "2026-11-06T19:53:44.259Z",
+          "quote": null,
+          "viewpoint": "James Talarico 说他喜欢马斯克和 $SPCX，所以",
+          "translation_zh": "James Talarico 说他喜欢马斯克和 $SPCX，所以我今天又把 $SPCX 买回来了，因为我信任这家伙，他可能成为我们的下一任总统 😅；配图文字 \"we all love $SPCX\"（图中为 James Talarico 卡通形象，标注 PARODY）。帖内附带 @elonmusk 11 月 6 日回复 @KGurrisi79348：\"Nice of him to say that\"。",
+          "translation_scope": "full",
+          "translation_source_url": "https://x.com/labubu_trader/status/2118793977826832485",
+          "views": null,
+          "reposts": null,
+          "replies": null,
+          "observed_at": "2026-11-07T01:00:00Z",
+          "source_url": "https://x.com/labubu_trader/status/2118793977826832485",
+          "metrics_source": "https://x.com/labubu_trader/status/2118793977826832485",
+          "verification": "交接方称逐条打开原帖并核对中译；GPT公开X接口返回403，原文未能独立直连。涉及公司/媒体数据须以另列原始来源为准；热度无可核读数。",
+          "avatar_url": "https://pbs.twimg.com/profile_images/1930061717826113536/beBBZQZJ_400x400.jpg",
+          "avatar_source": "https://x.com/labubu_trader",
+          "impact": [
+            {
+              "targets": "SPCX",
+              "direction": "潜在利好",
+              "reason": "$SPCX，做多（买回）"
+            }
+          ],
+          "stance": "bull",
+          "stance_subject": "SPCX",
+          "entry_side": "left"
+        }
+      ]
+    },
+    {
+      "id": "muse-post-2118795344901501184",
+      "title": "$SPCX +9%",
+      "summary": "$SPCX +9%",
+      "posts": [
+        {
+          "id": "2118795344901501184",
+          "author": "@wallstengine",
+          "published_at": "2026-11-06T19:59:10.195Z",
+          "quote": null,
+          "viewpoint": "$SPCX +9%",
+          "translation_zh": "$SPCX +9%。马斯克预计 SpaceX 第四季度收入将较第三季度增长约 70%，约 248 亿美元，比预期高近 20 亿美元。（被引帖 @WOLF_Financial：马斯克称 SpaceX 第四季度收入将较第三季度增长约 70%，他仍预计 2027 年 12 月年化收入约 5000 亿美元。）",
+          "translation_scope": "full",
+          "translation_source_url": "https://x.com/wallstengine/status/2118795344901501184",
+          "views": null,
+          "reposts": null,
+          "replies": null,
+          "observed_at": "2026-11-07T01:00:00Z",
+          "source_url": "https://x.com/wallstengine/status/2118795344901501184",
+          "metrics_source": "https://x.com/wallstengine/status/2118795344901501184",
+          "verification": "交接方称逐条打开原帖并核对中译；GPT公开X接口返回403，原文未能独立直连。涉及公司/媒体数据须以另列原始来源为准；热度无可核读数。 单源/戏谑或未核实细节，不视为公司公告。",
+          "avatar_url": "https://pbs.twimg.com/profile_images/1691846947857178624/oZp5wB4r_400x400.jpg",
+          "avatar_source": "https://x.com/wallstengine",
+          "impact": [
+            {
+              "targets": "SPCX",
+              "direction": "潜在利好",
+              "reason": "$SPCX，利多（四季度收入指引大超预期）；TSLA，中性偏多（SpaceX–特斯拉合并猜测背景）"
+            }
+          ],
+          "stance": "bull",
+          "stance_subject": "SPCX"
+        }
+      ]
+    },
+    {
+      "id": "muse-post-2118796621681193297",
+      "title": "谷歌收购了 Crusoe 位于怀俄明州的数据中心用地，系宣布向该",
+      "summary": "谷歌收购了 Crusoe 位于怀俄明州的数据中心用地，系宣布向该",
+      "posts": [
+        {
+          "id": "2118796621681193297",
+          "author": "@wallstengine",
+          "published_at": "2026-11-06T20:04:14.603Z",
+          "quote": null,
+          "viewpoint": "谷歌收购了 Crusoe 位于怀俄明州的数据中心用地，系宣布向该",
+          "translation_zh": "谷歌收购了 Crusoe 位于怀俄明州的数据中心用地，系宣布向该项目投资 170 亿美元的次日。Tembo 项目（原名 Jade），位于夏延附近：土地约 716 英亩；电力 2.7 吉瓦；设施：4 座数据中心大厅及配套建筑；时间表：首批大厅 2028 年下半年投用，2031 年全面建成。",
+          "translation_scope": "full",
+          "translation_source_url": "https://x.com/wallstengine/status/2118796621681193297",
+          "views": null,
+          "reposts": null,
+          "replies": null,
+          "observed_at": "2026-11-07T01:00:00Z",
+          "source_url": "https://x.com/wallstengine/status/2118796621681193297",
+          "metrics_source": "https://x.com/wallstengine/status/2118796621681193297",
+          "verification": "交接方称逐条打开原帖并核对中译；GPT公开X接口返回403，原文未能独立直连。涉及公司/媒体数据须以另列原始来源为准；热度无可核读数。 相关事实另见 https://www.reuters.com/business/google-acquires-wyoming-data-center-site-ai-infrastructure-firm-crusoe-2026-11-06/；报道并非公司最终确认。",
+          "avatar_url": "https://pbs.twimg.com/profile_images/1691846947857178624/oZp5wB4r_400x400.jpg",
+          "avatar_source": "https://x.com/wallstengine",
+          "impact": [
+            {
+              "targets": "GOOGL",
+              "direction": "潜在利好",
+              "reason": "GOOGL，中性偏多（数据中心用地落定）；AI 基建交付推进"
+            }
+          ],
+          "stance": "bull",
+          "stance_subject": "GOOGL"
+        }
+      ]
+    },
+    {
+      "id": "muse-post-2118801106394370137",
+      "title": "交易者上月向杠杆 ETF 净流入 130 亿美元，创历史最大单月流入",
+      "summary": "交易者上月向杠杆 ETF 净流入 130 亿美元，创历史最大单月流入",
+      "posts": [
+        {
+          "id": "2118801106394370137",
+          "author": "@Barchart",
+          "published_at": "2026-11-06T20:22:03.842Z",
+          "quote": null,
+          "viewpoint": "交易者上月向杠杆 ETF 净流入 130 亿美元，创历史最大单月流入",
+          "translation_zh": "交易者上月向杠杆 ETF 净流入 130 亿美元，创历史最大单月流入。（被引帖 @BlakeMillardCFA：据高盛数据集，杠杆 ETF 刚刚创下最大单月流入，吸纳 130 亿美元资产。配图来源：彭博、高盛全球 FICC 与股票，截至 2026 年 10 月 31 日。）",
+          "translation_scope": "full",
+          "translation_source_url": "https://x.com/Barchart/status/2118801106394370137",
+          "views": null,
+          "reposts": null,
+          "replies": null,
+          "observed_at": "2026-11-07T01:00:00Z",
+          "source_url": "https://x.com/Barchart/status/2118801106394370137",
+          "metrics_source": "https://x.com/Barchart/status/2118801106394370137",
+          "verification": "交接方称逐条打开原帖并核对中译；GPT公开X接口返回403，原文未能独立直连。涉及公司/媒体数据须以另列原始来源为准；热度无可核读数。",
+          "avatar_url": "https://pbs.twimg.com/profile_images/896104027179687936/vc5zkLpM_400x400.jpg",
+          "avatar_source": "https://x.com/Barchart",
+          "impact": [
+            {
+              "targets": "SPX / QQQ",
+              "direction": "潜在利好",
+              "reason": "SPX / QQQ，中性（杠杆资金流入创纪录，交易者风险偏好仍高）"
+            }
+          ],
+          "stance": "bull",
+          "stance_subject": "SPX / QQQ"
+        }
+      ]
+    },
+    {
+      "id": "muse-post-2118801292156145692",
+      "title": "IBM 在芝加哥海德公园实验室推出了其在伊利诺伊州的第一台量子计算机",
+      "summary": "IBM 在芝加哥海德公园实验室推出了其在伊利诺伊州的第一台量子计算机",
+      "posts": [
+        {
+          "id": "2118801292156145692",
+          "author": "@wallstengine",
+          "published_at": "2026-11-06T20:22:48.131Z",
+          "quote": null,
+          "viewpoint": "IBM 在芝加哥海德公园实验室推出了其在伊利诺伊州的第一台量子计算机",
+          "translation_zh": "IBM 在芝加哥海德公园实验室推出了其在伊利诺伊州的第一台量子计算机。IBM Quantum System Two 搭载其迄今最强大的量子处理器 Nighthawk。该系统最终将迁至伊利诺伊量子与微电子产业园，成为国家量子算法中心的核心。IBM 还计划在其 FutureNow 芝加哥创新中心创造 750 个就业岗位。",
+          "translation_scope": "full",
+          "translation_source_url": "https://x.com/wallstengine/status/2118801292156145692",
+          "views": null,
+          "reposts": null,
+          "replies": null,
+          "observed_at": "2026-11-07T01:00:00Z",
+          "source_url": "https://x.com/wallstengine/status/2118801292156145692",
+          "metrics_source": "https://x.com/wallstengine/status/2118801292156145692",
+          "verification": "交接方称逐条打开原帖并核对中译；GPT公开X接口返回403，原文未能独立直连。涉及公司/媒体数据须以另列原始来源为准；热度无可核读数。",
+          "avatar_url": "https://pbs.twimg.com/profile_images/1691846947857178624/oZp5wB4r_400x400.jpg",
+          "avatar_source": "https://x.com/wallstengine",
+          "impact": [
+            {
+              "targets": "IBM",
+              "direction": "潜在利好",
+              "reason": "IBM，中性偏多（量子计算落地）"
+            }
+          ],
+          "stance": "bull",
+          "stance_subject": "IBM"
+        }
+      ]
+    },
+    {
+      "id": "muse-post-2118802963808551003",
+      "title": "我的止损价是 130 美元",
+      "summary": "我的止损价是 130 美元",
+      "posts": [
+        {
+          "id": "2118802963808551003",
+          "author": "@labubu_trader",
+          "published_at": "2026-11-06T20:29:26.684Z",
+          "quote": null,
+          "viewpoint": "我的止损价是 130 美元",
+          "translation_zh": "我的止损价是 130 美元。（自回复，接 03:53 买回 $SPCX 帖；原帖没有给出买入价、仓位规模等其他细节，特此注明：原帖没有。）",
+          "translation_scope": "full",
+          "translation_source_url": "https://x.com/labubu_trader/status/2118802963808551003",
+          "views": null,
+          "reposts": null,
+          "replies": null,
+          "observed_at": "2026-11-07T01:00:00Z",
+          "source_url": "https://x.com/labubu_trader/status/2118802963808551003",
+          "metrics_source": "https://x.com/labubu_trader/status/2118802963808551003",
+          "verification": "交接方称逐条打开原帖并核对中译；GPT公开X接口返回403，原文未能独立直连。涉及公司/媒体数据须以另列原始来源为准；热度无可核读数。",
+          "avatar_url": "https://pbs.twimg.com/profile_images/1930061717826113536/beBBZQZJ_400x400.jpg",
+          "avatar_source": "https://x.com/labubu_trader",
+          "impact": [
+            {
+              "targets": "SPCX",
+              "direction": "潜在利好",
+              "reason": "$SPCX，做多（买回），止损 130 美元"
+            }
+          ],
+          "stance": "bull",
+          "stance_subject": "SPCX"
+        }
+      ]
+    },
+    {
+      "id": "muse-post-2118806959914897869",
+      "title": "美国 9 月消费者信贷激增 278 亿美元，超出所有彭博预期；信",
+      "summary": "美国 9 月消费者信贷激增 278 亿美元，超出所有彭博预期；信",
+      "posts": [
+        {
+          "id": "2118806959914897869",
+          "author": "@wallstengine",
+          "published_at": "2026-11-06T20:45:19.430Z",
+          "quote": null,
+          "viewpoint": "美国 9 月消费者信贷激增 278 亿美元，超出所有彭博预期；信",
+          "translation_zh": "美国 9 月消费者信贷激增 278 亿美元，超出所有彭博预期；信用卡/循环信贷 +163 亿美元，为 2023 年 11 月以来最大；非循环信贷（汽车/学生贷款）+115 亿美元。（注：原文另称\"近四年最大单月增幅\"，但 ycharts 历史数据显示 2024 年 12 月曾有 369.5 亿美元增幅，该表述存疑，本封不采用，见第六节。）",
+          "translation_scope": "full",
+          "translation_source_url": "https://x.com/wallstengine/status/2118806959914897869",
+          "views": null,
+          "reposts": null,
+          "replies": null,
+          "observed_at": "2026-11-07T01:00:00Z",
+          "source_url": "https://x.com/wallstengine/status/2118806959914897869",
+          "metrics_source": "https://x.com/wallstengine/status/2118806959914897869",
+          "verification": "交接方称逐条打开原帖并核对中译；GPT公开X接口返回403，原文未能独立直连。涉及公司/媒体数据须以另列原始来源为准；热度无可核读数。",
+          "avatar_url": "https://pbs.twimg.com/profile_images/1691846947857178624/oZp5wB4r_400x400.jpg",
+          "avatar_source": "https://x.com/wallstengine",
+          "impact": [
+            {
+              "targets": "银行股",
+              "direction": "潜在利好",
+              "reason": "SPX，中性（消费信贷扩张、消费韧性）；银行股，中性偏多"
+            }
+          ],
+          "stance": "bull",
+          "stance_subject": "银行股"
+        }
+      ]
+    },
+    {
+      "id": "muse-post-2118816482130018752",
+      "title": "据《金融时报》，Anthropic 计划 11 月 IPO，募资",
+      "summary": "据《金融时报》，Anthropic 计划 11 月 IPO，募资",
+      "posts": [
+        {
+          "id": "2118816482130018752",
+          "author": "@DeItaone",
+          "published_at": "2026-11-06T21:23:09.703Z",
+          "quote": null,
+          "viewpoint": "据《金融时报》，Anthropic 计划 11 月 IPO，募资",
+          "translation_zh": "据《金融时报》，Anthropic 计划 11 月 IPO，募资 800–1000 亿美元，估值 1.25–1.75 万亿美元。",
+          "translation_scope": "full",
+          "translation_source_url": "https://x.com/DeItaone/status/2118816482130018752",
+          "views": null,
+          "reposts": null,
+          "replies": null,
+          "observed_at": "2026-11-07T01:00:00Z",
+          "source_url": "https://x.com/DeItaone/status/2118816482130018752",
+          "metrics_source": "https://x.com/DeItaone/status/2118816482130018752",
+          "verification": "交接方称逐条打开原帖并核对中译；GPT公开X接口返回403，原文未能独立直连。涉及公司/媒体数据须以另列原始来源为准；热度无可核读数。",
+          "avatar_url": "https://pbs.twimg.com/profile_images/2088360110095478784/El9anzXH_400x400.jpg",
+          "avatar_source": "https://x.com/DeItaone",
+          "impact": [
+            {
+              "targets": "Anthropic",
+              "direction": "潜在利好",
+              "reason": "Anthropic 未上市；AI 板块，中性偏多（IPO 规模与估值区间明确）"
+            }
+          ],
+          "stance": "bull",
+          "stance_subject": "Anthropic"
+        }
+      ]
+    },
+    {
+      "id": "muse-post-2118818456019595400",
+      "title": "BTIG 警告股市比表面更脆弱：投资者不断在板块间轮动，但市场整",
+      "summary": "BTIG 警告股市比表面更脆弱：投资者不断在板块间轮动，但市场整",
+      "posts": [
+        {
+          "id": "2118818456019595400",
+          "author": "@unusual_whales",
+          "published_at": "2026-11-06T21:31:00.315Z",
+          "quote": null,
+          "viewpoint": "BTIG 警告股市比表面更脆弱：投资者不断在板块间轮动，但市场整",
+          "translation_zh": "BTIG 警告股市比表面更脆弱：投资者不断在板块间轮动，但市场整体原地踏步，BTIG 称这可能为更广泛的抛售埋下伏笔。22% 的标普 500 成分股处于超买，而指数本身 RSI 仅 50.4，处于中性。这一差距此前仅在 1999 年 4 月 19 日更大过一次。",
+          "translation_scope": "full",
+          "translation_source_url": "https://x.com/unusual_whales/status/2118818456019595400",
+          "views": null,
+          "reposts": null,
+          "replies": null,
+          "observed_at": "2026-11-07T01:00:00Z",
+          "source_url": "https://x.com/unusual_whales/status/2118818456019595400",
+          "metrics_source": "https://x.com/unusual_whales/status/2118818456019595400",
+          "verification": "交接方称逐条打开原帖并核对中译；GPT公开X接口返回403，原文未能独立直连。涉及公司/媒体数据须以另列原始来源为准；热度无可核读数。",
+          "avatar_url": "https://pbs.twimg.com/profile_images/1714107328134516736/dLZGJPm7_400x400.png",
+          "avatar_source": "https://x.com/unusual_whales",
+          "impact": [
+            {
+              "targets": "SPX",
+              "direction": "潜在利空",
+              "reason": "SPX，利空（市场结构脆弱警告）"
+            }
+          ],
+          "stance": "bear",
+          "stance_subject": "SPX"
+        }
+      ]
+    },
+    {
+      "id": "muse-post-2118818571111612486",
+      "title": "突发：全球在途原油达 12.8 亿桶，创历史新高",
+      "summary": "突发：全球在途原油达 12.8 亿桶，创历史新高",
+      "posts": [
+        {
+          "id": "2118818571111612486",
+          "author": "@KobeissiLetter",
+          "published_at": "2026-11-06T21:31:27.755Z",
+          "quote": null,
+          "viewpoint": "突发：全球在途原油达 12.8 亿桶，创历史新高",
+          "translation_zh": "突发：全球在途原油达 12.8 亿桶，创历史新高。这一数字在过去数周激增 1.8 亿桶。此前中东原油经霍尔木兹海峡及替代航线恢复流动，但更多原油在海上停留更久。船对船转运使原油在油轮上停留更久，航线延长也增加了运输时间。同时，全球原油进口商正分散采购、减少对中东的依赖，拉长了航程，使更多原油滞留在油轮上。因此，尽管出口流量恢复，更多原油在途而非及时送达炼厂，收紧了短期供应。原油在流动，但及时交付正成为瓶颈。（配图来源：Vortexa / 彭博观点。）",
+          "translation_scope": "full",
+          "translation_source_url": "https://x.com/KobeissiLetter/status/2118818571111612486",
+          "views": null,
+          "reposts": null,
+          "replies": null,
+          "observed_at": "2026-11-07T01:00:00Z",
+          "source_url": "https://x.com/KobeissiLetter/status/2118818571111612486",
+          "metrics_source": "https://x.com/KobeissiLetter/status/2118818571111612486",
+          "verification": "交接方称逐条打开原帖并核对中译；GPT公开X接口返回403，原文未能独立直连。涉及公司/媒体数据须以另列原始来源为准；热度无可核读数。",
+          "avatar_url": "https://pbs.twimg.com/profile_images/1975243710846640128/fwYCe67Y_400x400.jpg",
+          "avatar_source": "https://x.com/KobeissiLetter",
+          "impact": [
+            {
+              "targets": "Brent",
+              "direction": "潜在利好",
+              "reason": "WTI / Brent，中性偏多（短期供应收紧）；油轮运价，中性偏多"
+            }
+          ],
+          "stance": "bull",
+          "stance_subject": "Brent"
+        }
+      ]
+    },
+    {
+      "id": "muse-post-2118831182192464098",
+      "title": "据报道，Anthropic 计划下周启动 IPO 路演，仍以 1",
+      "summary": "据报道，Anthropic 计划下周启动 IPO 路演，仍以 1",
+      "posts": [
+        {
+          "id": "2118831182192464098",
+          "author": "@wallstengine",
+          "published_at": "2026-11-06T22:21:34.471Z",
+          "quote": null,
+          "viewpoint": "据报道，Anthropic 计划下周启动 IPO 路演，仍以 1",
+          "translation_zh": "据报道，Anthropic 计划下周启动 IPO 路演，仍以 11 月 16 日当周、感恩节前上市为目标。消息来源：The Information。（卡片：据知情人士称，Anthropic 下周计划向潜在投资者正式推介其即将进行的首次公开募股。）",
+          "translation_scope": "full",
+          "translation_source_url": "https://x.com/wallstengine/status/2118831182192464098",
+          "views": null,
+          "reposts": null,
+          "replies": null,
+          "observed_at": "2026-11-07T01:00:00Z",
+          "source_url": "https://x.com/wallstengine/status/2118831182192464098",
+          "metrics_source": "https://x.com/wallstengine/status/2118831182192464098",
+          "verification": "交接方称逐条打开原帖并核对中译；GPT公开X接口返回403，原文未能独立直连。涉及公司/媒体数据须以另列原始来源为准；热度无可核读数。 相关事实另见 https://www.reuters.com/business/exclusive-ai-backlash-could-threaten-anthropic-ipo-timing-potential-investors-say-2026-11-05/；报道并非公司最终确认。",
+          "avatar_url": "https://pbs.twimg.com/profile_images/1691846947857178624/oZp5wB4r_400x400.jpg",
+          "avatar_source": "https://x.com/wallstengine",
+          "impact": [
+            {
+              "targets": "Anthropic",
+              "direction": "潜在利好",
+              "reason": "Anthropic 未上市；AI 板块，中性偏多（IPO 时间表明确）"
+            }
+          ],
+          "stance": "bull",
+          "stance_subject": "Anthropic"
+        }
+      ]
+    },
+    {
+      "id": "muse-post-2118834596594995305",
+      "title": "日本央行行长植田谈量化宽松工具：未来某天\"可能不得不\"再次动用",
+      "summary": "日本央行行长植田谈量化宽松工具：未来某天\"可能不得不\"再次动用",
+      "posts": [
+        {
+          "id": "2118834596594995305",
+          "author": "@zerohedge",
+          "published_at": "2026-11-06T22:35:08.528Z",
+          "quote": null,
+          "viewpoint": "日本央行行长植田谈量化宽松工具：未来某天\"可能不得不\"再次动用",
+          "translation_zh": "日本央行行长植田谈量化宽松工具：未来某天\"可能不得不\"再次动用。（附：\"Oh you will\"——你会的。）",
+          "translation_scope": "full",
+          "translation_source_url": "https://x.com/zerohedge/status/2118834596594995305",
+          "views": null,
+          "reposts": null,
+          "replies": null,
+          "observed_at": "2026-11-07T01:00:00Z",
+          "source_url": "https://x.com/zerohedge/status/2118834596594995305",
+          "metrics_source": "https://x.com/zerohedge/status/2118834596594995305",
+          "verification": "交接方称逐条打开原帖并核对中译；GPT公开X接口返回403，原文未能独立直连。涉及公司/媒体数据须以另列原始来源为准；热度无可核读数。",
+          "avatar_url": "https://pbs.twimg.com/profile_images/72647502/tyler_400x400.jpg",
+          "avatar_source": "https://x.com/zerohedge",
+          "impact": [
+            {
+              "targets": "日元",
+              "direction": "潜在利空",
+              "reason": "日元，利空（宽松信号再现）；日股，中性偏多"
+            }
+          ],
+          "stance": "bear",
+          "stance_subject": "日元"
+        }
+      ]
+    },
+    {
+      "id": "muse-post-2118835933147488686",
+      "title": "逆势的数据中心交易：高盛上调数据中心建设预测，称相关支出将持续至 2030 …",
+      "summary": "逆势的数据中心交易：高盛上调数据中心建设预测，称相关支出将持续至 2030 …",
+      "posts": [
+        {
+          "id": "2118835933147488686",
+          "author": "@zerohedge",
+          "published_at": "2026-11-06T22:40:27.187Z",
+          "quote": null,
+          "viewpoint": "逆势的数据中心交易：高盛上调数据中心建设预测，称相关支出将持续至 2030 …",
+          "translation_zh": "逆势的数据中心交易：高盛上调数据中心建设预测，称相关支出将持续至 2030 年。（配图：美国数据中心建设储备管线 vs 2025 年支出，数值 500 亿美元、3010 亿美元（约 6 倍）、9010 亿美元、1.925 万亿美元。）",
+          "translation_scope": "full",
+          "translation_source_url": "https://x.com/zerohedge/status/2118835933147488686",
+          "views": null,
+          "reposts": null,
+          "replies": null,
+          "observed_at": "2026-11-07T01:00:00Z",
+          "source_url": "https://x.com/zerohedge/status/2118835933147488686",
+          "metrics_source": "https://x.com/zerohedge/status/2118835933147488686",
+          "verification": "交接方称逐条打开原帖并核对中译；GPT公开X接口返回403，原文未能独立直连。涉及公司/媒体数据须以另列原始来源为准；热度无可核读数。",
+          "avatar_url": "https://pbs.twimg.com/profile_images/72647502/tyler_400x400.jpg",
+          "avatar_source": "https://x.com/zerohedge",
+          "impact": [
+            {
+              "targets": "AI数据中心",
+              "direction": "潜在利好",
+              "reason": "AI 数据中心板块，利多（高盛逆势看多基建投入至 2030 年）"
+            }
+          ],
+          "stance": "bull",
+          "stance_subject": "AI数据中心"
+        }
+      ]
+    },
+    {
+      "id": "muse-post-2118840967688049103",
+      "title": "台积电或在全球供应紧张之际切入存储芯片生产",
+      "summary": "台积电或在全球供应紧张之际切入存储芯片生产",
+      "posts": [
+        {
+          "id": "2118840967688049103",
+          "author": "@zerohedge",
+          "published_at": "2026-11-06T23:00:27.515Z",
+          "quote": null,
+          "viewpoint": "台积电或在全球供应紧张之际切入存储芯片生产",
+          "translation_zh": "台积电或在全球供应紧张之际切入存储芯片生产。",
+          "translation_scope": "full",
+          "translation_source_url": "https://x.com/zerohedge/status/2118840967688049103",
+          "views": null,
+          "reposts": null,
+          "replies": null,
+          "observed_at": "2026-11-07T01:00:00Z",
+          "source_url": "https://x.com/zerohedge/status/2118840967688049103",
+          "metrics_source": "https://x.com/zerohedge/status/2118840967688049103",
+          "verification": "交接方称逐条打开原帖并核对中译；GPT公开X接口返回403，原文未能独立直连。涉及公司/媒体数据须以另列原始来源为准；热度无可核读数。",
+          "avatar_url": "https://pbs.twimg.com/profile_images/72647502/tyler_400x400.jpg",
+          "avatar_source": "https://x.com/zerohedge",
+          "impact": [
+            {
+              "targets": "TSM",
+              "direction": "潜在利好",
+              "reason": "TSM，中性偏多（切入存储）；MU / SK 海力士 / 三星，中性偏空（潜在新供给）"
+            }
+          ],
+          "stance": "bull",
+          "stance_subject": "TSM"
+        }
+      ]
+    },
+    {
+      "id": "muse-post-2118854890177048795",
+      "title": "哇。据 FundaAI 称，SpaceX 已为 2027 年订购",
+      "summary": "哇。据 FundaAI 称，SpaceX 已为 2027 年订购",
+      "posts": [
+        {
+          "id": "2118854890177048795",
+          "author": "@jukan05",
+          "published_at": "2026-11-06T23:55:46.895Z",
+          "quote": null,
+          "viewpoint": "哇。据 FundaAI 称，SpaceX 已为 2027 年订购",
+          "translation_zh": "哇。据 FundaAI 称，SpaceX 已为 2027 年订购 6000 个机架，专用于太空数据中心，他们计划向太空发射 1 吉瓦算力！（配图长文：供应链订单已确认：2027 年 6000 个机架，相当于 1.05 吉瓦。SpaceX 已向一家领先服务器 ODM 订购 6000 个太空专用机架，该 ODM 是该项目唯一的联合设计制造商（JDM），将于 2027 年 5 月完成新产品导入（NPI）以赶上测试卫星，12 月完成生产。按地面机架价格，6000 个机架相当于 432,000 块 GPU、约 420–450 亿美元硬件价值；按每颗卫星一个机架计算，相当于 1.05 吉瓦。该项目终身订单量约 30,000 个机架，对应首期约 30,000 颗卫星计划，即约 216 万块 GPU（每机架 72 块），相当于 5.25 吉瓦（峰值 7.5 吉瓦）；首批 6000 个机架为其五分之一。）",
+          "translation_scope": "full",
+          "translation_source_url": "https://x.com/jukan05/status/2118854890177048795",
+          "views": null,
+          "reposts": null,
+          "replies": null,
+          "observed_at": "2026-11-07T01:00:00Z",
+          "source_url": "https://x.com/jukan05/status/2118854890177048795",
+          "metrics_source": "https://x.com/jukan05/status/2118854890177048795",
+          "verification": "交接方称逐条打开原帖并核对中译；GPT公开X接口返回403，原文未能独立直连。涉及公司/媒体数据须以另列原始来源为准；热度无可核读数。 单源/戏谑或未核实细节，不视为公司公告。",
+          "avatar_url": "https://pbs.twimg.com/profile_images/2113208994739433472/RG71j-sh_400x400.jpg",
+          "avatar_source": "https://x.com/jukan05",
+          "impact": [
+            {
+              "targets": "SPCX",
+              "direction": "潜在利好",
+              "reason": "$SPCX，利多（太空数据中心订单落地）；NVDA，中性偏多（432,000 块 GPU 需求）；注：单源转述（FundaAI），未经主流核实"
+            }
+          ],
+          "stance": "bull",
+          "stance_subject": "SPCX"
         }
       ]
     }
@@ -7838,11 +9081,11 @@
       "source_url": "https://www.eia.gov/TodayinEnergy/prices.php"
     },
     "FedHike": {
-      "value": 78.25,
+      "value": 77.05,
       "meeting": "2026-12-09",
-      "asof": "2026-11-04",
+      "asof": "2026-11-07",
       "source_url": "https://polymarket.com/event/fed-decision-in-december-20260729232808632",
-      "method": "25bp 与 50bp 以上加息结果概率求和"
+      "method": "25bp与50bp以上加息结果概率求和；Polymarket Gamma 09:10北京时间快照"
     },
     "VXFutures": {
       "vx1": 17.7419,
@@ -7865,9 +9108,9 @@
     {
       "id": "ai-capital-financing",
       "title": "AI 扩张转向债券融资",
-      "status": "tracking",
-      "asof": "2026-11-06T06:18:00Z",
-      "summary": "Meta（META）、Alphabet（GOOGL） 相继发债为 AI 资本开支融资，大型银行工商业贷款亦随 AI 基建举债急增（10 月同比 +11.4%）；高盛 Delta 1 负责人同时警告资本成本与债市上限正约束建设速度——债务融资渠道全面扩张，但融资能力本身已成瓶颈，单周融资只证明资金来源，不能单独证明 AI 投资回报。\n11/06 WSJ 报道 Anthropic 潜在 IPO 募资或低于原先最高 1000 亿美元目标，甚至推迟；这是投资者定价与融资条件变化的可能情景，并非正式改期。",
+      "status": "final",
+      "asof": "2026-11-07T01:00:00Z",
+      "summary": "Meta（META）、Alphabet（GOOGL） 相继发债为 AI 资本开支融资，大型银行工商业贷款亦随 AI 基建举债急增（10 月同比 +11.4%）；高盛 Delta 1 负责人同时警告资本成本与债市上限正约束建设速度——债务融资渠道全面扩张，但融资能力本身已成瓶颈，单周融资只证明资金来源，不能单独证明 AI 投资回报。\n11/06 WSJ 报道 Anthropic 潜在 IPO 募资或低于原先最高 1000 亿美元目标，甚至推迟；这是投资者定价与融资条件变化的可能情景，并非正式改期。\n11/06新增OpenAI谈新融资与Anthropic IPO定价/路演报道属于股权融资和上市估值，不纳入本卡债券融资证据。周五强就业后10Y升至4.86%，利率与信用成本是下周融资需求能否转成交付的约束。",
       "evidence_post_ids": [
         "2117285773045092638",
         "2117377482978701761",
@@ -7884,14 +9127,10 @@
     {
       "id": "ai-power-delivery",
       "title": "AI 电力与并网成为交付约束",
-      "status": "tracking",
-      "asof": "2026-11-06T15:19:28.035Z",
-      "summary": "地方选举后的数据中心许可阻力与电力交付约束同步升温。OpenAI 11/05 承诺未来自有自营园区承担全额电力与接入基础设施成本、公开建设方案并征询社区；CoreWeave（CRWV）官方 10/27 披露在运电力超 1.5GW、已签约约 4.2GW，签约容量不能视为已通电。此前 IREN 向微软（MSFT）交付延误和得州许可讨论提示，项目落地仍取决于社区成本、并网与站点可靠性。 11/05 新证据：OpenAI 内部讨论下调明年产能预期（媒体消息），Meta 高管称新建站点更难；NVDA 接洽既有电信建筑改造是报道中的备选路径。Amazon 官方确认紧邻 Comanche Peak 的园区与直接购电安排。新建审批风险与既有资产扩建机会并存，仍需看项目许可、供电与合同兑现。\n11/06 新进展：得州当选州长公开要求在居民保护法律出台前暂停新建数据中心；这将审批时间风险从选举猜测推进为明确政策主张，但并非已生效法律或项目取消。\n11/06 VST 官方披露持续经营 EBITDA 同比增逾 50%，Cogentrix 约 5.5GW 燃气资产已完成收购，Pulaski 和 Deer Creek 已投运，Odessa 签 20 年购电协议；供电资产扩张是交付线索，尚不能等同 AI 数据中心需求已兑现。",
+      "status": "final",
+      "asof": "2026-11-07T01:00:00Z",
+      "summary": "地方选举后的数据中心许可阻力与电力交付约束同步升温。OpenAI 11/05 承诺未来自有自营园区承担全额电力与接入基础设施成本、公开建设方案并征询社区；CoreWeave（CRWV）官方 10/27 披露在运电力超 1.5GW、已签约约 4.2GW，签约容量不能视为已通电。此前 IREN 向微软（MSFT）交付延误和得州许可讨论提示，项目落地仍取决于社区成本、并网与站点可靠性。 11/05 新证据：OpenAI 内部讨论下调明年产能预期（媒体消息），Meta 高管称新建站点更难；NVDA 接洽既有电信建筑改造是报道中的备选路径。Amazon 官方确认紧邻 Comanche Peak 的园区与直接购电安排。新建审批风险与既有资产扩建机会并存，仍需看项目许可、供电与合同兑现。\n11/06 新进展：得州当选州长公开要求在居民保护法律出台前暂停新建数据中心；这将审批时间风险从选举猜测推进为明确政策主张，但并非已生效法律或项目取消。\n11/06 VST 官方披露持续经营 EBITDA 同比增逾 50%，Cogentrix 约 5.5GW 燃气资产已完成收购，Pulaski 和 Deer Creek 已投运，Odessa 签 20 年购电协议；供电资产扩张是交付线索，尚不能等同 AI 数据中心需求已兑现。\n11/06后新证据分成两条：Reuters确认Google收购Crusoe怀俄明数据中心用地，显示部分既有项目推进；地方新建阻力与并网约束仍在。所谓41%待建容量处于新州长暂停承诺州，以及SpaceX 2027年6000个太空机架，均仅见原帖单源转述，不能当已获批或已签约交付。SpaceX与NVDA太空算力设想是远期选项，不改变下周的许可/电力/客户合同验证。",
       "evidence_post_ids": [
-        "2118022712270664006",
-        "2118100750392041686",
-        "2118133582979813819",
-        "2118245097871728884",
         "2118285658947203530",
         "2118304692933652684",
         "2118427882183708790",
@@ -7899,23 +9138,27 @@
         "2118432042774077911",
         "2118477207236657517",
         "2118507047016620230",
-        "2118675145489350801"
+        "2118675145489350801",
+        "2118780314445373842",
+        "2118796621681193297",
+        "2118789898799063171",
+        "2118854890177048795"
       ],
-      "caveat": "OpenAI 承诺仅覆盖其自有自营园区，不代表所有合作站点；CoreWeave 1.5/4.2GW 是 10/27 已公布容量，不是 11/05 新增。有关选举不影响在手订单的 X 说法尚待公司正式确认。",
+      "caveat": "OpenAI 承诺仅覆盖其自有自营园区，不代表所有合作站点；CoreWeave 1.5/4.2GW 是 10/27 已公布容量，不是 11/05 新增。有关选举不影响在手订单的 X 说法尚待公司正式确认。 41%与6000机架未获独立原始文件核验；不能把Google用地收购等同于2.7GW已通电。",
       "benefit_tags": [
-        "已签约容量：CRWV",
-        "交付验证：IREN",
-        "客户影响：MSFT",
-        "既有站点：NVDA/APO",
-        "核电直供：AMZN/VST"
+        "签约：CRWV / IREN",
+        "客户：MSFT / NVDA / APO",
+        "核电：AMZN / VST",
+        "新站：GOOGL / Crusoe",
+        "远期单源：SPCX / NVDA"
       ]
     },
     {
       "id": "corporate-cost-cuts",
       "title": "企业裁员与成本纪律扩散",
-      "status": "tracking",
-      "asof": "2026-11-05T00:31:34Z",
-      "summary": "迪士尼（DIS）拟裁数千人并要求经理年省 20% 成本，Squarespace 裁员 19%，苹果（AAPL）亦削减内部 AI 预算、工程师每日 AI 使用上限从 300 美元降至 200 美元——成本纪律从科技业扩散到媒体与软件业，并延伸至 AI 支出管控。",
+      "status": "final",
+      "asof": "2026-11-07T01:00:00Z",
+      "summary": "迪士尼（DIS）拟裁数千人并要求经理年省 20% 成本，Squarespace 裁员 19%，苹果（AAPL）亦削减内部 AI 预算、工程师每日 AI 使用上限从 300 美元降至 200 美元——成本纪律从科技业扩散到媒体与软件业，并延伸至 AI 支出管控。\n周五没有取得DIS、AAPL或Squarespace同口径正式新披露；原报道观察日保持，成本削减对利润与需求的后续效果仍待财报验证。",
       "evidence_post_ids": [
         "2117413290657890674",
         "2117399103302676639",
@@ -7931,73 +9174,76 @@
     {
       "id": "memory-shortage-2027",
       "title": "存储短缺蔓延至 2027 年",
-      "status": "tracking",
-      "asof": "2026-11-05T17:44:00Z",
-      "summary": "苹果（AAPL）称内存定价\"前所未有\"且 12 月后仍上涨；TEAM 集团 CEO 称存储短缺恶化至 2027 年底、没有任何价格下行趋势；光模块 mSAP PCB 交期近 6 个月、板材供应不足；Meritz 称 2027–2028 年存储订单真实需求远超供给，今年满足率仅 80% 出头、2027 年或降至约 80%，奥特曼访韩要求 SK 海力士与三星供应超产能的 HBM 等特种存储——存储短缺从内存价格传导至 PCB 与 HBM 供给，成为 AI 硬件交付的新约束。 美光（MU）台湾建厂暂缓的转述与美光（MU）、闪迪（SNDK）盘中急跌加入本周证据；产能变动与价格反应分开验证。",
+      "status": "final",
+      "asof": "2026-11-07T01:00:00Z",
+      "summary": "苹果（AAPL）称内存定价\"前所未有\"且 12 月后仍上涨；TEAM 集团 CEO 称存储短缺恶化至 2027 年底、没有任何价格下行趋势；光模块 mSAP PCB 交期近 6 个月、板材供应不足；Meritz 称 2027–2028 年存储订单真实需求远超供给，今年满足率仅 80% 出头、2027 年或降至约 80%，奥特曼访韩要求 SK 海力士与三星供应超产能的 HBM 等特种存储——存储短缺从内存价格传导至 PCB 与 HBM 供给，成为 AI 硬件交付的新约束。 美光（MU）台湾建厂暂缓的转述与美光（MU）、闪迪（SNDK）盘中急跌加入本周证据；产能变动与价格反应分开验证。\n11/06 The Information经Reuters转述：TSMC应NVDA要求研究3D DRAM，尚无量产日期；两位X作者分别转述，属于同一报道的重复传播，不算独立公司确认。若入局会改变长期供给格局，但不直接解决当下HBM/DRAM紧缺；继续核对厂商投资、良率和客户合同。",
       "evidence_post_ids": [
         "2117631795210723540",
         "2117998060261237070",
         "2118006846447665606",
         "2118176254956544132",
         "2118280679557587312",
-        "2118342148961558561"
+        "2118342148961558561",
+        "2118709546638356543",
+        "2118840967688049103"
       ],
-      "caveat": "均为券商与厂商口径，实际交付与价格走势待后续财报与渠道数据核验。",
+      "caveat": "均为券商与厂商口径，实际交付与价格走势待后续财报与渠道数据核验。 TSMC与NVDA未回应Reuters，3D DRAM规划非量产承诺。",
       "benefit_tags": [
         "潜在受益：MU/SNDK",
         "潜在受益：SK 海力士",
-        "成本压力：AAPL"
+        "成本压力：AAPL",
+        "潜在新供给：TSM / NVDA"
       ]
     },
     {
       "id": "view-bull",
       "title": "看多观点",
-      "summary": "① 财报与应用：原帖把 AMD、ANET、SMCI、PLTR、AVT 的业绩/指引和 AAPL、PFE、SHOP 的已披露数据视作多头线索；MSFT/GitHub、QCOM、ASTS、APP、U、OPEN 的新产品、合作或商业模式是潜在收入线索，不能等同已兑现利润。NVDA 模型与芯片需求、Anthropic 融资和算力计划也属有条件的需求预期。\n② 算力、电力与云：CRWV 的在运电力和签约容量是两种进度，VRT 有作者逢低加仓；IREN 西班牙园区许可、Crusoe 开关设备交期、AMZN/GOOGL 等大型云厂商的供电和建设能力，被用来论证订单转化。BE/CRC 的 1GW 合作仍是非约束性备忘录，需看许可、并网、交付与收入。\n③ 存储、设备与零部件：MU、SK 海力士、SNDK 的 DRAM/HBM/NAND 供给和价格、AMAT/ASML/LRCX/TEL/KLAC 的远期设备订单，以及 ADI/TXN/NXPI 模拟芯片、光模块 PCB 交期，构成不同层级的受益假设；MU/SNDK 随后大跌是价格尚未确认的反例。\n④ 选举与跨资产：AAPL/MSFT 曾在选后反弹，SPCX/TSLA/PLTR/BE 的左侧买入次日止损；OSCR/UNH/THC/CNC/NEE、黄金和长债是不同政策与利率情景的押注。Brent/WTI 的多头来自霍尔木兹供应风险及高油价预测，须与同周谈判缓和的油价空头观点并看。\n⑤ 其他分支与验证：DIS 降本、PFE/AMGN 医药、韩电池股和中概科技均有单独线索，并非同一个 AI 多头交易。接下来逐条看公司公告与订单、毛利/自由现金流、实际产能交付、政策落地和完整收盘；重复转述不算独立投票。\n⑥ 11/05 夜间新增：半导体测试设备 Advantest/Teradyne 的供给受限说法、IREN AI 云增速、SONY 上调指引、NET/FROG/ABNB 盘后财报及 AMZN/VST 核电直供分别提供业绩与交付线索；NVDA/APO 利用现有建筑属报道阶段。黄金回调买入与小仓位科技股抄底是作者交易，不能替代底部确认。APP 当日逆势强涨是价格反例，需同公司公告核对。\n⑦ 11/06 亚洲时段新增：能源供应紧张帖支持油价/能源股情景，但库存精确数字尚待 EIA 核对；@labubu_trader 提出 Anthropic IPO 后 NQ 反弹的条件路径，1.2T/1.5T 是作者假设，不是定价事实。亚洲跌势与德州新建限制构成反例，须等非农及美股开盘验证。\n⑧ Anthropic 10 月底年化收入超过 800 亿美元是 WSJ 报道的需求线索；@labubu_trader 仅表示认同引用的追踪图，追踪值与正式财报口径仍需区分。收入增长不能消除 IPO 定价、现金消耗与算力承诺风险。\n⑨ 11/06 美股盘前与开盘：GOOGL 持有约 5.48 亿美元 QCOM 股份已获报道，Gemini 端侧收益仍是作者推断；ASTS / FLY 逾 13 亿美元发动机协议为公司公告，但火箭配置和交付仍待验证；VST 官方三季度持续经营 EBITDA 同比增逾 50% 并调整指引，仍需看新增电厂与购电协议转为实际现金流。",
+      "summary": "① 财报与应用：原帖把 AMD、ANET、SMCI、PLTR、AVT 的业绩/指引和 AAPL、PFE、SHOP 的已披露数据视作多头线索；MSFT/GitHub、QCOM、ASTS、APP、U、OPEN 的新产品、合作或商业模式是潜在收入线索，不能等同已兑现利润。NVDA 模型与芯片需求、Anthropic 融资和算力计划也属有条件的需求预期。\n② 算力、电力与云：CRWV 的在运电力和签约容量是两种进度，VRT 有作者逢低加仓；IREN 西班牙园区许可、Crusoe 开关设备交期、AMZN/GOOGL 等大型云厂商的供电和建设能力，被用来论证订单转化。BE/CRC 的 1GW 合作仍是非约束性备忘录，需看许可、并网、交付与收入。\n③ 存储、设备与零部件：MU、SK 海力士、SNDK 的 DRAM/HBM/NAND 供给和价格、AMAT/ASML/LRCX/TEL/KLAC 的远期设备订单，以及 ADI/TXN/NXPI 模拟芯片、光模块 PCB 交期，构成不同层级的受益假设；MU/SNDK 随后大跌是价格尚未确认的反例。\n④ 选举与跨资产：AAPL/MSFT 曾在选后反弹，SPCX/TSLA/PLTR/BE 的左侧买入次日止损；OSCR/UNH/THC/CNC/NEE、黄金和长债是不同政策与利率情景的押注。Brent/WTI 的多头来自霍尔木兹供应风险及高油价预测，须与同周谈判缓和的油价空头观点并看。\n⑤ 其他分支与验证：DIS 降本、PFE/AMGN 医药、韩电池股和中概科技均有单独线索，并非同一个 AI 多头交易。接下来逐条看公司公告与订单、毛利/自由现金流、实际产能交付、政策落地和完整收盘；重复转述不算独立投票。\n⑥ 11/05 夜间新增：半导体测试设备 Advantest/Teradyne 的供给受限说法、IREN AI 云增速、SONY 上调指引、NET/FROG/ABNB 盘后财报及 AMZN/VST 核电直供分别提供业绩与交付线索；NVDA/APO 利用现有建筑属报道阶段。黄金回调买入与小仓位科技股抄底是作者交易，不能替代底部确认。APP 当日逆势强涨是价格反例，需同公司公告核对。\n⑦ 11/06 亚洲时段新增：能源供应紧张帖支持油价/能源股情景，但库存精确数字尚待 EIA 核对；@labubu_trader 提出 Anthropic IPO 后 NQ 反弹的条件路径，1.2T/1.5T 是作者假设，不是定价事实。亚洲跌势与德州新建限制构成反例，须等非农及美股开盘验证。\n⑧ Anthropic 10 月底年化收入超过 800 亿美元是 WSJ 报道的需求线索；@labubu_trader 仅表示认同引用的追踪图，追踪值与正式财报口径仍需区分。收入增长不能消除 IPO 定价、现金消耗与算力承诺风险。\n⑨ 11/06 美股盘前与开盘：GOOGL 持有约 5.48 亿美元 QCOM 股份已获报道，Gemini 端侧收益仍是作者推断；ASTS / FLY 逾 13 亿美元发动机协议为公司公告，但火箭配置和交付仍待验证；VST 官方三季度持续经营 EBITDA 同比增逾 50% 并调整指引，仍需看新增电厂与购电协议转为实际现金流。\n⑩ 周五至周六：已证实的周五价格是SOX约+4.2%、AMD约+11%、NDX +1.34%；Hassett肯定数据中心增长空间，Google收购Crusoe用地，TSMC研究3D DRAM为媒体报道。Anthropic收入与IPO、OpenAI融资均有积极需求角度，但估值和现金消耗未解决。SpaceX太空机架是单源说法，不写成订单兑现；散户尾盘买入和22日净买入记录是仓位线索，不能代替价格确认。",
       "status": "reserved",
-      "asof": "2026-11-06T15:19:28.035Z",
+      "asof": "2026-11-07T01:00:00Z",
       "evidence_post_ids": [],
       "caveat": "这些是原帖所述标的与情景的归纳，包含未证实、条件性和后来失效的观点；标签并非统一买入名单，原帖热度和转载次数不构成独立证据。",
       "benefit_tags": [
-        "业绩：AMD / ANET / SMCI / PLTR / VST",
-        "设备存储：NVDA / MU / SNDK / ATE",
-        "云电力：CRWV / VRT / IREN / BE",
+        "业绩：AMD / ANET / PLTR / NET / FROG",
+        "算力电力：VST / CRWV / VRT / IREN",
+        "芯片存储：NVDA / MU / SNDK / TSM",
         "应用：MSFT / QCOM / APP / ASTS",
-        "跨资产：AAPL / TSLA / 黄金 / 油",
-        "新财报：NET / FROG / ABNB"
+        "政策跨资产：TSLA / 黄金 / 油",
+        "其他：SMCI / BE / ABNB / Anthropic"
       ]
     },
     {
       "id": "view-bear",
       "title": "看空观点",
-      "summary": "① 政策与交付：地方数据中心限制、得州/俄亥俄许可及水电成本争议，被原帖指向新云和建设链的站点风险；CIFR、IREN、CRWV、AAOI 和 SPCX 受关注。另有帖子转述 IREN 交付故障与 MSFT 资本开支推迟，需以公司披露核对，不能把传闻直接算作全行业订单取消。\n② 融资、估值与盈利兑现：AI 高收益债无人接盘、SPCX 信用违约保护成本上行，以及高盛交易员所谓资本开支见顶，构成信用与估值压缩叙事；Apollo 对生产率的质疑、OpenAI 可能下调扩张预期仍待验证。NVDA 跌破价位、INTC 封装良率说法和 MU/SNDK/WDC/STX 跌幅是不同层面的风险，价格反应不自动证实基本面。\n③ 公司分歧：AAPL 的高估值、MRVL/LITE 交易稀释、SHOP GMV/AI 购物收入质疑、ORCL 与腾讯租赁取消报道、SK 海力士中国设备审批、铠侠指引，以及 SNAP、CVS、宝马、RYAAY 的各自业绩压力都出现于空头原帖；公司事件不能合并成一条纳指看空理由。\n④ 市场路径与仓位：选举夜 NQ/SPX/QQQ 先跌，AAPL/MSFT 等巨头随后反弹，再到 AI 基建与芯片急跌、VIX 上冲和 SPCX/TSLA/PLTR/BE 抄底止损；SOXX 底部仍待确认。NQ 29000–29220 未收复时做空是作者的条件交易，收复即止损翻多，不能把过期点位当实时指令。\n⑤ 对冲与油价反方向：10Y/30Y 与鹰派政策影响长久期估值，USD/JPY 空头被提出作为 AI 抛售对冲，KOSPI 也有卖压；另一方面，美伊外交、阿联酋绕开海峡的管道方案和 Brent/WTI 跌破关口形成油价空头，与地缘供应风险的油价多头相反。后续要看许可/合同、信用利差、财报与自由现金流、谈判进展及完整收盘。\n⑥ 11/05 收盘与夜间：QQQ/NDX 大跌、VIX 跃升，AMD/NVDA/QCOM 及云权重一起走弱；Meta 新建站点担忧、OpenAI 明年产能内部讨论及数据中心贷款抛售构成政策、交付、信用三条不同风险，均需核对后续披露。Anthropic 估值争议、韩国存储盘前跌幅属于不同市场时段，不能并成美股收盘事实。APP 逆势走强与美债收益率下行是单一‘估值／利率崩盘’解释的反例。\n⑦ 11/06 亚洲补跌：软银、日经、台股及韩国存储相关帖子将美股 AI 去杠杆扩展到亚洲硬件链；具体盘中跌幅与交易台卖盘比率均须按当地收盘/原报告复核。得州当选州长明确提出暂停新建数据中心，属政策主张而非已执行禁令；NVDA 国会简报帖尚缺一手函件核验。TSLA 五年回报帖是历史区间比较，不能单独证明下一交易日方向。\n⑧ 去杠杆分支新增科技对冲基金年内收益回吐与看跌期权需求上升；IPO 募资可能缩减或推迟，使 Anthropic 融资估值问题更具体。其 ARR 增长是反例，不能把估值压力写成需求崩溃。",
+      "summary": "① 政策与交付：地方数据中心限制、得州/俄亥俄许可及水电成本争议，被原帖指向新云和建设链的站点风险；CIFR、IREN、CRWV、AAOI 和 SPCX 受关注。另有帖子转述 IREN 交付故障与 MSFT 资本开支推迟，需以公司披露核对，不能把传闻直接算作全行业订单取消。\n② 融资、估值与盈利兑现：AI 高收益债无人接盘、SPCX 信用违约保护成本上行，以及高盛交易员所谓资本开支见顶，构成信用与估值压缩叙事；Apollo 对生产率的质疑、OpenAI 可能下调扩张预期仍待验证。NVDA 跌破价位、INTC 封装良率说法和 MU/SNDK/WDC/STX 跌幅是不同层面的风险，价格反应不自动证实基本面。\n③ 公司分歧：AAPL 的高估值、MRVL/LITE 交易稀释、SHOP GMV/AI 购物收入质疑、ORCL 与腾讯租赁取消报道、SK 海力士中国设备审批、铠侠指引，以及 SNAP、CVS、宝马、RYAAY 的各自业绩压力都出现于空头原帖；公司事件不能合并成一条纳指看空理由。\n④ 市场路径与仓位：选举夜 NQ/SPX/QQQ 先跌，AAPL/MSFT 等巨头随后反弹，再到 AI 基建与芯片急跌、VIX 上冲和 SPCX/TSLA/PLTR/BE 抄底止损；SOXX 底部仍待确认。NQ 29000–29220 未收复时做空是作者的条件交易，收复即止损翻多，不能把过期点位当实时指令。\n⑤ 对冲与油价反方向：10Y/30Y 与鹰派政策影响长久期估值，USD/JPY 空头被提出作为 AI 抛售对冲，KOSPI 也有卖压；另一方面，美伊外交、阿联酋绕开海峡的管道方案和 Brent/WTI 跌破关口形成油价空头，与地缘供应风险的油价多头相反。后续要看许可/合同、信用利差、财报与自由现金流、谈判进展及完整收盘。\n⑥ 11/05 收盘与夜间：QQQ/NDX 大跌、VIX 跃升，AMD/NVDA/QCOM 及云权重一起走弱；Meta 新建站点担忧、OpenAI 明年产能内部讨论及数据中心贷款抛售构成政策、交付、信用三条不同风险，均需核对后续披露。Anthropic 估值争议、韩国存储盘前跌幅属于不同市场时段，不能并成美股收盘事实。APP 逆势走强与美债收益率下行是单一‘估值／利率崩盘’解释的反例。\n⑦ 11/06 亚洲补跌：软银、日经、台股及韩国存储相关帖子将美股 AI 去杠杆扩展到亚洲硬件链；具体盘中跌幅与交易台卖盘比率均须按当地收盘/原报告复核。得州当选州长明确提出暂停新建数据中心，属政策主张而非已执行禁令；NVDA 国会简报帖尚缺一手函件核验。TSLA 五年回报帖是历史区间比较，不能单独证明下一交易日方向。\n⑧ 去杠杆分支新增科技对冲基金年内收益回吐与看跌期权需求上升；IPO 募资可能缩减或推迟，使 Anthropic 融资估值问题更具体。其 ARR 增长是反例，不能把估值压力写成需求崩溃。\n⑨ 周五至周六：SOX极端回撤、MTUM动量平仓、科技基金损失及BTIG市场结构脆弱是不同风险线索；MSFT逐步停用ORCL旧GPU容量已有媒体交叉报道，但不等于MSFT取消全部AI支出。地方新建许可阻力与10Y升2bp限制估值修复；AMD约+11%、VIX回落是明确反例。",
       "status": "reserved",
-      "asof": "2026-11-06T06:18:00Z",
+      "asof": "2026-11-07T01:00:00Z",
       "evidence_post_ids": [],
       "caveat": "本卡列的是原帖所指的承压标的、对冲与反向油价情景，不是同一做空篮子；传闻、盘中报价和已止损交易保留各自核验边界。",
       "benefit_tags": [
-        "云许可：CIFR/IREN/CRWV/AAOI",
-        "芯片存储：NVDA/INTC/MU/SNDK",
-        "估值：AAPL/MRVL/SHOP/SNAP",
-        "政策：ORCL/TSLA/PLTR/BE",
-        "指数信用：QQQ/SOXX/SPX/VIX",
-        "跨资产：Brent/WTI/10Y/KOSPI"
+        "云许可：CIFR / IREN / CRWV / ORCL",
+        "芯片存储：NVDA / INTC / MU / SNDK",
+        "估值：AAPL / MRVL / SHOP / SNAP",
+        "政策：TSLA / PLTR / BE",
+        "指数信用动量：QQQ / SOXX / SPX / MTUM",
+        "跨资产：Brent / WTI / 10Y / KOSPI"
       ]
     },
     {
       "id": "view-left",
       "title": "左侧观点",
-      "summary": "① 选举回调先买：原帖希望 SPCX 随选举预期下跌出现折扣，另有人在开盘买入 SPCX、PLTR、TSLA，理由包括 TSLA 在民主党横扫后可能受益；另一个作者小仓位逢低买入 OSCR、UNH、THC、CNC、NEE 与黄金看涨期权，属于不同政策押注，仓位和风险自述应保留。\n② AI 与存储逆向观察：VRT 作者在 AI 回调中加仓，依据是有机订单增速高于收入，推测电力和散热需求仍在；中国/韩国存储与恒生科技的深跌、MU/DRAM 供给逻辑及阿里巴巴/腾讯反弹，被提出为逆向线索，但那篇存储帖也承认后续价格、资本开支和应用收入有疑问。另有作者认为短期超卖、年底寻找 AI 个股多头，长期仍看空半导体估值。\n③ 演化与失效：SPCX、TSLA、PLTR、BE 的抄底仓位随后被止损，说明“跌得多”本身不是底部；需核对政策、订单兑现、存储报价和完整收盘，先设仓位与止损条件。左侧卡只归纳原帖主动提前布局的时机，不把所有看多帖算作抄底。\n④ 新增作者在 11/05 抛售中买黄金回调，另一作者平掉大部分对冲并以小仓位 LEAP 买科技股，同时强调紧止损；这两类左侧交易均缺精确价格和验证条件，不代表跌势结束。",
+      "summary": "① 选举回调先买：原帖希望 SPCX 随选举预期下跌出现折扣，另有人在开盘买入 SPCX、PLTR、TSLA，理由包括 TSLA 在民主党横扫后可能受益；另一个作者小仓位逢低买入 OSCR、UNH、THC、CNC、NEE 与黄金看涨期权，属于不同政策押注，仓位和风险自述应保留。\n② AI 与存储逆向观察：VRT 作者在 AI 回调中加仓，依据是有机订单增速高于收入，推测电力和散热需求仍在；中国/韩国存储与恒生科技的深跌、MU/DRAM 供给逻辑及阿里巴巴/腾讯反弹，被提出为逆向线索，但那篇存储帖也承认后续价格、资本开支和应用收入有疑问。另有作者认为短期超卖、年底寻找 AI 个股多头，长期仍看空半导体估值。\n③ 演化与失效：SPCX、TSLA、PLTR、BE 的抄底仓位随后被止损，说明“跌得多”本身不是底部；需核对政策、订单兑现、存储报价和完整收盘，先设仓位与止损条件。左侧卡只归纳原帖主动提前布局的时机，不把所有看多帖算作抄底。\n④ 新增作者在 11/05 抛售中买黄金回调，另一作者平掉大部分对冲并以小仓位 LEAP 买科技股，同时强调紧止损；这两类左侧交易均缺精确价格和验证条件，不代表跌势结束。\n⑤ 新增散户周四尾盘抄底与@labubu_trader买回SPCX、披露130美元止损，均是具体左侧时机；前者全日仍净卖出，后者是个人仓位且买价未知。不能扩大为全市场共同底部。",
       "status": "reserved",
-      "asof": "2026-11-05T19:08:00Z",
+      "asof": "2026-11-07T01:00:00Z",
       "evidence_post_ids": [],
       "caveat": "左侧的触发条件与风险承担因作者而异，已止损交易保留在整周演化记录中；不是当前买入指令。",
       "benefit_tags": [
-        "选举抄底：SPCX/TSLA/PLTR/BE",
-        "医疗：OSCR/UNH/THC/CNC",
-        "设备存储：VRT/MU/DRAM",
-        "中概：阿里巴巴/腾讯",
-        "黄金与对冲",
-        "科技股小仓位 LEAP"
+        "选举抄底：SPCX / TSLA / PLTR / BE",
+        "医疗：OSCR / UNH / THC / CNC",
+        "设备存储：VRT / MU / DRAM",
+        "中概：阿里巴巴 / 腾讯",
+        "黄金、对冲与科技 LEAP",
+        "尾盘：QQQ / SPCX"
       ]
     },
     {
@@ -8018,12 +9264,10 @@
     {
       "id": "midterm-ai-rotation-2026",
       "title": "民主党横扫后的 AI 交易分化",
-      "summary": "选举夜科技期货先受压，随后苹果（AAPL）、微软（MSFT）等大科技短暂反弹；11 月 5 日资金转而担心地方数据中心审批与融资约束，QQQ/SOXX、MU/SNDK 和 CRWV/IREN 等新云再承压。现有客户订单与新建许可需分开验证，利率预期缓和也未抵消板块抛售。 11/05 完整收盘 NDX −6.36%、QQQ −6.49%；得州州长结果与 Meta 对新建难度的表态强化政策担忧。Amazon 在既有核电站旁建园区与 NVDA 考虑改造旧建筑是潜在应对路径，均不能证明项目已交付。",
-      "status": "tracking",
-      "asof": "2026-11-05T22:55:00Z",
+      "summary": "选举夜科技期货先受压，随后苹果（AAPL）、微软（MSFT）等大科技短暂反弹；11 月 5 日资金转而担心地方数据中心审批与融资约束，QQQ/SOXX、MU/SNDK 和 CRWV/IREN 等新云再承压。现有客户订单与新建许可需分开验证，利率预期缓和也未抵消板块抛售。 11/05 完整收盘 NDX −6.36%、QQQ −6.49%；得州州长结果与 Meta 对新建难度的表态强化政策担忧。Amazon 在既有核电站旁建园区与 NVDA 考虑改造旧建筑是潜在应对路径，均不能证明项目已交付。\n11/06科技股收盘反弹但周跌幅未抹平。Hassett公开表态数据中心仍有增长空间，同时尊重反对建设的地区；X转述的41%待建容量受新州长承诺约束未独立核实。政策话语与地方许可分化，下一步看法规文本、项目批复与客户合同，而非只看一天的芯片价格。",
+      "status": "final",
+      "asof": "2026-11-07T01:00:00Z",
       "evidence_post_ids": [
-        "2117968023474872708",
-        "2118000818230288575",
         "2118022712270664006",
         "2118052618128028131",
         "2118100750392041686",
@@ -8033,43 +9277,48 @@
         "2118386194862018576",
         "2118416928922595429",
         "2118432411688300640",
-        "2118427882183708790"
+        "2118427882183708790",
+        "2118780314445373842",
+        "2118709205821718970"
       ],
-      "caveat": "X 帖反映不同交易时段；11 月 5 日盘中跌幅并非完整收盘。部分选举席位尚待最终计票，地方限制不等于所有既有项目取消；下一步看审批、订单与完整收盘反应。",
+      "caveat": "X 帖反映不同交易时段；11 月 5 日盘中跌幅并非完整收盘。部分选举席位尚待最终计票，地方限制不等于所有既有项目取消；下一步看审批、订单与完整收盘反应。 41%容量是单源转述，不能当已出台禁令；Hassett公开表态也不保证地方许可。",
       "benefit_tags": [
         "短线分化：AAPL/MSFT",
         "承压：QQQ/SOXX",
         "既有容量：CRWV",
-        "止损：SPCX/TSLA/PLTR"
+        "止损：SPCX/TSLA/PLTR",
+        "联邦表态：AI基建",
+        "地方许可：CRWV / IREN"
       ]
     },
     {
       "id": "ai-selloff-capex-peak",
       "title": "AI 抛售与资本开支见顶风险",
-      "status": "tracking",
-      "asof": "2026-11-06T15:19:28.035Z",
-      "summary": "11/05 AI 与数据中心链遭广泛抛售：QQQ 常规收盘 −6.49%、NDX −6.36%，NVDA、AMD、QCOM 与多家云权重同跌，VIX 收于 28.18；这确认价格层面的风险收缩，不证明资本开支已实际见顶。两位以上作者的独立原帖分别记录 QQQ 失守 200 日均线、纳指收盘与数据中心贷款抛售。OpenAI 调整明年产能尚属内部讨论报道，Meta 高管称新建许可更难；信用融资和客户交付需继续由披露验证。APP 11/05 逆势上涨，显示并非所有 AI 应用都同步失效。\n11/06 亚洲时段：日本、韩国及台湾的 AI 硬件链继续遭抛售，显示美股风险收缩已跨市场传导；部分交易台称有逢低买盘，仍需美股开盘后的价格与广度确认。得州政策与信用融资是风险来源，不能从亚洲跌幅倒推 AI 资本开支已经见顶。\n11/06 新证据：科技对冲基金年内收益回到大致持平，反映去杠杆压力；看跌/看涨比升至 1 是 X 帖所称、尚缺交易所同口径核验。Anthropic 10 月底年化收入据 WSJ 超过 800 亿美元，同时潜在 IPO 募资规模可能低于先前预期或推迟；增长与融资估值须分开判断。\n11/06盘前交叉验证：Reuters据Markit报道软银五年期CDS盘中一度466bp、为四年高位，亚洲AI融资压力可量化；与此同时04:14美东纳指100期货+1.48%、NVDA和其他芯片股盘前反弹。信用压力与跌深回补并行，须待美股开盘广度及完整收盘判断。\n11/06 Vanda 数据显示，11/05 散户最终净卖出 1.51 亿美元、尾盘买入明显回升，说明抛售中的买盘反击；它是仓位与情绪反例，不能凭此认定周五收盘已完成修复。",
+      "status": "final",
+      "asof": "2026-11-07T01:00:00Z",
+      "summary": "11/05 AI 与数据中心链遭广泛抛售：QQQ 常规收盘 −6.49%、NDX −6.36%，NVDA、AMD、QCOM 与多家云权重同跌，VIX 收于 28.18；这确认价格层面的风险收缩，不证明资本开支已实际见顶。两位以上作者的独立原帖分别记录 QQQ 失守 200 日均线、纳指收盘与数据中心贷款抛售。OpenAI 调整明年产能尚属内部讨论报道，Meta 高管称新建许可更难；信用融资和客户交付需继续由披露验证。APP 11/05 逆势上涨，显示并非所有 AI 应用都同步失效。\n11/06 亚洲时段：日本、韩国及台湾的 AI 硬件链继续遭抛售，显示美股风险收缩已跨市场传导；部分交易台称有逢低买盘，仍需美股开盘后的价格与广度确认。得州政策与信用融资是风险来源，不能从亚洲跌幅倒推 AI 资本开支已经见顶。\n11/06 新证据：科技对冲基金年内收益回到大致持平，反映去杠杆压力；看跌/看涨比升至 1 是 X 帖所称、尚缺交易所同口径核验。Anthropic 10 月底年化收入据 WSJ 超过 800 亿美元，同时潜在 IPO 募资规模可能低于先前预期或推迟；增长与融资估值须分开判断。\n11/06盘前交叉验证：Reuters据Markit报道软银五年期CDS盘中一度466bp、为四年高位，亚洲AI融资压力可量化；与此同时04:14美东纳指100期货+1.48%、NVDA和其他芯片股盘前反弹。信用压力与跌深回补并行，须待美股开盘广度及完整收盘判断。\n11/06 Vanda 数据显示，11/05 散户最终净卖出 1.51 亿美元、尾盘买入明显回升，说明抛售中的买盘反击；它是仓位与情绪反例，不能凭此认定周五收盘已完成修复。\n11/06正式收盘SOX约+4.2%、AMD约+11%、NDX +1.34%，但QQQ周内仍约−4.98%，VIX 25.64；这是跌深后的部分回补，不是资本开支已见顶或修复完成的证明。新帖从不同方向补充：SOX短期极端波动、科技对冲基金损失、MTUM动量平仓、微软逐步停用甲骨文旧代GPU容量；相反，Anthropic高收入增长报道与芯片反弹说明需求未同步消失。信用利差、项目交付与现金回报是下周待证条件。",
       "evidence_post_ids": [
-        "2118427882183708790",
-        "2118432411688300640",
-        "2118456823011242185",
-        "2118481733460930830",
-        "2118501382311624848",
-        "2118502088447762741",
         "2118508930636873935",
         "2118546721315733516",
         "2118559612014121277",
         "2118558190149193907",
         "2118588727090102402",
-        "2118701057350013145"
+        "2118701057350013145",
+        "2118729368977518626",
+        "2118732388482367554",
+        "2118741448422002779",
+        "2118759939720237133",
+        "2118747459317084340",
+        "2118818456019595400"
       ],
-      "caveat": "X观点与媒体转述须分开；Muse新帖称软银CDS为118bp，与Reuters/Markit核验的466bp冲突，未纳入证据。Cybertruck已停产说法也与Reuters所报2027年中逐步停产不符。信用、政策与业绩影响仍需后续收盘验证。",
+      "caveat": "X观点与媒体转述须分开；Muse新帖称软银CDS为118bp，与Reuters/Markit核验的466bp冲突，未纳入证据。Cybertruck已停产说法也与Reuters所报2027年中逐步停产不符。信用、政策与业绩影响仍需后续收盘验证。 SOX五日跌幅、基金个别亏损及BTIG指标是原帖/二手报告，未取得原始序列；微软/甲骨文消息有Reuters转述，双方尚未完整披露。",
       "benefit_tags": [
-        "承压：NDX/QQQ/NVDA/AMD/QCOM",
-        "建设与融资：CRWV/IREN/ORCL",
-        "估值争议：Anthropic",
-        "分化反例：APP",
-        "信用观察：9984.T / ARM"
+        "承压：NDX / QQQ / QCOM",
+        "建设融资：CRWV / IREN / ORCL / MSFT",
+        "估值：Anthropic / ARM",
+        "分化反例：APP / AMD / NVDA",
+        "信用：9984.T / ARM",
+        "动量：MTUM"
       ]
     }
   ]
