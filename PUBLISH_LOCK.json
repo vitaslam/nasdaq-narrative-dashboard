@@ -1,7 +1,7 @@
 {
-  "holder": null,
-  "token": null,
-  "purpose": null,
-  "acquired_at": null,
-  "expires_at": null
+  "holder": "GPT",
+  "token": "gpt-20261107-0915-tags-mw5q5wmu-563i0u4l",
+  "purpose": "Repair 09:00 Muse trend tags validation",
+  "acquired_at": "2026-11-07T01:28:41.334Z",
+  "expires_at": "2026-11-07T01:38:41.334Z"
 }
