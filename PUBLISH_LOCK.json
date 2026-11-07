@@ -1,7 +1,7 @@
 {
-  "holder": null,
-  "token": null,
-  "purpose": null,
-  "acquired_at": null,
-  "expires_at": null
+  "holder": "GPT",
+  "token": "GPT-2026-11-07T04:45:26.063Z-81mdv55yqd6",
+  "purpose": "muse:2026-11-07:1230 feed verification and merge",
+  "acquired_at": "2026-11-07T04:45:26.063Z",
+  "expires_at": "2026-11-07T05:30:26.063Z"
 }
