@@ -61,7 +61,7 @@ try {
     console.warn('::warning::Retaining the previously validated Muse batch '+museFeed.batch_id+'.');
   }catch{}
 }
-const enhancementVersion='premarket-manager-v2';
+const enhancementVersion='removed-hot-dimensions-premarket-v3';
 const premarketRendererHash=createHash('sha256').update(await fs.readFile(path.join(root,'scripts/premarket-section.mjs'))).digest('hex');
 const assetVersion=createHash('sha256').update(rendererHash+enhancementVersion+premarketRendererHash).digest('hex').slice(0,12);
 const layoutChanged=previous?.renderer_sha256!==rendererHash||previous?.shell_override_sha256!==shellOverrideHash||previous?.asset_version!==assetVersion;
@@ -119,6 +119,9 @@ await write('index.html',shell);await write('.nojekyll','');
 const assets=new Set(['/dashboard-priority.js','/shared-calendar.js','/shared-calendar.css','/dashboard-enhancements.js','/dashboard-enhancements.css']);
 for(const week of index.weeks){
  let html=await (await response('/week/'+week.date)).text();
+ // Retired sections are removed by the enhancement after live bindings finish.
+ // Keep the frequent stream visible while it is moved out of the old hot container.
+ html=html.replace('</head>','<style>.pulse-heading,.pulse-grid,#dimension-details,.direction-legend,#premarket-logic{display:none!important}#narrative>:not(.x-frequent-section){display:none!important}</style></head>');
  const premarket=renderPremarketSection(premarketData,week.date,data.active_week);
  if(premarket){
   const anchor='<div class="pulse-heading"><span>事件驱动与五维状态';
@@ -142,6 +145,20 @@ for(const asset of assets){const r=await response(asset);let value;if(asset.ends
   if(!value.includes(iconAnchor))throw Error('Section manager icons changed; premarket integration requires review');
   value=value.replace(iconAnchor,"    premarket:navSvg('<circle cx=\"14\" cy=\"11\" r=\"4\"/><path d=\"M3 21h22 M14 2v3 M4 13l3 2 M24 13l-3 2\"/>'),\n"+iconAnchor);
   if(!value.includes("premarket_opted_in"))throw Error('Section manager opt-in preference missing');
+  // Live bindings first build both X streams inside #narrative. Preserve the
+  // frequent stream before removing the retired hot container and its sources.
+  const managerAnchor='  const sectionSpecs=[';
+  if(!value.includes(managerAnchor))throw Error('Section manager anchor missing');
+  value=value.replace(managerAnchor,`  const retiredHot=document.getElementById('narrative');
+  const keptFrequent=retiredHot?.querySelector('.x-frequent-section');
+  if(keptFrequent)retiredHot.before(keptFrequent);
+  document.querySelectorAll('.pulse-heading,.pulse-grid,#dimension-details,.direction-legend,.importance-legend,#premarket-logic,#narrative').forEach(node=>node.remove());
+`+managerAnchor);
+  for(const key of ['premarket','dimensions','x-hot']){
+    const row="    ['"+key+"',";
+    if(!value.split('\n').some(line=>line.startsWith(row)))throw Error('Retired section manager entry missing: '+key);
+    value=value.split('\n').filter(line=>!line.startsWith(row)).join('\n');
+  }
  }}else value=Buffer.from(await r.arrayBuffer());await write(asset.slice(1),value)}
 const builtAt=new Date().toISOString();
 const release={schema_version:1,data_revision:data.revision,release_revision:releaseRevision,active_week:data.active_week,content_updated_at:data.weeks[data.active_week].updated_at,built_at:builtAt,renderer_release:'2026-11-04-v46-three-hour-change-dots',renderer_sha256:rendererHash,asset_version:assetVersion,shell_override_sha256:shellOverrideHash,muse_feed_batch:museFeed?.batch_id||null,muse_feed_sha256:museHash,muse_merge:museStats,premarket_sha256:premarketHash};
