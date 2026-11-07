@@ -9083,10 +9083,9 @@
     "FedHike": {
       "value": 77.05,
       "meeting": "2026-12-09",
-      "asof": "2026-11-07T09:10:00+08:00",
+      "asof": "2026-11-07",
       "source_url": "https://polymarket.com/event/fed-decision-in-december-20260729232808632",
-      "method": "25bp与50bp以上加息结果概率求和；Polymarket Gamma 09:10北京时间快照",
-      "source_label": "Polymarket预测市场概率"
+      "method": "25bp与50bp以上加息结果概率求和；Polymarket Gamma 09:10北京时间快照"
     },
     "VXFutures": {
       "vx1": 17.7419,
