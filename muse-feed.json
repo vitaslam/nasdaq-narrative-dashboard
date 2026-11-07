@@ -9146,12 +9146,10 @@
       ],
       "caveat": "OpenAI 承诺仅覆盖其自有自营园区，不代表所有合作站点；CoreWeave 1.5/4.2GW 是 10/27 已公布容量，不是 11/05 新增。有关选举不影响在手订单的 X 说法尚待公司正式确认。 41%与6000机架未获独立原始文件核验；不能把Google用地收购等同于2.7GW已通电。",
       "benefit_tags": [
-        "已签约容量：CRWV",
-        "交付验证：IREN",
-        "客户影响：MSFT",
-        "既有站点：NVDA/APO",
-        "核电直供：AMZN/VST",
-        "新站点：GOOGL / Crusoe",
+        "签约：CRWV / IREN",
+        "客户：MSFT / NVDA / APO",
+        "核电：AMZN / VST",
+        "新站：GOOGL / Crusoe",
         "远期单源：SPCX / NVDA"
       ]
     },
@@ -9206,15 +9204,12 @@
       "evidence_post_ids": [],
       "caveat": "这些是原帖所述标的与情景的归纳，包含未证实、条件性和后来失效的观点；标签并非统一买入名单，原帖热度和转载次数不构成独立证据。",
       "benefit_tags": [
-        "业绩：AMD / ANET / SMCI / PLTR / VST",
-        "设备存储：NVDA / MU / SNDK / ATE",
-        "云电力：CRWV / VRT / IREN / BE",
+        "业绩：AMD / ANET / PLTR / NET / FROG",
+        "算力电力：VST / CRWV / VRT / IREN",
+        "芯片存储：NVDA / MU / SNDK / TSM",
         "应用：MSFT / QCOM / APP / ASTS",
-        "跨资产：AAPL / TSLA / 黄金 / 油",
-        "新财报：NET / FROG / ABNB",
-        "政策：AI / 数据中心",
-        "存储新供给：TSM",
-        "IPO：Anthropic"
+        "政策跨资产：TSLA / 黄金 / 油",
+        "其他：SMCI / BE / ABNB / Anthropic"
       ]
     },
     {
@@ -9226,15 +9221,12 @@
       "evidence_post_ids": [],
       "caveat": "本卡列的是原帖所指的承压标的、对冲与反向油价情景，不是同一做空篮子；传闻、盘中报价和已止损交易保留各自核验边界。",
       "benefit_tags": [
-        "云许可：CIFR/IREN/CRWV/AAOI",
-        "芯片存储：NVDA/INTC/MU/SNDK",
-        "估值：AAPL/MRVL/SHOP/SNAP",
-        "政策：ORCL/TSLA/PLTR/BE",
-        "指数信用：QQQ/SOXX/SPX/VIX",
-        "跨资产：Brent/WTI/10Y/KOSPI",
-        "旧GPU容量：ORCL",
-        "动量：MTUM / SOX",
-        "利率：10Y"
+        "云许可：CIFR / IREN / CRWV / ORCL",
+        "芯片存储：NVDA / INTC / MU / SNDK",
+        "估值：AAPL / MRVL / SHOP / SNAP",
+        "政策：TSLA / PLTR / BE",
+        "指数信用动量：QQQ / SOXX / SPX / MTUM",
+        "跨资产：Brent / WTI / 10Y / KOSPI"
       ]
     },
     {
@@ -9246,14 +9238,12 @@
       "evidence_post_ids": [],
       "caveat": "左侧的触发条件与风险承担因作者而异，已止损交易保留在整周演化记录中；不是当前买入指令。",
       "benefit_tags": [
-        "选举抄底：SPCX/TSLA/PLTR/BE",
-        "医疗：OSCR/UNH/THC/CNC",
-        "设备存储：VRT/MU/DRAM",
-        "中概：阿里巴巴/腾讯",
-        "黄金与对冲",
-        "科技股小仓位 LEAP",
-        "散户尾盘：QQQ",
-        "个人买回：SPCX"
+        "选举抄底：SPCX / TSLA / PLTR / BE",
+        "医疗：OSCR / UNH / THC / CNC",
+        "设备存储：VRT / MU / DRAM",
+        "中概：阿里巴巴 / 腾讯",
+        "黄金、对冲与科技 LEAP",
+        "尾盘：QQQ / SPCX"
       ]
     },
     {
@@ -9323,13 +9313,11 @@
       ],
       "caveat": "X观点与媒体转述须分开；Muse新帖称软银CDS为118bp，与Reuters/Markit核验的466bp冲突，未纳入证据。Cybertruck已停产说法也与Reuters所报2027年中逐步停产不符。信用、政策与业绩影响仍需后续收盘验证。 SOX五日跌幅、基金个别亏损及BTIG指标是原帖/二手报告，未取得原始序列；微软/甲骨文消息有Reuters转述，双方尚未完整披露。",
       "benefit_tags": [
-        "承压：NDX/QQQ/NVDA/AMD/QCOM",
-        "建设与融资：CRWV/IREN/ORCL",
-        "估值争议：Anthropic",
-        "分化反例：APP",
-        "信用观察：9984.T / ARM",
-        "回补：AMD / NVDA",
-        "融资交付：ORCL / MSFT",
+        "承压：NDX / QQQ / QCOM",
+        "建设融资：CRWV / IREN / ORCL / MSFT",
+        "估值：Anthropic / ARM",
+        "分化反例：APP / AMD / NVDA",
+        "信用：9984.T / ARM",
         "动量：MTUM"
       ]
     }
