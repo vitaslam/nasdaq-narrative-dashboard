@@ -243,9 +243,9 @@
         "session": "regular_close",
         "dominant_logic": "强非农抬高利率约束，但周四重挫后的芯片回补主导纳指反弹；广泛修复尚未确认。",
         "observed_at": "2026-11-06T16:00:00-05:00",
-        "updated_at": "2026-11-07T01:15:59.714Z",
+        "updated_at": "2026-11-08T01:25:40.419Z",
         "evidence": [
-          "纳指100 26,985.71（+1.34%）、QQQ 656.10（+1.40%），但两者仍低于周四暴跌前水平；半导体指数约+4.2%，AMD约+11%、NVDA约+2.8%。",
+          "纳指100 26,989.99（+1.35%）、QQQ 656.10（+1.40%），但两者仍低于周四暴跌前水平；半导体指数约+4.2%，AMD约+11%、NVDA约+2.8%。",
           "标普500 7,376.86（+0.31%）、道指−0.46%；科技领涨而广度分化。VIX 25.64仍高，VX近月月度合约结算仍倒挂。",
           "10月非农+16.5万、失业率4.1%；财政部10Y收4.86%（较11/05+2bp）、30Y 5.26%（+1bp），反弹与利率压力并存。"
         ],
@@ -277,7 +277,8 @@
           "https://www.reuters.com/business/nasdaq-futures-rise-after-steep-ai-selloff-chip-stocks-stabilize-2026-11-06/",
           "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?field_tdr_date_value_month=202611&type=daily_treasury_yield_curve",
           "https://www.cboe.com/markets/us/futures/market-statistics/settlement/futures/daily",
-          "https://veloxmacro.com/markets/"
+          "https://veloxmacro.com/markets/",
+          "https://indexes.nasdaq.com/Index/Overview/NDX"
         ]
       }
     }
