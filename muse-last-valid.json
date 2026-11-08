@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "batch_id": "gpt-mail:2026-11-07:2300",
+  "batch_id": "gpt-mail:2026-11-08:0900",
   "week_id": "2026-11-02",
-  "generated_at": "2026-11-07T15:17:37.305Z",
+  "generated_at": "2026-11-08T01:23:05.268Z",
   "x_topics_upsert": [
     {
       "id": "polymarket-32228",
@@ -9125,6 +9125,432 @@
           "stance_subject": "MU / SK海力士 / 三星：作者认为近期通用DRAM新增供给威胁被高估（未证实）"
         }
       ]
+    },
+    {
+      "id": "us-strikes-iran-qeshm-2nd",
+      "title": "伊朗格什姆岛再传美军小规模打击",
+      "summary": "单帖称特朗普下令小规模打击，尚需官方或独立媒体确认。",
+      "posts": [
+        {
+          "id": "2119082563415285890",
+          "author": "@zerohedge",
+          "published_at": "2026-11-07T15:00:28.425Z",
+          "quote": null,
+          "viewpoint": "单帖称特朗普下令小规模打击，尚需官方或独立媒体确认。",
+          "translation_zh": "特朗普下令对伊朗实施\"小规模打击\"，为选举以来首次下令采取行动。（帖文为标题加 zerohedge 文章链接）",
+          "translation_scope": "post_only",
+          "translation_source_url": "https://x.com/zerohedge/status/2119082563415285890",
+          "views": 72701,
+          "reposts": 38,
+          "replies": 31,
+          "observed_at": "2026-11-08T01:00:00Z",
+          "source_url": "https://x.com/zerohedge/status/2119082563415285890",
+          "metrics_source": "https://x.com/zerohedge/status/2119082563415285890",
+          "verification": "X 原帖与热度由外部交接称直读；本轮公开搜索无法独立打开原帖或复核热度，具体抓取时间未提供。事实与观点按公开来源分别交叉核对。",
+          "avatar_url": "https://pbs.twimg.com/profile_images/72647502/tyler_400x400.jpg",
+          "avatar_source": "https://x.com/zerohedge",
+          "impact": [
+            {
+              "targets": "风险资产",
+              "direction": "风险",
+              "reason": "地缘风险"
+            }
+          ],
+          "stance": "bear",
+          "stance_subject": "风险资产：地缘风险"
+        }
+      ]
+    },
+    {
+      "id": "berkshire-q3-buybacks",
+      "title": "伯克希尔三季度恢复回购",
+      "summary": "公司季报确认三季度回购约96亿美元，市场观点把这解读为资本配置转向。",
+      "posts": [
+        {
+          "id": "2119079789751414924",
+          "author": "@KobeissiLetter",
+          "published_at": "2026-11-07T14:49:27.132Z",
+          "quote": null,
+          "viewpoint": "公司季报确认三季度回购约96亿美元，市场观点把这解读为资本配置转向。",
+          "translation_zh": "突发：伯克希尔·哈撒韦 Q3 2026 回购规模翻倍以上，回购自家股票 96 亿美元。这使得 2026 年回购总额达到 144 亿美元，在公司暂停回购近 22 个月后出现急剧逆转。伯克希尔还披露，2026 年以来它一直是股票净买方，年内净买入达到 112 亿美元。相比之下，2025 年同期净卖出股票 106 亿美元。伯克希尔又开始动用资金了。",
+          "translation_scope": "full",
+          "translation_source_url": "https://x.com/KobeissiLetter/status/2119079789751414924",
+          "views": 303320,
+          "reposts": 203,
+          "replies": 155,
+          "observed_at": "2026-11-08T01:00:00Z",
+          "source_url": "https://x.com/KobeissiLetter/status/2119079789751414924",
+          "metrics_source": "https://x.com/KobeissiLetter/status/2119079789751414924",
+          "verification": "X 原帖与热度由外部交接称直读；本轮公开搜索无法独立打开原帖或复核热度，具体抓取时间未提供。事实与观点按公开来源分别交叉核对。 伯克希尔季报见 https://www.berkshirehathaway.com/qtrly/3rdqtr26.pdf",
+          "avatar_url": "https://pbs.twimg.com/profile_images/1975243710846640128/fwYCe67Y_400x400.jpg",
+          "avatar_source": "https://x.com/KobeissiLetter",
+          "impact": [
+            {
+              "targets": "BRK.A / BRK.B",
+              "direction": "潜在利好",
+              "reason": "回购恢复"
+            }
+          ],
+          "stance": "bull",
+          "stance_subject": "BRK.A / BRK.B：回购恢复"
+        }
+      ]
+    },
+    {
+      "id": "labubu-neocloud-short-citrini",
+      "title": "云算力新贵做空时点分歧",
+      "summary": "作者质疑Citrini在股价跌后加入做空，与此前劝谨慎相反；这是交易观点。",
+      "posts": [
+        {
+          "id": "2119094579471491157",
+          "author": "@labubu_trader",
+          "published_at": "2026-11-07T15:48:13.276Z",
+          "quote": null,
+          "viewpoint": "作者质疑Citrini在股价跌后加入做空，与此前劝谨慎相反；这是交易观点。",
+          "translation_zh": "我还是不明白，为什么两周前 Citrini 建议我做空 AAOI、SKHY 以及 CRWV 这类 neocloud（云计算新贵）时要谨慎，可到了周三，他却在低得多的价位加入了做空 neocloud 的大军。这个周末我会仔细读一读他们的 Substack 笔记。",
+          "translation_scope": "full",
+          "translation_source_url": "https://x.com/labubu_trader/status/2119094579471491157",
+          "views": 35336,
+          "reposts": 15,
+          "replies": 24,
+          "observed_at": "2026-11-08T01:00:00Z",
+          "source_url": "https://x.com/labubu_trader/status/2119094579471491157",
+          "metrics_source": "https://x.com/labubu_trader/status/2119094579471491157",
+          "verification": "X 原帖与热度由外部交接称直读；本轮公开搜索无法独立打开原帖或复核热度，具体抓取时间未提供。事实与观点按公开来源分别交叉核对。",
+          "avatar_url": "https://pbs.twimg.com/profile_images/1930061717826113536/beBBZQZJ_400x400.jpg",
+          "avatar_source": "https://x.com/labubu_trader",
+          "impact": [
+            {
+              "targets": "AAOI / SKHY / CRWV",
+              "direction": "风险",
+              "reason": "做空观点"
+            }
+          ],
+          "stance": "bear",
+          "stance_subject": "AAOI / SKHY / CRWV：做空观点",
+          "entry_side": "right"
+        },
+        {
+          "id": "2119101702712529279",
+          "author": "@labubu_trader",
+          "published_at": "2026-11-07T16:16:31.589Z",
+          "quote": null,
+          "viewpoint": "作者强调Citrini文章对市场的影响，本帖未单独给出新方向。",
+          "translation_zh": "那篇笔记太长了，工作日一直没抽出时间读完；以后只要 Citrini 一发文章就得优先读，因为它对市场的影响实在太大了。",
+          "translation_scope": "full",
+          "translation_source_url": "https://x.com/labubu_trader/status/2119101702712529279",
+          "views": 5326,
+          "reposts": 0,
+          "replies": 2,
+          "observed_at": "2026-11-08T01:00:00Z",
+          "source_url": "https://x.com/labubu_trader/status/2119101702712529279",
+          "metrics_source": "https://x.com/labubu_trader/status/2119101702712529279",
+          "verification": "X 原帖与热度由外部交接称直读；本轮公开搜索无法独立打开原帖或复核热度，具体抓取时间未提供。事实与观点按公开来源分别交叉核对。",
+          "avatar_url": "https://pbs.twimg.com/profile_images/1930061717826113536/beBBZQZJ_400x400.jpg",
+          "avatar_source": "https://x.com/labubu_trader",
+          "impact": []
+        }
+      ]
+    },
+    {
+      "id": "tsmc-3d-dram-denial",
+      "title": "台积电回应3D DRAM报道",
+      "summary": "Tom's Hardware取得台积电发言人回应，强调继续专注逻辑芯片代工；商业路径仍未完全披露。",
+      "posts": [
+        {
+          "id": "2119132917893112233",
+          "author": "@wallstengine",
+          "published_at": "2026-11-07T18:20:33.868Z",
+          "quote": null,
+          "viewpoint": "Tom's Hardware取得台积电发言人回应，强调继续专注逻辑芯片代工；商业路径仍未完全披露。",
+          "translation_zh": "据 Tom's Hardware 报道，台积电已回击有关其应英伟达要求探索 3D DRAM 存储生产的报道，称自己是一家纯代工逻辑芯片制造商，并计划继续如此。",
+          "translation_scope": "full",
+          "translation_source_url": "https://x.com/wallstengine/status/2119132917893112233",
+          "views": 34834,
+          "reposts": 36,
+          "replies": 24,
+          "observed_at": "2026-11-08T01:00:00Z",
+          "source_url": "https://x.com/wallstengine/status/2119132917893112233",
+          "metrics_source": "https://x.com/wallstengine/status/2119132917893112233",
+          "verification": "X 原帖与热度由外部交接称直读；本轮公开搜索无法独立打开原帖或复核热度，具体抓取时间未提供。事实与观点按公开来源分别交叉核对。 台积电发言人回应见 https://www.tomshardware.com/pc-components/dram/tsmc-denies-exploring-3d-dram-at-nvidias-request-advanced-memory-tech-is-still-years-from-market-viability",
+          "avatar_url": "https://pbs.twimg.com/profile_images/1691846947857178624/oZp5wB4r_400x400.jpg",
+          "avatar_source": "https://x.com/wallstengine",
+          "impact": [
+            {
+              "targets": "MU / SK海力士 / 三星",
+              "direction": "潜在利好",
+              "reason": "潜在新供给压力缓和"
+            }
+          ],
+          "stance": "bull",
+          "stance_subject": "MU / SK海力士 / 三星：潜在新供给压力缓和"
+        }
+      ]
+    },
+    {
+      "id": "cybertruck-backlog-extra-shift",
+      "title": "Cybertruck订单与增班次说法",
+      "summary": "转述马斯克关于订单和增班次的说法；实际产量及2027年转产待公司披露。",
+      "posts": [
+        {
+          "id": "2119131772181172518",
+          "author": "@wallstengine",
+          "published_at": "2026-11-07T18:16:00.709Z",
+          "quote": null,
+          "viewpoint": "转述马斯克关于订单和增班次的说法；实际产量及2027年转产待公司披露。",
+          "translation_zh": "埃隆·马斯克表示，Cybertruck 的订单积压现在已远超特斯拉在 2027 年 6/7 月左右拆线扩产 Cybercab 之前所能生产的量。特斯拉将增加一个班次，争取及时交付订单。",
+          "translation_scope": "full",
+          "translation_source_url": "https://x.com/wallstengine/status/2119131772181172518",
+          "views": 23861,
+          "reposts": 8,
+          "replies": 9,
+          "observed_at": "2026-11-08T01:00:00Z",
+          "source_url": "https://x.com/wallstengine/status/2119131772181172518",
+          "metrics_source": "https://x.com/wallstengine/status/2119131772181172518",
+          "verification": "X 原帖与热度由外部交接称直读；本轮公开搜索无法独立打开原帖或复核热度，具体抓取时间未提供。事实与观点按公开来源分别交叉核对。",
+          "avatar_url": "https://pbs.twimg.com/profile_images/1691846947857178624/oZp5wB4r_400x400.jpg",
+          "avatar_source": "https://x.com/wallstengine",
+          "impact": [
+            {
+              "targets": "TSLA",
+              "direction": "潜在利好",
+              "reason": "订单积压说法待验证"
+            }
+          ],
+          "stance": "bull",
+          "stance_subject": "TSLA：订单积压说法待验证"
+        }
+      ]
+    },
+    {
+      "id": "iran-southern-explosions",
+      "title": "伊朗南部爆炸消息互相矛盾",
+      "summary": "伊朗媒体称多地听到爆炸，原因不明；后续报道称非导弹袭击，尚缺独立确认。",
+      "posts": [
+        {
+          "id": "2119161693674549308",
+          "author": "@DeItaone",
+          "published_at": "2026-11-07T20:14:54.549Z",
+          "quote": null,
+          "viewpoint": "伊朗媒体称多地听到爆炸，原因不明；后续报道称非导弹袭击，尚缺独立确认。",
+          "translation_zh": "据伊朗国家电视台，伊朗南部贾斯克、锡里克、阿巴斯港和格什姆岛听到爆炸声，原因不明。",
+          "translation_scope": "full",
+          "translation_source_url": "https://x.com/DeItaone/status/2119161693674549308",
+          "views": 186696,
+          "reposts": 130,
+          "replies": 40,
+          "observed_at": "2026-11-08T01:00:00Z",
+          "source_url": "https://x.com/DeItaone/status/2119161693674549308",
+          "metrics_source": "https://x.com/DeItaone/status/2119161693674549308",
+          "verification": "X 原帖与热度由外部交接称直读；本轮公开搜索无法独立打开原帖或复核热度，具体抓取时间未提供。事实与观点按公开来源分别交叉核对。",
+          "avatar_url": "https://pbs.twimg.com/profile_images/2088360110095478784/El9anzXH_400x400.jpg",
+          "avatar_source": "https://x.com/DeItaone",
+          "impact": [
+            {
+              "targets": "Brent / WTI",
+              "direction": "潜在利好",
+              "reason": "条件性地缘风险溢价"
+            }
+          ],
+          "stance": "bull",
+          "stance_subject": "Brent / WTI：条件性地缘风险溢价"
+        },
+        {
+          "id": "2119166379102216599",
+          "author": "@DeItaone",
+          "published_at": "2026-11-07T20:33:31.642Z",
+          "quote": null,
+          "viewpoint": "伊朗媒体称多地听到爆炸，原因不明；后续报道称非导弹袭击，尚缺独立确认。",
+          "translation_zh": "伊朗塔斯尼姆通讯社引述消息人士称，格什姆岛听到的爆炸声与导弹袭击无关。",
+          "translation_scope": "full",
+          "translation_source_url": "https://x.com/DeItaone/status/2119166379102216599",
+          "views": 149640,
+          "reposts": 42,
+          "replies": 26,
+          "observed_at": "2026-11-08T01:00:00Z",
+          "source_url": "https://x.com/DeItaone/status/2119166379102216599",
+          "metrics_source": "https://x.com/DeItaone/status/2119166379102216599",
+          "verification": "X 原帖与热度由外部交接称直读；本轮公开搜索无法独立打开原帖或复核热度，具体抓取时间未提供。事实与观点按公开来源分别交叉核对。",
+          "avatar_url": "https://pbs.twimg.com/profile_images/2088360110095478784/El9anzXH_400x400.jpg",
+          "avatar_source": "https://x.com/DeItaone",
+          "impact": []
+        }
+      ]
+    },
+    {
+      "id": "cboe-put-volume-record",
+      "title": "美股看跌期权成交量激增",
+      "summary": "帖子称11月5日美股看跌期权成交量创高，具体历史比较仍待同口径核验。",
+      "posts": [
+        {
+          "id": "2119160893950828791",
+          "author": "@KobeissiLetter",
+          "published_at": "2026-11-07T20:11:43.880Z",
+          "quote": null,
+          "viewpoint": "帖子称11月5日美股看跌期权成交量创高，具体历史比较仍待同口径核验。",
+          "translation_zh": "周四是美国期权市场历史性的一天：周四 CBOE 美股看跌期权成交量激增至创纪录的 1123 万张。超过 2025 年 4 月 4 日创下的前历史最高 1022 万张。由此，看跌期权成交量的 20 日均值升至约 700 万张，接近历史最高。相比之下，2022 年 20 日均值在 400 万张左右波动。历史上单日看跌期权成交量最高的 10 天中，有 8 天发生在 2026 年。我们正在见证前所未有的期权活动。",
+          "translation_scope": "full",
+          "translation_source_url": "https://x.com/KobeissiLetter/status/2119160893950828791",
+          "views": 114738,
+          "reposts": 52,
+          "replies": 91,
+          "observed_at": "2026-11-08T01:00:00Z",
+          "source_url": "https://x.com/KobeissiLetter/status/2119160893950828791",
+          "metrics_source": "https://x.com/KobeissiLetter/status/2119160893950828791",
+          "verification": "X 原帖与热度由外部交接称直读；本轮公开搜索无法独立打开原帖或复核热度，具体抓取时间未提供。事实与观点按公开来源分别交叉核对。",
+          "avatar_url": "https://pbs.twimg.com/profile_images/1975243710846640128/fwYCe67Y_400x400.jpg",
+          "avatar_source": "https://x.com/KobeissiLetter",
+          "impact": [
+            {
+              "targets": "SPX / QQQ",
+              "direction": "风险",
+              "reason": "对冲需求上升"
+            }
+          ],
+          "stance": "bear",
+          "stance_subject": "SPX / QQQ：对冲需求上升"
+        }
+      ]
+    },
+    {
+      "id": "stargate-inner-mongolia",
+      "title": "内蒙古大型算力园区进度",
+      "summary": "SemiAnalysis称实地查看风电驱动园区；园区建设、已通电容量与客户订单需要分别验证。",
+      "posts": [
+        {
+          "id": "2119162511203131591",
+          "author": "@SemiAnalysis_",
+          "published_at": "2026-11-07T20:18:09.463Z",
+          "quote": null,
+          "viewpoint": "SemiAnalysis称实地查看风电驱动园区；园区建设、已通电容量与客户订单需要分别验证。",
+          "translation_zh": "我们参访了位于中国内蒙古的 Stargate：一座风电驱动的 800MW 园区，一年内已建成 120MW，5MW SST 原生 800V 直流试点，以及无中央冷水机组的制冷设计。（附 newsletter 链接卡片）",
+          "translation_scope": "post_only",
+          "translation_source_url": "https://x.com/SemiAnalysis_/status/2119162511203131591",
+          "views": 25758,
+          "reposts": 30,
+          "replies": 24,
+          "observed_at": "2026-11-08T01:00:00Z",
+          "source_url": "https://x.com/SemiAnalysis_/status/2119162511203131591",
+          "metrics_source": "https://x.com/SemiAnalysis_/status/2119162511203131591",
+          "verification": "X 原帖与热度由外部交接称直读；本轮公开搜索无法独立打开原帖或复核热度，具体抓取时间未提供。事实与观点按公开来源分别交叉核对。",
+          "avatar_url": "https://pbs.twimg.com/profile_images/2062973370157694976/CdplNoi1_400x400.jpg",
+          "avatar_source": "https://x.com/SemiAnalysis_",
+          "impact": [
+            {
+              "targets": "电力设备 / 算力基建",
+              "direction": "潜在利好",
+              "reason": "条件性需求"
+            }
+          ],
+          "stance": "bull",
+          "stance_subject": "电力设备 / 算力基建：条件性需求"
+        }
+      ]
+    },
+    {
+      "id": "hedge-funds-dump-brent",
+      "title": "布伦特多头撤离说法",
+      "summary": "zerohedge称对冲基金大额抛售布伦特；金额及头寸变动待原始仓位报告核验。",
+      "posts": [
+        {
+          "id": "2119188257908904235",
+          "author": "@zerohedge",
+          "published_at": "2026-11-07T22:00:27.956Z",
+          "quote": null,
+          "viewpoint": "zerohedge称对冲基金大额抛售布伦特；金额及头寸变动待原始仓位报告核验。",
+          "translation_zh": "\"做多且做错\"：对冲基金抛售 66 亿美元布伦特原油，因中期选举扼杀了石油的战争溢价。（帖文为标题加 zerohedge 文章链接）",
+          "translation_scope": "post_only",
+          "translation_source_url": "https://x.com/zerohedge/status/2119188257908904235",
+          "views": 60630,
+          "reposts": 25,
+          "replies": 20,
+          "observed_at": "2026-11-08T01:00:00Z",
+          "source_url": "https://x.com/zerohedge/status/2119188257908904235",
+          "metrics_source": "https://x.com/zerohedge/status/2119188257908904235",
+          "verification": "X 原帖与热度由外部交接称直读；本轮公开搜索无法独立打开原帖或复核热度，具体抓取时间未提供。事实与观点按公开来源分别交叉核对。",
+          "avatar_url": "https://pbs.twimg.com/profile_images/72647502/tyler_400x400.jpg",
+          "avatar_source": "https://x.com/zerohedge",
+          "impact": [
+            {
+              "targets": "Brent / WTI",
+              "direction": "风险",
+              "reason": "战争溢价回落观点"
+            }
+          ],
+          "stance": "bear",
+          "stance_subject": "Brent / WTI：战争溢价回落观点"
+        }
+      ]
+    },
+    {
+      "id": "fed-balance-sheet-expansion",
+      "title": "美联储资产负债表周度变化",
+      "summary": "联储H.4.1确认11月4日资产总额约6.748万亿美元，较10月28日增加约25.1亿美元。",
+      "posts": [
+        {
+          "id": "2119181497529684135",
+          "author": "@KobeissiLetter",
+          "published_at": "2026-11-07T21:33:36.156Z",
+          "quote": null,
+          "viewpoint": "联储H.4.1确认11月4日资产总额约6.748万亿美元，较10月28日增加约25.1亿美元。",
+          "translation_zh": "突发：截至 11 月 4 日当周，美联储资产负债表扩大 30 亿美元，至 6.75 万亿美元，为 2025 年 3 月中旬以来第三高。自 2025 年 12 月低点以来，总资产已激增 2120 亿美元。同期，美债持有量增加 3900 亿美元，至 4.58 万亿美元，为 2024 年 3 月以来最高。与此同时，抵押贷款支持证券（MBS）持有量减少 1700 亿美元，至 1.88 万亿美元，为 2020 年 6 月以来最低。美联储资产负债表目前比疫情前水平高 2.99 万亿美元，即 +80%。美联储的资产负债表又在增长了。",
+          "translation_scope": "full",
+          "translation_source_url": "https://x.com/KobeissiLetter/status/2119181497529684135",
+          "views": 126432,
+          "reposts": 87,
+          "replies": 85,
+          "observed_at": "2026-11-08T01:00:00Z",
+          "source_url": "https://x.com/KobeissiLetter/status/2119181497529684135",
+          "metrics_source": "https://x.com/KobeissiLetter/status/2119181497529684135",
+          "verification": "X 原帖与热度由外部交接称直读；本轮公开搜索无法独立打开原帖或复核热度，具体抓取时间未提供。事实与观点按公开来源分别交叉核对。 联储H.4.1见 https://www.federalreserve.gov/releases/h41/current/",
+          "avatar_url": "https://pbs.twimg.com/profile_images/1975243710846640128/fwYCe67Y_400x400.jpg",
+          "avatar_source": "https://x.com/KobeissiLetter",
+          "impact": [
+            {
+              "targets": "流动性预期",
+              "direction": "潜在利好",
+              "reason": "小幅扩表"
+            }
+          ],
+          "stance": "bull",
+          "stance_subject": "流动性预期：小幅扩表"
+        }
+      ]
+    },
+    {
+      "id": "irgc-tankers-mines-hormuz",
+      "title": "霍尔木兹油轮触雷单方说法",
+      "summary": "伊朗革命卫队说两艘油轮触雷；缺少独立航运核实，不作为已证实事件。",
+      "posts": [
+        {
+          "id": "2119175971752587615",
+          "author": "@DeItaone",
+          "published_at": "2026-11-07T21:11:38.708Z",
+          "quote": null,
+          "viewpoint": "伊朗革命卫队说两艘油轮触雷；缺少独立航运核实，不作为已证实事件。",
+          "translation_zh": "据伊朗国家电视台，伊朗革命卫队海军称两艘油轮在霍尔木兹海峡附近触雷起火。",
+          "translation_scope": "full",
+          "translation_source_url": "https://x.com/DeItaone/status/2119175971752587615",
+          "views": 118861,
+          "reposts": 71,
+          "replies": 31,
+          "observed_at": "2026-11-08T01:00:00Z",
+          "source_url": "https://x.com/DeItaone/status/2119175971752587615",
+          "metrics_source": "https://x.com/DeItaone/status/2119175971752587615",
+          "verification": "X 原帖与热度由外部交接称直读；本轮公开搜索无法独立打开原帖或复核热度，具体抓取时间未提供。事实与观点按公开来源分别交叉核对。",
+          "avatar_url": "https://pbs.twimg.com/profile_images/2088360110095478784/El9anzXH_400x400.jpg",
+          "avatar_source": "https://x.com/DeItaone",
+          "impact": [
+            {
+              "targets": "Brent / WTI",
+              "direction": "潜在利好",
+              "reason": "若属实存在供应风险"
+            }
+          ],
+          "stance": "bull",
+          "stance_subject": "Brent / WTI：若属实存在供应风险"
+        }
+      ]
     }
   ],
   "market_bars": {
@@ -9369,8 +9795,8 @@
       "id": "memory-shortage-2027",
       "title": "存储短缺蔓延至 2027 年",
       "status": "final",
-      "asof": "2026-11-07T15:17:37.305Z",
-      "summary": "苹果（AAPL）称内存定价\"前所未有\"且 12 月后仍上涨；TEAM 集团 CEO 称存储短缺恶化至 2027 年底、没有任何价格下行趋势；光模块 mSAP PCB 交期近 6 个月、板材供应不足；Meritz 称 2027–2028 年存储订单真实需求远超供给，今年满足率仅 80% 出头、2027 年或降至约 80%，奥特曼访韩要求 SK 海力士与三星供应超产能的 HBM 等特种存储——存储短缺从内存价格传导至 PCB 与 HBM 供给，成为 AI 硬件交付的新约束。 美光（MU）台湾建厂暂缓的转述与美光（MU）、闪迪（SNDK）盘中急跌加入本周证据；产能变动与价格反应分开验证。\n11/06 The Information经Reuters转述：TSMC应NVDA要求研究3D DRAM，尚无量产日期；两位X作者分别转述，属于同一报道的重复传播，不算独立公司确认。若入局会改变长期供给格局，但不直接解决当下HBM/DRAM紧缺；继续核对厂商投资、良率和客户合同。\n11/07 @jukan05 援引2025年VLSI片上缓存研究，认为这与通用DRAM量产不是同一件事，为台积电新供给冲击的担忧提供反例；近期商业计划仍待公司确认，不能据此认定供应短缺会持续到2027年。",
+      "asof": "2026-11-08T01:20:00Z",
+      "summary": "苹果（AAPL）称内存定价\"前所未有\"且 12 月后仍上涨；TEAM 集团 CEO 称存储短缺恶化至 2027 年底、没有任何价格下行趋势；光模块 mSAP PCB 交期近 6 个月、板材供应不足；Meritz 称 2027–2028 年存储订单真实需求远超供给，今年满足率仅 80% 出头、2027 年或降至约 80%，奥特曼访韩要求 SK 海力士与三星供应超产能的 HBM 等特种存储——存储短缺从内存价格传导至 PCB 与 HBM 供给，成为 AI 硬件交付的新约束。 美光（MU）台湾建厂暂缓的转述与美光（MU）、闪迪（SNDK）盘中急跌加入本周证据；产能变动与价格反应分开验证。\n11/06 The Information经Reuters转述：TSMC应NVDA要求研究3D DRAM，尚无量产日期；两位X作者分别转述，属于同一报道的重复传播，不算独立公司确认。若入局会改变长期供给格局，但不直接解决当下HBM/DRAM紧缺；继续核对厂商投资、良率和客户合同。\n11/07 @jukan05 援引2025年VLSI片上缓存研究，认为这与通用DRAM量产不是同一件事，为台积电新供给冲击的担忧提供反例；近期商业计划仍待公司确认，不能据此认定供应短缺会持续到2027年。\n11/08 Tom's Hardware取得台积电发言人回应，强调继续专注逻辑芯片代工，与先前扩展通用3D DRAM的报道形成冲突。它降低短期新增通用DRAM供应的确定性，但尚不能证明供应短缺将持续至2027年；关注厂商正式产能计划和实际交付。",
       "evidence_post_ids": [
         "2117631795210723540",
         "2117998060261237070",
@@ -9380,9 +9806,10 @@
         "2118342148961558561",
         "2118709546638356543",
         "2118840967688049103",
-        "2119026338522869863"
+        "2119026338522869863",
+        "2119132917893112233"
       ],
-      "caveat": "均为券商与厂商口径，实际交付与价格走势待后续财报与渠道数据核验。 TSMC与NVDA未回应Reuters，3D DRAM规划非量产承诺。 片上缓存论文不能证实或否定公司近期商业计划；@jukan05 的结论为作者解读。",
+      "caveat": "均为券商与厂商口径，实际交付与价格走势待后续财报与渠道数据核验。 TSMC与NVDA未回应Reuters，3D DRAM规划非量产承诺。 片上缓存论文不能证实或否定公司近期商业计划；@jukan05 的结论为作者解读。 台积电回应与媒体此前报道存在分歧，短期供给判断仍属情景推断。",
       "benefit_tags": [
         "潜在受益：MU/SNDK",
         "潜在受益：SK 海力士",
@@ -9490,13 +9917,12 @@
       "id": "ai-selloff-capex-peak",
       "title": "AI 抛售与资本开支见顶风险",
       "status": "final",
-      "asof": "2026-11-07T01:00:00Z",
-      "summary": "11/05 AI 与数据中心链遭广泛抛售：QQQ 常规收盘 −6.49%、NDX −6.36%，NVDA、AMD、QCOM 与多家云权重同跌，VIX 收于 28.18；这确认价格层面的风险收缩，不证明资本开支已实际见顶。两位以上作者的独立原帖分别记录 QQQ 失守 200 日均线、纳指收盘与数据中心贷款抛售。OpenAI 调整明年产能尚属内部讨论报道，Meta 高管称新建许可更难；信用融资和客户交付需继续由披露验证。APP 11/05 逆势上涨，显示并非所有 AI 应用都同步失效。\n11/06 亚洲时段：日本、韩国及台湾的 AI 硬件链继续遭抛售，显示美股风险收缩已跨市场传导；部分交易台称有逢低买盘，仍需美股开盘后的价格与广度确认。得州政策与信用融资是风险来源，不能从亚洲跌幅倒推 AI 资本开支已经见顶。\n11/06 新证据：科技对冲基金年内收益回到大致持平，反映去杠杆压力；看跌/看涨比升至 1 是 X 帖所称、尚缺交易所同口径核验。Anthropic 10 月底年化收入据 WSJ 超过 800 亿美元，同时潜在 IPO 募资规模可能低于先前预期或推迟；增长与融资估值须分开判断。\n11/06盘前交叉验证：Reuters据Markit报道软银五年期CDS盘中一度466bp、为四年高位，亚洲AI融资压力可量化；与此同时04:14美东纳指100期货+1.48%、NVDA和其他芯片股盘前反弹。信用压力与跌深回补并行，须待美股开盘广度及完整收盘判断。\n11/06 Vanda 数据显示，11/05 散户最终净卖出 1.51 亿美元、尾盘买入明显回升，说明抛售中的买盘反击；它是仓位与情绪反例，不能凭此认定周五收盘已完成修复。\n11/06正式收盘SOX约+4.2%、AMD约+11%、NDX +1.34%，但QQQ周内仍约−4.98%，VIX 25.64；这是跌深后的部分回补，不是资本开支已见顶或修复完成的证明。新帖从不同方向补充：SOX短期极端波动、科技对冲基金损失、MTUM动量平仓、微软逐步停用甲骨文旧代GPU容量；相反，Anthropic高收入增长报道与芯片反弹说明需求未同步消失。信用利差、项目交付与现金回报是下周待证条件。",
+      "asof": "2026-11-08T01:20:00Z",
+      "summary": "11/05 AI 与数据中心链遭广泛抛售：QQQ 常规收盘 −6.49%、NDX −6.36%，NVDA、AMD、QCOM 与多家云权重同跌，VIX 收于 28.18；这确认价格层面的风险收缩，不证明资本开支已实际见顶。两位以上作者的独立原帖分别记录 QQQ 失守 200 日均线、纳指收盘与数据中心贷款抛售。OpenAI 调整明年产能尚属内部讨论报道，Meta 高管称新建许可更难；信用融资和客户交付需继续由披露验证。APP 11/05 逆势上涨，显示并非所有 AI 应用都同步失效。\n11/06 亚洲时段：日本、韩国及台湾的 AI 硬件链继续遭抛售，显示美股风险收缩已跨市场传导；部分交易台称有逢低买盘，仍需美股开盘后的价格与广度确认。得州政策与信用融资是风险来源，不能从亚洲跌幅倒推 AI 资本开支已经见顶。\n11/06 新证据：科技对冲基金年内收益回到大致持平，反映去杠杆压力；看跌/看涨比升至 1 是 X 帖所称、尚缺交易所同口径核验。Anthropic 10 月底年化收入据 WSJ 超过 800 亿美元，同时潜在 IPO 募资规模可能低于先前预期或推迟；增长与融资估值须分开判断。\n11/06盘前交叉验证：Reuters据Markit报道软银五年期CDS盘中一度466bp、为四年高位，亚洲AI融资压力可量化；与此同时04:14美东纳指100期货+1.48%、NVDA和其他芯片股盘前反弹。信用压力与跌深回补并行，须待美股开盘广度及完整收盘判断。\n11/06 Vanda 数据显示，11/05 散户最终净卖出 1.51 亿美元、尾盘买入明显回升，说明抛售中的买盘反击；它是仓位与情绪反例，不能凭此认定周五收盘已完成修复。\n11/06正式收盘SOX约+4.2%、AMD约+11%、NDX +1.34%，但QQQ周内仍约−4.98%，VIX 25.64；这是跌深后的部分回补，不是资本开支已见顶或修复完成的证明。新帖从不同方向补充：SOX短期极端波动、科技对冲基金损失、MTUM动量平仓、微软逐步停用甲骨文旧代GPU容量；相反，Anthropic高收入增长报道与芯片反弹说明需求未同步消失。信用利差、项目交付与现金回报是下周待证条件。\n11/08 @labubu_trader质疑Citrini在云算力新贵下跌后加入做空，与两周前劝谨慎的时点不一致；AAOI、SKHY、CRWV 的空头观点及交易时点争论仍需结合下周价量、融资与实际订单判断。",
       "evidence_post_ids": [
         "2118508930636873935",
         "2118546721315733516",
         "2118559612014121277",
-        "2118558190149193907",
         "2118588727090102402",
         "2118701057350013145",
         "2118729368977518626",
@@ -9504,9 +9930,10 @@
         "2118741448422002779",
         "2118759939720237133",
         "2118747459317084340",
-        "2118818456019595400"
+        "2118818456019595400",
+        "2119094579471491157"
       ],
-      "caveat": "X观点与媒体转述须分开；Muse新帖称软银CDS为118bp，与Reuters/Markit核验的466bp冲突，未纳入证据。Cybertruck已停产说法也与Reuters所报2027年中逐步停产不符。信用、政策与业绩影响仍需后续收盘验证。 SOX五日跌幅、基金个别亏损及BTIG指标是原帖/二手报告，未取得原始序列；微软/甲骨文消息有Reuters转述，双方尚未完整披露。",
+      "caveat": "X观点与媒体转述须分开；Muse新帖称软银CDS为118bp，与Reuters/Markit核验的466bp冲突，未纳入证据。Cybertruck已停产说法也与Reuters所报2027年中逐步停产不符。信用、政策与业绩影响仍需后续收盘验证。 SOX五日跌幅、基金个别亏损及BTIG指标是原帖/二手报告，未取得原始序列；微软/甲骨文消息有Reuters转述，双方尚未完整披露。 新增做空讨论是作者观点，不是新公开空仓披露。",
       "benefit_tags": [
         "承压：NDX / QQQ / QCOM",
         "建设融资：CRWV / IREN / ORCL / MSFT",
