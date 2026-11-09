@@ -1,7 +1,7 @@
 {
-  "holder": null,
-  "token": null,
-  "purpose": null,
-  "acquired_at": null,
-  "expires_at": null
+  "holder": "GPT",
+  "token": "gpt:2026-11-09:1945:cnn:mw97m95z8qnz8na8ha",
+  "purpose": "Correct CNN metric date to match verified main card",
+  "acquired_at": "2026-11-09T12:00:36.071Z",
+  "expires_at": "2026-11-09T12:15:36.071Z"
 }
