@@ -283,61 +283,63 @@
       }
     },
     "2026-11-09": {
-      "updated_at": "2026-11-09T04:46:55.124Z",
+      "updated_at": "2026-11-09T11:53:41.874Z",
       "bull": [
         {
-          "title": "① 油价回落可暂缓通胀折现压力",
-          "detail": "事实：Reuters 11/09 亚洲开盘报道 Brent 期货约 $97.48、下跌约 0.85%；这是期货盘中报价，不是 EIA 现货或结算。判断：若油价回落并带动美债收益率回落，科技股的估值压力可能减轻；须看美国盘中同向验证。",
+          "title": "① QQQ盘前回升，等待常规时段接力",
+          "detail": "事实：IBKR QQQ 11/09 06:49美东盘前$659.34，较11/06常规收盘$656.10约+0.49%；12月NQ期货06:42美东延迟报价27,192、约+0.39%。判断：若开盘后NDX等权、芯片和云权重同步承接，才算周五反弹继续扩散；盘前报价不等于修复确认。",
           "source_urls": [
-            "https://www.reuters.com/business/energy/oil-falls-open-trump-says-fresh-iran-attacks-unlikely-2026-11-08/"
+            "https://www.interactivebrokers.com/en/trading/extended-hours-trading.php",
+            "https://indexes.nasdaq.com/Index/Overview/NDX"
           ]
         },
         {
-          "title": "② 周五芯片反弹提供修复起点",
-          "detail": "事实：11/06 NDX 收 26,989.99、QQQ 收 $656.10，芯片股带动反弹；仍低于各自200日均线。判断：若周一等权和AI基础设施链跟涨，反弹的市场接受度才有改善证据。",
+          "title": "② 油价亚洲时段回落",
+          "detail": "事实：Reuters 11/09亚洲开盘报道Brent期货约$97.48、下跌约0.85%；此为早段期货报价，不是最新价、EIA现货或ICE结算。判断：若美国盘中油价与美债收益率同步回落，估值压力可能暂缓；目前尚无同刻债息证据。",
           "source_urls": [
-            "https://indexes.nasdaq.com/Index/History/NDX",
-            "https://www.reuters.com/business/nasdaq-futures-rise-after-steep-ai-selloff-chip-stocks-stabilize-2026-11-06/"
+            "https://www.reuters.com/business/energy/oil-falls-open-trump-says-fresh-iran-attacks-unlikely-2026-11-08/"
           ]
         }
       ],
       "bear": [
         {
-          "title": "① 期货早段未确认延续反弹",
-          "detail": "事实：Investing.com 记录美东周日19:15 Nasdaq-100期货 27,033.75、约−0.2%；该快照已过时，不能当作当前盘前价。判断：周五反弹后仍有卖压，需等待更近报价和周一开盘成交确认。",
+          "title": "① NVDA盘前逆势弱于指数",
+          "detail": "事实：Reuters 11/09 05:10美东盘前快照称NVDA约−4.5%、INTC/MRVL/QCOM跌约0.50%–1.21%，而纳指100期货约+0.21%；报道将NVDA弱势与CEO相关调查及不确定性联系起来。判断：若开盘后权重芯片继续拖累NDX，盘前指数上涨可能只是选择性回补；调查报道不是公司正式结论。",
           "source_urls": [
-            "https://ng.investing.com/news/stock-market-news/wall-st-futures-mixed-amid-ai-spending-concerns-inflation-data-awaited-2792343"
+            "https://www.reuters.com/business/wall-st-futures-rise-after-rough-week-nvidia-unsettles-investors-2026-11-09/"
           ]
         },
         {
-          "title": "② 强就业与AI融资问题仍压住风险偏好",
-          "detail": "事实：11/06非农+16.5万后，财政部10Y日值为4.86%；已发布的AI融资担忧未因芯片单日反弹而消失。判断：若债息继续上行且等权滞后，反弹可能停留在权重股回补。",
+          "title": "② 强就业与AI融资约束未消",
+          "detail": "事实：11/06非农+16.5万、财政部10Y日值4.86%；Reuters 11/09仍报道AI投资可持续性与利率上调担忧。判断：若实际收益率或信用利差上行、等权滞后，QQQ盘前反弹不足以提高风险仓位。",
           "source_urls": [
             "https://www.bls.gov/news.release/empsit.nr0.htm",
-            "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?field_tdr_date_value_month=202611&type=daily_treasury_yield_curve"
+            "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?field_tdr_date_value_month=202611&type=daily_treasury_yield_curve",
+            "https://www.reuters.com/business/wall-st-futures-rise-after-rough-week-nvidia-unsettles-investors-2026-11-09/"
           ]
         }
       ],
       "risks": [
         {
-          "title": "① 美债与油价可能给出相反信号",
-          "detail": "分别核对最新10Y收益率与同合约Brent期货；油价回落若伴随信用利差扩大，不自动视为金融条件改善。",
+          "title": "① 开盘芯片与指数背离是否扩大",
+          "detail": "Reuters 05:10美东观察NVDA约−4.5%，但报价时点早于IBKR 06:49美东QQQ快照。开盘20/60分钟核对NVDA、SOX、QQQ和NDXE，不用异时点涨跌直接推断收盘。",
           "source_urls": [
-            "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/",
-            "https://www.reuters.com/business/energy/oil-falls-open-trump-says-fresh-iran-attacks-unlikely-2026-11-08/"
+            "https://www.reuters.com/business/wall-st-futures-rise-after-rough-week-nvidia-unsettles-investors-2026-11-09/",
+            "https://www.interactivebrokers.com/en/trading/extended-hours-trading.php",
+            "https://indexes.nasdaq.com/Index/History/NDXE"
           ]
         },
         {
-          "title": "② 开盘广度与波动验证",
-          "detail": "观察QQQ、NDX等权NDXE、芯片/云软件与VIX/VXN的实际常规时段报价；期货单点和上周五反弹不足以触发修复确认。",
+          "title": "② 油债及波动是否支持回升",
+          "detail": "分别核对美国盘中10Y、同合约Brent期货与VIX/VXN的真实报价时点；VIX/VXN 11/06现金收盘不能标成周一盘中。",
           "source_urls": [
-            "https://indexes.nasdaq.com/Index/History/NDXE",
+            "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/",
             "https://www.cboe.com/delayed_quotes/_vix/quote_table"
           ]
         },
         {
-          "title": "③ 11/10 CPI前的隔夜减仓",
-          "detail": "BLS安排10月CPI在北京时间11/10 21:30发布；周一交易时先观察债息和持仓收缩，不能提前填写CPI结果。",
+          "title": "③ 11/10 CPI前隔夜风险",
+          "detail": "BLS定于11/10 08:30美东（北京时间21:30）发布10月CPI；结果尚未公布，若科技反弹没有广度配合，关注事件前减仓。",
           "source_urls": [
             "https://www.bls.gov/schedule/2026/11_sched_list.htm"
           ]
