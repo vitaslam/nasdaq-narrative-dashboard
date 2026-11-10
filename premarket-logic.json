@@ -344,7 +344,54 @@
             "https://www.bls.gov/schedule/2026/11_sched_list.htm"
           ]
         }
-      ]
+      ],
+      "closing_check": {
+        "session": "regular_close",
+        "dominant_logic": "11/09 收盘主要交易油价回落后的风险偏好修复与芯片广度回升；NVDA逆势下跌、10Y略升，说明修复并非所有AI权重同步转强。",
+        "observed_at": "2026-11-09T16:00:00-05:00",
+        "updated_at": "2026-11-10T01:22:25.008Z",
+        "evidence": [
+          "NDX 27,907.63（+3.40%）、QQQ $679.35（+3.54%），NDXE Nasdaq官方 9,758.59（+3.03%）；等权跟涨，日内反弹不只靠少数龙头。IBKR NDX日线与 Nasdaq另一历史入口吻合；Nasdaq某入口显示27,833.87，保留来源冲突说明。",
+          "VIX 19.92（前值25.64）、VXN 28.89（前值34.02）；Cboe月度VX 11/18结算20.0091、12/16结算19.4945，近两月仍小幅倒挂。",
+          "Reuters 11/09收盘报道NVDA跌约4.2%、SOX涨约6.9%、AMD涨约13.3%；油价回落，财政部10Y为4.88%（11/06为4.86%）。油跌与收益率略升并存，不能把整日上涨归于单一因素。"
+        ],
+        "verdicts": [
+          {
+            "hypothesis": "盘前：QQQ回升若获等权和芯片承接，可验证反弹扩散",
+            "result": "supported",
+            "reason": "NDX与NDXE均涨约3%，SOX约+6.9%，VIX/VXN下行；仍需11/10 CPI后的持续性。"
+          },
+          {
+            "hypothesis": "盘前：NVDA弱势可能拖累整个NDX修复",
+            "result": "mixed",
+            "reason": "NVDA收跌约4.2%，但NDX/QQQ和芯片板块整体大涨，权重分化未阻断指数反弹。"
+          },
+          {
+            "hypothesis": "盘前：油债与波动共同支持回升",
+            "result": "mixed",
+            "reason": "油价与波动回落，但财政部10Y日值反而由4.86%升至4.88%，并非债息同步下行。"
+          },
+          {
+            "hypothesis": "开盘20分钟判断",
+            "result": "pending",
+            "reason": "未取得当日已保存且核验的20分钟开盘验证，不能事后补造。"
+          },
+          {
+            "hypothesis": "开盘60分钟判断",
+            "result": "pending",
+            "reason": "未取得当日已保存且核验的60分钟开盘验证，不能事后补造。"
+          }
+        ],
+        "next_day_risk": "11/10 CPI（北京时间21:30）公布后，检查10Y实际收益率、NDXE参与度、NVDA与AI融资链是否继续分化；若VIX/VXN反弹且QQQ重新跌回周一低位，修复判断失效。",
+        "source_urls": [
+          "https://indexes.nasdaq.com/Index/Overview/NDX",
+          "https://indexes.nasdaq.com/Index/History/NDXE",
+          "https://finance.yahoo.com/quote/QQQ/history/",
+          "https://www.cboe.com/markets/us/futures/market-statistics/settlement/futures/daily",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?field_tdr_date_value=2026&type=daily_treasury_yield_curve",
+          "https://www.reuters.com/business/wall-st-futures-rise-after-rough-week-nvidia-unsettles-investors-2026-11-09/"
+        ]
+      }
     }
   }
 }
