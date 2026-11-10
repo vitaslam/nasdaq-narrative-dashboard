@@ -392,6 +392,70 @@
           "https://www.reuters.com/business/wall-st-futures-rise-after-rough-week-nvidia-unsettles-investors-2026-11-09/"
         ]
       }
+    },
+    "2026-11-10": {
+      "updated_at": "2026-11-10T04:50:30.343Z",
+      "bull": [
+        {
+          "title": "① 油价回落给反弹争取折现空间",
+          "detail": "事实：11/09美股常规收盘NDX +3.40%、QQQ +3.54%，VIX降至19.92；Reuters记录油价回落与芯片股普涨。判断：若11/10油价继续不反弹、CPI低于市场担忧且等权维持参与，周一修复有继续扩散的条件；目前还未确认CPI结果。",
+          "source_urls": [
+            "https://www.reuters.com/business/wall-st-futures-rise-after-rough-week-nvidia-unsettles-investors-2026-11-09/",
+            "https://indexes.nasdaq.com/Index/Overview/NDX",
+            "https://www.cboe.com/delayed_quotes/_vix/quote_table"
+          ]
+        },
+        {
+          "title": "② AI算力需求仍有公司层面的验证窗口",
+          "detail": "事实：CoreWeave官方安排11/10美东17:00举行三季度业绩电话会；AMD已公布三季度数据中心营收同比增长97%。判断：若新云利用率、合同现金转化和融资成本给出可核验证据，昨日芯片广度可能获得基本面支持；不能把AMD结果直接外推至全链。",
+          "source_urls": [
+            "https://investors.coreweave.com/news/news-details/2026/CoreWeave-Announces-Date-of-Third-Quarter-2026-Financial-Results-and-Conference-Call/default.aspx",
+            "https://ir.amd.com/financial-information/sec-filings/content/0000002488-26-000188/amdq32026earningsslidesf.htm"
+          ]
+        }
+      ],
+      "bear": [
+        {
+          "title": "① CPI前反弹并未获期货延续确认",
+          "detail": "事实：IBKR 11/10 12:39北京时间的2026年12月NQ期货27,947.75，较该合约前参考价28,014.50低约0.24%；这是延迟期货快照，不是NDX现货或美股常规盘。判断：昨日日线反弹后盘外买盘尚不足以确认突破，CPI若推高实际利率，QQQ/NDX接近200日线的位置可能再受压。",
+          "source_urls": [
+            "https://www.interactivebrokers.com/en/trading/extended-hours-trading.php",
+            "https://www.bls.gov/schedule/news_release/cpi.htm",
+            "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/"
+          ]
+        },
+        {
+          "title": "② 指数与关键龙头仍分化",
+          "detail": "事实：Reuters记录11/09费城半导体指数约+6.9%，NVDA约−4.2%；美国财政部11/09 10Y为4.88%，较11/06上升2bp。判断：若NVDA及新云融资链继续偏弱、债息上冲，等权反弹可能无法转成纳指持续修复；这不是单一公司新闻对指数的因果断言。",
+          "source_urls": [
+            "https://www.reuters.com/business/wall-st-futures-rise-after-rough-week-nvidia-unsettles-investors-2026-11-09/",
+            "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?field_tdr_date_value=2026&type=daily_treasury_yield_curve"
+          ]
+        }
+      ],
+      "risks": [
+        {
+          "title": "① 11/10 21:30 北京时间 CPI",
+          "detail": "BLS定时发布10月CPI；公布前没有实际值。先看核心与能源，再核对10Y实际收益率、NQ/QQQ开盘20与60分钟及收盘，防止把首个跳价当最终方向。",
+          "source_urls": [
+            "https://www.bls.gov/schedule/news_release/cpi.htm"
+          ]
+        },
+        {
+          "title": "② 油价与霍尔木兹消息反复",
+          "detail": "昨日油价回落支持风险偏好，但中东航运风险仍是不确定事件。仅在有可核验新消息及同合约油价时更新，避免把未核实原帖当成供应中断。",
+          "source_urls": [
+            "https://www.reuters.com/business/wall-st-futures-rise-after-rough-week-nvidia-unsettles-investors-2026-11-09/"
+          ]
+        },
+        {
+          "title": "③ CoreWeave盘后结果与现金转化",
+          "detail": "官方电话会安排美东11/10 17:00（北京时间11/11 06:00）。核对收入、资本开支、现金流、债务与利用率；盘后报价和下一常规收盘分开记录。",
+          "source_urls": [
+            "https://investors.coreweave.com/news/news-details/2026/CoreWeave-Announces-Date-of-Third-Quarter-2026-Financial-Results-and-Conference-Call/default.aspx"
+          ]
+        }
+      ]
     }
   }
 }
