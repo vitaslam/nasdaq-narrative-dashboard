@@ -503,18 +503,19 @@
       }
     },
     "2026-11-11": {
-      "updated_at": "2026-11-11T04:48:33.109Z",
+      "updated_at": "2026-11-11T11:50:59.421Z",
       "bull": [
         {
-          "title": "① CoreWeave增长与指引上调提供需求验证",
-          "detail": "事实：公司11/10公布三季度收入36.61亿美元，全年收入指引上调至130亿–133亿美元，营业现金流19.75亿美元；这是增长与现金流入证据。判断：若11/11交易中AI基建链与NDX等权同步承接，才支持把需求兑现转成指数修复；单季增长不等于长期ROI已确认。",
+          "title": "① CoreWeave增长与盘前价格承接",
+          "detail": "事实：11/10盘后公司披露收入$3.661B并上调全年收入指引；IBKR 11/11 19:46北京时间CRWV盘前$55.30，较11/10常规收盘$48.73约+13.48%。判断：若开盘后云基建、芯片和NDX等权共同承接，需求兑现可改善修复证据；盘前涨幅不是完整收盘。",
           "source_urls": [
-            "https://investors.coreweave.com/news/news-details/2026/CoreWeave-Reports-Strong-Third-Quarter-2026-Results/default.aspx"
+            "https://investors.coreweave.com/news/news-details/2026/CoreWeave-Reports-Strong-Third-Quarter-2026-Results/default.aspx",
+            "https://www.interactivebrokers.com/en/trading/extended-hours-trading.php"
           ]
         },
         {
-          "title": "② QQQ隔夜回升，先看开盘承接",
-          "detail": "事实：IBKR 11/11北京时间12:47（美东11/10 23:47）QQQ隔夜末笔$683.88，较11/10常规收盘$674.76约高1.35%，属隔夜而非11/11常规收盘。判断：若开盘后仍站回200日均线$681.42且等权参与，试仓条件改善；须以开盘20/60分钟和完整收盘复核。",
+          "title": "② QQQ盘前越过200日线，待开盘验证",
+          "detail": "事实：IBKR 11/11 19:46北京时间QQQ盘前$687.19，较11/10常规收盘$674.76约+1.84%，高于以上次完整收盘计算的200日线$681.42。判断：需开盘20/60分钟和完整收盘维持，且等权参与，才考虑修复确认。",
           "source_urls": [
             "https://www.interactivebrokers.com/en/trading/extended-hours-trading.php",
             "https://vitaslam.github.io/nasdaq-narrative-dashboard/"
@@ -523,42 +524,41 @@
       ],
       "bear": [
         {
-          "title": "① CPI后的折现压力尚未解除",
-          "detail": "事实：BLS 11/10公布总体CPI环比0.4%，财政部同日10Y名义4.98%、实际2.78%；NDX与QQQ当日收于各自200日均线下。判断：隔夜价格回升若没有实际利率和广度配合，增强条件仍不足。11/11现券假日休市，不把11/10收益率标成今日盘中值。",
+          "title": "① CoreWeave资本开支与融资成本仍高",
+          "detail": "事实：三季度营业现金流$1.975B、购置固定资产$9.441B；全年资本开支指引$37B–$39B、Q4利息费用预期$1.05B–$1.15B。判断：增长已披露，但现金转化及长期ROI未确认；开盘若高开回落，说明短线接受度仍脆弱，不能由单季现金缺口断定长期失败。",
           "source_urls": [
-            "https://www.bls.gov/news.release/archives/cpi_11102026.htm",
-            "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?field_tdr_date_value_month=202611&type=daily_treasury_yield_curve",
-            "https://www.sifma.org/news/press-releases/sifma-fixed-income-market-close-recommendation-in-the-u-s-the-u-k-and-japan-for-the-u-s-veterans-day-holiday-2026"
+            "https://investors.coreweave.com/news/news-details/2026/CoreWeave-Reports-Strong-Third-Quarter-2026-Results/default.aspx"
           ]
         },
         {
-          "title": "② CoreWeave资本开支和融资成本制约现金回报",
-          "detail": "事实：公司第三季购置固定资产94.41亿美元，营业现金流19.75亿美元；全年资本开支指引370亿–390亿美元，预计第四季利息费用10.5亿–11.5亿美元。判断：增长已兑现一部分，现金转化与长期ROI仍需后续部署利用率及融资条件验证；不以单季现金缺口断定AI失败。",
+          "title": "② CPI后的利率压力尚无新现券验证",
+          "detail": "事实：11/10财政部10Y名义4.98%、实际2.78%；11/11美元固收市场因退伍军人节按SIFMA建议休市。判断：缺少当日可比现券收益率，不能把盘前反弹直接归因于利率缓和；11/13 PPI后再核。",
           "source_urls": [
-            "https://investors.coreweave.com/news/news-details/2026/CoreWeave-Reports-Strong-Third-Quarter-2026-Results/default.aspx"
+            "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?field_tdr_date_value_month=202611&type=daily_treasury_yield_curve",
+            "https://www.sifma.org/news/press-releases/sifma-fixed-income-market-close-recommendation-in-the-u-s-the-u-k-and-japan-for-the-u-s-veterans-day-holiday-2026"
           ]
         }
       ],
       "risks": [
         {
-          "title": "① 隔夜反弹能否转成常规时段确认",
-          "detail": "11/11美股照常交易。分别核对QQQ/NDX开盘20与60分钟、NVDA及AI基建链、NDXE参与度和收盘；隔夜末笔不当作常规收盘。",
+          "title": "① 高开后20/60分钟与等权广度",
+          "detail": "分别核对QQQ/NDX、CRWV及半导体、NDXE，观察盘前越过200日线能否转为常规时段确认；未核实前不提高仓位。",
+          "source_urls": [
+            "https://www.interactivebrokers.com/en/trading/extended-hours-trading.php",
+            "https://indexes.nasdaq.com/Index/Overview/NDXE"
+          ]
+        },
+        {
+          "title": "② 退伍军人节债市休市",
+          "detail": "美股照常交易、美元债券市场建议全日休市；10Y现金收益率维持11/10基线，不以旧值充当今日盘中反应。",
           "source_urls": [
             "https://www.nyse.com/trade/hours-calendars",
-            "https://www.interactivebrokers.com/en/trading/extended-hours-trading.php"
+            "https://www.sifma.org/news/press-releases/sifma-fixed-income-market-close-recommendation-in-the-u-s-the-u-k-and-japan-for-the-u-s-veterans-day-holiday-2026"
           ]
         },
         {
-          "title": "② 债券假日造成利率验证空档",
-          "detail": "SIFMA建议11/11美元固收市场全日休市；现金10Y/实际利率以11/10为最近核验基线，不能用旧值伪称今日盘中验证。",
-          "source_urls": [
-            "https://www.sifma.org/news/press-releases/sifma-fixed-income-market-close-recommendation-in-the-u-s-the-u-k-and-japan-for-the-u-s-veterans-day-holiday-2026",
-            "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?field_tdr_date_value_month=202611&type=daily_treasury_yield_curve"
-          ]
-        },
-        {
-          "title": "③ PPI和油价地缘再定价",
-          "detail": "11/13北京时间21:30的10月PPI为定时事件；油价与中东航运为不确定风险。若油债共振走高、QQQ重新失守周二低点，暂停增强。",
+          "title": "③ PPI与油价地缘风险",
+          "detail": "11/13北京时间21:30 PPI是定时验证；油价和霍尔木兹航运为不确定风险。若价格回吐周二低点且波动上升，暂停增强。",
           "source_urls": [
             "https://www.bls.gov/schedule/2026/11_sched_list.htm"
           ]
