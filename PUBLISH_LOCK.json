@@ -1,1 +1,7 @@
-null
+{
+  "holder": "GPT",
+  "token": "gpt:2026-11-11:0915:fvtbkss911",
+  "purpose": "daily:2026-11-11:0915 full page",
+  "acquired_at": "2026-11-11T01:15:24.355Z",
+  "expires_at": "2026-11-11T01:40:24.355Z"
+}
