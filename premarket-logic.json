@@ -454,7 +454,53 @@
             "https://investors.coreweave.com/news/news-details/2026/CoreWeave-Announces-Date-of-Third-Quarter-2026-Financial-Results-and-Conference-Call/default.aspx"
           ]
         }
-      ]
+      ],
+      "closing_check": {
+        "session": "regular_close",
+        "dominant_logic": "CPI高于调查预期后债息上行，NDX/QQQ回吐周一部分涨幅；芯片内部仍分化，不能把整日走势单归于CPI。",
+        "observed_at": "2026-11-10T16:00:00-05:00",
+        "updated_at": "2026-11-11T01:18:00.514Z",
+        "evidence": [
+          "BLS 10月总体CPI环比0.4%、核心0.3%；Reuters调查总体预期0.3%。美国财政部10Y名义4.98%（11/09为4.88%），10Y实际2.78%（前日2.66%）。",
+          "Nasdaq NDX 27,740.80（−0.60%）；IBKR QQQ $674.76（−0.68%）、NVDA $168.89（−5.48%），SOX 9,998.78（−0.35%）、AMD $515.21（+1.30%）。",
+          "Nasdaq NDXE主Overview显示9,677.09（−0.97%），但其他Nasdaq入口数值有差异，方向仅作辅助；油价回落的盘前论据未阻止收盘走弱。"
+        ],
+        "verdicts": [
+          {
+            "hypothesis": "盘前多头：油价回落且CPI温和支持修复",
+            "result": "invalidated",
+            "reason": "CPI总体0.4%高于0.3%调查预期，10Y名义及实际利率上行，NDX/QQQ收跌。油价不是唯一驱动。"
+          },
+          {
+            "hypothesis": "盘前多头：NVDA与广度承接",
+            "result": "invalidated",
+            "reason": "NVDA收跌5.48%，NDXE主入口跌幅约0.97%；主入口数值冲突，广度精确幅度待复核。"
+          },
+          {
+            "hypothesis": "盘前空头：CPI高于预期推升债息、200日线附近修复受阻",
+            "result": "supported",
+            "reason": "总体CPI高于调查预期，10Y升10bp，NDX/QQQ均低于各自200日线收盘。"
+          },
+          {
+            "hypothesis": "开盘20分钟判断",
+            "result": "pending",
+            "reason": "未保存可核验的20分钟观察记录，不能事后代填。"
+          },
+          {
+            "hypothesis": "开盘60分钟判断",
+            "result": "pending",
+            "reason": "未保存可核验的60分钟观察记录，不能事后代填。"
+          }
+        ],
+        "next_day_risk": "11/13 PPI与后续10Y实际利率；若NDX/QQQ继续失守周二低点且等权、信用同步走弱，暂停增强。",
+        "source_urls": [
+          "https://www.bls.gov/news.release/archives/cpi_11102026.htm",
+          "https://indexes.nasdaqomx.com/Index/Overview/ndx",
+          "https://indexes.nasdaq.com/Index/Overview/NDXE",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?field_tdr_date_value_month=202611&type=daily_treasury_yield_curve",
+          "https://www.interactivebrokers.com/en/trading/products-etfs.php"
+        ]
+      }
     }
   }
 }
