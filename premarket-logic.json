@@ -612,11 +612,11 @@
       }
     },
     "2026-11-12": {
-      "updated_at": "2026-11-12T04:51:14.408Z",
+      "updated_at": "2026-11-12T11:47:32.877Z",
       "bull": [
         {
-          "title": "① 前收盘修复与波动期限结构改善",
-          "detail": "事实：11/11 NDX常规收盘28,374.25、QQQ $690.38，均较11/10上涨；VIX常规收盘17.49，11月/12月VX官方结算18.0519/18.4042，为轻度正价差。判断：若11/12开盘后守住周三收盘区与200日线，修复可继续接受验证；昨日收盘不能代表今日盘前走势。",
+          "title": "① 昨日修复收盘仍是可验证基线",
+          "detail": "事实：11/11 NDX常规收盘28,374.25、QQQ $690.38，VIX收17.49；VX1/VX2结算18.0519/18.4042。判断：若11/12开盘后QQQ及等权守住周三收盘区，短线修复仍可接受验证；盘前回吐已使这个条件更严格。",
           "source_urls": [
             "https://indexes.nasdaqomx.com/Index/Overview/ndx",
             "https://www.cboe.com/delayed_quotes/_vix/quote_table/",
@@ -624,51 +624,51 @@
           ]
         },
         {
-          "title": "② 云基建需求已有业绩证据，Nebius待公布",
-          "detail": "事实：CoreWeave已披露Q3营收$3.661B并上调全年指引，11/11首个财报后常规收盘$60.77；Nebius官方安排11/12美东盘前公布Q3结果、08:00电话会。判断：业绩可继续支撑需求叙事，但Nebius结果及融资、资本开支、现金回报尚未公布，不能预设利好。",
+          "title": "② AI云需求增长已有业绩证据",
+          "detail": "事实：CoreWeave已公布Q3收入$3.661B并上调全年营收指引，11/11财报后首个常规收盘$60.77。判断：需求端有据，但11/12盘前CRWV回落，长期现金回报与Nebius待发业绩仍须分别核验。",
           "source_urls": [
             "https://investors.coreweave.com/news/news-details/2026/CoreWeave-Reports-Strong-Third-Quarter-2026-Results/default.aspx",
+            "https://www.interactivebrokers.com/en/trading/extended-hours-trading.php",
             "https://nebius.com/investor-hub"
           ]
         }
       ],
       "bear": [
         {
-          "title": "① 英伟达治理消息扰动AI权重股",
-          "detail": "事实：NVIDIA 11/08官方声明董事会已启动独立调查，并当时表示对黄仁勋及管理层有信心；11/12 Reuters援引匿名知情人士称董事会考虑其去留，尚未取得新的公司决定公告。判断：若消息导致权重股持续承压，昨日修复可能被重新定价；不能将媒体报道写成已罢免。",
+          "title": "① NVIDIA治理不确定性冲击权重",
+          "detail": "事实：NVIDIA董事会11/08确认启动独立调查并称当时对黄仁勋管理团队有信心；Reuters 11/11援引匿名知情人士称董事会讨论其去留。至19:45北京时间未核到新的公司决定。判断：治理消息可能压制AI权重与估值，不能将报道写成已撤换CEO。",
           "source_urls": [
             "https://investor.nvidia.com/news/press-release-details/2026/Statement-from-NVIDIA-Board-of-Directors/default.aspx",
-            "https://www.investing.com/news/economy-news/asian-stocks-fragile-nvidia-plummets-as-board-to-decide-ceos-fate-5020170"
+            "https://theprint.in/world/nvidia-board-meets-to-decide-ceo-huangs-future-as-leadership-crisis-deepens/3096524/"
           ]
         },
         {
-          "title": "② 隔夜报价已回吐部分昨日涨幅",
-          "detail": "事实：IBKR QQQ 11/12 12:48:44北京时间盘外末笔$684.03，较11/11常规收盘$690.38约−0.92%；CRWV同口径12:49:12为$56.72，较其$60.77收盘约−6.66%。判断：这反驳无条件延续昨日修复，仍须开盘量价及芯片/云板块广度确认；盘外末笔不是常规收盘。",
+          "title": "② 盘前报价回吐周三涨幅",
+          "detail": "事实：IBKR 11/12 19:43:31北京时间QQQ盘前末笔$684.89，较11/11常规收盘$690.38约−0.80%；19:44:50 CRWV $56.62，较$60.77约−6.83%；19:45:13 NBIS $152.40。判断：开盘承接度尚未确认，盘前末笔不可当常规收盘或财报结果。",
           "source_urls": [
-            "https://www.interactivebrokers.com/en/trading/extended-hours-trading.php",
-            "https://indexes.nasdaqomx.com/Index/Overview/ndx"
+            "https://www.interactivebrokers.com/en/trading/extended-hours-trading.php"
           ]
         }
       ],
       "risks": [
         {
-          "title": "① NVIDIA董事会正式进展与开盘广度",
-          "detail": "分清公司正式公告与媒体引述；观察NVDA、QQQ、半导体及云基建在开盘20/60分钟是否同步承压。治理消息是否造成持续卖压须行情验证。",
+          "title": "① NVIDIA正式公告与开盘20/60分钟广度",
+          "detail": "先区分董事会正式结果与媒体消息，再看NVDA、QQQ、芯片和云股在常规时段是否同跌或分化；不能从盘前单价推断唯一因果。",
           "source_urls": [
             "https://investor.nvidia.com/news/press-release-details/2026/Statement-from-NVIDIA-Board-of-Directors/default.aspx",
-            "https://www.investing.com/news/economy-news/asian-stocks-fragile-nvidia-plummets-as-board-to-decide-ceos-fate-5020170"
+            "https://theprint.in/world/nvidia-board-meets-to-decide-ceo-huangs-future-as-leadership-crisis-deepens/3096524/"
           ]
         },
         {
-          "title": "② Nebius盘前财报与现金回报",
-          "detail": "官方安排11/12美东盘前发布、08:00电话会；核对实际收入、部署、资本开支与融资，再观察首个常规时段反应，不能以隔夜报价预判结果。",
+          "title": "② Nebius盘前业绩与市场接受度",
+          "detail": "公司安排11/12美东开盘前公布Q3、08:00电话会；结果未核到时保持待公布，核验收入、部署、资本开支、融资与首个常规时段价格。",
           "source_urls": [
             "https://nebius.com/investor-hub"
           ]
         },
         {
-          "title": "③ 债券恢复交易及周五PPI",
-          "detail": "11/11债市假日使10Y官方恒定期限基线停在11/10；11/12核对恢复交易后的收益率及油价实际报价。11/13美东08:30 PPI是下一项定时通胀验证。",
+          "title": "③ 债息恢复交易与周五PPI",
+          "detail": "11/11美国债市休市，财政部10Y/实际利率最后核验值为11/10；11/12新现券读数未取得，11/13美东08:30 PPI待公布。分别核对利率、油价及股市反应。",
           "source_urls": [
             "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?field_tdr_date_value_month=202611&type=daily_treasury_yield_curve",
             "https://www.bls.gov/schedule/2026/11_sched_list.htm"
