@@ -563,7 +563,53 @@
             "https://www.bls.gov/schedule/2026/11_sched_list.htm"
           ]
         }
-      ]
+      ],
+      "closing_check": {
+        "session": "regular_close",
+        "dominant_logic": "收盘主要交易CoreWeave财报后的AI云与芯片风险偏好修复；CPI后利率压力仍未由休市的现券市场重新验证。",
+        "observed_at": "2026-11-11T16:00:00-05:00",
+        "updated_at": "2026-11-12T01:26:26.591Z",
+        "evidence": [
+          "Nasdaq：NDX 28,374.25，较前收27,740.80约+2.28%；IBKR：QQQ $690.38，较$674.76约+2.31%，常规收盘高于前日200日线$681.42。",
+          "IBKR：CRWV在财报后首个常规收盘$60.77，较前收$48.73约+24.71%；公司已披露营收$3.661B及全年指引上调，但长期现金回报尚未证实。",
+          "Cboe：VIX常规收盘17.49（前日19.46），11月/12月VX结算18.0519/18.4042，期限结构转轻度正价差；美债现券11/11休市，10Y仍用11/10基线。"
+        ],
+        "verdicts": [
+          {
+            "hypothesis": "盘前：CoreWeave增长可改善AI云及芯片修复证据",
+            "result": "supported",
+            "reason": "CRWV首个常规收盘+24.71%，QQQ/NDX同步上涨；这支持短线接受度，不证明长期ROI或唯一因果。"
+          },
+          {
+            "hypothesis": "盘前：QQQ盘前越过200日线能否维持到常规收盘",
+            "result": "supported",
+            "reason": "QQQ收$690.38，高于前日200日线$681.42；等权指数新收盘仍待同口径核验。"
+          },
+          {
+            "hypothesis": "盘前：高开回吐与利率压力是否压制修复",
+            "result": "mixed",
+            "reason": "指数收盘仍上涨且VIX下降；11/11债市休市，不能以旧10Y判断当日利率反应。"
+          },
+          {
+            "hypothesis": "开盘20分钟：盘前判断验证",
+            "result": "pending",
+            "reason": "未保存可独立核验的20分钟观测与当时假设。"
+          },
+          {
+            "hypothesis": "开盘60分钟：盘前判断验证",
+            "result": "pending",
+            "reason": "未保存可独立核验的60分钟观测与当时假设。"
+          }
+        ],
+        "next_day_risk": "11/12检验QQQ/NDX能否守住200日线、等权广度与现券收益率恢复后的方向；11/13 PPI是下一定时催化。",
+        "source_urls": [
+          "https://indexes.nasdaqomx.com/Index/Overview/ndx",
+          "https://www.interactivebrokers.com/en/trading/products-etfs.php",
+          "https://www.cboe.com/delayed_quotes/_vix/quote_table/",
+          "https://www.cboe.com/markets/us/futures/market-statistics/settlement/futures/daily",
+          "https://investors.coreweave.com/news/news-details/2026/CoreWeave-Reports-Strong-Third-Quarter-2026-Results/default.aspx"
+        ]
+      }
     }
   }
 }
