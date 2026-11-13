@@ -727,6 +727,68 @@
           "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?field_tdr_date_value=2026&type=daily_treasury_real_yield_curve"
         ]
       }
+    },
+    "2026-11-13": {
+      "updated_at": "2026-11-13T04:47:06.701Z",
+      "bull": [
+        {
+          "title": "① AMAT 财报给出设备需求的已公布支撑",
+          "detail": "事实：AMAT 于美东 11/12 16:01 公布 FY2026 Q4 营收 $10.41B、非 GAAP EPS $4.16，并给出 FY2027 Q1 营收指引 $11.1B±$0.5B。判断：设备端订单与盈利增长可支撑芯片链预期；股价是否接受，需看 11/13 首个完整常规时段，不能把盘后公告等同价格确认。",
+          "source_urls": [
+            "https://investors.appliedmaterials.com/news-releases/news-release-details/applied-materials-announces-fourth-quarter-and-fiscal-year-2026"
+          ]
+        },
+        {
+          "title": "② 指数收盘跌幅小于 NVDA，仍有权重抵消",
+          "detail": "事实：11/12 常规收盘 QQQ $688.17、较前收约 −0.32%，NVDA $166.19、约 −4.34%。判断：指数存在其他权重的抵消作用；若 11/13 开盘后 QQQ 与半导体、云股同步稳住，修复才有延续基础。这里仅用已完成收盘作基线，尚非 11/13 盘前报价。",
+          "source_urls": [
+            "https://finance.yahoo.com/quote/QQQ/history/",
+            "https://finance.yahoo.com/quote/NVDA/history/"
+          ]
+        }
+      ],
+      "bear": [
+        {
+          "title": "① NVIDIA CEO 交接增加权重股再定价风险",
+          "detail": "事实：NVIDIA 11/12 正式公告黄仁勋即时辞任 CEO，Colette Kress 任临时 CEO；当日 NVDA 常规收盘 $166.19，约 −4.34%。判断：治理及执行不确定性可能继续压制 AI 权重，但不能把指数全部变化单独归因于此公告。",
+          "source_urls": [
+            "https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Announces-CEO-Transition/",
+            "https://finance.yahoo.com/quote/NVDA/history/"
+          ]
+        },
+        {
+          "title": "② 实际利率上行提高高估值科技股门槛",
+          "detail": "事实：财政部 11/12 日度 10Y 名义收益率 5.10%、10Y 实际收益率 2.86%，高于 11/10 的 4.98%、2.78%；这不是 11/13 实时债券报价。判断：若 PPI 后债息继续上行，AI 与软件估值承压风险增大；需同刻股债证据才可检验传导。",
+          "source_urls": [
+            "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?field_tdr_date_value_month=202611&type=daily_treasury_yield_curve",
+            "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?field_tdr_date_value=2026&type=daily_treasury_real_yield_curve"
+          ]
+        }
+      ],
+      "risks": [
+        {
+          "title": "① 11/13 美东 08:30 PPI 与债息",
+          "detail": "BLS 安排公布 10 月 PPI；当前尚未公布。先核对实际值及修订，再看 10Y 名义/实际利率与科技股同刻反应，不能提前写出通胀结论。",
+          "source_urls": [
+            "https://www.bls.gov/schedule/news_release/ppi.htm?year=2026"
+          ]
+        },
+        {
+          "title": "② AMAT 财报首个常规时段验收",
+          "detail": "以已公布的 $10.41B 营收、$4.16 非 GAAP EPS 和下季 $11.1B±$0.5B 营收指引为事实基线；看 AMAT 及半导体设备链开盘 20/60 分钟与收盘是否同步接受。",
+          "source_urls": [
+            "https://investors.appliedmaterials.com/news-releases/news-release-details/applied-materials-announces-fourth-quarter-and-fiscal-year-2026"
+          ]
+        },
+        {
+          "title": "③ NVIDIA 与云基建的广度反例",
+          "detail": "检验 NVDA、QQQ、NBIS/CRWV 的开盘 20/60 分钟方向及广度；Nebius 11/12 已发布 Q3 报告，仍需把营收增长、资本开支与价格接受度分开，不从单只股反推整个 AI 链。",
+          "source_urls": [
+            "https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Announces-CEO-Transition/",
+            "https://nebius.com/newsroom/nebius-reports-third-quarter-2026-financial-results"
+          ]
+        }
+      ]
     }
   }
 }
