@@ -729,7 +729,7 @@
       }
     },
     "2026-11-13": {
-      "updated_at": "2026-11-13T04:47:06.701Z",
+      "updated_at": "2026-11-13T11:48:04.787Z",
       "bull": [
         {
           "title": "① AMAT 财报给出设备需求的已公布支撑",
@@ -740,20 +740,20 @@
         },
         {
           "title": "② 指数收盘跌幅小于 NVDA，仍有权重抵消",
-          "detail": "事实：11/12 常规收盘 QQQ $688.17、较前收约 −0.32%，NVDA $166.19、约 −4.34%。判断：指数存在其他权重的抵消作用；若 11/13 开盘后 QQQ 与半导体、云股同步稳住，修复才有延续基础。这里仅用已完成收盘作基线，尚非 11/13 盘前报价。",
+          "detail": "事实：11/12常规收盘 QQQ $688.17、NVDA $166.19；11/13美东06:45左右IBKR盘前末笔 QQQ $688.68（较前收约+0.07%）、NVDA $170.26（约+2.45%）。判断：治理消息后的NVDA盘前反弹与指数近乎持平并存，修复广度仍须等开盘后确认；盘前末笔不是收盘。",
           "source_urls": [
-            "https://finance.yahoo.com/quote/QQQ/history/",
-            "https://finance.yahoo.com/quote/NVDA/history/"
+            "https://www.interactivebrokers.com/en/trading/market-data.php",
+            "https://finance.yahoo.com/quote/QQQ/history/"
           ]
         }
       ],
       "bear": [
         {
           "title": "① NVIDIA CEO 交接增加权重股再定价风险",
-          "detail": "事实：NVIDIA 11/12 正式公告黄仁勋即时辞任 CEO，Colette Kress 任临时 CEO；当日 NVDA 常规收盘 $166.19，约 −4.34%。判断：治理及执行不确定性可能继续压制 AI 权重，但不能把指数全部变化单独归因于此公告。",
+          "detail": "事实：NVIDIA 11/12公告CEO交接；11/13美东06:45 IBKR盘前NVDA末笔$170.26，较前收约+2.45%。判断：盘前反弹是对持续抛压的反例，但治理与执行不确定性尚未消失，需常规时段价格及板块广度验证。",
           "source_urls": [
             "https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Announces-CEO-Transition/",
-            "https://finance.yahoo.com/quote/NVDA/history/"
+            "https://www.interactivebrokers.com/en/trading/market-data.php"
           ]
         },
         {
@@ -782,9 +782,9 @@
         },
         {
           "title": "③ NVIDIA 与云基建的广度反例",
-          "detail": "检验 NVDA、QQQ、NBIS/CRWV 的开盘 20/60 分钟方向及广度；Nebius 11/12 已发布 Q3 报告，仍需把营收增长、资本开支与价格接受度分开，不从单只股反推整个 AI 链。",
+          "detail": "11/13美东06:27–06:45 IBKR盘前末笔：AMAT $382.88（较前收约+0.51%）、NBIS $126.40（约−1.74%）、NVDA $170.26（约+2.45%）、QQQ $688.68（约+0.07%）。股价分化；开盘20/60分钟再检验设备、云和权重股广度，不能把盘前变动当收盘。",
           "source_urls": [
-            "https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Announces-CEO-Transition/",
+            "https://www.interactivebrokers.com/en/trading/market-data.php",
             "https://nebius.com/newsroom/nebius-reports-third-quarter-2026-financial-results"
           ]
         }
