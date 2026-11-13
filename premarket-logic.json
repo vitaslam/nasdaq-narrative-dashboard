@@ -674,7 +674,59 @@
             "https://www.bls.gov/schedule/2026/11_sched_list.htm"
           ]
         }
-      ]
+      ],
+      "closing_check": {
+        "session": "regular_close",
+        "dominant_logic": "市场最终同时消化NVIDIA正式CEO交接、AI云资本开支担忧与债息上行；其他大型科技股的上涨抵消了部分权重股跌幅。",
+        "observed_at": "2026-11-12T16:00:00-05:00",
+        "updated_at": "2026-11-13T01:24:28.769Z",
+        "evidence": [
+          "11/12常规收盘QQQ $688.17（前收$690.38，约−0.32%）、NDX 28,289.19（前收28,374.25，约−0.30%）；NVDA $166.19（前收$173.73，约−4.34%）。",
+          "NVIDIA 11/12正式公告黄仁勋即刻辞任CEO，Colette Kress任临时CEO；这与此前仅有独立调查的盘前信息不同。",
+          "美国财政部11/12 10Y名义收益率5.10%、10Y实际收益率2.86%，高于11/10的4.98%与2.78%；油价方向未取得同口径收盘，不用来推断唯一因果。"
+        ],
+        "verdicts": [
+          {
+            "hypothesis": "盘前多头①：守住周三收盘区则修复可延续",
+            "result": "mixed",
+            "reason": "QQQ与NDX收盘略低于周三，但跌幅小于NVDA，内部仍有抵消；等权新收盘未核。"
+          },
+          {
+            "hypothesis": "盘前多头②：AI云需求增长支持股价",
+            "result": "mixed",
+            "reason": "Nebius公布收入增长，但资本开支及相关云股价格压力并存，增长未自动转为价格接受度。"
+          },
+          {
+            "hypothesis": "盘前空头①：NVIDIA治理不确定性压制权重",
+            "result": "supported",
+            "reason": "公司正式公告CEO交接，NVDA常规收盘跌约4.34%；仍不能视为指数唯一驱动。"
+          },
+          {
+            "hypothesis": "盘前空头②：盘前回吐削弱承接",
+            "result": "mixed",
+            "reason": "QQQ收盘仅跌约0.32%，较盘前低点出现抵消，风险没有扩散到同幅度指数跌幅。"
+          },
+          {
+            "hypothesis": "开盘20分钟假设",
+            "result": "pending",
+            "reason": "未取得当轮可核验证据，保持尚未核验。"
+          },
+          {
+            "hypothesis": "开盘60分钟假设",
+            "result": "pending",
+            "reason": "未取得当轮可核验证据，保持尚未核验。"
+          }
+        ],
+        "next_day_risk": "11/13 PPI及10Y是否继续上行；AMAT盘后财报的首个完整常规收盘和等权参与需核验。",
+        "source_urls": [
+          "https://finance.yahoo.com/quote/QQQ/history/",
+          "https://finance.yahoo.com/quote/%5ENDX/history/",
+          "https://finance.yahoo.com/quote/NVDA/history/",
+          "https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Announces-CEO-Transition/default.aspx",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?field_tdr_date_value_month=202611&type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?field_tdr_date_value=2026&type=daily_treasury_real_yield_curve"
+        ]
+      }
     }
   }
 }
