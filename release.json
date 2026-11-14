@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "data_revision": 97,
-  "release_revision": 184,
+  "data_revision": 100,
+  "release_revision": 185,
   "active_week": "2026-11-09",
-  "content_updated_at": "2026-11-13T11:47:35.484Z",
-  "built_at": "2026-11-13T11:48:20.831Z",
+  "content_updated_at": "2026-11-14T01:23:58.416Z",
+  "built_at": "2026-11-14T01:24:34.524Z",
   "renderer_release": "2026-11-04-v46-three-hour-change-dots",
   "renderer_sha256": "f63e950d61974800c5e54f4cf50ceb141eddc60e85789b1b82aa6aecb0b861cf",
   "asset_version": "3bb469a074f6",
@@ -19,5 +19,5 @@
     "volatility_dates": 0,
     "changed": false
   },
-  "premarket_sha256": "730e18a9473d768e05b883a2370d9fa4f7f793db61daa25039d31522e00155d3"
+  "premarket_sha256": "24957deb59c651357867b6678f4b76e8e91a0d3b4e498ebf610a5beee847dd8c"
 }
