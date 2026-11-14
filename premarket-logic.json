@@ -793,11 +793,11 @@
         "session": "regular_close",
         "dominant_logic": "周五收盘交易的是科技及云基建价格接受度下降，同时消化已公布PPI与治理/融资风险；单一事件不足以解释全部跌幅。",
         "observed_at": "2026-11-13T16:00:00-05:00",
-        "updated_at": "2026-11-14T01:24:18.030Z",
+        "updated_at": "2026-11-14T11:58:57.754Z",
         "evidence": [
           "IBKR常规日线：QQQ 11/13收$679.89（11/12 $688.17，约−1.20%）；NDX收27,804.24（前收28,289.19，约−1.71%）。",
           "IBKR同口径：NVDA $162.85（前收$166.19，约−2.01%）；AMAT财报后首个常规收盘$370.50（前收$380.95，约−2.74%）；NBIS $115.88（前收$128.64，约−9.92%），设备与云基建未形成广泛承接。",
-          "BLS美东08:30发布10月PPI最终需求环比+0.3%（9月+1.4%）；11/13财政部日度债息与同口径油价收盘未核得，不从股价反推油债因果。"
+          "BLS美东08:30发布10月PPI最终需求环比+0.3%；财政部11/13日度10Y名义5.15%、实际2.91%，均较前日升5bp；EIA最新同口径Brent现货仅至11/12收盘$95.42。同期股债变化不能视为单一事件因果。"
         ],
         "verdicts": [
           {
@@ -817,8 +817,8 @@
           },
           {
             "hypothesis": "盘前空头②：实际利率上行压制估值",
-            "result": "pending",
-            "reason": "11/13财政部同口径10Y实际收益率尚未核得，不能只用科技股下跌判定传导。"
+            "result": "mixed",
+            "reason": "财政部11/13 10Y名义5.15%、实际2.91%，均较前日升5bp，且科技股收跌；方向一致，但缺同刻传导与等权反证，不能证明利率是唯一驱动。"
           },
           {
             "hypothesis": "开盘20分钟假设",
@@ -831,11 +831,14 @@
             "reason": "当轮未保存经核验的60分钟开盘证据。"
           }
         ],
-        "next_day_risk": "下一交易日核验AMAT/NBIS/NVDA与指数、等权是否止跌，补齐11/13财政部债息、VIX/VXN现金收盘和油价同口径数据。",
+        "next_day_risk": "下一交易日核验AMAT/NBIS/NVDA与指数、等权是否止跌，并续查名义/实际利率、VIX/VXN和Brent 11/13同口径现货。",
         "source_urls": [
           "https://www.interactivebrokers.com/en/trading/market-data.php",
           "https://finance.yahoo.com/quote/%5ENDX/history/",
-          "https://www.bls.gov/news.release/archives/ppi_11132026.htm"
+          "https://www.bls.gov/news.release/archives/ppi_11132026.htm",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?field_tdr_date_value_month=202611&type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?field_tdr_date_value_month=202611&type=daily_treasury_real_yield_curve",
+          "https://www.eia.gov/todayinenergy/prices.php"
         ]
       }
     }
