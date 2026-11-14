@@ -788,7 +788,56 @@
             "https://nebius.com/newsroom/nebius-reports-third-quarter-2026-financial-results"
           ]
         }
-      ]
+      ],
+      "closing_check": {
+        "session": "regular_close",
+        "dominant_logic": "周五收盘交易的是科技及云基建价格接受度下降，同时消化已公布PPI与治理/融资风险；单一事件不足以解释全部跌幅。",
+        "observed_at": "2026-11-13T16:00:00-05:00",
+        "updated_at": "2026-11-14T01:24:18.030Z",
+        "evidence": [
+          "IBKR常规日线：QQQ 11/13收$679.89（11/12 $688.17，约−1.20%）；NDX收27,804.24（前收28,289.19，约−1.71%）。",
+          "IBKR同口径：NVDA $162.85（前收$166.19，约−2.01%）；AMAT财报后首个常规收盘$370.50（前收$380.95，约−2.74%）；NBIS $115.88（前收$128.64，约−9.92%），设备与云基建未形成广泛承接。",
+          "BLS美东08:30发布10月PPI最终需求环比+0.3%（9月+1.4%）；11/13财政部日度债息与同口径油价收盘未核得，不从股价反推油债因果。"
+        ],
+        "verdicts": [
+          {
+            "hypothesis": "盘前多头①：AMAT业绩支撑设备链",
+            "result": "mixed",
+            "reason": "公司结果已公布且强劲，但首个常规收盘AMAT较前收跌约2.74%，价格接受度未获确认。"
+          },
+          {
+            "hypothesis": "盘前多头②：指数与NVDA盘前反弹扩展为修复",
+            "result": "invalidated",
+            "reason": "QQQ/NDX与NVDA最终均收跌；盘前末笔不能代表收盘。"
+          },
+          {
+            "hypothesis": "盘前空头①：NVIDIA交接风险持续压制权重",
+            "result": "supported",
+            "reason": "NVDA常规收盘再跌约2.01%；同期还有宏观与融资风险，不能视为唯一因果。"
+          },
+          {
+            "hypothesis": "盘前空头②：实际利率上行压制估值",
+            "result": "pending",
+            "reason": "11/13财政部同口径10Y实际收益率尚未核得，不能只用科技股下跌判定传导。"
+          },
+          {
+            "hypothesis": "开盘20分钟假设",
+            "result": "pending",
+            "reason": "当轮未保存经核验的20分钟开盘证据。"
+          },
+          {
+            "hypothesis": "开盘60分钟假设",
+            "result": "pending",
+            "reason": "当轮未保存经核验的60分钟开盘证据。"
+          }
+        ],
+        "next_day_risk": "下一交易日核验AMAT/NBIS/NVDA与指数、等权是否止跌，补齐11/13财政部债息、VIX/VXN现金收盘和油价同口径数据。",
+        "source_urls": [
+          "https://www.interactivebrokers.com/en/trading/market-data.php",
+          "https://finance.yahoo.com/quote/%5ENDX/history/",
+          "https://www.bls.gov/news.release/archives/ppi_11132026.htm"
+        ]
+      }
     }
   }
 }
